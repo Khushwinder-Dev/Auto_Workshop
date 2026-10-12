@@ -91,14 +91,8 @@ input:not([type]) {
     line-height: 1.55 !important;
   }
 
-  /* 3. Main titles on all sections, cards, features, and items = 18px bold */
-  h2,
-  h3,
-  h4,
-  h5,
-  .main-title,
+  /* 3. Card/item titles (when specified) = 18px bold */
   .card-main-title,
-  .section-title,
   .item-title {
     font-size: 18px !important;
     font-weight: 700 !important;

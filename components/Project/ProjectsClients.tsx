@@ -135,7 +135,7 @@ export default function ProjectsClients({
 
           <div className="flex flex-col sm:flex-row sm:items-center gap-4 lg:max-w-xl">
             <p
-              className={`text-sm sm:text-base leading-relaxed flex-1 ${
+              className={`text-sm sm:text-base lg:text-[17px] leading-relaxed flex-1 section-subtitle ${
                 themeBg ? "text-white/90" : "text-stone-500"
               }`}
             >

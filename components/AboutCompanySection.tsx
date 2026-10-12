@@ -143,8 +143,8 @@ export default function AboutCompanySection() {
               </span>
             </h2>
 
-            {/* Description */}
-            <p className="text-sm sm:text-[15px] text-stone-500 leading-relaxed mb-8 max-w-lg">
+            {/* Description / Subtitle */}
+            <p className="text-sm sm:text-[15px] lg:text-[17px] text-stone-500 leading-relaxed mb-8 max-w-lg section-subtitle">
               {isArabic
                 ? "نقدم حلولاً احترافية في العزل المائي والحراري وطلاء الأرضيات والحماية الهيكلية، بالجمع بين الخبرة الفنية والمواد عالية الجودة والتنفيذ الدقيق لنتائج موثوقة ودائمة."
                 : "We provide professional waterproofing, insulation, floor coating, and structural protection solutions that address problems at their source, combining technical expertise, quality materials, and precise execution for reliable, durable results."}
@@ -163,10 +163,10 @@ export default function AboutCompanySection() {
                     />
                   </div>
                   <div>
-                    <h3 className="text-sm sm:text-base font-extrabold text-stone-900 leading-snug group-hover:text-[#01a9a0] transition-colors duration-200">
+                    <h3 className="text-sm sm:text-base lg:text-[18px] font-bold text-stone-900 leading-snug group-hover:text-[#01a9a0] transition-colors duration-200 card-main-title">
                       {isArabic ? f.titleAr : f.titleEn}
                     </h3>
-                    <p className="text-xs sm:text-[13px] text-stone-500 leading-relaxed mt-0.5">
+                    <p className="text-xs sm:text-[13px] lg:text-[16px] text-stone-500 leading-relaxed mt-0.5 description">
                       {isArabic ? f.descAr : f.descEn}
                     </p>
                   </div>

@@ -213,11 +213,11 @@ export default function TrustedClientsSection() {
                     exit="exit"
                     transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                   >
-                    <p className="text-base sm:text-lg lg:text-[19px] text-stone-800 font-normal leading-[1.75] italic">
+                    <p className="text-base sm:text-lg lg:text-[16px] text-stone-800 font-normal leading-[1.75] italic description">
                       &ldquo;{current.quote}&rdquo;
                     </p>
                     <div className="mt-8 pt-2">
-                      <p className="text-lg sm:text-xl font-bold text-stone-900 tracking-wide">
+                      <p className="text-lg sm:text-xl lg:text-[18px] font-bold text-stone-900 tracking-wide card-main-title">
                         — {current.author}
                       </p>
                       <p className="text-xs sm:text-sm font-bold text-[#01a9a0] mt-0.5">

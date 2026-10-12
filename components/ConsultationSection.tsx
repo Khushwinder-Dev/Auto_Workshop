@@ -334,7 +334,7 @@ export default function ConsultationSection() {
             </h2>
 
             {/* Description Subtitle */}
-            <p className="text-sm sm:text-base text-white/90 leading-relaxed mt-4 sm:mt-5 max-w-lg font-normal">
+            <p className="text-sm sm:text-base lg:text-[17px] text-white/90 leading-relaxed mt-4 sm:mt-5 max-w-lg font-normal section-subtitle">
               {isArabic
                 ? "املأ النموذج وسيقوم فريقنا بالتواصل معكم في أقرب وقت. سواء كان مشروع بناء جديد، تجديد، أو استشارة فنية، نحن هنا لدعمكم في كل خطوة."
                 : "Fill out the form below and our team will get back to you shortly. Whether it's a new construction, renovation, or consultation, we're here to help you every step of the way."}
@@ -348,12 +348,12 @@ export default function ConsultationSection() {
                   <Phone className="w-5 h-5 text-[#009e90]" />
                 </div>
                 <div>
-                  <p className="text-xs sm:text-[13px] text-white/80 font-medium">
+                  <p className="text-xs sm:text-[13px] lg:text-[16px] text-white/80 font-medium">
                     {isArabic ? "لاستفسارات المشاريع، تواصل معنا على" : "For Project Inquiries, Contact Us At"}
                   </p>
                   <a
                     href="mailto:info@tajalrahmah.com"
-                    className="text-sm sm:text-base font-bold text-white hover:underline block"
+                    className="text-sm sm:text-base lg:text-[16px] font-bold text-white hover:underline block"
                   >
                     info@tajalrahmah.com
                   </a>
@@ -366,10 +366,10 @@ export default function ConsultationSection() {
                   <Users className="w-5 h-5 text-[#009e90]" />
                 </div>
                 <div>
-                  <p className="text-sm sm:text-base font-bold text-white leading-snug">
+                  <p className="text-sm sm:text-base lg:text-[18px] font-bold text-white leading-snug card-main-title">
                     {isArabic ? "تبحث عن استشارة هندسية متخصصة؟" : "Looking For Expert Consultation?"}
                   </p>
-                  <p className="text-xs sm:text-[13px] text-white/80 leading-relaxed mt-0.5">
+                  <p className="text-xs sm:text-[13px] lg:text-[16px] text-white/80 leading-relaxed mt-0.5 description">
                     {isArabic
                       ? "تواصل مع فريقنا الهندسي لمناقشة متطلبات مشروعكم بالتفصيل."
                       : "Connect With Our Team To Discuss Your Project Requirements In Detail."}
@@ -383,10 +383,10 @@ export default function ConsultationSection() {
                   <MapPin className="w-5 h-5 text-[#009e90]" />
                 </div>
                 <div>
-                  <p className="text-sm sm:text-base font-bold text-white leading-snug">
+                  <p className="text-sm sm:text-base lg:text-[18px] font-bold text-white leading-snug card-main-title">
                     {isArabic ? "تفضل بزيارة مكتبنا" : "Visit Our Office"}
                   </p>
-                  <p className="text-xs sm:text-[13px] text-white/80 leading-relaxed mt-0.5">
+                  <p className="text-xs sm:text-[13px] lg:text-[16px] text-white/80 leading-relaxed mt-0.5 description">
                     {isArabic
                       ? "مكتب G-01-691، الخبيصي، دبي، الإمارات العربية المتحدة"
                       : "Office G-01-691, Al Khabaisi, Dubai, 00000 Dubai"}

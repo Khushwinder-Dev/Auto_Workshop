@@ -133,7 +133,7 @@ export default function IndustriesSection() {
                 </div>
 
                 {/* Title (Teal in Left Column as in reference) */}
-                <h3 className="text-lg sm:text-[19px] font-bold text-[#01a9a0] mb-2 tracking-tight leading-snug">
+                <h3 className="text-base sm:text-[18px] lg:text-[18px] font-bold text-[#01a9a0] mb-2 tracking-tight leading-snug card-main-title">
                   <Link
                     href={item.href}
                     className="hover:underline hover:text-[#007f78] transition-colors duration-200"
@@ -143,7 +143,7 @@ export default function IndustriesSection() {
                 </h3>
 
                 {/* Description */}
-                <p className="text-xs sm:text-[13px] text-stone-500 font-normal leading-relaxed max-w-sm">
+                <p className="text-xs sm:text-[13px] lg:text-[16px] text-stone-500 font-normal leading-relaxed max-w-sm description">
                   {item.description}
                 </p>
               </div>
@@ -206,7 +206,7 @@ export default function IndustriesSection() {
                 </div>
 
                 {/* Title (Dark Stone in Right Column as in refe0rence) */}
-                <h3 className="text-lg sm:text-[19px] font-bold text-[#01a9a0] group-hover:text-[#01a9a0] transition-colors duration-300 mb-2 tracking-tight leading-snug">
+                <h3 className="text-base sm:text-[18px] lg:text-[18px] font-bold text-[#01a9a0] group-hover:text-[#01a9a0] transition-colors duration-300 mb-2 tracking-tight leading-snug card-main-title">
                   <Link
                     href={item.href}
                     className="hover:underline hover:text-[#007f78] transition-colors duration-200"
@@ -216,7 +216,7 @@ export default function IndustriesSection() {
                 </h3>
 
                 {/* Description */}
-                <p className="text-xs sm:text-[13px] text-stone-500 font-normal leading-relaxed max-w-sm">
+                <p className="text-xs sm:text-[13px] lg:text-[16px] text-stone-500 font-normal leading-relaxed max-w-sm description">
                   {item.description}
                 </p>
               </div>
