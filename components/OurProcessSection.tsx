@@ -281,7 +281,7 @@ export default function OurProcessSection() {
           </div>
 
           {/* Main Title */}
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-extrabold text-stone-900 tracking-tight leading-[1.2] mb-4 sm:mb-5">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[18px] font-bold text-stone-900 tracking-tight leading-[1.2] mb-4 sm:mb-5">
             {isArabic ? (
               <>
                 <span>رؤيتكم. </span>

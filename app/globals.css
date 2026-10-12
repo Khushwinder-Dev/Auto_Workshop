@@ -55,7 +55,14 @@ input:not([type]) {
 
 /* Global typography on large screens (min-width: 1024px) */
 @media (min-width: 1024px) {
-  /* 1. All text fields, inputs, textareas, selects across entire site = 16px */
+  /* 1. All paragraph / short descriptions / description & form inputs = 16px */
+  p,
+  li,
+  .description,
+  .short-description,
+  input,
+  textarea,
+  select,
   input[type="text"],
   input[type="email"],
   input[type="tel"],
@@ -64,38 +71,43 @@ input:not([type]) {
   input[type="url"],
   input[type="number"],
   input:not([type]),
-  textarea,
-  select,
   .text-field {
     font-size: 16px !important;
+    line-height: 1.6 !important;
   }
 
-  /* 2. All section & card subtitles across entire site = 17px */
+  /* 2. Sub titles (section & page subtitles, lead texts) = 17px */
   .sub-title,
   .section-subtitle,
   .subtitle,
   p.subtitle,
-  [class*="subtitle"],
-  [class*="Subtitle"],
+  p.sub-title,
+  p.section-subtitle,
+  p[class*="subtitle"],
+  p[class*="Subtitle"],
+  h2 + p,
   .card-sub-title {
     font-size: 17px !important;
+    line-height: 1.55 !important;
   }
 
-  /* 3. Main titles on all cards, features, and items across entire site = 18px bold */
+  /* 3. Main titles on all sections, cards, features, and items = 18px bold */
+  h2,
+  h3,
+  h4,
+  h5,
+  .main-title,
   .card-main-title,
-  .card-title,
-  .item-title,
-  [class*="Card"] h3,
-  [class*="card"] h3,
-  [class*="Card"] h4,
-  [class*="card"] h4,
-  [class*="Item"] h3,
-  [class*="item"] h3 {
+  .section-title,
+  .item-title {
     font-size: 18px !important;
     font-weight: 700 !important;
+    line-height: 1.35 !important;
   }
 
   /* 4. Header: Desktop navigation links = 16px */
+  nav a,
+  header a,
   nav a.font-anek,
   nav .desktop-nav-link {
     font-size: 16px !important;
@@ -110,18 +122,9 @@ input:not([type]) {
   }
 
   footer a,
-  footer p:not(.font-bold),
+  footer p,
   footer li,
-  footer span.text-stone-700,
-  footer span.text-stone-600 {
-    font-size: 16px !important;
-  }
-
-  /* 6. Card & item descriptions/body text = 16px */
-  .card-description,
-  .item-description,
-  [class*="Card"] p:not([class*="subtitle"]):not([class*="title"]),
-  [class*="card"] p:not([class*="subtitle"]):not([class*="title"]) {
+  footer span {
     font-size: 16px !important;
   }
 }
