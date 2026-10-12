@@ -181,12 +181,12 @@ export default function ProtectionServicesSection({
 
                   {/* CTA Link: Get Started */}
                   <div className="mt-4 pt-1">
-                    <div className="inline-flex items-center gap-1.5 text-xs sm:text-[13px] font-semibold text-[#01a9a0] hover:text-[#01887e] transition-colors duration-200 group/link">
+                    <div className="inline-flex items-center gap-2 text-sm sm:text-base lg:text-[16px] font-bold text-[#01a9a0] hover:text-[#01887e] transition-colors duration-200 group/link">
                       <span>{isArabic ? "ابدأ الآن" : "Get Started"}</span>
                       {isArabic ? (
-                        <ArrowLeft className="w-3.5 h-3.5 transition-transform duration-300 group-hover/link:-translate-x-1" />
+                        <ArrowLeft className="w-4 h-4 transition-transform duration-300 group-hover/link:-translate-x-1" />
                       ) : (
-                        <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover/link:translate-x-1" />
+                        <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/link:translate-x-1" />
                       )}
                     </div>
                   </div>

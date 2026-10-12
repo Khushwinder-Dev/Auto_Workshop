@@ -47,10 +47,10 @@ function StatCard({
       </div>
       {/* Text */}
       <div className="flex flex-col min-w-0">
-        <span className="text-2xl sm:text-3xl font-black text-white leading-none tabular-nums">
+        <span className="text-2xl sm:text-3xl lg:text-[34px] xl:text-[36px] font-black text-white leading-none tabular-nums tracking-tight">
           {count}{suffix}
         </span>
-        <span className="text-xs sm:text-sm text-white/85 font-medium mt-1 leading-snug">
+        <span className="text-xs sm:text-sm lg:text-[16px] text-white/95 font-medium mt-1.5 leading-snug description">
           {isArabic ? labelAr : labelEn}
         </span>
       </div>

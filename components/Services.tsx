@@ -75,7 +75,7 @@ export default function Services() {
               <div className="mt-auto">
                 <button
                   onClick={() => handleReadMore(service.id)}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-semibold transition-all duration-300 hover:scale-105 text-[#01a9a0] group-hover:text-white cursor-pointer text-sm"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold transition-all duration-300 hover:scale-105 text-[#01a9a0] group-hover:text-white cursor-pointer text-base lg:text-[16px]"
                 >
                   {t.services.getStarted}
                   <svg
