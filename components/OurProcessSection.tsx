@@ -264,13 +264,13 @@ export default function OurProcessSection() {
   return (
     <section
       id="our-process"
-      className="relative w-full py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-white overflow-hidden scroll-mt-24"
+      className="relative w-full py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-[#F4FAF9] overflow-hidden scroll-mt-24"
     >
       <div className="max-w-7xl mx-auto">
         {/* ============================================================
             SECTION HEADER
             ============================================================ */}
-        <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-16 lg:mb-20">
+        <div className="text-center max-w-5xl mx-auto mb-14 sm:mb-16 lg:mb-20">
           {/* Eyebrow / Tag */}
           <div className="inline-flex items-center justify-center gap-3 mb-3.5 sm:mb-4">
             <span className="inline-block h-[2px] w-6 sm:w-8 bg-[#01a9a0] rounded-full" />
@@ -281,7 +281,7 @@ export default function OurProcessSection() {
           </div>
 
           {/* Main Title */}
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-extrabold text-stone-900 tracking-tight leading-[1.15] mb-4 sm:mb-5">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[42px] xl:text-[46px] font-extrabold text-stone-900 tracking-tight leading-[1.15] mb-4 sm:mb-5 lg:whitespace-nowrap">
             {isArabic ? (
               <>
                 <span>رؤيتكم. </span>
