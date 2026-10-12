@@ -260,14 +260,14 @@ export default function WelcomeOfferModal({
 
           {/* Offer Highlight Box */}
           <div className="mb-4 p-3.5 sm:p-4 rounded-2xl bg-white border border-[#01a9a0]/25 shadow-xs flex items-start gap-3">
-            <div className="w-8 h-8 rounded-full bg-[#01a9a0] text-white flex items-center justify-center shrink-0 mt-0.5 shadow-sm">
-              <Tag className="w-4 h-4" />
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#01a9a0] text-white flex items-center justify-center shrink-0 mt-0.5 shadow-sm">
+              <Tag className="w-4.5 h-4.5 sm:w-5 sm:h-5" />
             </div>
             <div>
-              <h3 className="text-xs sm:text-sm font-bold text-stone-900 leading-snug">
+              <h3 className="text-base sm:text-lg font-bold text-stone-900 leading-snug">
                 {isArabic ? "احصل على خصم 10% على مشروعك الأول" : "Get 10% Off Your First Project"}
               </h3>
-              <p className="text-[11px] sm:text-xs text-stone-600 leading-relaxed mt-0.5">
+              <p className="text-xs sm:text-sm text-stone-600 leading-relaxed mt-0.5">
                 {isArabic
                   ? "تحدث إلى فريقنا اليوم واحصل على خصم 10% على أول مشروع لك."
                   : "Talk to our team today and receive 10% off your first project."}
