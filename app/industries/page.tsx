@@ -294,7 +294,7 @@ export default function IndustriesPage() {
         </div>
 
         {/* Industry Selector Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-3 mb-10">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-2.5 sm:gap-3 xl:gap-3.5 mb-10">
           {industriesData.map((ind) => {
             const IconComponent = ind.icon;
             const isActive = activeTab === ind.id;
@@ -302,18 +302,18 @@ export default function IndustriesPage() {
               <button
                 key={ind.id}
                 onClick={() => setActiveTab(ind.id)}
-                className={`p-4 rounded-2xl border transition-all duration-300 flex flex-col items-center text-center cursor-pointer ${isActive
+                className={`p-3 sm:p-3.5 lg:p-3.5 xl:p-4 rounded-2xl border transition-all duration-300 flex flex-col items-center text-center cursor-pointer min-h-[120px] lg:min-h-[135px] xl:min-h-[148px] justify-start ${isActive
                   ? "theme-bg-main text-white border-[#01a9a0] shadow-lg shadow-[#01a9a0]/25 scale-102"
                   : "bg-white text-stone-700 border-gray-200 hover:border-[#01a9a0] hover:bg-gray-50"
                   }`}
               >
                 <div
-                  className={`w-11 h-11 rounded-xl flex items-center justify-center mb-2.5 ${isActive ? "bg-white/20 text-white" : "bg-[#01a9a0]/10 text-[#01a9a0]"
+                  className={`w-10 h-10 lg:w-11 lg:h-11 xl:w-12 xl:h-12 rounded-xl flex items-center justify-center mb-2 lg:mb-2.5 flex-shrink-0 ${isActive ? "bg-white/20 text-white" : "bg-[#01a9a0]/10 text-[#01a9a0]"
                     }`}
                 >
-                  <IconComponent className="w-5 h-5" />
+                  <IconComponent className="w-5 h-5 lg:w-5.5 lg:h-5.5" />
                 </div>
-                <span className="text-xs font-bold font-anek leading-tight">
+                <span className="text-xs sm:text-[13px] lg:text-[14.5px] xl:text-[15.5px] font-bold font-anek leading-snug">
                   {ind.name}
                 </span>
               </button>

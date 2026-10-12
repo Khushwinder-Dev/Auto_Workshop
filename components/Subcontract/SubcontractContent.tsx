@@ -702,25 +702,25 @@ export default function SubcontractContent() {
           </div>
 
           {/* 6 Partner Cards Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-5 max-w-7xl mx-auto">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5 sm:gap-4 lg:gap-4 xl:gap-5 max-w-7xl mx-auto">
             {INDUSTRY_PARTNERS.map((partner, idx) => (
               <div
                 key={idx}
-                className="bg-white border border-gray-200/90 rounded-xl p-5 sm:p-6 text-center flex flex-col items-center justify-center gap-3.5 hover:shadow-lg hover:border-[#01a9a0]/60 hover:-translate-y-1 transition-all duration-300 min-h-[140px] group"
+                className="bg-white border border-gray-200/90 rounded-2xl p-4 sm:p-5 lg:p-5 xl:p-6 text-center flex flex-col items-center justify-center gap-3 lg:gap-3.5 hover:shadow-lg hover:border-[#01a9a0]/60 hover:-translate-y-1 transition-all duration-300 min-h-[140px] lg:min-h-[155px] xl:min-h-[168px] group"
               >
                 {/* Icon */}
-                <div className="w-9 h-9 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
+                <div className="w-10 h-10 lg:w-11 lg:h-11 flex items-center justify-center transition-transform duration-300 group-hover:scale-110 flex-shrink-0">
                   <Image
                     src={partner.icon}
                     alt={partner.titleEn}
-                    width={32}
-                    height={32}
-                    className="w-8 h-8 object-contain text-[#01a9a0]"
+                    width={36}
+                    height={36}
+                    className="w-8 h-8 lg:w-9 lg:h-9 object-contain text-[#01a9a0]"
                   />
                 </div>
 
                 {/* Label */}
-                <span className="text-xs sm:text-[13px] font-bold text-gray-800 leading-snug">
+                <span className="text-xs sm:text-[13px] lg:text-[15px] xl:text-[16px] font-bold text-gray-800 leading-snug">
                   {isAr ? partner.titleAr : partner.titleEn}
                 </span>
               </div>

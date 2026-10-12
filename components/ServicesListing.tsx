@@ -381,8 +381,8 @@ function ServicesContent({ enableSlider }: { enableSlider?: boolean }) {
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-start">
 
           {/* ── SIDEBAR ─────────────────────────────────────────── */}
-          <aside className="w-full lg:w-[260px] xl:w-[280px] flex-shrink-0 lg:sticky lg:top-24">
-            <p className="text-[10px] font-extrabold tracking-[0.2em] uppercase text-stone-400 mb-3 px-1">
+          <aside className="w-full lg:w-[280px] xl:w-[305px] flex-shrink-0 lg:sticky lg:top-24">
+            <p className="text-[11px] sm:text-xs font-extrabold tracking-[0.2em] uppercase text-stone-400 mb-3 px-1">
               {isArabic ? "جميع الخدمات" : "ALL SERVICES"}
             </p>
             <nav className="flex flex-col gap-1.5">
@@ -398,15 +398,15 @@ function ServicesContent({ enableSlider }: { enableSlider?: boolean }) {
                     <div className={`flex items-center justify-between rounded-xl w-full transition-all duration-200 group ${isActive ? "bg-[#009e90] text-white shadow-[0_4px_14px_rgba(0,158,144,0.28)]" : "text-stone-700 hover:bg-stone-100 hover:text-stone-900"}`}>
                       <button type="button" onClick={() => { goToService(svc); setOpenServiceSlug(svc.serviceSlug); }}
                         className="flex items-center gap-2.5 px-3 py-2.5 flex-grow min-w-0 cursor-pointer text-left">
-                        <div className={`w-6 h-6 rounded-md flex items-center justify-center flex-shrink-0 transition-colors ${isActive ? "bg-white/20" : "bg-[#009e90]/10"}`}>
-                          <ServiceIcon slug={svc.serviceSlug} active={isActive} size={15} />
+                        <div className={`w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors ${isActive ? "bg-white/20" : "bg-[#009e90]/10"}`}>
+                          <ServiceIcon slug={svc.serviceSlug} active={isActive} size={16} />
                         </div>
-                        <span className={`text-[13px] font-semibold flex-grow truncate ${isArabic ? "text-right" : "text-left"}`}>{svc.serviceTitle}</span>
+                        <span className={`text-[14.5px] sm:text-[15px] font-semibold flex-grow truncate ${isArabic ? "text-right" : "text-left"}`}>{svc.serviceTitle}</span>
                       </button>
                       {hasSubs && (
                         <button type="button" onClick={(e) => toggleDropdown(svc.serviceSlug, e)}
                           className={`p-2.5 rounded-r-xl transition-colors cursor-pointer flex-shrink-0 ${isActive ? "hover:bg-white/10 text-white" : "text-stone-400 hover:text-stone-700"}`}>
-                          {isOpen ? <ChevronDown className="w-3.5 h-3.5" /> : <ChevronRight className={`w-3.5 h-3.5 ${isArabic ? "rotate-180" : ""}`} />}
+                          {isOpen ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className={`w-4 h-4 ${isArabic ? "rotate-180" : ""}`} />}
                         </button>
                       )}
                     </div>
@@ -416,8 +416,8 @@ function ServicesContent({ enableSlider }: { enableSlider?: boolean }) {
                           const isSubActive = isActive && activeSub && (activeSub.id === sub.id || activeSub.serviceSlug.toLowerCase() === sub.serviceSlug.toLowerCase());
                           return (
                             <button key={sub.id || sub.serviceSlug} type="button" onClick={() => goToSub(svc, sub)}
-                              className={`text-[12px] py-1.5 px-2.5 rounded-lg transition-all flex items-center gap-2 text-left cursor-pointer ${isSubActive ? "bg-[#009e90] text-white font-semibold shadow-xs" : "text-stone-600 hover:text-[#009e90] hover:bg-stone-100 font-medium"}`}>
-                              <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${isSubActive ? "bg-white" : "bg-stone-400"}`} />
+                              className={`text-[13.5px] sm:text-[14px] py-2 px-3 rounded-lg transition-all flex items-center gap-2 text-left cursor-pointer ${isSubActive ? "bg-[#009e90] text-white font-semibold shadow-xs" : "text-stone-600 hover:text-[#009e90] hover:bg-stone-100 font-medium"}`}>
+                              <span className={`w-2 h-2 rounded-full flex-shrink-0 ${isSubActive ? "bg-white" : "bg-stone-400"}`} />
                               <span className={`truncate flex-grow ${isArabic ? "text-right" : "text-left"}`}>{sub.serviceTitle}</span>
                             </button>
                           );
@@ -433,19 +433,19 @@ function ServicesContent({ enableSlider }: { enableSlider?: boolean }) {
                 <button type="button" onClick={() => setIsOtherOpen((prev) => !prev)}
                   className="flex items-center justify-between rounded-xl w-full px-3 py-2.5 text-stone-700 hover:bg-stone-100 hover:text-stone-900 transition-all duration-200 cursor-pointer">
                   <div className="flex items-center gap-2.5 min-w-0">
-                    <div className="w-6 h-6 rounded-md flex items-center justify-center flex-shrink-0 bg-[#009e90]/10">
-                      <svg className="w-[15px] h-[15px] text-[#009e90]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 bg-[#009e90]/10">
+                      <svg className="w-4 h-4 text-[#009e90]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <line x1="8" y1="6" x2="21" y2="6" /><line x1="8" y1="12" x2="21" y2="12" /><line x1="8" y1="18" x2="21" y2="18" />
                         <line x1="3" y1="6" x2="3.01" y2="6" /><line x1="3" y1="12" x2="3.01" y2="12" /><line x1="3" y1="18" x2="3.01" y2="18" />
                       </svg>
                     </div>
-                    <span className="text-[13px] font-semibold truncate">
+                    <span className="text-[14.5px] sm:text-[15px] font-semibold truncate">
                       {isArabic ? "خدمات أخرى" : "Other Services"}
                     </span>
                   </div>
                   {isOtherOpen
-                    ? <ChevronDown className="w-3.5 h-3.5 flex-shrink-0 text-stone-400" />
-                    : <ChevronRight className={`w-3.5 h-3.5 flex-shrink-0 text-stone-400 ${isArabic ? "rotate-180" : ""}`} />}
+                    ? <ChevronDown className="w-4 h-4 flex-shrink-0 text-stone-400" />
+                    : <ChevronRight className={`w-4 h-4 flex-shrink-0 text-stone-400 ${isArabic ? "rotate-180" : ""}`} />}
                 </button>
 
                 {isOtherOpen && (
@@ -458,16 +458,16 @@ function ServicesContent({ enableSlider }: { enableSlider?: boolean }) {
                         <div key={svc.serviceSlug} className="flex flex-col">
                           <div className={`flex items-center justify-between rounded-lg w-full transition-all duration-200 ${isActive ? "bg-[#009e90]/10 text-[#009e90]" : "text-stone-700 hover:bg-stone-100 hover:text-stone-900"}`}>
                             <button type="button" onClick={() => { goToService(svc); setOtherExpandedSlug(svc.serviceSlug); }}
-                              className="flex items-center gap-2 px-2.5 py-2 flex-grow min-w-0 cursor-pointer text-left">
-                              <div className={`w-5 h-5 rounded flex items-center justify-center flex-shrink-0 ${isActive ? "bg-[#009e90]/20" : "bg-[#009e90]/10"}`}>
-                                <ServiceIcon slug={svc.serviceSlug} active={isActive} size={13} />
+                              className="flex items-center gap-2.5 px-2.5 py-2 flex-grow min-w-0 cursor-pointer text-left">
+                              <div className={`w-6 h-6 rounded-md flex items-center justify-center flex-shrink-0 ${isActive ? "bg-[#009e90]/20" : "bg-[#009e90]/10"}`}>
+                                <ServiceIcon slug={svc.serviceSlug} active={isActive} size={15} />
                               </div>
-                              <span className={`text-[12px] font-semibold flex-grow truncate ${isArabic ? "text-right" : "text-left"}`}>{svc.serviceTitle}</span>
+                              <span className={`text-[13.5px] sm:text-[14px] font-semibold flex-grow truncate ${isArabic ? "text-right" : "text-left"}`}>{svc.serviceTitle}</span>
                             </button>
                             {hasSubs && (
                               <button type="button" onClick={() => setOtherExpandedSlug((prev) => prev === svc.serviceSlug ? null : svc.serviceSlug)}
                                 className={`p-2 rounded-r-lg transition-colors cursor-pointer flex-shrink-0 ${isActive ? "text-[#009e90]" : "text-stone-400 hover:text-stone-700"}`}>
-                                {isExpanded ? <ChevronDown className="w-3 h-3" /> : <ChevronRight className={`w-3 h-3 ${isArabic ? "rotate-180" : ""}`} />}
+                                {isExpanded ? <ChevronDown className="w-3.5 h-3.5" /> : <ChevronRight className={`w-3.5 h-3.5 ${isArabic ? "rotate-180" : ""}`} />}
                               </button>
                             )}
                           </div>
@@ -477,8 +477,8 @@ function ServicesContent({ enableSlider }: { enableSlider?: boolean }) {
                                 const isSubActive = isActive && activeSub && (activeSub.id === sub.id || activeSub.serviceSlug.toLowerCase() === sub.serviceSlug.toLowerCase());
                                 return (
                                   <button key={sub.id || sub.serviceSlug} type="button" onClick={() => goToSub(svc, sub)}
-                                    className={`text-[11px] py-1.5 px-2 rounded-md transition-all flex items-center gap-2 text-left cursor-pointer ${isSubActive ? "bg-[#009e90] text-white font-semibold" : "text-stone-500 hover:text-[#009e90] hover:bg-stone-100 font-medium"}`}>
-                                    <span className={`w-1 h-1 rounded-full flex-shrink-0 ${isSubActive ? "bg-white" : "bg-stone-300"}`} />
+                                    className={`text-[12.5px] sm:text-[13px] py-1.5 px-2.5 rounded-md transition-all flex items-center gap-2 text-left cursor-pointer ${isSubActive ? "bg-[#009e90] text-white font-semibold" : "text-stone-500 hover:text-[#009e90] hover:bg-stone-100 font-medium"}`}>
+                                    <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${isSubActive ? "bg-white" : "bg-stone-300"}`} />
                                     <span className={`truncate flex-grow ${isArabic ? "text-right" : "text-left"}`}>{sub.serviceTitle}</span>
                                   </button>
                                 );
