@@ -109,13 +109,13 @@ export default function ExperienceSection() {
                   <span className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#01a9a0] text-white flex items-center justify-center font-extrabold text-xs sm:text-sm flex-shrink-0 shadow-[0_3px_10px_rgba(1,169,160,0.35)] group-hover:scale-105 transition-transform duration-300">
                     {card.number}
                   </span>
-                  <h3 className="text-base sm:text-lg font-bold text-stone-900 tracking-tight group-hover:text-[#01a9a0] transition-colors duration-300 leading-snug">
+                  <h3 className="text-base sm:text-lg lg:text-[18px] font-bold text-stone-900 tracking-tight group-hover:text-[#01a9a0] transition-colors duration-300 leading-snug card-main-title">
                     {card.title}
                   </h3>
                 </div>
 
                 {/* Description */}
-                <p className="text-xs sm:text-[13px] text-stone-500 font-normal leading-relaxed">
+                <p className="text-xs sm:text-[13px] lg:text-[16px] text-stone-500 font-normal leading-relaxed">
                   {card.description}
                 </p>
               </div>
@@ -175,13 +175,13 @@ export default function ExperienceSection() {
                   <span className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#01a9a0] text-white flex items-center justify-center font-extrabold text-xs sm:text-sm flex-shrink-0 shadow-[0_3px_10px_rgba(1,169,160,0.35)] group-hover:scale-105 transition-transform duration-300">
                     {card.number}
                   </span>
-                  <h3 className="text-base sm:text-lg font-bold text-stone-900 tracking-tight group-hover:text-[#01a9a0] transition-colors duration-300 leading-snug">
+                  <h3 className="text-base sm:text-lg lg:text-[18px] font-bold text-stone-900 tracking-tight group-hover:text-[#01a9a0] transition-colors duration-300 leading-snug card-main-title">
                     {card.title}
                   </h3>
                 </div>
 
                 {/* Description */}
-                <p className="text-xs sm:text-[13px] text-stone-500 font-normal leading-relaxed">
+                <p className="text-xs sm:text-[13px] lg:text-[16px] text-stone-500 font-normal leading-relaxed">
                   {card.description}
                 </p>
               </div>

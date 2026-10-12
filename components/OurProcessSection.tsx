@@ -298,7 +298,7 @@ export default function OurProcessSection() {
           </h2>
 
           {/* Subtitle */}
-          <p className="text-stone-600 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+          <p className="text-stone-600 text-sm sm:text-base lg:text-[17px] max-w-2xl mx-auto leading-relaxed section-subtitle">
             {isArabic
               ? "من الاستشارة الأولية وحتى التسليم النهائي، نلتزم بأعلى معايير الجودة والموثوقية والدقة والاهتمام بالتفاصيل."
               : "From consultation to completion, we deliver quality, reliability, and attention to detail."}
@@ -344,10 +344,10 @@ export default function OurProcessSection() {
 
                   {/* Text Content */}
                   <div className="flex-1 min-w-0 ml-4 xl:ml-5">
-                    <h3 className="text-lg xl:text-[20px] font-extrabold text-stone-900 leading-tight tracking-tight">
+                    <h3 className="text-base lg:text-[18px] font-bold text-stone-900 leading-tight tracking-tight card-main-title">
                       {isArabic ? leftStep.titleAr : leftStep.titleEn}
                     </h3>
-                    <p className="text-xs xl:text-[13.5px] text-stone-600 font-normal leading-snug mt-1">
+                    <p className="text-xs lg:text-[16px] text-stone-600 font-normal leading-relaxed mt-1">
                       {isArabic ? leftStep.descAr : leftStep.descEn}
                     </p>
                   </div>
@@ -373,10 +373,10 @@ export default function OurProcessSection() {
 
                   {/* Text Content */}
                   <div className="flex-1 min-w-0 mr-4 xl:mr-5">
-                    <h3 className="text-lg xl:text-[20px] font-extrabold text-stone-900 leading-tight tracking-tight">
+                    <h3 className="text-base lg:text-[18px] font-bold text-stone-900 leading-tight tracking-tight card-main-title">
                       {isArabic ? rightStep.titleAr : rightStep.titleEn}
                     </h3>
-                    <p className="text-xs xl:text-[13.5px] text-stone-600 font-normal leading-snug mt-1">
+                    <p className="text-xs lg:text-[16px] text-stone-600 font-normal leading-relaxed mt-1">
                       {isArabic ? rightStep.descAr : rightStep.descEn}
                     </p>
                   </div>
@@ -417,10 +417,10 @@ export default function OurProcessSection() {
 
                 {/* Text Content */}
                 <div className="flex-1 min-w-0 ml-3 sm:ml-4">
-                  <h3 className="text-base sm:text-lg font-extrabold text-stone-900 leading-tight tracking-tight">
+                  <h3 className="text-base font-bold text-stone-900 leading-tight tracking-tight">
                     {isArabic ? step.titleAr : step.titleEn}
                   </h3>
-                  <p className="text-xs sm:text-[13px] text-stone-600 font-normal leading-snug mt-0.5">
+                  <p className="text-xs sm:text-sm text-stone-600 font-normal leading-relaxed mt-0.5">
                     {isArabic ? step.descAr : step.descEn}
                   </p>
                 </div>

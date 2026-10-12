@@ -169,13 +169,13 @@ export default function ProtectionServicesSection({
                         className="w-8 h-8 sm:w-9 sm:h-9 object-contain"
                       />
                     </div>
-                    <h3 className="text-base sm:text-[17px] font-bold text-stone-900 leading-snug tracking-tight group-hover:text-[#01a9a0] transition-colors duration-300 line-clamp-1">
+                    <h3 className="text-base sm:text-[17px] lg:text-[18px] font-bold text-stone-900 leading-snug tracking-tight group-hover:text-[#01a9a0] transition-colors duration-300 line-clamp-1 card-main-title">
                       {service.title}
                     </h3>
                   </div>
 
                   {/* Subtitle / Description */}
-                  <p className="text-xs sm:text-[13px] text-stone-500 font-normal leading-relaxed min-h-[38px] line-clamp-2">
+                  <p className="text-xs sm:text-[13px] lg:text-[16px] text-stone-500 font-normal leading-relaxed min-h-[38px] line-clamp-2">
                     {service.description}
                   </p>
 

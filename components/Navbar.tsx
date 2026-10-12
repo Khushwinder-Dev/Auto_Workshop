@@ -710,7 +710,7 @@ const Navbar = () => {
                     >
                       <Link
                         href={item.href}
-                        className={`inline-flex items-center font-semibold uppercase transition-colors text-xs lg:text-[13.5px] xl:text-[15px] 2xl:text-[16px] font-anek tracking-wide whitespace-nowrap ${active
+                        className={`inline-flex items-center font-semibold uppercase transition-colors text-xs lg:text-[16px] font-anek tracking-wide whitespace-nowrap ${active
                           ? isScrolled
                             ? "text-[#01a9a0] font-black"
                             : "text-[#00c2b2] font-bold"

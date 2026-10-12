@@ -53,6 +53,79 @@ input:not([type]) {
   border-radius: 9999px;
 }
 
+/* Global typography on large screens (min-width: 1024px) */
+@media (min-width: 1024px) {
+  /* 1. All text fields, inputs, textareas, selects across entire site = 16px */
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="password"],
+  input[type="search"],
+  input[type="url"],
+  input[type="number"],
+  input:not([type]),
+  textarea,
+  select,
+  .text-field {
+    font-size: 16px !important;
+  }
+
+  /* 2. All section & card subtitles across entire site = 17px */
+  .sub-title,
+  .section-subtitle,
+  .subtitle,
+  p.subtitle,
+  [class*="subtitle"],
+  [class*="Subtitle"],
+  .card-sub-title {
+    font-size: 17px !important;
+  }
+
+  /* 3. Main titles on all cards, features, and items across entire site = 18px bold */
+  .card-main-title,
+  .card-title,
+  .item-title,
+  [class*="Card"] h3,
+  [class*="card"] h3,
+  [class*="Card"] h4,
+  [class*="card"] h4,
+  [class*="Item"] h3,
+  [class*="item"] h3 {
+    font-size: 18px !important;
+    font-weight: 700 !important;
+  }
+
+  /* 4. Header: Desktop navigation links = 16px */
+  nav a.font-anek,
+  nav .desktop-nav-link {
+    font-size: 16px !important;
+  }
+
+  /* 5. Footer: Column headings = 18px bold; links and text = 16px */
+  footer h3,
+  footer h4,
+  footer .footer-heading {
+    font-size: 18px !important;
+    font-weight: 700 !important;
+  }
+
+  footer a,
+  footer p:not(.font-bold),
+  footer li,
+  footer span.text-stone-700,
+  footer span.text-stone-600 {
+    font-size: 16px !important;
+  }
+
+  /* 6. Card & item descriptions/body text = 16px */
+  .card-description,
+  .item-description,
+  [class*="Card"] p:not([class*="subtitle"]):not([class*="title"]),
+  [class*="card"] p:not([class*="subtitle"]):not([class*="title"]) {
+    font-size: 16px !important;
+  }
+}
+
 /* Enable text selection and copy across the entire site */
 html,
 body,
