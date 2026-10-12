@@ -140,7 +140,7 @@ export default function FaqSection({
           </h2>
 
           {/* Subtitle */}
-          <p className="mt-2.5 sm:mt-3.5 text-stone-500 text-xs sm:text-sm md:text-[14.5px] max-w-xl mx-auto leading-relaxed">
+          <p className="mt-2.5 sm:mt-3.5 text-stone-500 text-xs sm:text-sm md:text-[14.5px] lg:text-[17px] max-w-xl mx-auto leading-relaxed section-subtitle">
             {isArabic ? subtitleAr : subtitle}
           </p>
         </div>

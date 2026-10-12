@@ -53,13 +53,34 @@ input:not([type]) {
   border-radius: 9999px;
 }
 
+/* Main titles bold site-wide */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.main-title,
+.section-title,
+.page-title,
+.headline {
+  font-weight: 700 !important;
+}
+
 /* Global typography on large screens (min-width: 1024px) */
 @media (min-width: 1024px) {
   /* 1. All paragraph / short descriptions / description & form inputs = 16px */
   p,
   li,
+  article,
+  dd,
+  blockquote,
   .description,
   .short-description,
+  .shortDescription,
+  [class*="description" i],
+  [class*="Description" i],
+  [class*="short-desc" i],
   input,
   textarea,
   select,
@@ -80,13 +101,29 @@ input:not([type]) {
   .sub-title,
   .section-subtitle,
   .subtitle,
+  .hero-subtitle,
+  .page-subtitle,
+  .card-sub-title,
+  .lead,
   p.subtitle,
   p.sub-title,
   p.section-subtitle,
-  p[class*="subtitle"],
-  p[class*="Subtitle"],
+  p.lead,
+  p[class*="subtitle" i],
+  p[class*="Subtitle" i],
+  p[class*="sub-title" i],
+  p[class*="subheading" i],
+  p[class*="sub-heading" i],
+  span[class*="subtitle" i],
+  span[class*="sub-title" i],
+  div[class*="subtitle" i],
+  div[class*="sub-title" i],
+  h1 + p,
   h2 + p,
-  .card-sub-title {
+  h3 + p,
+  div:has(> h1) + p,
+  div:has(> h2) + p,
+  div:has(> h3) + p {
     font-size: 17px !important;
     line-height: 1.55 !important;
   }
@@ -107,11 +144,10 @@ input:not([type]) {
     font-size: 16px !important;
   }
 
-  /* 5. Footer: Column headings = 18px bold; links and text = 16px */
+  /* 5. Footer: Column headings = bold; links and text = 16px */
   footer h3,
   footer h4,
   footer .footer-heading {
-    font-size: 18px !important;
     font-weight: 700 !important;
   }
 

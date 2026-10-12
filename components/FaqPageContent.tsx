@@ -350,7 +350,7 @@ export default function FaqPageContent() {
             </h2>
 
             {/* Subtitle */}
-            <p className="text-stone-500 text-xs sm:text-sm md:text-[15px] max-w-xl mx-auto leading-relaxed">
+            <p className="text-stone-500 text-xs sm:text-sm md:text-[15px] lg:text-[17px] max-w-xl mx-auto leading-relaxed section-subtitle">
               {isArabic
                 ? "ابحث في أسئلتنا الأكثر شيوعاً حسب الكلمة المفتاحية أو الفئة للحصول على المعلومات التي تحتاجها فوراً حول خدماتنا."
                 : "Search our frequently asked questions by keyword or category to get the information you need, right away regarding our services."}
@@ -497,7 +497,7 @@ export default function FaqPageContent() {
           </h2>
 
           {/* Subtitle */}
-          <p className="text-xs sm:text-sm md:text-[15px] text-stone-300 max-w-lg mx-auto leading-relaxed mb-7 sm:mb-8">
+          <p className="text-xs sm:text-sm md:text-[15px] lg:text-[17px] text-stone-300 max-w-lg mx-auto leading-relaxed mb-7 sm:mb-8 section-subtitle">
             {isArabic
               ? "لم تجد الإجابة التي تبحث عنها؟ فريقنا المتخصص جاهز للإجابة على كافة استفساراتك ومساعدتك في اختيار أفضل الحلول لمشروعك."
               : "Can't find the answer you're looking for? Our team is here to help you understand how our services can work for your business."}

@@ -427,7 +427,7 @@ export default function GetAQuoteContent() {
               </h2>
 
               {/* Subtitle */}
-              <p className="text-stone-700 text-xs sm:text-sm font-medium leading-relaxed mb-8 max-w-md drop-shadow-[0_1px_1px_rgba(255,255,255,0.7)]">
+              <p className="text-stone-700 text-xs sm:text-sm lg:text-[17px] font-medium leading-relaxed mb-8 max-w-md drop-shadow-[0_1px_1px_rgba(255,255,255,0.7)] section-subtitle">
                 {isArabic
                   ? "سواء كان مشروعاً جديداً أو صيانة أو معالجة، فريقنا الهندسي جاهز لتقديم حلول العزل المتكاملة الأنسب لاحتياجاتك. شاركنا التفاصيل واحصل على عرض سعر مخصص."
                   : "Whether it's a new project, repair, or maintenance, our team is here to provide the right waterproofing solution for your needs. Share your details and get a tailored quote."}
@@ -1134,7 +1134,7 @@ export default function GetAQuoteContent() {
                       {isArabic ? "تحدث إلى خبرائنا" : "Talk to Our Experts"}
                     </h3>
 
-                    <p className="text-stone-300 text-xs sm:text-sm leading-relaxed mb-6 max-w-sm">
+                    <p className="text-stone-300 text-xs sm:text-sm lg:text-[17px] leading-relaxed mb-6 max-w-sm section-subtitle">
                       {isArabic
                         ? "هل لديك متطلبات أو مشروع خاص؟ فريقنا الهندسي جاهز لمساعدتك في اختيار الحل الأمثل."
                         : "Have a specific requirement? Our team is ready to assist you with the right solution."}

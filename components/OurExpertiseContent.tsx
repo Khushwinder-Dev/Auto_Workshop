@@ -402,7 +402,7 @@ export default function OurExpertiseContent() {
                       {isArabic ? "شريك يمكنك الاعتماد عليه" : "A Partner You Can Rely On"}
                     </h3>
 
-                    <p className="text-stone-200 text-xs sm:text-sm leading-relaxed mb-6 max-w-lg">
+                    <p className="text-stone-200 text-xs sm:text-sm lg:text-[17px] leading-relaxed mb-6 max-w-lg section-subtitle">
                       {isArabic
                         ? "خبرتنا مدعومة بسنوات طويلة من التميز الميداني، والأنظمة المعتمدة دولياً، والالتزام الثابت بتقديم أعلى درجات الجودة في كل مرحلة."
                         : "Our expertise is backed by industry experience, certified systems and a commitment to quality at every stage."}
@@ -559,7 +559,7 @@ export default function OurExpertiseContent() {
               </h3>
             </div>
 
-            <p className="text-stone-500 text-xs sm:text-sm max-w-md leading-relaxed">
+            <p className="text-stone-500 text-xs sm:text-sm lg:text-[17px] max-w-md leading-relaxed section-subtitle">
               {isArabic
                 ? "خبراتنا الهندسية وحلولنا المعتمدة محل ثقة عبر باقة واسعة من القطاعات، لضمان الحماية المستدامة لجميع أنواع المنشآت."
                 : "Our knowledge and solutions are trusted across a wide range of industries, ensuring long-lasting protection for every type of structure."}
