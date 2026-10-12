@@ -46,6 +46,7 @@ function StatCard({
         />
       </div>
       {/* Text */}
+      {/* Text */}
       <div className="flex flex-col min-w-0">
         <span className="text-2xl sm:text-3xl lg:text-[34px] xl:text-[36px] font-black text-white leading-none tabular-nums tracking-tight">
           {count}{suffix}
