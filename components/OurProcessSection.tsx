@@ -24,16 +24,16 @@ const processSteps: ProcessStep[] = [
     descAr:
       "تواصل معنا للحصول على استشارة متخصصة لمشروعك عبر موقعنا الإلكتروني أو وسائل التواصل الاجتماعي.",
     numberBg: "#F3984E",
-    cardBg: "#E3F7E7",
+    cardBg: "#ffffff",
     icon: () => (
       <svg
         viewBox="0 0 48 48"
         fill="none"
-        stroke="#111827"
+        stroke="#01a9a0"
         strokeWidth="2.2"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="w-9 h-9 sm:w-10 sm:h-10 text-stone-900"
+        className="w-9 h-9 sm:w-10 sm:h-10 text-[#01a9a0]"
       >
         {/* Two people with speech bubble above - exact match to reference */}
         <circle cx="16" cy="19" r="4" />
@@ -54,21 +54,21 @@ const processSteps: ProcessStep[] = [
     descAr:
       "ناقش رؤيتك وتفضيلاتك وميزانيتك والجدول الزمني المحدد خلال جلسة الاستشارة.",
     numberBg: "#7B66FF",
-    cardBg: "#E3F7E7",
+    cardBg: "#ffffff",
     icon: () => (
       <svg
         viewBox="0 0 48 48"
         fill="none"
-        stroke="#111827"
+        stroke="#01a9a0"
         strokeWidth="2.2"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="w-9 h-9 sm:w-10 sm:h-10 text-stone-900"
+        className="w-9 h-9 sm:w-10 sm:h-10 text-[#01a9a0]"
       >
         {/* Profile with swirl inside brain - exact match to reference */}
         <path d="M19 40v-4a3.5 3.5 0 0 0-3-3.4A12 12 0 0 1 12 21C12 14.4 17.4 9 24 9c6.6 0 12 5.4 12 12 0 3.3-1.4 6.3-3.6 8.5a4 4 0 0 0-1.4 3V40" />
         <path d="M24 16c2.5 0 3.5 1.5 2 3s-3.5 1-2.5 2.5 2.5 1.5 2.5 1.5" />
-        <circle cx="24" cy="20.5" r="1.3" fill="#111827" />
+        <circle cx="24" cy="20.5" r="1.3" fill="#01a9a0" />
       </svg>
     ),
   },
@@ -81,16 +81,16 @@ const processSteps: ProcessStep[] = [
     descAr:
       "يقوم فريقنا بابتكار وتطوير التصاميم الهندسية بناءً على رؤيتك واحتياجاتك الخاصة.",
     numberBg: "#32B8C6",
-    cardBg: "#E3F7E7",
+    cardBg: "#ffffff",
     icon: () => (
       <svg
         viewBox="0 0 48 48"
         fill="none"
-        stroke="#111827"
+        stroke="#01a9a0"
         strokeWidth="2.2"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="w-9 h-9 sm:w-10 sm:h-10 text-stone-900"
+        className="w-9 h-9 sm:w-10 sm:h-10 text-[#01a9a0]"
       >
         {/* Lightbulb with gear cog & rays - exact match to reference */}
         <path d="M17 25a8.5 8.5 0 1 1 14 0c-.8 1.1-2 2.6-2 5h-10c0-2.4-1.2-3.9-2-5z" />
@@ -115,16 +115,16 @@ const processSteps: ProcessStep[] = [
     descAr:
       "اعتماد التصاميم النهائية والبدء بالتنفيذ الميداني بإشراف هندسي يضمن دقة التنفيذ والجودة.",
     numberBg: "#EAB54B",
-    cardBg: "#E3F7E7",
+    cardBg: "#ffffff",
     icon: () => (
       <svg
         viewBox="0 0 48 48"
         fill="none"
-        stroke="#111827"
+        stroke="#01a9a0"
         strokeWidth="2.2"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="w-9 h-9 sm:w-10 sm:h-10 text-stone-900"
+        className="w-9 h-9 sm:w-10 sm:h-10 text-[#01a9a0]"
       >
         {/* Document with magnifying glass - exact match to reference */}
         <path d="M22 11h14a2.5 2.5 0 0 1 2.5 2.5v22a2.5 2.5 0 0 1-2.5 2.5H16a2.5 2.5 0 0 1-2.5-2.5V29" />
@@ -145,16 +145,16 @@ const processSteps: ProcessStep[] = [
     descAr:
       "اختيار أفضل المواد والعوازل والتشطيبات بالتعاون معكم مع إعطاء الأولوية للجودة والجمالية.",
     numberBg: "#EB6497",
-    cardBg: "#E3F7E7",
+    cardBg: "#ffffff",
     icon: () => (
       <svg
         viewBox="0 0 48 48"
         fill="none"
-        stroke="#111827"
+        stroke="#01a9a0"
         strokeWidth="2.2"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="w-9 h-9 sm:w-10 sm:h-10 text-stone-900"
+        className="w-9 h-9 sm:w-10 sm:h-10 text-[#01a9a0]"
       >
         {/* Axes with upward curve arrow - exact match to reference */}
         <path d="M10 9v29h29" />
@@ -172,22 +172,22 @@ const processSteps: ProcessStep[] = [
     descAr:
       "استكشف مساحتك المحدثة في جولة تفقدية شاملة قبل وضع اللمسات النهائية والتسليم.",
     numberBg: "#E8705A",
-    cardBg: "#E3F7E7",
+    cardBg: "#ffffff",
     icon: () => (
       <svg
         viewBox="0 0 48 48"
         fill="none"
-        stroke="#111827"
+        stroke="#01a9a0"
         strokeWidth="2.2"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="w-9 h-9 sm:w-10 sm:h-10 text-stone-900"
+        className="w-9 h-9 sm:w-10 sm:h-10 text-[#01a9a0]"
       >
         {/* Executive briefcase with handle and latch - exact match to reference */}
         <rect x="8" y="16" width="32" height="22" rx="3.5" />
         <path d="M17 16V12a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v4" />
         <line x1="8" y1="25" x2="40" y2="25" />
-        <circle cx="24" cy="25" r="2.5" fill="white" />
+        <circle cx="24" cy="25" r="2.5" fill="#f0faf9" stroke="#01a9a0" />
       </svg>
     ),
   },
@@ -200,16 +200,16 @@ const processSteps: ProcessStep[] = [
     descAr:
       "إضافة اللمسات التكميلية كالإضاءة والتشطيبات الدقيقة لتصبح المساحة متوافقة تماماً مع ذوقك.",
     numberBg: "#6C63FF",
-    cardBg: "#E3F7E7",
+    cardBg: "#ffffff",
     icon: () => (
       <svg
         viewBox="0 0 48 48"
         fill="none"
-        stroke="#111827"
+        stroke="#01a9a0"
         strokeWidth="2.2"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="w-9 h-9 sm:w-10 sm:h-10 text-stone-900"
+        className="w-9 h-9 sm:w-10 sm:h-10 text-[#01a9a0]"
       >
         {/* Drawing monitor/waveform - exact match to reference */}
         <rect x="9" y="12" width="30" height="20" rx="2.5" />
@@ -228,16 +228,16 @@ const processSteps: ProcessStep[] = [
     descAr:
       "مساحتك المثالية باتت جاهزة بالكامل، ونحن هنا دائماً لخدمتكم لأي احتياجات أو تحسينات مستقبلية.",
     numberBg: "#5EBA76",
-    cardBg: "#E3F7E7",
+    cardBg: "#ffffff",
     icon: () => (
       <svg
         viewBox="0 0 48 48"
         fill="none"
-        stroke="#111827"
+        stroke="#01a9a0"
         strokeWidth="2.2"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="w-9 h-9 sm:w-10 sm:h-10 text-stone-900"
+        className="w-9 h-9 sm:w-10 sm:h-10 text-[#01a9a0]"
       >
         {/* Megaphone with sound bursts - exact match to reference */}
         <path d="M10 20h5l12-7v22l-12-7h-5a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2z" />
@@ -264,7 +264,7 @@ export default function OurProcessSection() {
   return (
     <section
       id="our-process"
-      className="relative w-full py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-[#F4FAF9] overflow-hidden scroll-mt-24"
+      className="relative w-full py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-[#009e90] overflow-hidden scroll-mt-24"
     >
       <div className="max-w-7xl mx-auto">
         {/* ============================================================
@@ -273,32 +273,32 @@ export default function OurProcessSection() {
         <div className="text-center max-w-5xl mx-auto mb-14 sm:mb-16 lg:mb-20">
           {/* Eyebrow / Tag */}
           <div className="inline-flex items-center justify-center gap-3 mb-3.5 sm:mb-4">
-            <span className="inline-block h-[2px] w-6 sm:w-8 bg-[#01a9a0] rounded-full" />
-            <span className="text-xs sm:text-sm font-extrabold tracking-[0.18em] uppercase text-[#01a9a0]">
+            <span className="inline-block h-[2px] w-6 sm:w-8 bg-white/70 rounded-full" />
+            <span className="text-xs sm:text-sm font-extrabold tracking-[0.18em] uppercase text-white">
               {isArabic ? "منهجية عملنا" : "OUR PROCESS"}
             </span>
-            <span className="inline-block h-[2px] w-6 sm:w-8 bg-[#01a9a0] rounded-full" />
+            <span className="inline-block h-[2px] w-6 sm:w-8 bg-white/70 rounded-full" />
           </div>
 
           {/* Main Title */}
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[42px] xl:text-[46px] font-extrabold text-stone-900 tracking-tight leading-[1.15] mb-4 sm:mb-5 lg:whitespace-nowrap">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[42px] xl:text-[46px] font-extrabold text-white tracking-tight leading-[1.15] mb-4 sm:mb-5 lg:whitespace-nowrap">
             {isArabic ? (
               <>
                 <span>رؤيتكم. </span>
-                <span className="text-[#01a9a0]">خبرتنا. </span>
+                <span className="text-[#a7f3d0]">خبرتنا. </span>
                 <span>نتائج استثنائية.</span>
               </>
             ) : (
               <>
                 <span>Your Vision. </span>
-                <span className="text-[#01a9a0]">Our Expertise. </span>
+                <span className="text-[#a7f3d0]">Our Expertise. </span>
                 <span>Exceptional Results.</span>
               </>
             )}
           </h2>
 
           {/* Subtitle */}
-          <p className="text-stone-600 text-sm sm:text-base lg:text-[17px] max-w-2xl mx-auto leading-relaxed section-subtitle">
+          <p className="text-white/85 text-sm sm:text-base lg:text-[17px] max-w-2xl mx-auto leading-relaxed section-subtitle">
             {isArabic
               ? "من الاستشارة الأولية وحتى التسليم النهائي، نلتزم بأعلى معايير الجودة والموثوقية والدقة والاهتمام بالتفاصيل."
               : "From consultation to completion, we deliver quality, reliability, and attention to detail."}
@@ -314,7 +314,7 @@ export default function OurProcessSection() {
             className="absolute top-8 bottom-8 left-1/2 -translate-x-1/2 w-[2px] pointer-events-none"
             style={{
               backgroundImage:
-                "repeating-linear-gradient(to bottom, #cbd5e1 0, #cbd5e1 8px, transparent 8px, transparent 16px)",
+                "repeating-linear-gradient(to bottom, rgba(255,255,255,0.45) 0, rgba(255,255,255,0.45) 8px, transparent 8px, transparent 16px)",
             }}
           />
 
@@ -329,11 +329,9 @@ export default function OurProcessSection() {
                   className="group relative flex items-center p-2.5 pe-6 xl:pe-8 rounded-full transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md cursor-default min-h-[92px] xl:min-h-[98px]"
                   style={{ backgroundColor: leftStep.cardBg }}
                 >
-                  {/* Left Inset White Circle with Step Number */}
-                  <div className="w-[72px] h-[72px] xl:w-[78px] xl:h-[78px] rounded-full bg-white shadow-xs flex items-center justify-center shrink-0">
-                    <span className="text-2xl xl:text-3xl font-extrabold text-[#01a9a0] select-none tracking-tight">
-                      {leftStep.number}
-                    </span>
+                  {/* Left Inset Circle for Icon */}
+                  <div className="w-[72px] h-[72px] xl:w-[78px] xl:h-[78px] rounded-full bg-[#f0faf9] shadow-xs flex items-center justify-center shrink-0">
+                    {leftStep.icon()}
                   </div>
 
                   {/* Text Content */}
@@ -349,7 +347,7 @@ export default function OurProcessSection() {
 
                 {/* ── CENTER TIMELINE NODE ───────────────────────────── */}
                 <div className="flex items-center justify-center relative z-10 w-full">
-                  <div className="w-3.5 h-3.5 rounded-full bg-slate-400 border-[3px] border-white shadow-sm ring-2 ring-slate-200" />
+                  <div className="w-3.5 h-3.5 rounded-full bg-white border-[3px] border-[#009e90] shadow-sm ring-2 ring-white/60" />
                 </div>
 
                 {/* ── RIGHT CAPSULE (Even: 2, 4, 6, 8) ─────────────────── */}
@@ -357,11 +355,9 @@ export default function OurProcessSection() {
                   className="group relative flex items-center p-2.5 pe-6 xl:pe-8 rounded-full transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md cursor-default min-h-[92px] xl:min-h-[98px]"
                   style={{ backgroundColor: rightStep.cardBg }}
                 >
-                  {/* Left Inset White Circle with Step Number */}
-                  <div className="w-[72px] h-[72px] xl:w-[78px] xl:h-[78px] rounded-full bg-white shadow-xs flex items-center justify-center shrink-0">
-                    <span className="text-2xl xl:text-3xl font-extrabold text-[#01a9a0] select-none tracking-tight">
-                      {rightStep.number}
-                    </span>
+                  {/* Left Inset Circle for Icon */}
+                  <div className="w-[72px] h-[72px] xl:w-[78px] xl:h-[78px] rounded-full bg-[#f0faf9] shadow-xs flex items-center justify-center shrink-0">
+                    {rightStep.icon()}
                   </div>
 
                   {/* Text Content */}
@@ -390,11 +386,9 @@ export default function OurProcessSection() {
                 className="group relative flex items-center p-2.5 pe-4 sm:pe-6 rounded-full transition-all duration-300 hover:shadow-sm cursor-default min-h-[82px] sm:min-h-[92px]"
                 style={{ backgroundColor: step.cardBg }}
               >
-                {/* Left Inset White Circle with Step Number */}
-                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-white shadow-xs flex items-center justify-center shrink-0">
-                  <span className="text-xl sm:text-2xl font-extrabold text-[#01a9a0] select-none tracking-tight">
-                    {step.number}
-                  </span>
+                {/* Left Inset Circle for Icon */}
+                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#f0faf9] shadow-xs flex items-center justify-center shrink-0">
+                  {step.icon()}
                 </div>
 
                 {/* Text Content */}
