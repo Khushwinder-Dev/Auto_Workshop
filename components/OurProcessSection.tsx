@@ -24,7 +24,7 @@ const processSteps: ProcessStep[] = [
     descAr:
       "تواصل معنا للحصول على استشارة متخصصة لمشروعك عبر موقعنا الإلكتروني أو وسائل التواصل الاجتماعي.",
     numberBg: "#F3984E",
-    cardBg: "#FFEADB",
+    cardBg: "#E3F7E7",
     icon: () => (
       <svg
         viewBox="0 0 48 48"
@@ -54,7 +54,7 @@ const processSteps: ProcessStep[] = [
     descAr:
       "ناقش رؤيتك وتفضيلاتك وميزانيتك والجدول الزمني المحدد خلال جلسة الاستشارة.",
     numberBg: "#7B66FF",
-    cardBg: "#EFEAFF",
+    cardBg: "#E3F7E7",
     icon: () => (
       <svg
         viewBox="0 0 48 48"
@@ -81,7 +81,7 @@ const processSteps: ProcessStep[] = [
     descAr:
       "يقوم فريقنا بابتكار وتطوير التصاميم الهندسية بناءً على رؤيتك واحتياجاتك الخاصة.",
     numberBg: "#32B8C6",
-    cardBg: "#DDF5F7",
+    cardBg: "#E3F7E7",
     icon: () => (
       <svg
         viewBox="0 0 48 48"
@@ -115,7 +115,7 @@ const processSteps: ProcessStep[] = [
     descAr:
       "اعتماد التصاميم النهائية والبدء بالتنفيذ الميداني بإشراف هندسي يضمن دقة التنفيذ والجودة.",
     numberBg: "#EAB54B",
-    cardBg: "#FFF3D4",
+    cardBg: "#E3F7E7",
     icon: () => (
       <svg
         viewBox="0 0 48 48"
@@ -145,7 +145,7 @@ const processSteps: ProcessStep[] = [
     descAr:
       "اختيار أفضل المواد والعوازل والتشطيبات بالتعاون معكم مع إعطاء الأولوية للجودة والجمالية.",
     numberBg: "#EB6497",
-    cardBg: "#FDE2EE",
+    cardBg: "#E3F7E7",
     icon: () => (
       <svg
         viewBox="0 0 48 48"
@@ -172,7 +172,7 @@ const processSteps: ProcessStep[] = [
     descAr:
       "استكشف مساحتك المحدثة في جولة تفقدية شاملة قبل وضع اللمسات النهائية والتسليم.",
     numberBg: "#E8705A",
-    cardBg: "#FDE7E1",
+    cardBg: "#E3F7E7",
     icon: () => (
       <svg
         viewBox="0 0 48 48"
@@ -200,7 +200,7 @@ const processSteps: ProcessStep[] = [
     descAr:
       "إضافة اللمسات التكميلية كالإضاءة والتشطيبات الدقيقة لتصبح المساحة متوافقة تماماً مع ذوقك.",
     numberBg: "#6C63FF",
-    cardBg: "#ECEBFE",
+    cardBg: "#E3F7E7",
     icon: () => (
       <svg
         viewBox="0 0 48 48"
@@ -326,24 +326,18 @@ export default function OurProcessSection() {
               >
                 {/* ── LEFT CAPSULE (Odd: 1, 3, 5, 7) ──────────────────── */}
                 <div
-                  className="group relative flex items-center p-2.5 pr-6 xl:pr-8 rounded-full transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md cursor-default min-h-[92px] xl:min-h-[98px]"
+                  className="group relative flex items-center p-2.5 pe-6 xl:pe-8 rounded-full transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md cursor-default min-h-[92px] xl:min-h-[98px]"
                   style={{ backgroundColor: leftStep.cardBg }}
                 >
-                  {/* Left Inset White Circle for Icon */}
+                  {/* Left Inset White Circle with Step Number */}
                   <div className="w-[72px] h-[72px] xl:w-[78px] xl:h-[78px] rounded-full bg-white shadow-xs flex items-center justify-center shrink-0">
-                    {leftStep.icon()}
-                  </div>
-
-                  {/* Number Badge */}
-                  <div
-                    className="w-11 h-11 xl:w-12 xl:h-12 rounded-full text-white font-extrabold text-xl xl:text-2xl flex items-center justify-center shrink-0 ml-3.5 xl:ml-4 shadow-xs"
-                    style={{ backgroundColor: leftStep.numberBg }}
-                  >
-                    {leftStep.number}
+                    <span className="text-2xl xl:text-3xl font-extrabold text-[#01a9a0] select-none tracking-tight">
+                      {leftStep.number}
+                    </span>
                   </div>
 
                   {/* Text Content */}
-                  <div className="flex-1 min-w-0 ml-4 xl:ml-5">
+                  <div className="flex-1 min-w-0 ms-4 xl:ms-5">
                     <h3 className="text-base lg:text-[18px] font-bold text-stone-900 leading-tight tracking-tight card-main-title">
                       {isArabic ? leftStep.titleAr : leftStep.titleEn}
                     </h3>
@@ -360,30 +354,24 @@ export default function OurProcessSection() {
 
                 {/* ── RIGHT CAPSULE (Even: 2, 4, 6, 8) ─────────────────── */}
                 <div
-                  className="group relative flex items-center p-2.5 pl-6 xl:pl-8 rounded-full transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md cursor-default min-h-[92px] xl:min-h-[98px]"
+                  className="group relative flex items-center p-2.5 pe-6 xl:pe-8 rounded-full transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md cursor-default min-h-[92px] xl:min-h-[98px]"
                   style={{ backgroundColor: rightStep.cardBg }}
                 >
-                  {/* Number Badge */}
-                  <div
-                    className="w-11 h-11 xl:w-12 xl:h-12 rounded-full text-white font-extrabold text-xl xl:text-2xl flex items-center justify-center shrink-0 mr-3.5 xl:mr-4 shadow-xs"
-                    style={{ backgroundColor: rightStep.numberBg }}
-                  >
-                    {rightStep.number}
+                  {/* Left Inset White Circle with Step Number */}
+                  <div className="w-[72px] h-[72px] xl:w-[78px] xl:h-[78px] rounded-full bg-white shadow-xs flex items-center justify-center shrink-0">
+                    <span className="text-2xl xl:text-3xl font-extrabold text-[#01a9a0] select-none tracking-tight">
+                      {rightStep.number}
+                    </span>
                   </div>
 
                   {/* Text Content */}
-                  <div className="flex-1 min-w-0 mr-4 xl:mr-5">
+                  <div className="flex-1 min-w-0 ms-4 xl:ms-5">
                     <h3 className="text-base lg:text-[18px] font-bold text-stone-900 leading-tight tracking-tight card-main-title">
                       {isArabic ? rightStep.titleAr : rightStep.titleEn}
                     </h3>
                     <p className="text-xs lg:text-[16px] text-stone-600 font-normal leading-relaxed mt-1">
                       {isArabic ? rightStep.descAr : rightStep.descEn}
                     </p>
-                  </div>
-
-                  {/* Right Inset White Circle for Icon */}
-                  <div className="w-[72px] h-[72px] xl:w-[78px] xl:h-[78px] rounded-full bg-white shadow-xs flex items-center justify-center shrink-0">
-                    {rightStep.icon()}
                   </div>
                 </div>
               </div>
@@ -399,24 +387,18 @@ export default function OurProcessSection() {
             {processSteps.map((step) => (
               <div
                 key={step.number}
-                className="group relative flex items-center p-2.5 pr-4 sm:pr-6 rounded-full transition-all duration-300 hover:shadow-sm cursor-default min-h-[82px] sm:min-h-[92px]"
+                className="group relative flex items-center p-2.5 pe-4 sm:pe-6 rounded-full transition-all duration-300 hover:shadow-sm cursor-default min-h-[82px] sm:min-h-[92px]"
                 style={{ backgroundColor: step.cardBg }}
               >
-                {/* Left Inset White Circle for Icon */}
+                {/* Left Inset White Circle with Step Number */}
                 <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-white shadow-xs flex items-center justify-center shrink-0">
-                  {step.icon()}
-                </div>
-
-                {/* Number Badge */}
-                <div
-                  className="w-10 h-10 sm:w-11 sm:h-11 rounded-full text-white font-extrabold text-lg sm:text-xl flex items-center justify-center shrink-0 ml-2.5 sm:ml-3.5 shadow-xs"
-                  style={{ backgroundColor: step.numberBg }}
-                >
-                  {step.number}
+                  <span className="text-xl sm:text-2xl font-extrabold text-[#01a9a0] select-none tracking-tight">
+                    {step.number}
+                  </span>
                 </div>
 
                 {/* Text Content */}
-                <div className="flex-1 min-w-0 ml-3 sm:ml-4">
+                <div className="flex-1 min-w-0 ms-3 sm:ms-4">
                   <h3 className="text-base font-bold text-stone-900 leading-tight tracking-tight">
                     {isArabic ? step.titleAr : step.titleEn}
                   </h3>
