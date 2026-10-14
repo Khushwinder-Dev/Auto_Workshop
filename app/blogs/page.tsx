@@ -5,7 +5,6 @@ import CommonHeader from "@/components/Common/CommonHeader";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Image from "next/image";
-import Stats from "../../components/Stats";
 import { VoiceMicButton, useVoiceInput } from "@/components/ui/VoiceMicButton";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -309,31 +308,7 @@ const News = () => {
                           </p>
                         </div>
                       </div>
-                      <div className="flex justify-between items-center">
-                        <button
-                          className="flex items-center gap-2 group/btn"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            // handleCardClick(article.id);
-                          }}
-                        >
-                          {/* <span className="text-stone-900 text-lg font-medium underline group-hover/btn:text-pink-950 transition-colors">
-                            Continue to Reading
-                          </span>
-                          <svg
-                            className="w-6 h-6 text-stone-900 group-hover/btn:text-pink-950 group-hover/btn:translate-x-1 transition-all"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M13 7l5 5m0 0l-5 5m5-5H6"
-                            />
-                          </svg> */}
-                        </button>
+                      <div className="flex justify-end items-center">
                         <time className="text-stone-500 text-base">
                           {article.date}
                         </time>
@@ -485,8 +460,6 @@ const News = () => {
           </section>
         </div>
       </div>
-
-      {/* <Stats /> */}
     </div>
   );
 };

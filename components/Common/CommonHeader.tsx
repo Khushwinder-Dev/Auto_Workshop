@@ -88,21 +88,6 @@ const Header = ({
         </div>
       )}
 
-      {/* Logo watermark (optional - if you have a logo) */}
-      <div
-        className="absolute w-[692px] h-[315px] left-[374px] top-[142px] opacity-10 pointer-events-none"
-        data-aos="fade"
-        data-aos-duration="2000"
-        data-aos-delay="500"
-      >
-        {/* Uncomment if you have a logo */}
-        {/* <Image
-          src="/logo.png"
-          alt="Logo Watermark"
-          fill
-          className="object-contain"
-        /> */}
-      </div>
 
       {/* Decorative gradient orbs */}
       {showOverlay && (
@@ -169,15 +154,6 @@ const Header = ({
                   </span>
                 </nav>
               )}
-
-              {/* Animated underline - Center aligned */}
-              {/* <div
-                className="flex justify-center"
-                data-aos="fade-up"
-                data-aos-delay="600"
-              >
-                <div className="w-20 h-1 bg-gradient-to-r from-sky-400 to-cyan-500 rounded-full"></div>
-              </div> */}
             </div>
           </div>
         </div>

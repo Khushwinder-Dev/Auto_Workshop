@@ -32,10 +32,7 @@ import {
 import { useLanguage } from "@/context/LanguageContext";
 import CommonHeader from "@/components/Common/CommonHeader";
 import OurProjectsSection from "@/components/OurProjectsSection";
-import ProtectionServicesSection from "@/components/ProtectionServicesSection";
-import SolutionsListingSection from "@/components/SolutionsListingSection";
 import WelcomeOfferModal from "@/components/WelcomeOfferModal";
-import MediaLatestNewsSection from "@/components/MediaLatestNewsSection";
 
 /* ─── TYPES ──────────────────────────────────────────────────────────── */
 interface PhotoItem {
@@ -730,16 +727,6 @@ export default function MediaPage() {
       <OurProjectsSection />
 
       {/* ══════════════════════════════════════════════════════════════
-          SERVICES SECTION (Custom Media Order: GRP, Epoxy, Bitumen, Polyurea, Injection, Combo)
-      ══════════════════════════════════════════════════════════════ */}
-      {/* <ProtectionServicesSection servicesOrder={[1, 3, 4, 5, 6, 2]} /> */}
-
-      {/* ══════════════════════════════════════════════════════════════
-          SOLUTIONS LISTING SECTION (6 Specific Solutions from Solutions Page)
-      ══════════════════════════════════════════════════════════════ */}
-      {/* <SolutionsListingSection /> */}
-
-      {/* ══════════════════════════════════════════════════════════════
           2. SECTION: A CLOSER LOOK AT OUR WORK (PHOTO GALLERY)
           (Exact match to design screenshot)
       ══════════════════════════════════════════════════════════════ */}
@@ -882,22 +869,8 @@ export default function MediaPage() {
                       {/* Subtle hover gradient */}
                       <div className="absolute inset-0 bg-black/10 group-hover:bg-black/35 transition-colors duration-300" />
 
-                      {/* Hover Center Action Buttons (Preview & View Details) */}
+                      {/* Hover Center Action Buttons (View Details) */}
                       <div className="absolute inset-0 flex items-center justify-center gap-2 sm:gap-2.5 z-20 px-2 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none">
-                        {/* Preview Option */}
-                        {/* <button
-                          type="button"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleOpenPhoto(photo);
-                          }}
-                          className="pointer-events-auto inline-flex items-center gap-1.5 px-3 py-2 rounded-full bg-black/70 hover:bg-[#00c4b4] text-white hover:text-[#0B1C24] text-[11px] sm:text-xs font-bold tracking-wide backdrop-blur-md border border-white/30 shadow-lg hover:scale-105 active:scale-95 transition-all cursor-pointer whitespace-nowrap"
-                          title={isArabic ? "معاينة" : "Preview"}
-                        >
-                          <Eye className="w-3.5 h-3.5 stroke-[2.2] shrink-0" />
-                          <span>{isArabic ? "معاينة" : "Preview"}</span>
-                        </button> */}
-
                         {/* View Details Option (Takes to Services) */}
                         <button
                           type="button"
@@ -1102,11 +1075,6 @@ export default function MediaPage() {
           )}
         </div>
       </section>
-
-      {/* ══════════════════════════════════════════════════════════════
-          LATEST NEWS SECTION (Layout Reference)
-      ══════════════════════════════════════════════════════════════ */}
-      {/* <MediaLatestNewsSection /> */}
 
       {/* ══════════════════════════════════════════════════════════════
           4. SECTION: COMPANY PROFILE DOWNLOAD BANNER

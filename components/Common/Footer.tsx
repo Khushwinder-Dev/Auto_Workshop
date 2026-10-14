@@ -236,21 +236,11 @@ export default function Footer() {
                   </p>
                 </div>
 
-                {/* Description with Read More link */}
+                {/* Description */}
                 <p className="mt-3.5 text-xs sm:text-sm lg:text-base text-stone-600 leading-relaxed font-normal">
                   {isArabic
                     ? t.footer.companyDescription
-                    : "We provide reliable waterproofing and protective coating solutions for residential, commercial, and industrial projects, delivering durable protection through GRP & Fiberglass, Roof Systems, Epoxy, Bitumen Membrane, and Polyurea solutions."}{" "}
-                  {/* <Link
-                    href="/about-us"
-                    className="inline-flex items-center gap-1 font-bold text-[#01a9a0] hover:text-[#008f88] hover:underline transition-colors whitespace-nowrap"
-                  >
-                    <span>{isArabic ? "اقرأ المزيد" : "Read More"}</span>
-                    <ArrowRight
-                      className={`w-3.5 h-3.5 ${isArabic ? "rotate-180" : ""}`}
-                      strokeWidth={2.5}
-                    />
-                  </Link> */}
+                    : "We provide reliable waterproofing and protective coating solutions for residential, commercial, and industrial projects, delivering durable protection through GRP & Fiberglass, Roof Systems, Epoxy, Bitumen Membrane, and Polyurea solutions."}
                 </p>
 
                 {/* Social Icons (5 circular icons strictly on 1 line) */}

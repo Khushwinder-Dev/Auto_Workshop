@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import CommonHeader from "@/components/Common/CommonHeader";
-import ClientTestimonials from "@/components/ClientTestimonials";
 import FaqSection, { FaqItem } from "@/components/Common/FaqSection";
 import { useLanguage } from "@/context/LanguageContext";
 import {
@@ -534,9 +533,6 @@ export default function IndustriesPage() {
         subtitle="Find clear answers to common questions about our industrial waterproofing, protective coatings, and turnkey turnaround services."
         subtitleAr="إجابات واضحة وشاملة حول حلول العزل الصناعي والطلاءات الواقية وخدمات الصيانة الشاملة للمنشآت."
       />
-
-      {/* Testimonials */}
-      {/* <ClientTestimonials /> */}
     </div>
   );
 }

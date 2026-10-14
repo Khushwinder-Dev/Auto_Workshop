@@ -221,28 +221,6 @@ const HeroSection = () => {
         }}
       />
 
-      {/* 4. Four Corner Rivets / Cyber Accent Points (matching design mockup) */}
-      {/* <div className="absolute top-5 left-5 sm:top-7 sm:left-7 z-30 pointer-events-none">
-        <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full border border-[#00c2b2]/60 bg-[#00c2b2]/20 flex items-center justify-center backdrop-blur-sm shadow-[0_0_12px_rgba(0,194,178,0.6)]">
-          <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white shadow-[0_0_8px_#ffffff]" />
-        </div>
-      </div>
-      <div className="absolute top-5 right-5 sm:top-7 sm:right-7 z-30 pointer-events-none">
-        <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full border border-[#00c2b2]/60 bg-[#00c2b2]/20 flex items-center justify-center backdrop-blur-sm shadow-[0_0_12px_rgba(0,194,178,0.6)]">
-          <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white shadow-[0_0_8px_#ffffff]" />
-        </div>
-      </div>
-      <div className="absolute bottom-5 left-5 sm:bottom-7 sm:left-7 z-30 pointer-events-none">
-        <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full border border-[#00c2b2]/60 bg-[#00c2b2]/20 flex items-center justify-center backdrop-blur-sm shadow-[0_0_12px_rgba(0,194,178,0.6)]">
-          <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white shadow-[0_0_8px_#ffffff]" />
-        </div>
-      </div>
-      <div className="absolute bottom-5 right-5 sm:bottom-7 sm:right-7 z-30 pointer-events-none">
-        <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full border border-[#00c2b2]/60 bg-[#00c2b2]/20 flex items-center justify-center backdrop-blur-sm shadow-[0_0_12px_rgba(0,194,178,0.6)]">
-          <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white shadow-[0_0_8px_#ffffff]" />
-        </div>
-      </div> */}
-
       {/* 5. Left Vertical Slider / Pill Indicators */}
       <div
         className={`flex flex-col items-center gap-2.5 absolute top-1/2 -translate-y-1/2 z-30 ${isArabic ? "right-3 sm:right-5 xl:right-7" : "left-3 sm:left-5 xl:left-7"
@@ -393,17 +371,6 @@ const HeroSection = () => {
                   <Play className="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 text-white fill-white ml-0.5 sm:ml-1" />
                 )}
               </button>
-
-              {/* Play / Pause Hint on Hover */}
-              {/* <div className="absolute -bottom-7 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                <span className="text-[11px] font-semibold text-white/90 bg-black/50 backdrop-blur-sm px-2.5 py-0.5 rounded-full border border-white/20">
-                  {isPlayingVideo
-                    ? isVideoPaused
-                      ? t.hero.resumeVideoHint
-                      : t.hero.pauseVideoHint
-                    : t.hero.playVideoHint}
-                </span>
-              </div> */}
             </div>
           </div>
         </div>

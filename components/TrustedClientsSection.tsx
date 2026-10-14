@@ -24,86 +24,6 @@ const IMAGE_VARIANTS = {
   exit: { opacity: 0, scale: 1.06 },
 };
 
-// ── Infinite auto-scroll logo strip ──────────────────────────────────────────
-function LogoStrip({ logos }: { logos: { name: string; src: string }[] }) {
-  const trackRef = useRef<HTMLDivElement>(null);
-  const animRef = useRef<number | null>(null);
-  const pauseRef = useRef(false);
-  const posRef = useRef(0);
-
-  // Triple the logos for a seamless loop
-  const allLogos = [...logos, ...logos, ...logos];
-
-  useEffect(() => {
-    const track = trackRef.current;
-    if (!track) return;
-
-    const speed = 0.55; // px per frame
-
-    const tick = () => {
-      if (!pauseRef.current && track) {
-        posRef.current += speed;
-        // Reset after scrolling one full copy width
-        const singleWidth = track.scrollWidth / 3;
-        if (posRef.current >= singleWidth) {
-          posRef.current -= singleWidth;
-        }
-        track.style.transform = `translateX(-${posRef.current}px)`;
-      }
-      animRef.current = requestAnimationFrame(tick);
-    };
-
-    animRef.current = requestAnimationFrame(tick);
-    return () => {
-      if (animRef.current) cancelAnimationFrame(animRef.current);
-    };
-  }, []);
-
-  return (
-    <div
-      className="relative w-full overflow-hidden mt-12 sm:mt-14"
-      onMouseEnter={() => { pauseRef.current = true; }}
-      onMouseLeave={() => { pauseRef.current = false; }}
-      onTouchStart={() => { pauseRef.current = true; }}
-      onTouchEnd={() => { pauseRef.current = false; }}
-      aria-label="Client logos"
-    >
-      {/* Fade masks */}
-      <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-28 z-10 pointer-events-none bg-gradient-to-r from-white to-transparent" />
-      <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-28 z-10 pointer-events-none bg-gradient-to-l from-white to-transparent" />
-
-      {/* Scrolling track */}
-      <div
-        ref={trackRef}
-        className="flex items-center gap-4 sm:gap-5 will-change-transform py-3"
-        style={{ width: "max-content" }}
-      >
-        {allLogos.map((logo, idx) => (
-          <div
-            key={idx}
-            className="flex-shrink-0 relative h-14 sm:h-16 w-[120px] sm:w-[140px]
-                       bg-slate-50 hover:bg-white
-                       border border-slate-200/70 hover:border-[#009e90]/40
-                       rounded-xl px-3
-                       flex items-center justify-center
-                       shadow-sm hover:shadow-md
-                       transition-all duration-300 overflow-hidden group"
-          >
-            <Image
-              src={logo.src}
-              alt={logo.name}
-              fill
-              unoptimized
-              sizes="140px"
-              className="object-contain p-2 group-hover:scale-105 transition-transform duration-300"
-            />
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 // ── Main component ────────────────────────────────────────────────────────────
 export default function TrustedClientsSection() {
   const { isArabic } = useLanguage();
@@ -263,10 +183,6 @@ export default function TrustedClientsSection() {
             />
           ))}
         </div>
-
-        {/* ── Auto-scroll logo strip ─────────────────────────────────────── */}
-        {/* <LogoStrip logos={logos} /> */}
-
       </div>
 
       {/* ── Video modal ────────────────────────────────────────────────────── */}

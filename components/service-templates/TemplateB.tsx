@@ -166,8 +166,6 @@ export default function TemplateB({ service, sub, isArabic }: Props) {
       )}
       {/* ── 2. SUB-SERVICE DETAIL BLOCK ───────────────────────── */}
       <section className="mb-10">
-        {/* <SubBlock sub={sub} isArabic={isArabic} /> */}
-
         {(sub.subServiceContent?.content ?? []).map((subservice: any, idx: number) => (
           <div key={subservice.id || idx} className="rounded-xl border border-stone-200 bg-white p-6 shadow-sm transition-shadow duration-200 hover:shadow-md mb-4">
             <div
@@ -185,13 +183,7 @@ export default function TemplateB({ service, sub, isArabic }: Props) {
             />
           </div>
         ))}
-
-
       </section>
-
-      {/* <pre>
-  {JSON.stringify(sub, null, 2)}
-</pre> */}
 
       {/* ── 3. WHY CHOOSE ─────────────────────────────────────── */}
 

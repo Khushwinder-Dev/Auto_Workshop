@@ -550,16 +550,6 @@ export default function DownloadPageContent() {
                   </>
                 )}
               </h3>
-
-              {/* Dynamic counter of selected resources */}
-              {/* <div className="mt-5 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200/80 shadow-xs text-xs font-medium text-stone-700">
-                <Sparkles className="w-4 h-4 text-[#00DDCF]" />
-                <span>
-                  {isArabic
-                    ? `تم تحديد ${totalSelectedCount} من المستندات والموارد الجاهزة للتحميل`
-                    : `${totalSelectedCount} resources selected ready for download`}
-                </span>
-              </div> */}
             </div>
 
             {/* Right Column: Download Form Card */}

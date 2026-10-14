@@ -12,14 +12,9 @@ import {
   X,
   Link2,
   Heart,
-  ShoppingCart,
   ShieldCheck,
-  Truck,
-  RotateCcw,
   Sparkles,
   MessageSquare,
-  Plus,
-  Minus,
 } from "lucide-react";
 import toast from "react-hot-toast";
 import { getProductById, ProductReview } from "@/data/productsData";
@@ -92,7 +87,6 @@ export default function ProductDetailsPage() {
   const [activeTab, setActiveTab] = useState<"overview" | "specifications" | "reviews">("overview");
 
   // Interaction States
-  const [quantity, setQuantity] = useState(1);
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [isShareOpen, setIsShareOpen] = useState(false);
   const [isWriteReviewOpen, setIsWriteReviewOpen] = useState(false);
@@ -151,10 +145,6 @@ export default function ProductDetailsPage() {
     const url = typeof window !== "undefined" ? window.location.href : "https://example.com/share-link";
     navigator.clipboard?.writeText(url);
     toast.success("Link copied to clipboard!");
-  };
-
-  const handleAddToCart = () => {
-    toast.success(`Added ${quantity} × ${product.name} to cart!`);
   };
 
   const handleToggleWishlist = () => {
@@ -397,64 +387,6 @@ export default function ProductDetailsPage() {
             <div className="text-xs sm:text-[13px] text-gray-600 leading-relaxed mb-6">
               <p>{product.description}</p>
             </div>
-
-            {/* Price & Interactive Actions */}
-            {/* <div className="pt-2 border-t border-gray-100 flex flex-col gap-4">
-              <div className="flex items-baseline gap-3">
-                <span className="text-2xl sm:text-3xl font-bold text-gray-900 font-anek">
-                  {product.price}
-                </span>
-                <span className="text-xs font-semibold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md">
-                  In Stock · Fast Dispatch
-                </span>
-              </div>
-
-              
-              <div className="flex flex-wrap items-center gap-3">
-                <div className="flex items-center border border-gray-200 rounded-xl bg-white p-1 shadow-2xs">
-                  <button
-                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-500 hover:bg-gray-100 hover:text-gray-900 transition-colors cursor-pointer"
-                  >
-                    <Minus className="w-3.5 h-3.5" />
-                  </button>
-                  <span className="w-10 text-center text-xs font-bold text-gray-800">
-                    {quantity}
-                  </span>
-                  <button
-                    onClick={() => setQuantity(quantity + 1)}
-                    className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-500 hover:bg-gray-100 hover:text-gray-900 transition-colors cursor-pointer"
-                  >
-                    <Plus className="w-3.5 h-3.5" />
-                  </button>
-                </div>
-
-
-                <button
-                  onClick={handleAddToCart}
-                  className="flex-1 min-w-[160px] py-3 px-6 bg-[#01a9a0] hover:bg-[#00968e] text-white font-semibold text-xs rounded-xl shadow-xs hover:shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-[0.99]"
-                >
-                  <ShoppingCart className="w-4 h-4" />
-                  Add to Cart
-                </button>
-              </div>
-
-             
-              <div className="grid grid-cols-3 gap-2 pt-2 text-[11px] text-gray-500 border-t border-gray-100/60">
-                <div className="flex items-center gap-1.5">
-                  <Truck className="w-3.5 h-3.5 text-[#01a9a0]" />
-                  <span>Free Shipping</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <ShieldCheck className="w-3.5 h-3.5 text-[#01a9a0]" />
-                  <span>2 Year Warranty</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <RotateCcw className="w-3.5 h-3.5 text-[#01a9a0]" />
-                  <span>30-Day Returns</span>
-                </div>
-              </div>
-            </div> */}
           </div>
         </div>
 

@@ -180,17 +180,6 @@ export default function AboutCompanySection() {
 
           {/* ── RIGHT: image with play button + CTA below ─────────── */}
           <div className="relative flex flex-col gap-6 items-start">
-            {/* Background + Shadow decorative image */}
-            {/* <div className="absolute -inset-6 pointer-events-none select-none z-0">
-              <Image
-                src="/Background+Shadow.png"
-                alt=""
-                fill
-                unoptimized
-                className="object-contain object-center"
-              />
-            </div> */}
-
             {/* Main photo */}
             <div className="relative z-10 w-full h-[320px] sm:h-[400px] lg:h-[460px] overflow-hidden">
               <Image

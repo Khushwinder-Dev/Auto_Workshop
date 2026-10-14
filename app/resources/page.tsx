@@ -3,7 +3,6 @@
 import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import CommonHeader from "@/components/Common/CommonHeader";
-import ClientTestimonials from "@/components/ClientTestimonials";
 import {
   FileText,
   Download,
@@ -493,9 +492,6 @@ export default function ResourcesPage() {
           </Link>
         </div>
       </div>
-
-      {/* Testimonials */}
-      {/* <ClientTestimonials /> */}
     </div>
   );
 }

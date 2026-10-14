@@ -326,7 +326,6 @@ export default function ProductsPage() {
         </div>
 
         {/* Main 2-Column: Left Filters + Right Products Grid */}
-        {/* <div className="flex flex-col lg:flex-row items-start gap-7"> */}
         <div className="">
           {/* ===================== LEFT SIDEBAR ===================== */}
           <aside
@@ -565,29 +564,6 @@ export default function ProductsPage() {
                 </div>
               </div>
 
-              {/* EXPERT CALLOUT BOX (TEAL) */}
-              {/* <div className="bg-[#01a9a0] rounded-2xl p-6 text-white shadow-sm relative overflow-hidden">
-                <div className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center mb-4">
-                  <Headphones className="w-4 h-4 text-white" />
-                </div>
-
-                <h3 className="text-base font-bold font-anek leading-tight mb-2">
-                  Not sure where to start?
-                </h3>
-
-                <p className="text-xs text-white/90 leading-relaxed mb-4">
-                  Our team hand-picks gear for every setup. Get a personal
-                  recommendation in minutes.
-                </p>
-
-                <button
-                  onClick={() => setIsExpertModalOpen(true)}
-                  className="text-xs font-semibold text-white underline underline-offset-4 hover:text-white/80 cursor-pointer transition-colors"
-                >
-                  Talk to an expert
-                </button>
-              </div> */}
-
               {isMobileFilterOpen && (
                 <button
                   onClick={() => setIsMobileFilterOpen(false)}
@@ -660,16 +636,6 @@ export default function ProductsPage() {
                   >
                     <LayoutGrid className="w-3.5 h-3.5" />
                   </button>
-                  {/* <button
-                    onClick={() => setViewMode("list")}
-                    className={`w-7 h-7 rounded-lg flex items-center justify-center transition-all cursor-pointer ${viewMode === "list"
-                      ? "bg-[#01a9a0] text-white shadow-xs"
-                      : "text-gray-400 hover:text-gray-600"
-                      }`}
-                    title="List View"
-                  >
-                    <ListIcon className="w-3.5 h-3.5" />
-                  </button> */}
                 </div>
 
                 {/* Show Page Dropdown */}

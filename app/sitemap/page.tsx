@@ -26,12 +26,6 @@ export default function SitemapPage() {
       ) : (
         <OldSitemap />
       )}
-
-      {/* ── OLD SITEMAP COMPONENT (KEPT & COMMENTED OUT AS REQUESTED) ──
-          You can also switch directly in JSX by uncommenting <OldSitemap /> below
-          and commenting out the <NavMenuSitemap /> section above.
-      */}
-      {/* <OldSitemap /> */}
     </div>
   );
 }

@@ -519,32 +519,6 @@ function ServiceDetailsContent() {
         </div>
       )}
 
-      {/* ── BREADCRUMB ───────────────────────────────────────── */}
-      {/* <div className="border-b border-stone-100 bg-stone-50/70">
-        <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center gap-2 text-[12px] text-stone-500 overflow-x-auto whitespace-nowrap">
-          <Link href="/" className="hover:text-[#009e90] transition-colors">
-            {isArabic ? "الرئيسية" : "Home"}
-          </Link>
-          <ChevronRight className={`w-3.5 h-3.5 flex-shrink-0 ${isArabic ? "rotate-180" : ""}`} />
-          <Link href="/services" className="hover:text-[#009e90] transition-colors">
-            {isArabic ? "الخدمات" : "Services"}
-          </Link>
-          <ChevronRight className={`w-3.5 h-3.5 flex-shrink-0 ${isArabic ? "rotate-180" : ""}`} />
-          <Link
-            href={`/services-details?service=${service.serviceNumber}`}
-            className={`hover:text-[#009e90] transition-colors ${!activeSub ? "font-semibold text-stone-800" : ""}`}
-          >
-            {service.serviceTitle}
-          </Link>
-          {activeSub && (
-            <>
-              <ChevronRight className={`w-3.5 h-3.5 flex-shrink-0 ${isArabic ? "rotate-180" : ""}`} />
-              <span className="font-semibold text-[#009e90]">{activeSub.serviceTitle}</span>
-            </>
-          )}
-        </div>
-      </div> */}
-
       {/* ── BODY ─────────────────────────────────────────────── */}
       <div id="services-content-area" className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 lg:py-14 bg-stone-50/70">
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-10 items-start">
