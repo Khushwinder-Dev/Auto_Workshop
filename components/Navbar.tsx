@@ -816,9 +816,8 @@ const Navbar = () => {
       {/* ── MOBILE PANEL ────────────────────────────────────────────── */}
       <div
         ref={menuRef}
-        className={`fixed top-0 right-0 h-full w-[330px] sm:w-[380px] max-w-[90vw] bg-white text-slate-800 shadow-2xl border-l border-slate-100 flex flex-col transform transition-transform duration-300 ease-out lg:hidden ${
-          isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
-        }`}
+        className={`fixed top-0 right-0 h-full w-full sm:w-[380px] bg-white text-slate-800 shadow-2xl border-l border-slate-100 flex flex-col transform transition-transform duration-300 ease-out lg:hidden ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
+          }`}
         style={{ zIndex: 2147483647 }}
         dir={isArabic ? "rtl" : "ltr"}
       >
@@ -874,35 +873,31 @@ const Navbar = () => {
               return (
                 <div key={item.name} className="group/navitem">
                   <div
-                    className={`flex items-center transition-colors ${
-                      active ? "bg-[#01a9a0]/8" : "hover:bg-slate-50"
-                    }`}
+                    className={`flex items-center transition-colors ${active ? "bg-[#01a9a0]/8" : "hover:bg-slate-50"
+                      }`}
                   >
                     <Link
                       href={item.href}
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className={`flex-1 px-6 py-3.5 text-[15px] sm:text-[16px] font-bold uppercase tracking-wider font-anek transition-colors ${
-                        active
-                          ? "text-[#01a9a0]"
-                          : "text-slate-800 hover:text-[#01a9a0]"
-                      }`}
+                      className={`flex-1 px-6 py-3.5 text-[15px] sm:text-[16px] font-bold uppercase tracking-wider font-anek transition-colors ${active
+                        ? "text-[#01a9a0]"
+                        : "text-slate-800 hover:text-[#01a9a0]"
+                        }`}
                     >
                       {item.name}
                     </Link>
                     {hasMega && (
                       <button
                         onClick={() => setMobileExpanded(isExpanded ? null : item.megaKey!)}
-                        className={`px-5 py-3.5 transition-colors cursor-pointer ${
-                          isExpanded
-                            ? "text-[#01a9a0]"
-                            : "text-slate-400 hover:text-[#01a9a0]"
-                        }`}
+                        className={`px-5 py-3.5 transition-colors cursor-pointer ${isExpanded
+                          ? "text-[#01a9a0]"
+                          : "text-slate-400 hover:text-[#01a9a0]"
+                          }`}
                         aria-label={`Toggle ${item.name}`}
                       >
                         <ChevronDown
-                          className={`w-4 h-4 transition-transform duration-200 stroke-[2.2] ${
-                            isExpanded ? "rotate-180" : ""
-                          }`}
+                          className={`w-4 h-4 transition-transform duration-200 stroke-[2.2] ${isExpanded ? "rotate-180" : ""
+                            }`}
                         />
                       </button>
                     )}
@@ -952,9 +947,8 @@ const Navbar = () => {
                               <p className="text-[14px] sm:text-[14.5px] text-slate-500 truncate mt-0.5">{sub.sub}</p>
                             </div>
                             <ChevronRight
-                              className={`w-3.5 h-3.5 text-slate-300 group-hover:text-[#01a9a0] group-hover:translate-x-0.5 flex-shrink-0 transition-all ${
-                                isArabic ? "rotate-180 group-hover:-translate-x-0.5" : ""
-                              }`}
+                              className={`w-3.5 h-3.5 text-slate-300 group-hover:text-[#01a9a0] group-hover:translate-x-0.5 flex-shrink-0 transition-all ${isArabic ? "rotate-180 group-hover:-translate-x-0.5" : ""
+                                }`}
                             />
                           </Link>
                         ))}
