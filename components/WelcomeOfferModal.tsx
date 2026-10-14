@@ -206,7 +206,7 @@ export default function WelcomeOfferModal({
     >
       {/* Modal Card */}
       <div
-        className="relative w-full max-w-4xl bg-[#E6F7F6] rounded-2xl sm:rounded-[32px] overflow-hidden shadow-2xl border border-[#01a9a0]/25 grid grid-cols-1 md:grid-cols-12 max-h-[92vh] animate-in zoom-in-95 duration-300"
+        className="relative w-full max-w-lg md:max-w-2xl lg:max-w-[700px] xl:max-w-[740px] bg-[#E6F7F6] rounded-2xl sm:rounded-[32px] overflow-y-auto md:overflow-hidden shadow-2xl border border-[#01a9a0]/25 grid grid-cols-1 md:grid-cols-12 max-h-[90vh] md:max-h-[92vh] animate-in zoom-in-95 duration-300"
         onClick={(e) => e.stopPropagation()}
         style={{ direction: isArabic ? "rtl" : "ltr" }}
       >
@@ -235,39 +235,42 @@ export default function WelcomeOfferModal({
         {/* ========================================================= */}
         {/* LEFT COLUMN: WELCOME & PROMO OFFER                       */}
         {/* ========================================================= */}
-        <div className="md:col-span-6 p-6 sm:p-8 md:p-9 lg:p-10 flex flex-col justify-center bg-[#E6F7F6] border-b md:border-b-0 md:border-r rtl:md:border-r-0 rtl:md:border-l border-[#01a9a0]/15 overflow-y-auto">
-          {/* Eyebrow */}
-          <div className="flex items-center gap-2 mb-2">
-            <span className="w-5 sm:w-6 h-[2.5px] bg-[#01a9a0] rounded-full" />
-            <span className="text-[11px] sm:text-xs font-black uppercase tracking-wider text-[#01a9a0]">
-              {isArabic ? "مرحباً بكم" : "WELCOME"}
-            </span>
+        <div className="md:col-span-6 p-5 sm:p-7 md:p-8 lg:p-8 xl:p-9 flex flex-col justify-start md:justify-center gap-3.5 sm:gap-4.5 lg:gap-5 bg-[#E6F7F6] border-b md:border-b-0 md:border-r rtl:md:border-r-0 rtl:md:border-l border-[#01a9a0]/15 overflow-visible md:overflow-y-auto">
+          {/* Top text block */}
+          <div>
+            {/* Eyebrow */}
+            <div className="flex items-center gap-2 mb-2">
+              <span className="w-5 sm:w-6 h-[2.5px] bg-[#01a9a0] rounded-full" />
+              <span className="text-[11px] sm:text-xs font-black uppercase tracking-wider text-[#01a9a0]">
+                {isArabic ? "مرحباً بكم" : "WELCOME"}
+              </span>
+            </div>
+
+            {/* Main Headline */}
+            <h2 className="text-xl sm:text-2xl lg:text-[23px] font-black text-stone-900 tracking-tight leading-tight mb-2">
+              {isArabic
+                ? "احمِ مشروعك بالحل المناسب"
+                : "Protect Your Project With the Right Solution"}
+            </h2>
+
+            {/* Subtitle / Description */}
+            <p className="text-xs sm:text-[12.5px] text-stone-700 leading-relaxed">
+              {isArabic
+                ? "هل تبحث عن حلول موثوقة لعزل المياه، أو الأسقف، أو الإصلاح، أو العزل الحراري، أو الأرضيات؟ فريقنا ذو الخبرة مستعد لمساعدتك في العثور على الحل المناسب لمشروعك."
+                : "Looking for reliable waterproofing, roofing, repair, insulation, or flooring solutions? Our experienced team is ready to help you find the right solution for your project."}
+            </p>
           </div>
 
-          {/* Main Headline */}
-          <h2 className="text-xl sm:text-2xl lg:text-[26px] font-black text-stone-900 tracking-tight leading-tight mb-2.5">
-            {isArabic
-              ? "احمِ مشروعك بالحل المناسب"
-              : "Protect Your Project With the Right Solution"}
-          </h2>
-
-          {/* Subtitle / Description */}
-          <p className="text-xs sm:text-[13px] text-stone-700 leading-relaxed mb-4">
-            {isArabic
-              ? "هل تبحث عن حلول موثوقة لعزل المياه، أو الأسقف، أو الإصلاح، أو العزل الحراري، أو الأرضيات؟ فريقنا ذو الخبرة مستعد لمساعدتك في العثور على الحل المناسب لمشروعك."
-              : "Looking for reliable waterproofing, roofing, repair, insulation, or flooring solutions? Our experienced team is ready to help you find the right solution for your project."}
-          </p>
-
           {/* Offer Highlight Box */}
-          <div className="mb-4 p-3.5 sm:p-4 rounded-2xl bg-white border border-[#01a9a0]/25 shadow-xs flex items-start gap-3">
+          <div className="p-3.5 sm:p-4 rounded-2xl bg-white border border-[#01a9a0]/25 shadow-xs flex items-start gap-3">
             <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#01a9a0] text-white flex items-center justify-center shrink-0 mt-0.5 shadow-sm">
               <Tag className="w-4.5 h-4.5 sm:w-5 sm:h-5" />
             </div>
             <div>
-              <h3 className="text-base sm:text-lg font-bold text-stone-900 leading-snug">
+              <h3 className="text-sm sm:text-base font-bold text-stone-900 leading-snug">
                 {isArabic ? "احصل على خصم 10% على مشروعك الأول" : "Get 10% Off Your First Project"}
               </h3>
-              <p className="text-xs sm:text-sm text-stone-600 leading-relaxed mt-0.5">
+              <p className="text-xs text-stone-600 leading-relaxed mt-0.5">
                 {isArabic
                   ? "تحدث إلى فريقنا اليوم واحصل على خصم 10% على أول مشروع لك."
                   : "Talk to our team today and receive 10% off your first project."}
@@ -276,20 +279,20 @@ export default function WelcomeOfferModal({
           </div>
 
           {/* Key Benefits Grid */}
-          <div className="hidden grid grid-cols-2 gap-2.5 pt-1 text-[11px] sm:text-xs text-stone-700 font-medium">
-            <div className="flex items-center gap-2">
+          <div className="grid grid-cols-2 gap-2.5 sm:gap-3 pt-0.5 text-[11px] sm:text-xs text-stone-700 font-medium">
+            <div className="flex items-center gap-1.5 sm:gap-2">
               <CheckCircle2 className="w-3.5 h-3.5 text-[#01a9a0] shrink-0" />
               <span>{isArabic ? "استشارة مجانية" : "Free Consultation"}</span>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5 sm:gap-2">
               <CheckCircle2 className="w-3.5 h-3.5 text-[#01a9a0] shrink-0" />
               <span>{isArabic ? "ضمان حتى 25 سنة" : "Up to 25Y Warranty"}</span>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5 sm:gap-2">
               <CheckCircle2 className="w-3.5 h-3.5 text-[#01a9a0] shrink-0" />
               <span>{isArabic ? "استجابة سريعة 24/7" : "24/7 Response"}</span>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5 sm:gap-2">
               <CheckCircle2 className="w-3.5 h-3.5 text-[#01a9a0] shrink-0" />
               <span>{isArabic ? "فريق عمل معتمد" : "Certified Experts"}</span>
             </div>
@@ -299,8 +302,8 @@ export default function WelcomeOfferModal({
         {/* ========================================================= */}
         {/* RIGHT COLUMN: 4-FIELD FORM                               */}
         {/* ========================================================= */}
-        <div className="md:col-span-6 p-6 sm:p-8 flex flex-col justify-center bg-white overflow-y-auto max-h-[calc(92vh-100px)] md:max-h-none">
-          <div className="mb-3.5">
+        <div className="md:col-span-6 p-5 sm:p-7 md:p-8 lg:p-8 xl:p-9 pb-8 sm:pb-8 md:pb-8 flex flex-col justify-start md:justify-center gap-3 sm:gap-4 lg:gap-4.5 bg-white overflow-visible md:overflow-y-auto md:max-h-none">
+          <div>
             <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#01a9a0]/10 text-[#01a9a0] text-[11px] font-bold uppercase tracking-wider mb-1.5">
               <Sparkles className="w-3.5 h-3.5" />
               <span>{isArabic ? "طلب استشارة سريعة" : "Quick Consultation"}</span>
@@ -317,7 +320,7 @@ export default function WelcomeOfferModal({
 
           {/* Form or Submitted State */}
           {isSubmitted ? (
-            <div className="bg-emerald-50 border border-emerald-200/80 rounded-2xl p-5 sm:p-6 flex flex-col items-center text-center gap-3 animate-in zoom-in-95 duration-200">
+            <div className="bg-emerald-50 border border-emerald-200/80 rounded-2xl p-5 sm:p-6 flex flex-col items-center justify-center text-center gap-3 my-auto animate-in zoom-in-95 duration-200">
               <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shadow-inner">
                 <CheckCircle2 className="w-7 h-7" />
               </div>
@@ -340,9 +343,9 @@ export default function WelcomeOfferModal({
               </button>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-3 sm:gap-3.5">
+            <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-2.5 sm:gap-3">
               {/* 4 Fields Grid Matching Website Floating-Label Standard */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2.5 sm:gap-3">
                 {/* Field 1: Name * */}
                 <div>
                   <div className="relative">
@@ -527,12 +530,12 @@ export default function WelcomeOfferModal({
               </div>
 
               {/* Action Buttons: Managed Primary CTA & Secondary Dismiss */}
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-2.5 mt-2">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 mt-2 sm:mt-1.5 pb-2 sm:pb-0">
                 {/* Primary Action Button */}
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="flex-1 bg-[#01a9a0] hover:bg-[#008f86] text-white font-bold h-10 sm:h-10.5 px-5 rounded-full text-xs sm:text-sm tracking-wide shadow-md hover:shadow-lg hover:shadow-[#01a9a0]/20 transition-all duration-200 flex items-center justify-center gap-2 active:scale-[0.99] cursor-pointer disabled:opacity-70"
+                  className="w-full bg-[#01a9a0] hover:bg-[#008f86] text-white font-bold h-11 sm:h-11 px-5 rounded-full text-xs sm:text-sm tracking-wider shadow-md hover:shadow-lg hover:shadow-[#01a9a0]/25 transition-all duration-200 flex items-center justify-center gap-2 active:scale-[0.99] cursor-pointer disabled:opacity-70"
                 >
                   {isSubmitting ? (
                     <>
