@@ -143,7 +143,7 @@ export default function ProjectsClients({
                 ? "شركاء نجاحنا، الذين تحولت أحلامهم إلى واقع ملموس."
                 : "The partners of our success, whose dreams have become a reality."}
             </p>
-            <div className="flex items-center gap-2.5 shrink-0">
+            <div className="flex items-center justify-end sm:justify-start gap-2.5 shrink-0 w-full sm:w-auto self-end sm:self-auto">
               <button
                 type="button"
                 onClick={() => nudge("prev")}
