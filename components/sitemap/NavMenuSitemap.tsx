@@ -747,11 +747,11 @@ export default function NavMenuSitemap() {
           </div>
         ) : (
           /* Multi-column Directory Grid Matching Reference Image */
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-8 lg:gap-x-12 gap-y-10 sm:gap-y-12">
+          <div className="grid grid-cols-1 gap-x-8 lg:gap-x-12 gap-y-10 sm:gap-y-12">
             {filteredGroups.map((group) => (
               <div key={group.id} className="flex flex-col">
                 {/* Section Title (Bold, Dark text like reference) */}
-                <h2 className="text-lg sm:text-xl font-bold text-slate-950 mb-3.5 tracking-tight">
+                <h2 className="text-lg sm:text-xl font-bold text-[#01a9a0] mb-3.5 tracking-tight">
                   <Link
                     href={group.mainHref}
                     className="hover:text-[#0067b8] transition-colors"
@@ -768,14 +768,14 @@ export default function NavMenuSitemap() {
                         <button
                           type="button"
                           onClick={() => setActiveContactModal(item.action!)}
-                          className="text-[#0067b8] hover:text-[#004b87] underline underline-offset-2 decoration-[#0067b8]/80 hover:decoration-[#004b87] text-[15px] sm:text-[15.5px] leading-snug text-left rtl:text-right transition-colors cursor-pointer"
+                          className="text-[#0067b8] hover:text-[#004b87] decoration-[#0067b8]/80 hover:decoration-[#004b87] text-[15px] sm:text-[15.5px] leading-snug text-left rtl:text-right transition-colors cursor-pointer"
                         >
                           {isArabic ? item.titleAr : item.titleEn}
                         </button>
                       ) : (
                         <Link
                           href={item.href}
-                          className="text-[#0067b8] hover:text-[#004b87] underline underline-offset-2 decoration-[#0067b8]/80 hover:decoration-[#004b87] text-[15px] sm:text-[15.5px] leading-snug inline-block transition-colors"
+                          className="text-[#0067b8] hover:text-[#004b87] decoration-[#0067b8]/80 hover:decoration-[#004b87] text-[15px] sm:text-[15.5px] leading-snug inline-block transition-colors"
                         >
                           {isArabic ? item.titleAr : item.titleEn}
                         </Link>
