@@ -679,7 +679,7 @@ export default function NavMenuSitemap() {
                   ? "ابحث في روابط خريطة الموقع..."
                   : "Search sitemap links..."
               }
-              className="w-full pl-11 pr-20 rtl:pl-20 rtl:pr-11 py-3.5 sm:py-4 text-sm sm:text-base rounded-2xl border border-slate-300 hover:border-[#01a9a0]/60 bg-white text-slate-900 shadow-sm transition-all outline-none focus:border-[#01a9a0] focus:ring-4 focus:ring-[#01a9a0]/20 focus:shadow-[0_4px_24px_rgba(1,169,160,0.22)] placeholder:text-slate-400"
+              className="w-full pl-11 pr-20 rtl:pl-20 rtl:pr-11 py-3.5 sm:py-4 text-sm sm:text-base rounded-2xl border border-slate-300 hover:border-[#01a9a0]/60 bg-[#e8f0fd] text-slate-900 shadow-sm transition-all outline-none focus:border-[#01a9a0] focus:ring-4 focus:ring-[#01a9a0]/20 focus:shadow-[0_4px_24px_rgba(1,169,160,0.22)] placeholder:text-slate-400"
             />
             <div className="absolute inset-y-0 right-0 rtl:right-auto rtl:left-0 pr-3 rtl:pr-0 rtl:pl-3 flex items-center gap-1.5">
               <VoiceMicButton
