@@ -416,7 +416,7 @@ export default function Footer() {
                     }
                   >
                     <span className="leading-snug">{t.footer.workingHours}</span>
-                    <span className="text-stone-400 text-xs">{t.footer.closedDay}</span>
+                    <span className="text-stone-700 text-xs">{t.footer.closedDay}</span>
                   </ContactItem>
                 </div>
               </div>
@@ -465,49 +465,58 @@ export default function Footer() {
               </div>
 
               {/* Refund & Legal Policy Links */}
-              <div className="flex flex-wrap items-center justify-center sm:justify-end gap-x-3 sm:gap-x-4 lg:gap-x-3 gap-y-2 text-sm lg:text-base text-stone-600">
-                <Link
-                  href="/sitemap"
-                  className="hover:text-[#01a9a0] transition-colors whitespace-nowrap"
-                >
-                  {isArabic ? "خريطة الموقع" : "Site Map"}
-                </Link>
-                <span className="text-stone-300 select-none">•</span>
-                <Link
-                  href="/refund-policy"
-                  className="hover:text-[#01a9a0] transition-colors whitespace-nowrap"
-                >
-                  {isArabic ? "سياسة الاسترداد والإلغاء" : "Refund & Cancellation Policy"}
-                </Link>
-                <span className="text-stone-300 select-none">•</span>
-                <Link
-                  href="/privacy"
-                  className="hover:text-[#01a9a0] transition-colors whitespace-nowrap"
-                >
-                  {isArabic ? "سياسة الخصوصية" : "Privacy Policy"}
-                </Link>
-                <span className="text-stone-300 select-none">•</span>
-                <Link
-                  href="/terms"
-                  className="hover:text-[#01a9a0] transition-colors whitespace-nowrap"
-                >
-                  {isArabic ? "شروط الاستخدام" : "Terms of Use"}
-                </Link>
-                <span className="text-stone-300 select-none">•</span>
-                <Link
-                  href="/cookies"
-                  className="hover:text-[#01a9a0] transition-colors whitespace-nowrap"
-                >
-                  {isArabic ? "سياسة الكوكيز" : "Cookie Policy"}
-                </Link>
-                <span className="text-stone-300 select-none">•</span>
-                <button
-                  type="button"
-                  onClick={() => window.dispatchEvent(new CustomEvent("open-subscribe-modal"))}
-                  className="hover:text-[#01a9a0] transition-colors whitespace-nowrap cursor-pointer"
-                >
-                  {isArabic ? "الاشتراك" : "Subscribe to emails"}
-                </button>
+              <div className="w-full sm:w-auto flex flex-row justify-between items-start sm:items-center sm:justify-end gap-y-2 text-sm lg:text-base text-stone-600">
+                {/* 3 Left Aligned Links on Mobile */}
+                <div className="flex flex-col items-start text-start gap-2.5 sm:flex-row sm:items-center sm:gap-x-3 sm:gap-x-4 lg:gap-x-3">
+                  <Link
+                    href="/sitemap"
+                    className="hover:text-[#01a9a0] transition-colors whitespace-normal sm:whitespace-nowrap"
+                  >
+                    {isArabic ? "خريطة الموقع" : "Site Map"}
+                  </Link>
+                  <span className="hidden sm:inline text-stone-300 select-none">•</span>
+                  <Link
+                    href="/refund-policy"
+                    className="hover:text-[#01a9a0] transition-colors whitespace-normal sm:whitespace-nowrap"
+                  >
+                    {isArabic ? "سياسة الاسترداد والإلغاء" : "Refund & Cancellation Policy"}
+                  </Link>
+                  <span className="hidden sm:inline text-stone-300 select-none">•</span>
+                  <Link
+                    href="/privacy"
+                    className="hover:text-[#01a9a0] transition-colors whitespace-normal sm:whitespace-nowrap"
+                  >
+                    {isArabic ? "سياسة الخصوصية" : "Privacy Policy"}
+                  </Link>
+                </div>
+
+                {/* Divider between groups on desktop */}
+                <span className="hidden sm:inline text-stone-300 select-none sm:mx-3 sm:mx-4 lg:mx-3">•</span>
+
+                {/* 3 Right Aligned Links on Mobile */}
+                <div className="flex flex-col items-end text-end gap-2.5 sm:flex-row sm:items-center sm:gap-x-3 sm:gap-x-4 lg:gap-x-3">
+                  <Link
+                    href="/terms"
+                    className="hover:text-[#01a9a0] transition-colors whitespace-normal sm:whitespace-nowrap"
+                  >
+                    {isArabic ? "شروط الاستخدام" : "Terms of Use"}
+                  </Link>
+                  <span className="hidden sm:inline text-stone-300 select-none">•</span>
+                  <Link
+                    href="/cookies"
+                    className="hover:text-[#01a9a0] transition-colors whitespace-normal sm:whitespace-nowrap"
+                  >
+                    {isArabic ? "سياسة الكوكيز" : "Cookie Policy"}
+                  </Link>
+                  <span className="hidden sm:inline text-stone-300 select-none">•</span>
+                  <button
+                    type="button"
+                    onClick={() => window.dispatchEvent(new CustomEvent("open-subscribe-modal"))}
+                    className="hover:text-[#01a9a0] transition-colors whitespace-normal sm:whitespace-nowrap cursor-pointer text-end sm:text-start"
+                  >
+                    {isArabic ? "الاشتراك" : "Subscribe to emails"}
+                  </button>
+                </div>
               </div>
 
 
