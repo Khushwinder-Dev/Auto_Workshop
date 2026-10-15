@@ -188,7 +188,7 @@ export default function TemplateA({ service, sub, isArabic }: Props) {
 
       {/* ── 4. GALLERY SLIDER ─────────────────────────────────── */}
       {gallery.length > 0 && (
-        <GallerySlider images={gallery} title={isArabic ? "معرض الصور" : "Gallery"} maxImages={6} />
+        <GallerySlider images={gallery} title={isArabic ? "معرض الصور" : "Gallery"} />
       )}
 
 

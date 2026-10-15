@@ -146,7 +146,7 @@ export default function TemplateB({ service, sub, isArabic }: Props) {
     <article className="w-full" dir={isArabic ? "rtl" : "ltr"}>
 
       {/* ── 1. SERVICE INTRO ──────────────────────────────────── */}
-      {["grp-fiberglass-waterproofing", "epoxy-floor-coating", "bitumen-membrane-waterproofing", "polyurea-coating-waterproofing", "injection-waterproofing", "bitumen-membrane-waterproofing"].includes(sub.serviceSlug) ? (
+      {["grp-fiberglass-waterproofing", "epoxy-floor-coating", "bitumen-membrane-waterproofing", "polyurea-coating-waterproofing", "injection-waterproofing"].includes(sub.serviceSlug) ? (
         <p className="text-[14px] text-stone-600 leading-relaxed mb-8 border-[#009e90]/40">
           {sub.service.serviceContent}
         </p>
@@ -219,7 +219,7 @@ export default function TemplateB({ service, sub, isArabic }: Props) {
 
       {/* ── 4. GALLERY SLIDER ─────────────────────────────────── */}
       {gallery.length > 0 && (
-        <GallerySlider images={gallery} title={isArabic ? "معرض الصور" : "Gallery"} maxImages={6} />
+        <GallerySlider images={gallery} title={isArabic ? "معرض الصور" : "Gallery"} />
       )}
 
 

@@ -219,7 +219,7 @@ export default function TemplateC({ service, sub, isArabic }: Props) {
 
       {/* ── 7. GALLERY SLIDER ─────────────────────────────────── */}
       {galleryImages.length > 0 && (
-        <GallerySlider images={galleryImages} title={isArabic ? "معرض الصور" : "Gallery"} maxImages={6} />
+        <GallerySlider images={galleryImages} title={isArabic ? "معرض الصور" : "Gallery"} />
       )}
 
       {/* ── 8. BOTTOM CTA ──────────────────────────────────────── */}
