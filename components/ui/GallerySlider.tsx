@@ -37,8 +37,8 @@ export default function GallerySlider({ images, title, maxImages }: GallerySlide
 
   const total = base.length;
 
-  // Responsive visible count: 4 on desktop, 3 on tablet, 2 on mobile
-  const [visibleCount, setVisibleCount] = useState(4);
+  // Responsive visible count: 5 on desktop (reduced compact size), 3 on tablet, 2 on mobile
+  const [visibleCount, setVisibleCount] = useState(5);
   const [current, setCurrent] = useState(0);
   const [lightbox, setLightbox] = useState<number | null>(null);
   const [isHovered, setIsHovered] = useState(false);
@@ -50,7 +50,7 @@ export default function GallerySlider({ images, title, maxImages }: GallerySlide
   // Responsive visible count
   useEffect(() => {
     const update = () => {
-      if (window.innerWidth >= 1024) setVisibleCount(4);
+      if (window.innerWidth >= 1024) setVisibleCount(5);
       else if (window.innerWidth >= 640) setVisibleCount(3);
       else setVisibleCount(2);
     };
@@ -143,12 +143,12 @@ export default function GallerySlider({ images, title, maxImages }: GallerySlide
   return (
     <>
       <section
-        className="mb-10 select-none"
+        className="mb-8 select-none w-full"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
         {/* Slider wrapper */}
-        <div className="relative px-6 sm:px-8">
+        <div className="relative px-5 sm:px-7">
           {/* Track */}
           <div
             className="overflow-hidden"
@@ -158,9 +158,8 @@ export default function GallerySlider({ images, title, maxImages }: GallerySlide
             onTouchEnd={handleTouchEnd}
           >
             <div
-              className={`flex transition-transform duration-500 ease-out ${
-                total <= effectiveVisible ? "justify-center" : ""
-              }`}
+              className={`flex transition-transform duration-500 ease-out ${total <= effectiveVisible ? "justify-center" : ""
+                }`}
               style={{
                 transform: `translateX(-${current * slideWidth}%)`,
               }}
@@ -168,11 +167,11 @@ export default function GallerySlider({ images, title, maxImages }: GallerySlide
               {base.map((src, i) => (
                 <div
                   key={`${src}-${i}`}
-                  className="flex-shrink-0 px-1.5 cursor-pointer"
+                  className="flex-shrink-0 px-1 sm:px-1.5 cursor-pointer"
                   style={{ width: `${slideWidth}%` }}
                   onClick={() => setLightbox(i)}
                 >
-                  <div className="relative aspect-square overflow-hidden rounded-xl bg-stone-100 shadow-xs hover:shadow-md transition-all duration-300 border border-stone-200/80 group">
+                  <div className="relative aspect-square overflow-hidden bg-stone-100 shadow-2xs hover:shadow-md transition-all duration-300 border border-stone-200/80 group">
                     <Image
                       src={src}
                       alt={`${title ?? "Gallery"} ${i + 1}`}
@@ -181,8 +180,8 @@ export default function GallerySlider({ images, title, maxImages }: GallerySlide
                       className="object-cover group-hover:scale-108 transition-transform duration-500"
                     />
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/15 transition-colors duration-300 flex items-center justify-center">
-                      <span className="w-8 h-8 rounded-full bg-white/80 text-stone-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center shadow-sm">
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                      <span className="w-7 h-7 rounded-full bg-white/85 text-stone-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center shadow-xs">
+                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7" />
                         </svg>
                       </span>
@@ -201,13 +200,12 @@ export default function GallerySlider({ images, title, maxImages }: GallerySlide
                 onClick={goPrev}
                 disabled={current <= 0}
                 aria-label="Previous gallery image"
-                className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#01a9a0] text-white flex items-center justify-center shadow-md transition-all duration-200 ${
-                  current <= 0
-                    ? "opacity-30 cursor-not-allowed pointer-events-none"
-                    : "hover:bg-[#008f88] cursor-pointer hover:scale-110 active:scale-95"
-                }`}
+                className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#01a9a0] text-white flex items-center justify-center shadow-md transition-all duration-200 ${current <= 0
+                  ? "opacity-30 cursor-not-allowed pointer-events-none"
+                  : "hover:bg-[#008f88] cursor-pointer hover:scale-110 active:scale-95"
+                  }`}
               >
-                <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
+                <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
               </button>
 
               <button
@@ -215,13 +213,12 @@ export default function GallerySlider({ images, title, maxImages }: GallerySlide
                 onClick={goNext}
                 disabled={current >= maxIndex}
                 aria-label="Next gallery image"
-                className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#01a9a0] text-white flex items-center justify-center shadow-md transition-all duration-200 ${
-                  current >= maxIndex
-                    ? "opacity-30 cursor-not-allowed pointer-events-none"
-                    : "hover:bg-[#008f88] cursor-pointer hover:scale-110 active:scale-95"
-                }`}
+                className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#01a9a0] text-white flex items-center justify-center shadow-md transition-all duration-200 ${current >= maxIndex
+                  ? "opacity-30 cursor-not-allowed pointer-events-none"
+                  : "hover:bg-[#008f88] cursor-pointer hover:scale-110 active:scale-95"
+                  }`}
               >
-                <ChevronRight className="w-5 h-5 stroke-[2.5]" />
+                <ChevronRight className="w-4 h-4 stroke-[2.5]" />
               </button>
             </>
           )}
@@ -229,18 +226,17 @@ export default function GallerySlider({ images, title, maxImages }: GallerySlide
 
         {/* Dot Indicators: corresponds to each scroll step */}
         {maxIndex > 0 && (
-          <div className="flex justify-center items-center gap-1.5 mt-4">
+          <div className="flex justify-center items-center gap-1.5 mt-3">
             {Array.from({ length: maxIndex + 1 }).map((_, i) => (
               <button
                 key={i}
                 type="button"
                 onClick={() => setCurrent(i)}
                 aria-label={`Go to slide position ${i + 1}`}
-                className={`rounded-full transition-all duration-300 cursor-pointer ${
-                  i === current
-                    ? "w-6 h-1.5 bg-[#01a9a0]"
-                    : "w-1.5 h-1.5 bg-stone-300 hover:bg-[#01a9a0]/60"
-                }`}
+                className={`rounded-full transition-all duration-300 cursor-pointer ${i === current
+                  ? "w-5 h-1.5 bg-[#01a9a0]"
+                  : "w-1.5 h-1.5 bg-stone-300 hover:bg-[#01a9a0]/60"
+                  }`}
               />
             ))}
           </div>
@@ -272,11 +268,10 @@ export default function GallerySlider({ images, title, maxImages }: GallerySlide
                 e.stopPropagation();
                 setLightbox((p) => (p === null ? 0 : Math.max(0, p - 1)));
               }}
-              className={`absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-[#01a9a0] text-white flex items-center justify-center transition-all shadow-lg z-20 ${
-                lightbox <= 0
-                  ? "opacity-30 cursor-not-allowed pointer-events-none"
-                  : "hover:bg-[#008f88] cursor-pointer hover:scale-105 active:scale-95"
-              }`}
+              className={`absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-[#01a9a0] text-white flex items-center justify-center transition-all shadow-lg z-20 ${lightbox <= 0
+                ? "opacity-30 cursor-not-allowed pointer-events-none"
+                : "hover:bg-[#008f88] cursor-pointer hover:scale-105 active:scale-95"
+                }`}
               aria-label="Previous image"
             >
               <ChevronLeft className="w-6 h-6 stroke-[2.2]" />
@@ -307,11 +302,10 @@ export default function GallerySlider({ images, title, maxImages }: GallerySlide
                 e.stopPropagation();
                 setLightbox((p) => (p === null ? 0 : Math.min(total - 1, p + 1)));
               }}
-              className={`absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-[#01a9a0] text-white flex items-center justify-center transition-all shadow-lg z-20 ${
-                lightbox >= total - 1
-                  ? "opacity-30 cursor-not-allowed pointer-events-none"
-                  : "hover:bg-[#008f88] cursor-pointer hover:scale-105 active:scale-95"
-              }`}
+              className={`absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-[#01a9a0] text-white flex items-center justify-center transition-all shadow-lg z-20 ${lightbox >= total - 1
+                ? "opacity-30 cursor-not-allowed pointer-events-none"
+                : "hover:bg-[#008f88] cursor-pointer hover:scale-105 active:scale-95"
+                }`}
               aria-label="Next image"
             >
               <ChevronRight className="w-6 h-6 stroke-[2.2]" />
