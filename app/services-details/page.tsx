@@ -166,11 +166,10 @@ function Sidebar({
             <div key={svc.serviceSlug} className="flex flex-col">
               {/* Parent service row */}
               <div
-                className={`flex items-center justify-between rounded-lg w-full transition-all duration-150 group ${
-                  isActive
-                    ? "bg-[#009e90] text-white shadow-[0_4px_14px_rgba(0,158,144,0.28)]"
-                    : "text-stone-600 hover:bg-stone-100 hover:text-stone-900"
-                }`}
+                className={`flex items-center justify-between rounded-lg w-full transition-all duration-150 group ${isActive
+                  ? "bg-[#009e90] text-white shadow-[0_4px_14px_rgba(0,158,144,0.28)]"
+                  : "text-stone-600 hover:bg-stone-100 hover:text-stone-900"
+                  }`}
               >
                 <Link
                   href={`/services-details?service=${svc.serviceNumber}`}
@@ -180,9 +179,8 @@ function Sidebar({
                   }}
                 >
                   <div
-                    className={`w-6 h-6 rounded-md flex items-center justify-center flex-shrink-0 ${
-                      isActive ? "bg-white/20" : "bg-[#009e90]/10"
-                    }`}
+                    className={`w-6 h-6 rounded-md flex items-center justify-center flex-shrink-0 ${isActive ? "bg-white/20" : "bg-[#009e90]/10"
+                      }`}
                   >
                     <ServiceIcon slug={svc.serviceSlug} active={isActive} size={14} />
                   </div>
@@ -204,9 +202,8 @@ function Sidebar({
                           ? "عرض الخدمات الفرعية"
                           : "Show sub-services"
                     }
-                    className={`p-2.5 rounded-r-lg transition-colors cursor-pointer flex-shrink-0 ${
-                      isActive ? "hover:bg-white/10 text-white" : "text-stone-400 hover:text-stone-700"
-                    }`}
+                    className={`p-2.5 rounded-r-lg transition-colors cursor-pointer flex-shrink-0 ${isActive ? "hover:bg-white/10 text-white" : "text-stone-400 hover:text-stone-700"
+                      }`}
                   >
                     {isOpen ? (
                       <ChevronDown className="w-3.5 h-3.5 flex-shrink-0 opacity-80" />
@@ -220,9 +217,8 @@ function Sidebar({
               {/* Sub-services dropdown */}
               {hasSubs && isOpen && (
                 <div
-                  className={`mt-1 mb-2 flex flex-col gap-0.5 py-1 ${
-                    isArabic ? "pr-3 mr-3 border-r-2" : "pl-3 ml-3 border-l-2"
-                  } border-[#009e90]/30 transition-all`}
+                  className={`mt-1 mb-2 flex flex-col gap-0.5 py-1 ${isArabic ? "pr-3 mr-3 border-r-2" : "pl-3 ml-3 border-l-2"
+                    } border-[#009e90]/30 transition-all`}
                 >
                   {/* Overview link */}
                   {/* Individual subservices */}
@@ -237,16 +233,14 @@ function Sidebar({
                       <Link
                         key={sub.id || sub.serviceSlug}
                         href={`/services-details?service=${svc.serviceNumber}&sub=${sub.serviceSlug}`}
-                        className={`text-[12px] py-1.5 px-2 rounded-md transition-all flex items-center gap-2 ${
-                          isSubActive
-                            ? "bg-[#009e90] text-white font-semibold shadow-xs"
-                            : "text-stone-600 hover:text-[#009e90] hover:bg-stone-100 font-medium"
-                        }`}
+                        className={`text-[12px] py-1.5 px-2 rounded-md transition-all flex items-center gap-2 ${isSubActive
+                          ? "bg-[#009e90] text-white font-semibold shadow-xs"
+                          : "text-stone-600 hover:text-[#009e90] hover:bg-stone-100 font-medium"
+                          }`}
                       >
                         <span
-                          className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${
-                            isSubActive ? "bg-white" : "bg-stone-400"
-                          }`}
+                          className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${isSubActive ? "bg-white" : "bg-stone-400"
+                            }`}
                         />
                         <span className="truncate flex-grow">{sub.serviceTitle}</span>
                       </Link>
@@ -322,55 +316,6 @@ function ServiceOverview({
         </div>
       </div>
 
-      {/* Why choose section */}
-      {/* {service.whyChooseTitle && (
-        <div className="bg-stone-50 border border-stone-100 rounded-2xl p-6 sm:p-8">
-          <h3 className="text-[18px] sm:text-[20px] font-extrabold text-stone-900 mb-2">
-            {service.whyChooseTitle}
-          </h3>
-          <p className="text-[13.5px] text-stone-600 leading-relaxed mb-5">
-            {service.whyChooseContent}
-          </p>
-          {service.whyChoosePoints?.length > 0 && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-              {service.whyChoosePoints.map((pt, i) => (
-                <div key={i} className="bg-white p-4 rounded-xl border border-stone-100 shadow-xs">
-                  <h4 className="text-[13px] font-bold text-stone-900 mb-1 flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#009e90] flex-shrink-0" />
-                    {pt.title}
-                  </h4>
-                  <p className="text-[12px] text-stone-500 leading-relaxed">{pt.description}</p>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      )} */}
-
-      {/* Gallery */}
-      {/* {service.servicesgalaryImages?.length > 0 && (
-        <div>
-          <div className="flex items-center gap-2 mb-4">
-            <span className="w-[3px] h-5 bg-[#009e90] rounded-full" />
-            <h3 className="text-[17px] font-extrabold text-stone-900">
-              {isArabic ? "معرض المشاريع" : "Project Gallery"}
-            </h3>
-          </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-            {service.servicesgalaryImages.map((src, i) => (
-              <div key={i} className="relative aspect-square rounded-xl overflow-hidden bg-stone-100 shadow-xs hover:shadow-sm transition-shadow">
-                <SmartImage
-                  src={src}
-                  alt={`Gallery ${i + 1}`}
-                  fallbackSrc={FALLBACK_IMAGES[i % FALLBACK_IMAGES.length]}
-                  className="object-cover"
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      )} */}
-
       {/* CTA strip */}
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-[#0b2447] text-white p-6 sm:p-8 rounded-2xl">
         <div>
@@ -403,30 +348,30 @@ function ServiceDetailsContent() {
   const services = isArabic ? servicesDataAr : servicesDataEn;
 
   const serviceParam = searchParams.get("service") ?? "1";
-  const subParam     = searchParams.get("sub") ?? null;
+  const subParam = searchParams.get("sub") ?? null;
 
   /* Resolve service */
   const service: ServiceItem =
     services.find(
       (s) =>
         s.serviceNumber.toString() === serviceParam ||
-        s.serviceSlug.toLowerCase()  === serviceParam.toLowerCase() ||
-        s.serviceId.toLowerCase()    === serviceParam.toLowerCase()
+        s.serviceSlug.toLowerCase() === serviceParam.toLowerCase() ||
+        s.serviceId.toLowerCase() === serviceParam.toLowerCase()
     ) ?? services[0];
 
   /* Resolve sub-service */
   const activeSub: SubServiceItem | null = subParam
     ? service.subservices.find(
-        (s) =>
-          s.serviceSlug.toLowerCase() === subParam.toLowerCase() ||
-          s.id.toLowerCase()          === subParam.toLowerCase()
-      ) ?? null
+      (s) =>
+        s.serviceSlug.toLowerCase() === subParam.toLowerCase() ||
+        s.id.toLowerCase() === subParam.toLowerCase()
+    ) ?? null
     : null;
 
   /* Hero content */
   const rawHeroBanner = activeSub?.serviceBanner || service.serviceBanner || DEFAULT_BANNER;
   const staticBannerSrc = Array.isArray(rawHeroBanner) ? (rawHeroBanner[0] || DEFAULT_BANNER) : (rawHeroBanner || DEFAULT_BANNER);
-  const heroTitle   = activeSub ? activeSub.serviceTitle : service.serviceTitle;
+  const heroTitle = activeSub ? activeSub.serviceTitle : service.serviceTitle;
   const heroEyebrow = activeSub
     ? `${service.serviceTitle} • ${service.category}`
     : isArabic ? "خدمات تاج الرحمة" : "Taj Al Rahmah Services";
@@ -464,17 +409,17 @@ function ServiceDetailsContent() {
   // Banner slides: Sub-services of service on listing page, single sub-service banner on service details
   const bannerSlides = activeSub
     ? toBannerImages(
-        activeSub.serviceBanner || activeSub.serviceImage || service.serviceBanner,
-        DEFAULT_BANNER
-      ).map((image) => ({ image, title: activeSub.serviceTitle }))
+      activeSub.serviceBanner || activeSub.serviceImage || service.serviceBanner,
+      DEFAULT_BANNER
+    ).map((image) => ({ image, title: activeSub.serviceTitle }))
     : (service.subservices && service.subservices.length > 0)
-    ? service.subservices.flatMap((sub) =>
+      ? service.subservices.flatMap((sub) =>
         toBannerImages(
           sub.serviceBanner || sub.serviceImage || service.serviceBanner,
           DEFAULT_BANNER
         ).map((image) => ({ image, title: sub.serviceTitle }))
       )
-    : toBannerImages(
+      : toBannerImages(
         service.serviceBanner || service.serviceImage,
         DEFAULT_BANNER
       ).map((image) => ({ image, title: service.serviceTitle }));

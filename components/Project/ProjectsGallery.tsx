@@ -279,114 +279,6 @@ const PROJECTS: Project[] = [
     refCode: "018",
     date: "2024-07-21",
   },
-
-  // {
-  //   id: 19,
-  //   title: "Saadiyat Beach Resort Wing",
-  //   titleAr: "جناح منتجع شاطئ السعديات",
-  //   location: "Abu Dhabi, United Arab Emirates",
-  //   locationAr: "أبوظبي، الإمارات العربية المتحدة",
-  //   category: "hospitality",
-  //   image: IMG.pool,
-  //   refCode: "019",
-  //   date: "2024-06-18",
-  // },
-
-  // {
-  //   id: 20,
-  //   title: "Offshore Platform Maintenance",
-  //   titleAr: "صيانة المنصة البحرية",
-  //   location: "Abu Dhabi, United Arab Emirates",
-  //   locationAr: "أبوظبي، الإمارات العربية المتحدة",
-  //   category: "oil-gas",
-  //   image: IMG.oil,
-  //   refCode: "020",
-  //   date: "2024-05-02",
-  // },
-
-  // {
-  //   id: 21,
-  //   title: "Al Barari Residence",
-  //   titleAr: "مساكن البراري",
-  //   location: "Dubai, United Arab Emirates",
-  //   locationAr: "دبي، الإمارات العربية المتحدة",
-  //   category: "residential",
-  //   image: IMG.villa,
-  //   refCode: "021",
-  //   date: "2024-04-14",
-  // },
-
-  // {
-  //   id: 22,
-  //   title: "Ras Al Khor Industrial Yard",
-  //   titleAr: "الساحة الصناعية في رأس الخور",
-  //   location: "Dubai, United Arab Emirates",
-  //   locationAr: "دبي، الإمارات العربية المتحدة",
-  //   category: "industrial",
-  //   image: IMG.falcon,
-  //   refCode: "022",
-  //   date: "2024-03-09",
-  // },
-
-  // {
-  //   id: 23,
-  //   title: "Port Rashid Terminal",
-  //   titleAr: "محطة ميناء راشد",
-  //   location: "Dubai, United Arab Emirates",
-  //   locationAr: "دبي، الإمارات العربية المتحدة",
-  //   category: "transportation",
-  //   image: IMG.pumping,
-  //   refCode: "023",
-  //   date: "2024-02-26",
-  // },
-
-  // {
-  //   id: 24,
-  //   title: "Downtown Retail Complex",
-  //   titleAr: "مجمع التجزئة في وسط المدينة",
-  //   location: "Dubai, United Arab Emirates",
-  //   locationAr: "دبي، الإمارات العربية المتحدة",
-  //   category: "commercial",
-  //   image: IMG.office,
-  //   refCode: "024",
-  //   date: "2024-01-17",
-  // },
-
-  // {
-  //   id: 25,
-  //   title: "Utilities Corridor Protection",
-  //   titleAr: "حماية ممر المرافق",
-  //   location: "Abu Dhabi, United Arab Emirates",
-  //   locationAr: "أبوظبي، الإمارات العربية المتحدة",
-  //   category: "infrastructure",
-  //   image: IMG.pumping,
-  //   refCode: "025",
-  //   date: "2023-12-11",
-  // },
-
-  // {
-  //   id: 26,
-  //   title: "Al Quoz Industrial Warehouse",
-  //   titleAr: "مستودع القوز الصناعي",
-  //   location: "Dubai, United Arab Emirates",
-  //   locationAr: "دبي، الإمارات العربية المتحدة",
-  //   category: "industrial",
-  //   image: IMG.falcon,
-  //   refCode: "026",
-  //   date: "2023-11-04",
-  // },
-
-  // {
-  //   id: 27,
-  //   title: "Al Saaf Spa & Wellness",
-  //   titleAr: "سبا وعافية الصاف",
-  //   location: "Ras Al Khaimah, United Arab Emirates",
-  //   locationAr: "رأس الخيمة، الإمارات العربية المتحدة",
-  //   category: "hospitality",
-  //   image: IMG.alsaaf,
-  //   refCode: "027",
-  //   date: "2023-10-08",
-  // },
 ];
 
 
@@ -398,16 +290,16 @@ const CATEGORY_META: {
   icon: React.ElementType;
   color: string;
 }[] = [
-  { id: "all", label: "All Projects", labelAr: "كل المشاريع", icon: LayoutGrid, color: "#01a9a0" },
-  { id: "commercial", label: "Commercial", labelAr: "تجاري", icon: Building2, color: "#01a9a0" },
-  { id: "industrial", label: "Industrial", labelAr: "صناعي", icon: Factory, color: "#5BA3D9" },
-  { id: "hospitality", label: "Hospitality", labelAr: "الضيافة", icon: Hotel, color: "#2563EB" },
-  { id: "infrastructure", label: "Infrastructure", labelAr: "البنية التحتية", icon: Landmark, color: "#64748B" },
-  { id: "residential", label: "Residential", labelAr: "سكني", icon: Home, color: "#F59E0B" },
-  { id: "oil-gas", label: "Oil & Gas", labelAr: "النفط والغاز", icon: Fuel, color: "#0F766E" },
-  { id: "transportation", label: "Transportation", labelAr: "النقل", icon: TrainFront, color: "#6366F1" },
-  { id: "manufacturing", label: "Manufacturing", labelAr: "التصنيع", icon: Cog, color: "#78716C" },
-];
+    { id: "all", label: "All Projects", labelAr: "كل المشاريع", icon: LayoutGrid, color: "#01a9a0" },
+    { id: "commercial", label: "Commercial", labelAr: "تجاري", icon: Building2, color: "#01a9a0" },
+    { id: "industrial", label: "Industrial", labelAr: "صناعي", icon: Factory, color: "#5BA3D9" },
+    { id: "hospitality", label: "Hospitality", labelAr: "الضيافة", icon: Hotel, color: "#2563EB" },
+    { id: "infrastructure", label: "Infrastructure", labelAr: "البنية التحتية", icon: Landmark, color: "#64748B" },
+    { id: "residential", label: "Residential", labelAr: "سكني", icon: Home, color: "#F59E0B" },
+    { id: "oil-gas", label: "Oil & Gas", labelAr: "النفط والغاز", icon: Fuel, color: "#0F766E" },
+    { id: "transportation", label: "Transportation", labelAr: "النقل", icon: TrainFront, color: "#6366F1" },
+    { id: "manufacturing", label: "Manufacturing", labelAr: "التصنيع", icon: Cog, color: "#78716C" },
+  ];
 
 const PAGE_SIZE = 9;
 
@@ -531,9 +423,8 @@ export default function ProjectsGallery() {
             </button>
 
             <div
-              className={`${
-                filtersOpen ? "block" : "hidden"
-              } lg:block rounded-2xl border border-stone-100 bg-white shadow-[0_8px_30px_rgba(15,23,42,0.06)] p-4 sm:p-5`}
+              className={`${filtersOpen ? "block" : "hidden"
+                } lg:block rounded-2xl border border-stone-100 bg-white shadow-[0_8px_30px_rgba(15,23,42,0.06)] p-4 sm:p-5`}
             >
               <h3 className="hidden lg:block text-lg font-extrabold text-stone-900 mb-4">
                 {isArabic ? "تصنيفات المشاريع" : "Project Categories"}
@@ -548,16 +439,14 @@ export default function ProjectsGallery() {
                       <button
                         type="button"
                         onClick={() => selectCategory(item.id)}
-                        className={`w-full flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition-all duration-200 ${
-                          active
-                            ? "bg-[#01a9a0] text-white shadow-[0_8px_18px_rgba(1,169,160,0.28)]"
-                            : "text-stone-600 hover:bg-stone-50"
-                        }`}
+                        className={`w-full flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition-all duration-200 ${active
+                          ? "bg-[#01a9a0] text-white shadow-[0_8px_18px_rgba(1,169,160,0.28)]"
+                          : "text-stone-600 hover:bg-stone-50"
+                          }`}
                       >
                         <span
-                          className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${
-                            active ? "bg-white/15 text-white" : "bg-stone-100 text-stone-500"
-                          }`}
+                          className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${active ? "bg-white/15 text-white" : "bg-stone-100 text-stone-500"
+                            }`}
                         >
                           <Icon className="w-4 h-4" />
                         </span>
@@ -578,9 +467,8 @@ export default function ProjectsGallery() {
             </div>
 
             <div
-              className={`${
-                filtersOpen ? "block" : "hidden"
-              } lg:block rounded-2xl bg-[#E8F7F5] p-5 sm:p-6`}
+              className={`${filtersOpen ? "block" : "hidden"
+                } lg:block rounded-2xl bg-[#E8F7F5] p-5 sm:p-6`}
             >
               <h3 className="text-lg font-extrabold text-stone-900 leading-snug">
                 {isArabic ? "هل لديك مشروع مخصص؟" : "Have a custom project in mind?"}
@@ -658,11 +546,10 @@ export default function ProjectsGallery() {
                       type="button"
                       onClick={() => setView("grid")}
                       aria-label={isArabic ? "عرض شبكي" : "Grid view"}
-                      className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors ${
-                        view === "grid"
-                          ? "bg-[#01a9a0] text-white"
-                          : "bg-stone-100 text-stone-500 hover:bg-stone-200"
-                      }`}
+                      className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors ${view === "grid"
+                        ? "bg-[#01a9a0] text-white"
+                        : "bg-stone-100 text-stone-500 hover:bg-stone-200"
+                        }`}
                     >
                       <LayoutGrid className="w-4 h-4" />
                     </button>
@@ -670,11 +557,10 @@ export default function ProjectsGallery() {
                       type="button"
                       onClick={() => setView("list")}
                       aria-label={isArabic ? "عرض قائمة" : "List view"}
-                      className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors ${
-                        view === "list"
-                          ? "bg-[#01a9a0] text-white"
-                          : "bg-stone-100 text-stone-500 hover:bg-stone-200"
-                      }`}
+                      className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors ${view === "list"
+                        ? "bg-[#01a9a0] text-white"
+                        : "bg-stone-100 text-stone-500 hover:bg-stone-200"
+                        }`}
                     >
                       <LayoutList className="w-4 h-4" />
                     </button>
@@ -722,11 +608,10 @@ export default function ProjectsGallery() {
                     key={num}
                     type="button"
                     onClick={() => setPage(num)}
-                    className={`w-9 h-9 rounded-full text-sm font-bold transition-colors ${
-                      num === currentPage
-                        ? "bg-[#01a9a0] text-white"
-                        : "text-stone-500 hover:bg-stone-100"
-                    }`}
+                    className={`w-9 h-9 rounded-full text-sm font-bold transition-colors ${num === currentPage
+                      ? "bg-[#01a9a0] text-white"
+                      : "text-stone-500 hover:bg-stone-100"
+                      }`}
                   >
                     {num}
                   </button>
@@ -762,9 +647,8 @@ function ProjectCard({
 
   return (
     <article
-      className={`group bg-white rounded-2xl border border-stone-100 shadow-[0_8px_24px_rgba(15,23,42,0.05)] hover:shadow-[0_14px_32px_rgba(15,23,42,0.1)] transition-all duration-300 overflow-hidden ${
-        list ? "flex flex-col sm:flex-row" : "flex flex-col"
-      }`}
+      className={`group bg-white rounded-2xl border border-stone-100 shadow-[0_8px_24px_rgba(15,23,42,0.05)] hover:shadow-[0_14px_32px_rgba(15,23,42,0.1)] transition-all duration-300 overflow-hidden ${list ? "flex flex-col sm:flex-row" : "flex flex-col"
+        }`}
     >
       <div className={`relative overflow-hidden ${list ? "sm:w-[280px] sm:shrink-0 h-52 sm:h-auto" : "h-[190px] sm:h-[200px]"}`}>
         <Image

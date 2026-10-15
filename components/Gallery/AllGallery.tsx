@@ -115,18 +115,6 @@ const AllGallery = () => {
             </>
           )}
         </div>
-
-        {/* Load More Button */}
-        {/* {visibleImages <= galleryImages.length && (
-          <div className="text-center">
-            <button
-              onClick={loadMoreImages}
-              className="bg-pink-950 hover:bg-pink-800 text-white font-semibold py-3 px-14 rounded-full transition-colors duration-300 shadow-lg cursor-pointer"
-            >
-              Load More
-            </button>
-          </div>
-        )} */}
       </div>
     </div>
   );

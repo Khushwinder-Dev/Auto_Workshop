@@ -4,17 +4,6 @@ import React from "react";
 import NavMenuSitemap from "@/components/sitemap/NavMenuSitemap";
 import OldSitemap from "@/components/sitemap/OldSitemap";
 
-/**
- * ==============================================================================
- * SITEMAP SECTION DISPLAY SWITCH
- * ==============================================================================
- * • Set `USE_NAV_MENU_SITEMAP = true`  -> Displays the 8 Header Nav Menu Groups
- *   (Services, Solutions, Projects, Industries, Subcontractors, Company, Careers, Contact)
- *   with all 6 inner megamenu links each (48 links total).
- *
- * • Set `USE_NAV_MENU_SITEMAP = false` -> Displays the Original Detailed Old Sitemap.
- * ==============================================================================
- */
 const USE_NAV_MENU_SITEMAP = true;
 
 export default function SitemapPage() {

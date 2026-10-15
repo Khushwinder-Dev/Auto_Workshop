@@ -8,27 +8,6 @@ import ExpandableSearchBar from "./Common/ExpandableSearchBar";
 import { useLanguage } from "@/context/LanguageContext";
 import ContactModals, { ContactModalType } from "./ContactModals";
 
-/* ─── SVG ICON PATHS (mapped by visual content) ───────────────────────
-  SVG.svg      → house simple (home)
-  SVG(1).svg   → commercial block (tall office)
-  SVG(2).svg   → industrial / warehouse (3-bay shed)
-  SVG(3).svg   → aviation / plane
-  SVG(4).svg   → house with roof (residential villa)
-  SVG(5).svg   → government / temple columns
-  SVG(6).svg   → water drop (waterproofing)
-  SVG(7).svg   → swimming pool (waves + rails)
-  SVG(8).svg   → electrical / plug
-  SVG(9).svg   → residential complex / grid house
-  SVG(10).svg  → hospital / cross building
-  SVG(11).svg  → paint brush / refurbishment
-  SVG(12).svg  → screen / products
-  SVG(13).svg  → tall office building (multi-floor)
-  SVG(14).svg  → simple villa / home 2
-  SVG(15).svg  → arch / dome civic building
-  SVG(16).svg  → commercial high-rise
-─────────────────────────────────────────────────────────────────────── */
-
-/* ─── MEGA MENU DATA ─────────────────────────────────────────────────── */
 /* TASK-1: SERVICES */
 const servicesMegaMenu = {
   en: {

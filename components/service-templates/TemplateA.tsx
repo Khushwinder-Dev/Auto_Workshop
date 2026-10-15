@@ -1,12 +1,3 @@
-/**
- * TEMPLATE A — "Technical Deep-Dive"
- * Layout: service intro → sub-service detail block (title, description,
- * primary applications, competitive advantage, key benefits, process pills)
- * → Why Choose section → gallery grid → CTA
- *
- * Assign via index.ts SUBSERVICE_TEMPLATE_OVERRIDE or SERVICE_TEMPLATE_MAP.
- */
-
 "use client";
 
 import React, { useState } from "react";

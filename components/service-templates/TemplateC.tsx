@@ -1,12 +1,3 @@
-/**
- * TEMPLATE C — "Finishing & Maintenance Showcase"
- * Layout: stacked full-width banner, alternating feature rows,
- * 4-column benefit icons, masonry-style gallery, CTA.
- *
- * Best used for: plastering, painting, false ceilings,
- * carpentry, HVAC, cleaning (finish / maintenance services)
- */
-
 "use client";
 
 import React, { useState } from "react";
@@ -54,10 +45,10 @@ function Img({
 }
 
 const TRUST_ICONS = [
-  { Icon: Sparkles, labelEn: "Premium Quality",     labelAr: "جودة عالية"           },
-  { Icon: Clock,    labelEn: "On-Time Delivery",    labelAr: "تسليم في الوقت المحدد" },
-  { Icon: Shield,   labelEn: "Certified Materials", labelAr: "مواد معتمدة"          },
-  { Icon: Award,    labelEn: "10+ Years Experience",labelAr: "خبرة أكثر من 10 سنوات"},
+  { Icon: Sparkles, labelEn: "Premium Quality", labelAr: "جودة عالية" },
+  { Icon: Clock, labelEn: "On-Time Delivery", labelAr: "تسليم في الوقت المحدد" },
+  { Icon: Shield, labelEn: "Certified Materials", labelAr: "مواد معتمدة" },
+  { Icon: Award, labelEn: "10+ Years Experience", labelAr: "خبرة أكثر من 10 سنوات" },
 ];
 
 /* ─── component ──────────────────────────────────────────────── */
@@ -70,7 +61,7 @@ interface Props {
 export default function TemplateC({ service, sub, isArabic }: Props) {
   const galleryImages =
     sub.servicesgalaryImages?.length ? sub.servicesgalaryImages :
-    service.servicesgalaryImages?.length ? service.servicesgalaryImages : [];
+      service.servicesgalaryImages?.length ? service.servicesgalaryImages : [];
 
   return (
     <article className="w-full" dir={isArabic ? "rtl" : "ltr"}>

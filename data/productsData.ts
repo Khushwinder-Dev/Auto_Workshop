@@ -153,20 +153,6 @@ const rawProducts = [
     description:
       "Lightweight and durable wall access ladder designed for safe vertical access and maintenance of walls, tanks and elevated areas.",
   },
-  // {
-  //   id: 11,
-  //   name: "Grp/fiberglass catch basin bucket",
-  //   longName: "FRP Drainage Pipe Connection Fitting",
-  //   description:
-  //     "Molded FRP drainage fitting designed for connecting and directing drainage pipelines with excellent corrosion resistance.",
-  // },
-  // {
-  //   id: 12,
-  //   name: "Steel stainless swimming pools ladder",
-  //   longName: "Swimming Pool Safety Access Ladder",
-  //   description:
-  //     "Durable swimming pool ladder designed to provide safe access in and out of residential and commercial swimming pools.",
-  // },
   {
     id: 13,
     name: "Shower Tray",
@@ -230,13 +216,6 @@ const rawProducts = [
     description:
       "Specialized shower tray mold designed for manufacturing molded shower trays with consistent shape, dimensions and surface finish.",
   },
-  // {
-  //   id: 22,
-  //   name: "Shower Tray Mold",
-  //   longName: "Custom FRP Shower Tray Mould",
-  //   description:
-  //     "Specialized shower tray mold designed for manufacturing molded shower trays with consistent shape, dimensions and surface finish.",
-  // },
   {
     id: 23,
     name: "Grating",
@@ -251,13 +230,6 @@ const rawProducts = [
     description:
       "White GRP/fiberglass shower tray measuring 1m × 600mm, designed for residential, hotel and commercial bathroom installations.",
   },
-  // {
-  //   id: 25,
-  //   name: "Grp/fiberglass ladder for water tank",
-  //   longName: "Multi Purpose Industrial Access Ladder",
-  //   description:
-  //     "Heavy-duty GRP/fiberglass ladder designed for safe access to water tanks, maintenance areas, construction sites and industrial facilities.",
-  // },
   {
     id: 26,
     name: "Grp/fiberglass  ladder for water tank",
@@ -342,13 +314,6 @@ const rawProducts = [
     description:
       "Lightweight translucent sheet designed to allow natural light while providing durable weather protection for buildings and industrial structures.",
   },
-  // {
-  //   id: 38,
-  //   name: "Car Parking Canopy",
-  //   longName: "Outdoor Car Parking Shade Structure",
-  //   description:
-  //     "Modern vehicle parking canopy designed to provide shade and weather protection for cars in residential and commercial areas.",
-  // },
   {
     id: 39,
     name: "Industrial Tank",
@@ -356,13 +321,6 @@ const rawProducts = [
     description:
       "Heavy-duty industrial tank with piping arrangement designed for liquid storage and industrial processing applications.",
   },
-  // {
-  //   id: 40,
-  //   name: "Access Cover",
-  //   longName: "Molded Reinforced Access Cover",
-  //   description:
-  //     "Durable molded FRP access cover suitable for inspection openings, drainage systems, tanks and utility installations.",
-  // },
   {
     id: 41,
     name: "Structural Profile",
@@ -398,20 +356,6 @@ const rawProducts = [
     description:
       "Modern outdoor pergola structure designed to provide shade and enhance gardens, patios, terraces and outdoor living spaces.",
   },
-  // {
-  //   id: 46,
-  //   name: "Pergola",
-  //   longName: "Modern FRP Garden and Patio Pergola",
-  //   description:
-  //     "Contemporary FRP pergola structure suitable for residential gardens, patios, resorts and commercial outdoor areas.",
-  // },
-  // {
-  //   id: 47,
-  //   name: "Pergola",
-  //   longName: "Outdoor Architectural Canopy Structure",
-  //   description:
-  //     "Modern outdoor FRP canopy structure designed to provide shade while enhancing the architectural appearance of outdoor spaces.",
-  // },
   {
     id: 48,
     name: "Outdoor Canopy",
@@ -419,20 +363,6 @@ const rawProducts = [
     description:
       "Stylish outdoor canopy designed to create a comfortable shaded area for residential, commercial, hospitality and recreational applications.",
   },
-  // {
-  //   id: 49,
-  //   name: "Steel stainless safety ladder",
-  //   longName: "Vertical Safety Access Ladder with Cage",
-  //   description:
-  //     "Corrosion-resistant stainless steel safety ladder with protective cage designed for secure vertical access to tanks, buildings, platforms and elevated structures.",
-  // },
-  // {
-  //   id: 50,
-  //   name: "Steel stainless ladder swimming pools",
-  //   longName: "Swimming Pool Entry and Exit Ladder",
-  //   description:
-  //     "Durable FRP swimming pool ladder designed for safe and convenient pool entry and exit in residential and commercial swimming facilities.",
-  // },
   {
     id: 51,
     name: "Grp/fiberglass Shower Trey 1mx800",
