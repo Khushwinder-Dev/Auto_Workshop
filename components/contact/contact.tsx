@@ -420,7 +420,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="w-full bg-gray-50 py-12 md:py-16 lg:py-20">
+    <div className="w-full bg-gray-50 pt-12 md:pt-16 lg:pt-[72px] pb-6 md:pb-8 lg:pb-0">
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-10 xl:px-16">
         {/* Page Title */}
         <motion.div

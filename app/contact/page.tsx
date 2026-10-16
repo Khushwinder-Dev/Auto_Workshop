@@ -84,6 +84,7 @@ export default function ContactPage() {
         isArabic={isArabic}
         subtitle="Find answers to common questions about consultations, quotations, site visits, and project support."
         subtitleAr="إجابات واضحة على الأسئلة الشائعة حول الاستشارات، عروض الأسعار، المعاينات الميدانية ودعم المشاريع."
+        pyClassName="pt-10 sm:pt-16 lg:pt-[72px] pb-10 sm:pb-16 lg:pb-[72px]"
       />
     </div>
   );

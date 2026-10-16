@@ -81,6 +81,7 @@ export interface FaqSectionProps {
   isArabic?: boolean;
   className?: string;
   bgClassName?: string;
+  pyClassName?: string;
 }
 
 export default function FaqSection({
@@ -94,6 +95,7 @@ export default function FaqSection({
   isArabic = false,
   className = "",
   bgClassName = "bg-[#F8FAFC]",
+  pyClassName = "py-10 sm:py-20 lg:py-24",
 }: FaqSectionProps) {
   const [openId, setOpenId] = useState<number | null>(faqs[0]?.id ?? null);
 
@@ -109,7 +111,7 @@ export default function FaqSection({
 
   return (
     <section
-      className={`relative w-full py-10 sm:py-20 lg:py-24 ${bgClassName} ${className} overflow-hidden`}
+      className={`relative w-full ${pyClassName} ${bgClassName} ${className} overflow-hidden`}
       dir={isArabic ? "rtl" : "ltr"}
     >
       <div className="max-w-4xl mx-auto px-3 sm:px-6 lg:px-8">
