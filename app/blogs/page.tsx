@@ -330,7 +330,7 @@ const News = () => {
           </div>
 
           {/* CTA Section */}
-          <section className="mt-16 lg:mt-24" data-aos="fade-up">
+          <section className="mt-[40px] md:mt-[56px] lg:mt-[72px]" data-aos="fade-up">
             <div className="bg-gradient-to-r from-gray-50 to-gray-100 rounded-3xl p-8 lg:p-12">
               <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
                 {/* Image Gallery */}

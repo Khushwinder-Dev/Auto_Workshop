@@ -394,7 +394,7 @@ export default function ResourcesPage() {
         )}
 
         {/* Technical Insights / Blog Integration Teaser */}
-        <div className="mt-20 bg-white rounded-3xl p-8 sm:p-12 border border-gray-200">
+        <div className="mt-[40px] md:mt-[56px] lg:mt-[72px] bg-white rounded-3xl p-8 sm:p-12 border border-gray-200">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-10">
             <div>
               <span className="text-xs uppercase font-bold tracking-widest theme-text-main bg-[#01a9a0]/10 px-3 py-1 rounded-full mb-2 inline-block">
@@ -469,7 +469,7 @@ export default function ResourcesPage() {
         </div>
 
         {/* Direct Inquiries CTA */}
-        <div className="mt-16 rounded-3xl theme-bg-main p-8 sm:p-12 text-white relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8 shadow-xl">
+        <div className="mt-[40px] md:mt-[56px] lg:mt-[72px] rounded-3xl theme-bg-main p-8 sm:p-12 text-white relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8 shadow-xl">
           <div className="space-y-3 max-w-2xl z-10">
             <span className="text-xs font-bold tracking-widest uppercase bg-white/20 px-3 py-1 rounded-full">
               Custom Documentation

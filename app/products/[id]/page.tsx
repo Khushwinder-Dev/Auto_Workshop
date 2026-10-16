@@ -391,7 +391,7 @@ export default function ProductDetailsPage() {
         </div>
 
         {/* ===================== TAB NAVIGATION BAR ===================== */}
-        <div className="mt-16 sm:mt-20 border-b border-gray-200">
+        <div className="mt-[40px] md:mt-[56px] lg:mt-[72px] border-b border-gray-200">
           <div className="flex items-center gap-8">
             <button
               onClick={() => scrollToSection("overview")}
