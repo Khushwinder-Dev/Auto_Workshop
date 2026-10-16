@@ -529,7 +529,7 @@ function ServiceDetailsContent() {
       </div>
 
       {/* ══ BOOK A VISIT CTA BANNER ════════════════════════════ */}
-      <section className="w-full bg-white py-8 sm:py-10 px-4 sm:px-6 lg:px-8">
+      <section className="w-full bg-white py-[40px] md:py-[56px] lg:py-[72px] px-4 sm:px-6 lg:px-8">
         <div className="max-w-8xl mx-auto">
           <div className="relative overflow-hidden bg-gradient-to-r from-[#018b84] via-[#01a9a0] to-[#009e90] rounded-2xl sm:rounded-3xl border border-white/20 shadow-[0_15px_35px_rgba(1,169,160,0.25)] px-6 sm:px-10 py-7 sm:py-9 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
             {/* Subtle decorative glow */}

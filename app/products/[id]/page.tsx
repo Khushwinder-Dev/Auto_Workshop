@@ -208,7 +208,7 @@ export default function ProductDetailsPage() {
   const displayedReviews = showAllReviews ? reviewsList : reviewsList.slice(0, 2);
 
   return (
-    <div className="min-h-screen bg-white text-gray-900 pb-24 selection:bg-[#01a9a0]/15 selection:text-[#01a9a0]">
+    <div className="min-h-screen bg-white text-gray-900 pb-[40px] md:pb-[56px] lg:pb-[72px] selection:bg-[#01a9a0]/15 selection:text-[#01a9a0]">
       {/* ── Top Hero Banner ────────────────────────────────── */}
       <CommonHeader
         title={product.name || "Product Details"}
@@ -216,7 +216,7 @@ export default function ProductDetailsPage() {
         imagePath="/banners/Product_.png"
       />
 
-      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12">
+      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 pt-[40px] md:pt-[56px] lg:pt-[72px]">
 
         {/* ===================== BREADCRUMBS ===================== */}
         <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs sm:text-sm text-gray-500 mb-8 sm:mb-12">
@@ -424,7 +424,7 @@ export default function ProductDetailsPage() {
         </div>
 
         {/* ===================== OVERVIEW SECTION ===================== */}
-        <section id="overview" className="pt-10 pb-12 border-b border-gray-100">
+        <section id="overview" className="py-[40px] md:py-[56px] lg:py-[72px] border-b border-gray-100">
           <h2 className="text-xl sm:text-2xl font-bold font-anek text-gray-900 tracking-tight mb-4">
             Overview
           </h2>
@@ -435,7 +435,7 @@ export default function ProductDetailsPage() {
         </section>
 
         {/* ===================== SPECIFICATIONS SECTION ===================== */}
-        <section id="specifications" className="pt-10 pb-12 border-b border-gray-100">
+        <section id="specifications" className="py-[40px] md:py-[56px] lg:py-[72px] border-b border-gray-100">
           <h2 className="text-xl sm:text-2xl font-bold font-anek text-gray-900 tracking-tight mb-6">
             Specifications
           </h2>
@@ -474,7 +474,7 @@ export default function ProductDetailsPage() {
         </section>
 
         {/* ===================== RATINGS & REVIEWS SECTION ===================== */}
-        <section id="reviews" className="pt-10 pb-6 hidden">
+        <section id="reviews" className="py-[40px] md:py-[56px] lg:py-[72px] hidden">
           <div className="flex items-center justify-between mb-8">
             <h2 className="text-xl sm:text-2xl font-bold font-anek text-gray-900 tracking-tight">
               Ratings

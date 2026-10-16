@@ -144,7 +144,7 @@ const News = () => {
         unoptimized
       />
 
-      <div className="w-full py-12 px-4 sm:px-6 lg:px-8">
+      <div className="w-full py-[40px] md:py-[56px] lg:py-[72px] px-4 sm:px-6 lg:px-8">
         <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-10 xl:px-16">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold theme-text-main mb-4">

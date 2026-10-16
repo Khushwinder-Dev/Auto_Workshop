@@ -272,8 +272,8 @@ export default function ProductsPage() {
         breadcrumb="Products"
         imagePath="/banners/Product_.png"
       />
-    <div className="min-h-screen bg-[#fafbfc] text-gray-900 pb-20">
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 pt-16">
+    <div className="min-h-screen bg-[#fafbfc] text-gray-900 pb-[40px] md:pb-[56px] lg:pb-[72px]">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 pt-[40px] md:pt-[56px] lg:pt-[72px]">
         {/* Mobile Filter Toggle */}
         <div className="lg:hidden flex items-center justify-between mb-4">
           <div>
