@@ -195,7 +195,7 @@ export default function MapSection() {
   }, []);
 
   return (
-    <div id="map" className="w-full bg-gray-50 pt-6 md:pt-8 lg:pt-[72px] pb-12 md:pb-16 lg:pb-0 px-4 sm:px-6 lg:px-8 scroll-mt-24">
+    <div id="map" className="w-full bg-gray-50 pt-[40px] md:pt-[56px] lg:pt-[72px] pb-0 px-4 sm:px-6 lg:px-8 scroll-mt-24">
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-10 xl:px-16">
         {/* Header */}
         <div className="text-center mb-12">
