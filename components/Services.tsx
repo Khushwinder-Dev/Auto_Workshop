@@ -25,7 +25,7 @@ export default function Services() {
   });
 
   return (
-    <section className="w-full py-16 px-4 md:px-8 lg:px-16 bg-white">
+    <section className="w-full py-[40px] md:py-[56px] lg:py-[72px] px-4 md:px-8 lg:px-16 bg-white">
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-10 xl:px-16">
         {/* Header */}
         <div className="text-center mb-16">

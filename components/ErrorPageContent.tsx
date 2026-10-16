@@ -65,7 +65,7 @@ export default function ErrorPageContent({
       </section>
 
       {/* ── MAIN 404/ERROR CONTENT ── */}
-      <section className="w-full bg-white py-14 sm:py-18 lg:py-24 px-4 sm:px-6">
+      <section className="w-full bg-white py-[40px] md:py-[56px] lg:py-[72px] px-4 sm:px-6">
         <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
           {/* 404 Illustration with Mascot */}
           <div className="relative w-full max-w-[280px] sm:max-w-[380px] md:max-w-[460px] lg:max-w-[500px]">

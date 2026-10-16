@@ -12,7 +12,7 @@ export default function ProjectsCTA() {
 
   return (
     <section
-      className="relative w-full bg-[#F2F9F7] pb-14 sm:pb-16 lg:pb-20 px-4 sm:px-6 lg:px-8"
+      className="relative w-full bg-[#F2F9F7] pb-[40px] md:pb-[56px] lg:pb-[72px] px-4 sm:px-6 lg:px-8"
       dir={isArabic ? "rtl" : "ltr"}
     >
       <div className="max-w-8xl mx-auto">

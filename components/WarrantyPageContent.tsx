@@ -145,7 +145,7 @@ export default function WarrantyPageContent() {
       {/* ══════════════════════════════════════════════════════════════
           2. INTRO HEADING: "Our Warranty Coverage"
       ══════════════════════════════════════════════════════════════ */}
-      <section className="relative w-full pt-14 sm:pt-16 pb-8 bg-white text-center">
+      <section className="relative w-full py-[40px] md:py-[56px] lg:py-[72px] bg-white text-center">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Tag */}
           <div className="flex items-center justify-center gap-2 mb-3">
@@ -181,7 +181,7 @@ export default function WarrantyPageContent() {
       {/* ══════════════════════════════════════════════════════════════
           3. WARRANTY CARDS: 3 Detailed Coverage Cards
       ══════════════════════════════════════════════════════════════ */}
-      <section className="relative w-full pb-16 sm:pb-20 bg-white">
+      <section className="relative w-full pb-[40px] md:pb-[56px] lg:pb-[72px] bg-white">
         <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-10 xl:px-16">
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
@@ -249,7 +249,7 @@ export default function WarrantyPageContent() {
       {/* ══════════════════════════════════════════════════════════════
           4. SECTION: FREQUENTLY ASKED QUESTIONS (Matching Mockup)
       ══════════════════════════════════════════════════════════════ */}
-      <section className="relative w-full py-16 sm:py-20 lg:py-24 bg-[#f3fcf9] overflow-hidden">
+      <section className="relative w-full py-[40px] md:py-[56px] lg:py-[72px] bg-[#f3fcf9] overflow-hidden">
 
         {/* Decorative Fluid Ribbons at bottom corners from public/warranty */}
         <div className="absolute left-0 bottom-0 pointer-events-none select-none z-0">

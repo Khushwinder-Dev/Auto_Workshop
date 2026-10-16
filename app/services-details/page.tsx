@@ -465,7 +465,7 @@ function ServiceDetailsContent() {
       )}
 
       {/* ── BODY ─────────────────────────────────────────────── */}
-      <div id="services-content-area" className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 lg:py-14 bg-stone-50/70">
+      <div id="services-content-area" className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-[40px] md:py-[56px] lg:py-[72px] bg-stone-50/70">
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-10 items-start">
 
           {/* Left sidebar */}

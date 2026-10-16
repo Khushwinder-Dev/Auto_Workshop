@@ -261,4 +261,42 @@ video::-webkit-media-controls-overflow-menu-list {
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
+/* Standard Section Spacing site-wide: Mobile 40px, Tablet 56px, Laptop/Desktop 72px */
+.section-py {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+.section-pt {
+  padding-top: 40px;
+}
+.section-pb {
+  padding-bottom: 40px;
+}
+
+@media (min-width: 768px) {
+  .section-py {
+    padding-top: 56px;
+    padding-bottom: 56px;
+  }
+  .section-pt {
+    padding-top: 56px;
+  }
+  .section-pb {
+    padding-bottom: 56px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-py {
+    padding-top: 72px;
+    padding-bottom: 72px;
+  }
+  .section-pt {
+    padding-top: 72px;
+  }
+  .section-pb {
+    padding-bottom: 72px;
+  }
+}
 

@@ -95,7 +95,7 @@ export default function FaqSection({
   isArabic = false,
   className = "",
   bgClassName = "bg-[#F8FAFC]",
-  pyClassName = "py-10 sm:py-20 lg:py-24",
+  pyClassName = "py-[40px] md:py-[56px] lg:py-[72px]",
 }: FaqSectionProps) {
   const [openId, setOpenId] = useState<number | null>(faqs[0]?.id ?? null);
 

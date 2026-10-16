@@ -99,7 +99,7 @@ export default function ProjectsClients({
 
   return (
     <section
-      className={`relative w-full py-14 sm:py-16 lg:py-20 overflow-hidden transition-colors duration-300 ${
+      className={`relative w-full py-[40px] md:py-[56px] lg:py-[72px] overflow-hidden transition-colors duration-300 ${
         themeBg ? "bg-[#01a9a0] text-white" : "bg-[#F4FAF9]"
       }`}
       dir={isArabic ? "rtl" : "ltr"}

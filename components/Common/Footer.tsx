@@ -222,7 +222,7 @@ export default function Footer() {
       >
         <div className="relative z-10 max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14">
           {/* ── 6-Column Navigation Grid ─────────────────────────────────── */}
-          <div className="pt-14 sm:pt-16 lg:pt-18 pb-10 sm:pb-12">
+          <div className="pt-[40px] md:pt-[56px] lg:pt-[72px] pb-[40px] md:pb-[56px] lg:pb-[72px]">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6 footer-nav-grid gap-y-8 sm:gap-8 lg:gap-5 xl:gap-7">
               {/* COL 1 — Brand & About (from Reference Design) */}
               <div className="flex flex-col col-span-1 sm:col-span-2 md:col-span-3 xl:col-span-1">

@@ -730,7 +730,7 @@ export default function MediaPage() {
           2. SECTION: A CLOSER LOOK AT OUR WORK (PHOTO GALLERY)
           (Exact match to design screenshot)
       ══════════════════════════════════════════════════════════════ */}
-      <section className="relative w-full py-14 sm:py-16 md:py-20 bg-[#EAF8FA] overflow-hidden">
+      <section className="relative w-full py-[40px] md:py-[56px] lg:py-[72px] bg-[#EAF8FA] overflow-hidden">
         {/* Skyline, Mist & Trees Background Graphic on Top Right */}
         <div className="absolute inset-0 z-0 pointer-events-none">
           <Image
@@ -936,7 +936,7 @@ export default function MediaPage() {
           3. SECTION: PROJECT STORIES IN MOTION (VIDEO GALLERY)
           (Exact match to design screenshot)
       ══════════════════════════════════════════════════════════════ */}
-      <section className="relative w-full py-14 sm:py-16 md:py-20 bg-white border-t border-slate-100">
+      <section className="relative w-full py-[40px] md:py-[56px] lg:py-[72px] bg-white border-t border-slate-100">
         <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 w-full">
           {/* Section Header (Left-Aligned as per design) */}
           <div className="max-w-3xl mb-8 sm:mb-10 text-left rtl:text-right">
@@ -1080,7 +1080,7 @@ export default function MediaPage() {
           4. SECTION: COMPANY PROFILE DOWNLOAD BANNER
           (Exact background: /mediaPageNew/e500da08-f078-4dec-a716-760cf969e80b (1) 1.png)
       ══════════════════════════════════════════════════════════════ */}
-      <section className="relative w-full py-12 sm:py-16 bg-white">
+      <section className="relative w-full py-[40px] md:py-[56px] lg:py-[72px] bg-white">
         <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
           <div className="relative w-full rounded-3xl sm:rounded-[36px] overflow-hidden shadow-[0_12px_40px_rgba(0,196,180,0.12)] border border-[#00c4b4]/30 flex items-center min-h-[170px] sm:min-h-[190px] md:min-h-[210px]">
             {/* Background Graphic */}
@@ -1183,7 +1183,7 @@ export default function MediaPage() {
         </div>
 
         {/* Content Container */}
-        <div className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 w-full py-12 sm:py-16 md:py-20">
+        <div className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 w-full py-[40px] md:py-[56px] lg:py-[72px]">
           <div className="max-w-lg lg:max-w-xl">
             {/* Tagline: — NEED EXPERT HELP? — */}
             <div className="inline-flex items-center gap-2 sm:gap-2.5 mb-2.5 sm:mb-3">

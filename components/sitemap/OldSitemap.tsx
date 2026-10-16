@@ -1042,7 +1042,7 @@ export default function OldSitemap() {
       {/* ══════════════════════════════════════════════════════════════
           2. SITEMAP DIRECTORY CONTENT (Matching layout & visual design)
       ══════════════════════════════════════════════════════════════ */}
-      <main className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-12 py-12 sm:py-16 lg:py-20">
+      <main className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-12 py-[40px] md:py-[56px] lg:py-[72px]">
         <div className="space-y-12 sm:space-y-14">
           {sections.map((section, secIdx) => {
             const isThreeCols = section.columnsCount === 3;

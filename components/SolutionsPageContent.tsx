@@ -317,7 +317,7 @@ export default function SolutionsPageContent() {
       {/* ══════════════════════════════════════════════════════════════
           2. SECTION: COMPLETE PROTECTION TAILORED SOLUTIONS (8 CARDS)
       ══════════════════════════════════════════════════════════════ */}
-      <section className="relative w-full py-16 sm:py-20 lg:py-24 bg-white">
+      <section className="relative w-full py-[40px] md:py-[56px] lg:py-[72px] bg-white">
         <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-10 xl:px-16">
 
           {/* Section Header */}
@@ -408,7 +408,7 @@ export default function SolutionsPageContent() {
       {/* ══════════════════════════════════════════════════════════════
           3. SECTION: SOLUTIONS FOR EVERY TYPE OF PROJECT (4 CARDS)
       ══════════════════════════════════════════════════════════════ */}
-      <section className="relative w-full py-16 sm:py-20 lg:py-24 bg-[#F2F8F7]">
+      <section className="relative w-full py-[40px] md:py-[56px] lg:py-[72px] bg-[#F2F8F7]">
         <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-10 xl:px-16">
 
           {/* Section Header */}
@@ -495,7 +495,7 @@ export default function SolutionsPageContent() {
       {/* ══════════════════════════════════════════════════════════════
           4. SECTION: DARK CALLOUT BANNER ("SOLUTIONS BY INDUSTRY")
       ══════════════════════════════════════════════════════════════ */}
-      <section className="relative w-full py-16 sm:py-20 lg:py-24 bg-[#021820] overflow-hidden">
+      <section className="relative w-full py-[40px] md:py-[56px] lg:py-[72px] bg-[#021820] overflow-hidden">
         {/* Background Image: Bitumen roll close-up */}
         <div className="absolute inset-0 z-0">
           <Image
@@ -583,7 +583,7 @@ export default function SolutionsPageContent() {
       {/* ══════════════════════════════════════════════════════════════
           5. SECTION: WHY CHOOSE OUR ROOF WATERPROOFING? (4 FEATURE CARDS)
       ══════════════════════════════════════════════════════════════ */}
-      <section className="relative w-full py-16 sm:py-20 lg:py-24 bg-white">
+      <section className="relative w-full py-[40px] md:py-[56px] lg:py-[72px] bg-white">
         <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-10 xl:px-16">
 
           {/* Section Header */}
@@ -648,7 +648,7 @@ export default function SolutionsPageContent() {
       {/* ══════════════════════════════════════════════════════════════
           6. SECTION: FREQUENTLY ASKED QUESTIONS (FAQ)
       ══════════════════════════════════════════════════════════════ */}
-      <section className="relative w-full py-10 sm:py-20 lg:py-24 bg-[#F8FAFC]">
+      <section className="relative w-full py-[40px] md:py-[56px] lg:py-[72px] bg-[#F8FAFC]">
         <div className="max-w-4xl mx-auto px-3 sm:px-6 lg:px-8">
 
           {/* Section Header */}

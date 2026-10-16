@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const OurMission = () => {
   return (
-    <div className="bg-white py-16 md:py-24">
+    <div className="bg-white py-[40px] md:py-[56px] lg:py-[72px]">
       <div className="max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-16">
         <div className="relative flex flex-col lg:flex-row items-center">
           {/* Image Section - Left side */}

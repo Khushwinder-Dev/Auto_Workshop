@@ -353,7 +353,7 @@ export default function SubcontractContent() {
       />
 
       {/* ─── SECTION 2: CERTIFICATION — OUR COMMITMENT TO QUALITY (SINGLE ROW AT TOP) ─── */}
-      <section className="w-full relative py-14 sm:py-16 lg:py-18 px-4 sm:px-6 lg:px-8 overflow-hidden border-b border-gray-100">
+      <section className="w-full relative py-[40px] md:py-[56px] lg:py-[72px] px-4 sm:px-6 lg:px-8 overflow-hidden border-b border-gray-100">
         {/* Section background image */}
         <Image
           src="/certifications/logos/sectionBg.png"
@@ -442,7 +442,7 @@ export default function SubcontractContent() {
       </section>
 
       {/* ─── SECTION 3: INTRO / ABOUT SUBCONTRACTING ────────────────────── */}
-      <section className="w-full py-16 sm:py-24 bg-white">
+      <section className="w-full py-[40px] md:py-[56px] lg:py-[72px] bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
             {/* Left Column: Image with rounded corners */}
@@ -502,7 +502,7 @@ export default function SubcontractContent() {
       </section>
 
       {/* ─── SECTION 3: OUR SUBCONTRACTING CAPABILITIES ──────────────────── */}
-      <section className="w-full py-20 sm:py-24 bg-[#f4f7fa]">
+      <section className="w-full py-[40px] md:py-[56px] lg:py-[72px] bg-[#f4f7fa]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Centered Heading */}
           <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-16">
@@ -556,7 +556,7 @@ export default function SubcontractContent() {
       </section>
 
       {/* ─── SECTION 4: BUILT FOR PROJECT REQUIREMENTS ─────────────────── */}
-      <section className="w-full py-20 sm:py-24 bg-white">
+      <section className="w-full py-[40px] md:py-[56px] lg:py-[72px] bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section Heading */}
           <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
@@ -612,7 +612,7 @@ export default function SubcontractContent() {
       </section>
 
       {/* ─── SECTION 5: SIMPLE & EFFICIENT PROCESS ─────────────────────── */}
-      <section className="w-full py-20 sm:py-24 bg-[#f4f7fa]">
+      <section className="w-full py-[40px] md:py-[56px] lg:py-[72px] bg-[#f4f7fa]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section Heading */}
           <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
@@ -690,7 +690,7 @@ export default function SubcontractContent() {
       </section>
 
       {/* ─── SECTION 6: SUPPORTING PROJECTS ACROSS THE INDUSTRY ────────── */}
-      <section className="w-full py-16 sm:py-24 bg-white">
+      <section className="w-full py-[40px] md:py-[56px] lg:py-[72px] bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section Heading */}
           <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-14">
@@ -730,7 +730,7 @@ export default function SubcontractContent() {
       </section>
 
       {/* ─── SECTION 8: SUBCONTRACT FAQS ───────────────────────────────── */}
-      <section className="relative w-full py-16 sm:py-20 lg:py-24 bg-[#F8FAFC] border-t border-slate-200/60">
+      <section className="relative w-full py-[40px] md:py-[56px] lg:py-[72px] bg-[#F8FAFC] border-t border-slate-200/60">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section Header */}
           <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-14">

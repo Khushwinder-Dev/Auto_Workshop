@@ -264,7 +264,7 @@ export default function OurProcessSection() {
   return (
     <section
       id="our-process"
-      className="relative w-full py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-[#009e90] overflow-hidden scroll-mt-24"
+      className="relative w-full py-[40px] md:py-[56px] lg:py-[72px] px-4 sm:px-6 lg:px-8 bg-[#009e90] overflow-hidden scroll-mt-24"
     >
       <div className="max-w-7xl mx-auto">
         {/* ============================================================

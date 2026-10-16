@@ -381,7 +381,7 @@ export default function GetAQuoteContent() {
       {/* ══════════════════════════════════════════════════════════════
           2. MAIN SECTION: TERRACE BACKGROUND + FLOATING FORM CARD
       ══════════════════════════════════════════════════════════════ */}
-      <section className="relative w-full min-h-[920px] lg:min-h-[1020px] py-12 sm:py-16 lg:py-20 overflow-hidden flex items-center">
+      <section className="relative w-full min-h-[920px] lg:min-h-[1020px] py-[40px] md:py-[56px] lg:py-[72px] overflow-hidden flex items-center">
 
         {/* Full Terrace Building Background Image spanning the entire section with clean full visibility */}
         <div className="absolute inset-0 z-0 pointer-events-none">
@@ -1027,7 +1027,7 @@ export default function GetAQuoteContent() {
       {/* ══════════════════════════════════════════════════════════════
           3. SECTION: FREQUENTLY ASKED QUESTIONS (Matching Mockup)
       ══════════════════════════════════════════════════════════════ */}
-      <section className="relative w-full py-10 sm:py-20 lg:py-24 bg-[#f3fcf9] overflow-hidden">
+      <section className="relative w-full py-[40px] md:py-[56px] lg:py-[72px] bg-[#f3fcf9] overflow-hidden">
 
         {/* Decorative Fluid Ribbons from user resources at bottom corners */}
         <div className="absolute left-0 bottom-0 pointer-events-none select-none z-0">
@@ -1101,7 +1101,7 @@ export default function GetAQuoteContent() {
       {/* ══════════════════════════════════════════════════════════════
           4. SECTION: TALK TO OUR EXPERTS BANNER (Matching Mockup)
       ══════════════════════════════════════════════════════════════ */}
-      <section className="relative w-full py-12 sm:py-16 bg-white">
+      <section className="relative w-full py-[40px] md:py-[56px] lg:py-[72px] bg-white">
         <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-10 xl:px-16">
 
           <div className="relative w-full rounded-[28px] lg:rounded-[36px] overflow-hidden shadow-2xl border border-stone-100 bg-[#082b35]">

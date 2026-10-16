@@ -171,7 +171,7 @@ export default function SupportPageContent() {
         {/* ══════════════════════════════════════════════════════════════
             2. INTRO HEADING: "Our Support"
         ══════════════════════════════════════════════════════════════ */}
-        <section className="relative z-10 w-full pt-14 sm:pt-16 pb-6 text-center">
+        <section className="relative z-10 w-full py-[40px] md:py-[56px] lg:py-[72px] text-center">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* Tag */}
             <div className="flex items-center justify-center gap-2 mb-3">
@@ -207,7 +207,7 @@ export default function SupportPageContent() {
         {/* ══════════════════════════════════════════════════════════════
             3. SUPPORT TOPICS: "How Can We Help You?" (4 Cards Grid)
         ══════════════════════════════════════════════════════════════ */}
-        <section className="relative z-10 w-full py-10 sm:py-14">
+        <section className="relative z-10 w-full py-[40px] md:py-[56px] lg:py-[72px]">
           <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-10 xl:px-16">
 
           {/* Section Subheader: Tag + Title on Left, View All Topics on Right */}
@@ -289,7 +289,7 @@ export default function SupportPageContent() {
       {/* ══════════════════════════════════════════════════════════════
           4. SECTION: STILL NEED HELP? (Contact Support Panel)
       ══════════════════════════════════════════════════════════════ */}
-      <section className="relative w-full py-12 sm:py-16 bg-white">
+      <section className="relative w-full py-[40px] md:py-[56px] lg:py-[72px] bg-white">
         <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-10 xl:px-16">
 
           <div className="relative w-full rounded-[28px] lg:rounded-[36px] overflow-hidden shadow-2xl border border-stone-100 bg-[#ebfaf6]">
@@ -433,7 +433,7 @@ export default function SupportPageContent() {
       {/* ══════════════════════════════════════════════════════════════
           5. SECTION: FREQUENTLY ASKED QUESTIONS (Matching Mockup)
       ══════════════════════════════════════════════════════════════ */}
-      <section className="relative w-full py-16 sm:py-20 lg:py-24 bg-[#f3fcf9] overflow-hidden">
+      <section className="relative w-full py-[40px] md:py-[56px] lg:py-[72px] bg-[#f3fcf9] overflow-hidden">
 
         {/* Decorative Fluid Ribbons at bottom corners from public/support */}
         <div className="absolute left-0 bottom-0 pointer-events-none select-none z-0">

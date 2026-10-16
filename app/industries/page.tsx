@@ -276,7 +276,7 @@ export default function IndustriesPage() {
       />
 
       {/* Main Content */}
-      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 py-14">
+      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 py-[40px] md:py-[56px] lg:py-[72px]">
         {/* Intro */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="inline-block text-xs uppercase tracking-widest font-bold theme-text-main bg-[#01a9a0]/10 px-3 py-1 rounded-full mb-3">
@@ -449,7 +449,7 @@ export default function IndustriesPage() {
         </div>
 
         {/* Why Leading Industrial Clients Trust Taj Al Rahmah */}
-        <div className="my-20">
+        <div className="my-[40px] md:my-[56px] lg:my-[72px]">
           <div className="text-center max-w-2xl mx-auto mb-12">
             <h3 className="text-2xl sm:text-3xl font-bold font-anek text-stone-900">
               Why Key Industrial Entities Choose Taj Al Rahmah

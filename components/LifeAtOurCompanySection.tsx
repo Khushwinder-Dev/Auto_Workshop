@@ -93,7 +93,7 @@ export default function LifeAtOurCompanySection() {
   return (
     <section
       id="life-at-our-company"
-      className="relative w-full py-16 sm:py-20 lg:py-24 bg-white overflow-hidden scroll-mt-20"
+      className="relative w-full py-[40px] md:py-[56px] lg:py-[72px] bg-white overflow-hidden scroll-mt-20"
       dir={isArabic ? "rtl" : "ltr"}
     >
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-10 xl:px-16">

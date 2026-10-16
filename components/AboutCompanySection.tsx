@@ -120,7 +120,7 @@ export default function AboutCompanySection() {
       dir={isArabic ? "rtl" : "ltr"}
     >
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 sm:pt-20 lg:pt-24">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-[40px] md:pt-[56px] lg:pt-[72px]">
 
         {/* ── Top two-column layout ──────────────────────────────────── */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 xl:gap-16 items-center">
@@ -222,7 +222,7 @@ export default function AboutCompanySection() {
         {/* ── Stats row ────────────────────────────────────────────────── */}
         <div
           ref={statsRef}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 mt-12 sm:mt-14 pb-14 sm:pb-16 lg:pb-20"
+          className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 mt-12 sm:mt-14 pb-[40px] md:pb-[56px] lg:pb-[72px]"
         >
           {statsData.map((s, i) => (
             <StatCard

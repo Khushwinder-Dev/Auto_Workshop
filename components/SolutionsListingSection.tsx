@@ -108,7 +108,7 @@ export default function SolutionsListingSection({
   ];
 
   return (
-    <section className={`relative w-full py-16 sm:py-20 lg:py-24 bg-white ${className}`}>
+    <section className={`relative w-full py-[40px] md:py-[56px] lg:py-[72px] bg-white ${className}`}>
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-10 xl:px-16">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">

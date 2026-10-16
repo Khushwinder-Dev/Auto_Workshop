@@ -85,7 +85,7 @@ export default function ProtectionServicesSection({
     : services;
 
   return (
-    <section className="relative w-full py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-[#E6F7F6] overflow-hidden">
+    <section className="relative w-full py-[40px] md:py-[56px] lg:py-[72px] px-4 sm:px-6 lg:px-8 bg-[#E6F7F6] overflow-hidden">
       <div className="max-w-8xl mx-auto">
         {/* ============================================================
             SECTION HEADER

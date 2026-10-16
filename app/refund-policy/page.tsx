@@ -96,7 +96,7 @@ export default function RefundPolicyPage() {
       {/* ══════════════════════════════════════════════════════════════
           2. MAIN CONTENT BODY (Matching Reference Design Layout)
       ══════════════════════════════════════════════════════════════ */}
-      <main className="max-w-[880px] mx-auto px-5 sm:px-6 lg:px-8 py-12 sm:py-16">
+      <main className="max-w-[880px] mx-auto px-5 sm:px-6 lg:px-8 py-[40px] md:py-[56px] lg:py-[72px]">
         {/* Intro Paragraph */}
         <p className="text-stone-600 text-xs sm:text-sm leading-relaxed mb-10 sm:mb-12">
           {isArabic

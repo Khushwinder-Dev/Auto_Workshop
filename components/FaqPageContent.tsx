@@ -299,7 +299,7 @@ export default function FaqPageContent() {
       {/* ══════════════════════════════════════════════════════════════
           2. MAIN CONTENT AREA (Frequently Asked Questions + Search + Filter + List)
       ══════════════════════════════════════════════════════════════ */}
-      <section className="relative w-full py-10 sm:py-18 lg:py-22 bg-gradient-to-b from-[#edf8f6] via-[#e5f5f3] to-[#f4faf9] overflow-hidden">
+      <section className="relative w-full py-[40px] md:py-[56px] lg:py-[72px] bg-gradient-to-b from-[#edf8f6] via-[#e5f5f3] to-[#f4faf9] overflow-hidden">
 
         {/* Left Decorative Vector Curve (Vector (1).svg) */}
         <div className="absolute left-0 top-12 sm:top-20 pointer-events-none select-none opacity-80 z-0">
@@ -469,7 +469,7 @@ export default function FaqPageContent() {
       {/* ══════════════════════════════════════════════════════════════
           3. BOTTOM CTA SECTION ("Still have questions?")
       ══════════════════════════════════════════════════════════════ */}
-      <section className="relative w-full bg-[#081e35] py-16 sm:py-20 lg:py-24 overflow-hidden">
+      <section className="relative w-full bg-[#081e35] py-[40px] md:py-[56px] lg:py-[72px] overflow-hidden">
         {/* Background Image (Group 1000010019.png) */}
         <Image
           src="/faqPage/Group 1000010019.png"

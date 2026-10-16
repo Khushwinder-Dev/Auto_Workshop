@@ -50,7 +50,7 @@ export default function MediaLatestNewsSection() {
   const { isArabic } = useLanguage();
 
   return (
-    <section className="relative w-full py-16 sm:py-20 lg:py-24 bg-white transition-colors duration-300">
+    <section className="relative w-full py-[40px] md:py-[56px] lg:py-[72px] bg-white transition-colors duration-300">
       <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 w-full">
         {/* ========================================================= */}
         {/* HEADER: Centered Title matching website design language  */}

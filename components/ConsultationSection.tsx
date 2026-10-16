@@ -311,7 +311,7 @@ export default function ConsultationSection() {
             ============================================================ */}
         <div
           data-aos={isArabic ? "fade-left" : "fade-right"}
-          className="bg-[#009e90] p-8 sm:p-12 lg:p-16 xl:p-20 text-white flex flex-col justify-center"
+          className="bg-[#009e90] py-[40px] md:py-[56px] lg:py-[72px] px-6 sm:px-12 lg:px-14 xl:px-16 text-white flex flex-col justify-center"
         >
           <div className="max-w-xl mx-auto lg:mx-0 w-full">
             {/* Eyebrow / Tag */}
@@ -402,7 +402,7 @@ export default function ConsultationSection() {
             ============================================================ */}
         <div
           data-aos={isArabic ? "fade-right" : "fade-left"}
-          className="bg-[#E6F7F6] p-8 sm:p-12 lg:p-16 xl:p-20 flex flex-col justify-center"
+          className="bg-[#E6F7F6] py-[40px] md:py-[56px] lg:py-[72px] px-6 sm:px-12 lg:px-14 xl:px-16 flex flex-col justify-center"
         >
           <div className="max-w-xl mx-auto lg:mx-0 w-full">
             {/* Heading */}

@@ -339,7 +339,7 @@ export default function DownloadPageContent() {
       {/* ══════════════════════════════════════════════════════════════
           2. RESOURCES & DOCUMENTS SECTION (3x3 Grid of 9 Cards)
       ══════════════════════════════════════════════════════════════ */}
-      <section className="relative w-full py-16 sm:py-20 md:py-24 px-4 sm:px-6 lg:px-8">
+      <section className="relative w-full py-[40px] md:py-[56px] lg:py-[72px] px-4 sm:px-6 lg:px-8">
         <div className="max-w-[1240px] mx-auto">
           {/* Section Header */}
           <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
@@ -515,7 +515,7 @@ export default function DownloadPageContent() {
           {/* ══════════════════════════════════════════════════════════════
               3. DOWNLOAD FORM SECTION (Left Heading + Right Form Card)
           ══════════════════════════════════════════════════════════════ */}
-          <div className="mt-20 sm:mt-24 md:mt-28 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center max-w-[1240px] mx-auto">
+          <div className="mt-[40px] md:mt-[56px] lg:mt-[72px] grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center max-w-[1240px] mx-auto">
             {/* Left Column: Heading & Tagline */}
             <div className="text-left rtl:text-right">
               {/* Tagline */}
@@ -644,7 +644,7 @@ export default function DownloadPageContent() {
       {/* ══════════════════════════════════════════════════════════════
           4. CTA BANNER SECTION: "Let's Discuss Your Project"
       ══════════════════════════════════════════════════════════════ */}
-      <section className="relative w-full py-16 sm:py-20 md:py-24 bg-gradient-to-r from-[#009e90] via-[#00a89a] to-[#00b4a6] text-white overflow-hidden">
+      <section className="relative w-full py-[40px] md:py-[56px] lg:py-[72px] bg-gradient-to-r from-[#009e90] via-[#00a89a] to-[#00b4a6] text-white overflow-hidden">
         {/* Subtle decorative circles */}
         <div className="absolute -left-20 -top-20 w-80 h-80 rounded-full bg-white/5 blur-2xl pointer-events-none" />
         <div className="absolute -right-20 -bottom-20 w-80 h-80 rounded-full bg-white/5 blur-2xl pointer-events-none" />

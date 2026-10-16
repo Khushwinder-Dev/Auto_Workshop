@@ -377,7 +377,7 @@ function ServicesContent({ enableSlider }: { enableSlider?: boolean }) {
       )}
 
       {/* ══ BODY: SIDEBAR + CONTENT ══════════════════════════════ */}
-      <div id="services-content-area" className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 lg:py-16 bg-[#f4f6f8]">
+      <div id="services-content-area" className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-[40px] md:py-[56px] lg:py-[72px] bg-[#f4f6f8]">
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-start">
 
           {/* ── SIDEBAR ─────────────────────────────────────────── */}
@@ -596,7 +596,7 @@ function ServicesContent({ enableSlider }: { enableSlider?: boolean }) {
 
       {/* ══ CONTACT / INQUIRY SECTION (listing view only) ════════ */}
       {
-        !activeSub && <section className="w-full bg-[#f4f6f8] py-16 sm:py-20 lg:py-24 border-t border-stone-200/60">
+        !activeSub && <section className="w-full bg-[#f4f6f8] py-[40px] md:py-[56px] lg:py-[72px] border-t border-stone-200/60">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-center gap-2 mb-3">
               <span className="flex items-center gap-1">
@@ -817,7 +817,7 @@ function ServicesContent({ enableSlider }: { enableSlider?: boolean }) {
 
       {/* ══ FAQ SECTION (Single Column Matching Reference media_1790098744511.png) ══ */}
       <section
-        className="relative w-full bg-[#F8FAFC] py-10 sm:py-20 lg:py-24 px-3 sm:px-6 lg:px-8 overflow-hidden"
+        className="relative w-full bg-[#F8FAFC] py-[40px] md:py-[56px] lg:py-[72px] px-3 sm:px-6 lg:px-8 overflow-hidden"
         dir={isArabic ? "rtl" : "ltr"}
       >
         <div className="max-w-4xl mx-auto">
@@ -870,7 +870,7 @@ function ServicesContent({ enableSlider }: { enableSlider?: boolean }) {
       </section>
 
       {/* ══ BOOK A VISIT CTA BANNER ══════════════════════════════ */}
-      <section className="w-full bg-white py-8 sm:py-10 px-4 sm:px-6 lg:px-8">
+      <section className="w-full bg-white py-[40px] md:py-[56px] lg:py-[72px] px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="relative overflow-hidden bg-gradient-to-r from-[#018b84] via-[#01a9a0] to-[#009e90] rounded-2xl sm:rounded-3xl border border-white/20 shadow-[0_15px_35px_rgba(1,169,160,0.25)] px-6 sm:px-10 py-7 sm:py-9 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
             {/* Subtle decorative glow */}

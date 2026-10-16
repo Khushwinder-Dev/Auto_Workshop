@@ -364,7 +364,7 @@ export default function CareerPageContent() {
       {/* ══════════════════════════════════════════════════════════════
           2. SECTION: A TRADE JOB YOU CAN BUILD A DECADE ON
       ══════════════════════════════════════════════════════════════ */}
-      <section id="why-join-us" className="relative w-full py-16 sm:py-20 lg:py-24 bg-white overflow-hidden scroll-mt-20">
+      <section id="why-join-us" className="relative w-full py-[40px] md:py-[56px] lg:py-[72px] bg-white overflow-hidden scroll-mt-20">
         <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-10 xl:px-16">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
 
@@ -585,7 +585,7 @@ export default function CareerPageContent() {
       {/* ══════════════════════════════════════════════════════════════
           3. SECTION: ALL JOBS LISTINGS & PAGINATION
       ══════════════════════════════════════════════════════════════ */}
-      <section id="current-openings" className="relative w-full py-16 sm:py-20 bg-white scroll-mt-20">
+      <section id="current-openings" className="relative w-full py-[40px] md:py-[56px] lg:py-[72px] bg-white scroll-mt-20">
         <span id="all-jobs" className="scroll-mt-20" />
         <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-10 xl:px-16">
 
@@ -714,7 +714,7 @@ export default function CareerPageContent() {
       {/* ══════════════════════════════════════════════════════════════
           4. SECTION: HOW IT WORKS SIMPLE EFFICIENT (HIRING PROCESS)
       ══════════════════════════════════════════════════════════════ */}
-      <section id="recruitment-process" className="relative w-full py-16 sm:py-20 lg:py-24 bg-[#F2FBF9] overflow-hidden scroll-mt-20">
+      <section id="recruitment-process" className="relative w-full py-[40px] md:py-[56px] lg:py-[72px] bg-[#F2FBF9] overflow-hidden scroll-mt-20">
         <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-10 xl:px-16">
 
           {/* Section Header */}
@@ -792,7 +792,7 @@ export default function CareerPageContent() {
       {/* ══════════════════════════════════════════════════════════════
           5. SECTION: FREQUENTLY ASKED QUESTIONS
       ══════════════════════════════════════════════════════════════ */}
-      <section id="faqs" className="relative w-full py-16 sm:py-20 lg:py-24 bg-white scroll-mt-20">
+      <section id="faqs" className="relative w-full py-[40px] md:py-[56px] lg:py-[72px] bg-white scroll-mt-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 
           {/* Section Header */}

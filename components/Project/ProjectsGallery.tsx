@@ -374,7 +374,7 @@ export default function ProjectsGallery() {
 
   return (
     <section
-      className="relative w-full bg-white py-14 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 overflow-hidden"
+      className="relative w-full bg-white py-[40px] md:py-[56px] lg:py-[72px] px-4 sm:px-6 lg:px-8 overflow-hidden"
       dir={isArabic ? "rtl" : "ltr"}
     >
       <div className="max-w-8xl mx-auto">

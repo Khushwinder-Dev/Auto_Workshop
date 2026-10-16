@@ -354,7 +354,7 @@ export default function PrivacyPage() {
       />
 
       {/* ── Main Policy Content ── */}
-      <main className="py-14 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 xl:px-12 max-w-5xl mx-auto">
+      <main className="py-[40px] md:py-[56px] lg:py-[72px] px-4 sm:px-6 lg:px-8 xl:px-12 max-w-5xl mx-auto">
         {/* Policy Introduction Card */}
         <div className="bg-white rounded-3xl p-7 sm:p-10 border border-stone-200 shadow-xs mb-10 sm:mb-12 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-48 h-48 bg-[#01a9a0]/5 rounded-full blur-3xl pointer-events-none" />
