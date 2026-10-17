@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Common/Footer";
 import FloatingChatWidget from "@/components/Common/FloatingChatWidget";
 import { Toaster } from "react-hot-toast";
+import AosInit from "@/components/AosInit";
 
 const inter = Inter({
   variable: "--font-main",
@@ -77,6 +78,7 @@ export default function RootLayout({
           }}
         />
 
+        <AosInit />
         <Navbar />
         <main className="min-h-screen">
           {children}

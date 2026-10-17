@@ -12,114 +12,97 @@ import {
 } from "lucide-react";
 
 export default function WorkProcessSection() {
-  const leftSteps = [
-    {
-      icon: <ClipboardList className="w-6 h-6 text-red-600" />,
-      title: "Share Requirement",
-      desc: "Let us know what's bothering your car or what maintenance it needs.",
-    },
-    {
-      icon: <Receipt className="w-6 h-6 text-red-600" />,
-      title: "Receive Up Front Quote",
-      desc: "Transparent, itemized pricing catering to your specific vehicle needs.",
-    },
-    {
-      icon: <CalendarDays className="w-6 h-6 text-red-600" />,
-      title: "Schedule Appointment",
-      desc: "Pick a date and convenient time slot at our Sharjah workshop.",
-    },
-  ];
-
-  const rightSteps = [
-    {
-      icon: <UserCheck className="w-6 h-6 text-red-600" />,
-      title: "Personal Attention",
-      desc: "Dedicated certified technicians working exclusively on your vehicle.",
-    },
-    {
-      icon: <MapPin className="w-6 h-6 text-red-600" />,
-      title: "Live Tracking & Updates",
-      desc: "Receive photo & status updates throughout the repair process.",
-    },
-    {
-      icon: <CreditCard className="w-6 h-6 text-red-600" />,
-      title: "Pay Post Service",
-      desc: "Pay easily through card or cash only after quality inspection is approved.",
-    },
-  ];
-
   return (
     <section className="py-24 bg-white overflow-hidden">
       <div className="max-w-[1350px] mx-auto px-6">
         <div className="text-center mb-20">
-          <div className="flex items-center justify-center gap-2 text-red-600 font-bold text-xs uppercase tracking-[0.25em] mb-4">
+          <div className="flex items-center justify-center gap-2 text-red-600 font-bold text-[11px] uppercase tracking-[0.2em] mb-4">
             OUR WORK PROCESS
           </div>
-          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-black text-zinc-900 leading-tight uppercase tracking-tight">
+          <h2 className="font-display text-5xl md:text-6xl font-[900] text-zinc-900 leading-tight uppercase tracking-tight">
             How We Work
           </h2>
-          <p className="text-zinc-500 text-sm md:text-base max-w-xl mx-auto mt-3">
-            A hassle-free, transparent automotive repair process designed for speed and complete peace of mind.
-          </p>
         </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 xl:gap-16 items-center">
-          {/* Left 3 Steps */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 xl:gap-16 items-center">
           <div className="flex flex-col gap-12 lg:order-1">
-            {leftSteps.map((step) => (
-              <div key={step.title} className="flex items-start gap-6 group">
-                <div className="flex-shrink-0 w-14 h-14 bg-red-50 group-hover:bg-red-600 rounded-2xl flex items-center justify-center transition-colors duration-300">
-                  <div className="group-hover:text-white transition-colors [&>svg]:group-hover:text-white">
-                    {step.icon}
-                  </div>
-                </div>
-                <div className="pt-1">
-                  <h3 className="text-zinc-900 font-bold text-xl mb-1.5 uppercase tracking-tight group-hover:text-red-600 transition-colors">
-                    {step.title}
-                  </h3>
-                  <p className="text-zinc-500 text-xs sm:text-sm leading-relaxed max-w-[280px]">
-                    {step.desc}
-                  </p>
-                </div>
+            <div className="flex items-start gap-6">
+              <div className="flex-shrink-0 w-14 h-14 bg-red-50 rounded-xl flex items-center justify-center">
+                <ClipboardList className="w-5 h-5 text-red-600" />
               </div>
-            ))}
-          </div>
-
-          {/* Center Showcase Image */}
-          <div className="lg:order-2 flex justify-center">
-            <div className="relative w-full max-w-[420px] h-[480px] sm:h-[580px] rounded-3xl overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] border border-zinc-200 group">
-              <Image
-                src="/images/ims_b_2.jpg"
-                alt="Mechanic working under car at Bab Al Bustan"
-                fill
-                className="object-cover group-hover:scale-105 transition-transform duration-700"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+              <div className="pt-1">
+                <h4 className="text-zinc-900 font-bold text-xl mb-1.5">Share Requirement</h4>
+                <p className="text-zinc-400 text-sm leading-relaxed max-w-[240px]">
+                  Let us know what&#x27;s bothering your car
+                </p>
+              </div>
+            </div>
+            <div className="flex items-start gap-6">
+              <div className="flex-shrink-0 w-14 h-14 bg-red-50 rounded-xl flex items-center justify-center">
+                <Receipt className="w-5 h-5 text-red-600" />
+              </div>
+              <div className="pt-1">
+                <h4 className="text-zinc-900 font-bold text-xl mb-1.5">Receive Up Front Quote</h4>
+                <p className="text-zinc-400 text-sm leading-relaxed max-w-[240px]">
+                  Transparent pricing catering to your specific needs
+                </p>
+              </div>
+            </div>
+            <div className="flex items-start gap-6">
+              <div className="flex-shrink-0 w-14 h-14 bg-red-50 rounded-xl flex items-center justify-center">
+                <CalendarDays className="w-5 h-5 text-red-600" />
+              </div>
+              <div className="pt-1">
+                <h4 className="text-zinc-900 font-bold text-xl mb-1.5">Schedule Appointment</h4>
+                <p className="text-zinc-400 text-sm leading-relaxed max-w-[240px]">
+                  Transparent pricing catering to your specific needs
+                </p>
+              </div>
             </div>
           </div>
-
-          {/* Right 3 Steps */}
+          <div className="lg:order-2 flex justify-center">
+            <div className="relative w-full max-w-[420px] h-[580px] rounded-3xl overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] border border-zinc-100">
+              <Image
+                src="/images/ims_b_2.jpg"
+                alt="Mechanic working under car"
+                fill
+                className="object-cover"
+              />
+            </div>
+          </div>
           <div className="flex flex-col gap-12 lg:order-3">
-            {rightSteps.map((step) => (
-              <div
-                key={step.title}
-                className="flex items-start gap-6 flex-row lg:flex-row-reverse lg:text-right group"
-              >
-                <div className="flex-shrink-0 w-14 h-14 bg-red-50 group-hover:bg-red-600 rounded-2xl flex items-center justify-center transition-colors duration-300">
-                  <div className="group-hover:text-white transition-colors [&>svg]:group-hover:text-white">
-                    {step.icon}
-                  </div>
-                </div>
-                <div className="pt-1">
-                  <h3 className="text-zinc-900 font-bold text-xl mb-1.5 uppercase tracking-tight group-hover:text-red-600 transition-colors">
-                    {step.title}
-                  </h3>
-                  <p className="text-zinc-500 text-xs sm:text-sm leading-relaxed max-w-[280px] lg:ml-auto">
-                    {step.desc}
-                  </p>
-                </div>
+            <div className="flex items-start gap-6 flex-row lg:flex-row-reverse lg:text-right">
+              <div className="flex-shrink-0 w-14 h-14 bg-red-50 rounded-xl flex items-center justify-center">
+                <UserCheck className="w-5 h-5 text-red-600" />
               </div>
-            ))}
+              <div className="pt-1">
+                <h4 className="text-zinc-900 font-bold text-xl mb-1.5">Personal Attention</h4>
+                <p className="text-zinc-400 text-sm leading-relaxed max-w-[240px] lg:ml-auto">
+                  Dedicated engineers working exclusively on your car
+                </p>
+              </div>
+            </div>
+            <div className="flex items-start gap-6 flex-row lg:flex-row-reverse lg:text-right">
+              <div className="flex-shrink-0 w-14 h-14 bg-red-50 rounded-xl flex items-center justify-center">
+                <MapPin className="w-5 h-5 text-red-600" />
+              </div>
+              <div className="pt-1">
+                <h4 className="text-zinc-900 font-bold text-xl mb-1.5">Live Tracking &amp; Updates</h4>
+                <p className="text-zinc-400 text-sm leading-relaxed max-w-[240px] lg:ml-auto">
+                  Track your car service visually in real time
+                </p>
+              </div>
+            </div>
+            <div className="flex items-start gap-6 flex-row lg:flex-row-reverse lg:text-right">
+              <div className="flex-shrink-0 w-14 h-14 bg-red-50 rounded-xl flex items-center justify-center">
+                <CreditCard className="w-5 h-5 text-red-600" />
+              </div>
+              <div className="pt-1">
+                <h4 className="text-zinc-900 font-bold text-xl mb-1.5">Pay Post Service</h4>
+                <p className="text-zinc-400 text-sm leading-relaxed max-w-[240px] lg:ml-auto">
+                  Pay online, through card or cash, post service completion.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

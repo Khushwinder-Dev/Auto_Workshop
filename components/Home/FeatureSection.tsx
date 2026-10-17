@@ -2,98 +2,95 @@
 
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
-import { Zap, ShieldCheck, Tag, Users } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Zap, ShieldCheck, Tag, UserCog } from "lucide-react";
 
 export default function FeatureSection() {
-  const features = [
-    {
-      icon: <Zap className="w-5 h-5 text-red-500" />,
-      title: "Express Service",
-      desc: "Most services completed in under 60 minutes without sacrificing quality.",
-    },
-    {
-      icon: <ShieldCheck className="w-5 h-5 text-red-500" />,
-      title: "Quality Guarantee",
-      desc: "100% satisfaction guarantee on all services. Not happy? We redo it free.",
-    },
-    {
-      icon: <Tag className="w-5 h-5 text-red-500" />,
-      title: "Transparent Pricing",
-      desc: "No hidden charges. Get a full itemized quote before we begin any work.",
-    },
-    {
-      icon: <Users className="w-5 h-5 text-red-500" />,
-      title: "Certified Technicians",
-      desc: "Our workshop team holds certifications and undergoes continuous manufacturer training.",
-    },
-  ];
+  const router = useRouter();
 
   return (
-    <section className="bg-[#050505] py-24 px-6 relative overflow-hidden border-t border-b border-white/5">
-      <div className="max-w-[1350px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-        {/* Left Side Image with rounded corner design */}
-        <div className="relative h-[380px] md:h-[540px] w-full rounded-[36px] overflow-hidden border border-white/10 shadow-2xl group">
+    <section className="bg-[#050505] py-20 px-6">
+      <div className="max-w-8xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="relative h-[300px] md:h-[500px] w-full rounded-[40px] overflow-hidden border border-white/5 shadow-2xl">
           <Image
             src="/images/service-5.png"
-            alt="Mechanic at work in Bab Al Bustan"
+            alt="Mechanic at work"
             fill
-            className="object-cover transition-transform duration-700 group-hover:scale-105"
+            className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
-
-          {/* Quick badge */}
-          <div className="absolute bottom-6 left-6 right-6 p-6 rounded-2xl bg-black/70 backdrop-blur-md border border-white/15">
-            <p className="text-white font-bold text-sm">
-              Sharjah Industrial Area 5 Dedicated High-Tech Bays
-            </p>
-            <p className="text-xs text-zinc-400 mt-1">
-              Equipped with hydraulic lifts, computerized scanners, and laser tire balancers.
-            </p>
-          </div>
         </div>
-
-        {/* Right Side Content */}
-        <div className="flex flex-col items-start lg:pl-6">
-          <div className="inline-block px-3.5 py-1.5 rounded-full border border-red-900/50 bg-red-900/15 mb-6">
-            <span className="text-red-500 text-[11px] font-black tracking-[0.25em] uppercase">
+        <div className="flex flex-col items-start lg:pl-10">
+          <div className="inline-block px-2 py-1.5 rounded-full border border-red-900/40 bg-red-900/10 mb-8">
+            <span className="text-red-600 text-[10px] font-black tracking-[0.2em] uppercase">
               Bab Al Bustan Auto Maintenance Workshop
             </span>
           </div>
-
-          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white leading-[1.05] mb-6 uppercase tracking-tight">
-            We Go Beyond Just a <br className="hidden sm:inline" />
-            <span className="text-red-500">Car Maintenance</span>
+          <h2 className="font-display text-2xl md:text-5xl font-medium text-white leading-tight mb-6 tracking-tight">
+            We Go Beyond Just a <br /> Car Maintenance
           </h2>
-
-          <p className="text-zinc-400 text-sm md:text-base leading-relaxed mb-8 max-w-xl">
-            At Bab Al Bustan Auto Maintenance Workshop, we blend speed with precision. Our certified technicians use cutting-edge diagnostic equipment to deliver results that exceed expectations — every single time.
+          <p className="text-zinc-400 text-sm md:text-base leading-relaxed mb-4 max-w-3xl">
+            Bab Al Bustan Auto Maintenance Workshop, we blend speed with precision. Our certified technicians use cutting-edge equipment to deliver results that exceed expectations — every single time.
           </p>
-
-          <div className="space-y-5 w-full mb-10">
-            {features.map((f) => (
-              <div key={f.title} className="flex items-start gap-4 group">
-                <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center transition-colors group-hover:border-red-600/60 group-hover:bg-red-950/20">
-                  {f.icon}
-                </div>
-                <div>
-                  <h3 className="text-white font-bold text-base mb-1 tracking-wide uppercase">
-                    {f.title}
-                  </h3>
-                  <p className="text-zinc-400 text-xs sm:text-sm leading-relaxed max-w-lg">
-                    {f.desc}
-                  </p>
-                </div>
+          <div className="space-y-4 w-full mb-12">
+            <div className="flex items-start gap-3 group">
+              <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-zinc-900/50 border border-zinc-800 flex items-center justify-center transition-colors group-hover:border-red-600/50">
+                <Zap className="w-5 h-5 text-red-600" />
               </div>
-            ))}
+              <div>
+                <h4 className="text-white font-bold text-base mb-1 tracking-wide">
+                  Express Service
+                </h4>
+                <p className="text-zinc-500 text-xs md:text-sm leading-snug max-w-lg">
+                  Most services completed in under 60 minutes without sacrificing quality.
+                </p>
+              </div>
+            </div>
+            <div className="flex items-start gap-3 group">
+              <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-zinc-900/50 border border-zinc-800 flex items-center justify-center transition-colors group-hover:border-red-600/50">
+                <ShieldCheck className="w-5 h-5 text-red-600" />
+              </div>
+              <div>
+                <h4 className="text-white font-bold text-base mb-1 tracking-wide">
+                  Quality Guarantee
+                </h4>
+                <p className="text-zinc-500 text-xs md:text-sm leading-snug max-w-lg">
+                  100% satisfaction guarantee on all services. Not happy? We redo it free.
+                </p>
+              </div>
+            </div>
+            <div className="flex items-start gap-3 group">
+              <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-zinc-900/50 border border-zinc-800 flex items-center justify-center transition-colors group-hover:border-red-600/50">
+                <Tag className="w-5 h-5 text-red-600" />
+              </div>
+              <div>
+                <h4 className="text-white font-bold text-base mb-1 tracking-wide">
+                  Transparent Pricing
+                </h4>
+                <p className="text-zinc-500 text-xs md:text-sm leading-snug max-w-lg">
+                  No hidden charges. Get a full quote before we begin any work.
+                </p>
+              </div>
+            </div>
+            <div className="flex items-start gap-3 group">
+              <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-zinc-900/50 border border-zinc-800 flex items-center justify-center transition-colors group-hover:border-red-600/50">
+                <UserCog className="w-5 h-5 text-red-600" />
+              </div>
+              <div>
+                <h4 className="text-white font-bold text-base mb-1 tracking-wide">
+                  Certified Technicians
+                </h4>
+                <p className="text-zinc-500 text-xs md:text-sm leading-snug max-w-lg">
+                  Our team holds certifications and undergoes continuous training.
+                </p>
+              </div>
+            </div>
           </div>
-
-          <Link
-            href="/about-us"
-            className="btn-primary text-white font-black text-xs md:text-sm px-10 py-4 rounded-xl uppercase tracking-[0.15em] shadow-lg shadow-red-600/30 active:scale-95 transition-all"
+          <button
+            onClick={() => router.push("/about-us")}
+            className="bg-red-600 hover:bg-red-700 transition-all duration-300 text-white font-black text-xs md:text-sm px-10 py-5 rounded-lg uppercase tracking-[0.15em] shadow-lg shadow-red-600/20 active:scale-95 cursor-pointer"
           >
             Learn More About Us
-          </Link>
+          </button>
         </div>
       </div>
     </section>

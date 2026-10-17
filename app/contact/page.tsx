@@ -5,14 +5,14 @@ import Image from "next/image";
 import {
   MapPin,
   Phone,
-  Mail,
   Clock,
   Send,
-  MessageSquare,
-  CheckCircle2,
+  ExternalLink,
+  Navigation,
+  Star,
+  Info,
 } from "lucide-react";
 import toast from "react-hot-toast";
-import { WORKSHOP_INFO } from "@/data/workshopData";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -27,12 +27,9 @@ export default function ContactPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-
     setTimeout(() => {
       setIsSubmitting(false);
-      toast.success(
-        "Thank you! Your message has been received. Our team will get back to you promptly."
-      );
+      toast.success("Thank you! Your message has been sent. We will respond promptly.");
       setFormData({
         name: "",
         email: "",
@@ -44,276 +41,231 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="bg-white">
-      {/* Page Hero Banner */}
-      <section className="relative w-full h-[55vh] min-h-[420px] overflow-hidden flex flex-col justify-center items-center bg-black pt-20">
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/images/services-hero.png"
-            alt="Contact Bab Al Bustan Workshop"
-            fill
-            priority
-            className="object-cover"
-          />
-          <div className="absolute inset-0 bg-[#120505]/75 backdrop-brightness-75" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/30" />
-        </div>
-
-        <div className="relative z-20 text-center px-6 max-w-3xl mx-auto">
-          <div className="inline-block px-4 py-1.5 rounded-full bg-red-600/20 border border-red-500/30 text-red-400 text-xs font-bold uppercase tracking-[0.25em] mb-4">
-            Get in Touch
+    <main>
+      <div>
+        {/* Hero Section */}
+        <section className="relative w-full h-[60vh] min-h-[450px] overflow-hidden flex flex-col bg-black">
+          <div className="absolute inset-0 z-0">
+            <Image
+              alt="Workshop Hero"
+              fill
+              className="object-cover"
+              src="/images/services-hero.png"
+              priority
+            />
+            <div className="absolute inset-0 bg-[#1a0a05]/70" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/20" />
           </div>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-black tracking-tight uppercase leading-tight text-white mb-4">
-            Contact <span className="text-red-500">Us</span>
-          </h1>
-          <p className="max-w-xl mx-auto text-zinc-300 text-sm md:text-base font-normal leading-relaxed">
-            Reach out to our customer service desk, schedule an in-person diagnostic inspection, or message us on WhatsApp.
-          </p>
-        </div>
-      </section>
-
-      {/* Contact Content Grid */}
-      <div className="max-w-7xl mx-auto px-6 py-24">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-          {/* Left: Contact Info & Image */}
-          <div className="lg:col-span-5 space-y-8">
-            <div className="relative h-64 w-full rounded-2xl overflow-hidden shadow-xl border border-zinc-200 bg-zinc-900">
-              <Image
-                src="/images/ims_b_2.jpg"
-                alt="Bab Al Bustan Workshop Sharjah"
-                fill
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
-              <div className="absolute bottom-5 left-5 right-5 text-white">
-                <span className="text-red-500 text-[10px] font-black uppercase tracking-widest block mb-1">
-                  Customer Support
-                </span>
-                <h3 className="font-bold text-lg uppercase leading-tight">
-                  {WORKSHOP_INFO.name}
-                </h3>
-              </div>
+          <div className="relative z-20 flex-grow flex flex-col items-center justify-center text-center px-6 mt-10">
+            <div data-aos="zoom-out" data-aos-delay="200" className="mb-4">
+              <h1 className="text-3xl md:text-[50px] font-display tracking-[-0.04em] leading-[0.9] flex items-center justify-center gap-4 max-w-[800px]">
+                <span className="text-white">Contact Us </span>
+                <span className="text-[#e11d23]" />
+              </h1>
             </div>
+            <p
+              data-aos="fade-up"
+              data-aos-delay="400"
+              className="max-w-xl text-gray-400 text-xs md:text-sm font-medium tracking-wide opacity-80"
+            >
+              A look at the quality work we deliver — every car, every time.
+            </p>
+          </div>
+        </section>
 
-            {/* Contact Details Cards */}
-            <div className="space-y-4">
-              <div className="bg-zinc-50 border border-zinc-200/90 rounded-2xl p-6 flex gap-4">
-                <div className="w-12 h-12 rounded-xl bg-red-100/70 text-red-600 flex items-center justify-center flex-shrink-0">
+        {/* Contact Information & Form */}
+        <div className="bg-white py-16 px-6 lg:px-24">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 border-b pb-12">
+              <div className="flex items-start gap-4">
+                <div className="bg-red-600 p-3 rounded-lg text-white">
                   <MapPin className="w-6 h-6" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-zinc-900 uppercase text-xs tracking-wider">
+                  <h3 className="font-bold text-gray-900 uppercase tracking-wider text-sm">
                     Address
-                  </h4>
-                  <p className="text-zinc-600 text-sm mt-1 leading-snug">
-                    {WORKSHOP_INFO.address}
+                  </h3>
+                  <p className="text-gray-500 text-sm mt-1">
+                    Industrial Area No 5, Sharjah, UAE
                   </p>
                 </div>
               </div>
-
-              <div className="bg-zinc-50 border border-zinc-200/90 rounded-2xl p-6 flex gap-4">
-                <div className="w-12 h-12 rounded-xl bg-red-100/70 text-red-600 flex items-center justify-center flex-shrink-0">
+              <div className="flex items-start gap-4">
+                <div className="bg-red-600 p-3 rounded-lg text-white">
                   <Phone className="w-6 h-6" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-zinc-900 uppercase text-xs tracking-wider">
+                  <h3 className="font-bold text-gray-900 uppercase tracking-wider text-sm">
                     Call Us
-                  </h4>
-                  <div className="text-zinc-600 text-sm mt-1 space-y-0.5">
-                    {WORKSHOP_INFO.phones.map((p) => (
-                      <p key={p}>
-                        <a href={`tel:${p}`} className="hover:text-red-600 transition-colors font-medium">
-                          {p}
-                        </a>
-                      </p>
-                    ))}
-                  </div>
+                  </h3>
+                  <p className="text-gray-500 text-sm mt-1">+971564406456</p>
                 </div>
               </div>
-
-              <div className="bg-zinc-50 border border-zinc-200/90 rounded-2xl p-6 flex gap-4">
-                <div className="w-12 h-12 rounded-xl bg-red-100/70 text-red-600 flex items-center justify-center flex-shrink-0">
-                  <Mail className="w-6 h-6" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-zinc-900 uppercase text-xs tracking-wider">
-                    Email Inquiries
-                  </h4>
-                  <div className="text-zinc-600 text-sm mt-1 space-y-0.5">
-                    {WORKSHOP_INFO.emails.map((e) => (
-                      <p key={e}>
-                        <a href={`mailto:${e}`} className="hover:text-red-600 transition-colors">
-                          {e}
-                        </a>
-                      </p>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-zinc-50 border border-zinc-200/90 rounded-2xl p-6 flex gap-4">
-                <div className="w-12 h-12 rounded-xl bg-red-100/70 text-red-600 flex items-center justify-center flex-shrink-0">
+              <div className="flex items-start gap-4">
+                <div className="bg-red-600 p-3 rounded-lg text-white">
                   <Clock className="w-6 h-6" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-zinc-900 uppercase text-xs tracking-wider">
-                    Hours of Operation
-                  </h4>
-                  <p className="text-zinc-600 text-sm mt-1">
-                    {WORKSHOP_INFO.hours.weekdays}
-                  </p>
-                  <p className="text-zinc-400 text-xs mt-0.5">
-                    {WORKSHOP_INFO.hours.break}
-                  </p>
-                  <p className="text-red-600 text-xs font-bold mt-0.5">
-                    {WORKSHOP_INFO.hours.friday}
-                  </p>
+                  <h3 className="font-bold text-gray-900 uppercase tracking-wider text-sm">
+                    Hours
+                  </h3>
+                  <p className="text-gray-500 text-sm mt-1">Sat-Thu: 8am - 9pm</p>
                 </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+              <div className="relative min-h-[400px] rounded-2xl overflow-hidden shadow-xl">
+                <Image
+                  alt="Workshop"
+                  fill
+                  className="object-cover"
+                  src="/images/ims_b_2.jpg"
+                />
+              </div>
+              <div className="bg-white border border-gray-100 rounded-2xl shadow-2xl p-8 md:p-12">
+                <h2 className="text-3xl font-display text-gray-900 mb-8">
+                  Send a Message
+                </h2>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <input
+                    type="text"
+                    required
+                    placeholder="Your Name"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    className="w-full bg-gray-50 border-none rounded-lg p-4 text-zinc-900 placeholder:text-gray-400 outline-none focus:ring-2 focus:ring-red-600"
+                    name="name"
+                  />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <input
+                      type="email"
+                      required
+                      placeholder="Email Address"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      className="w-full bg-gray-50 border-none rounded-lg p-4 text-zinc-900 placeholder:text-gray-400 outline-none focus:ring-2 focus:ring-red-600"
+                      name="email"
+                    />
+                    <input
+                      type="tel"
+                      required
+                      placeholder="Phone Number"
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      className="w-full bg-gray-50 border-none rounded-lg p-4 text-zinc-900 placeholder:text-gray-400 outline-none focus:ring-2 focus:ring-red-600"
+                      name="phone"
+                    />
+                  </div>
+                  <input
+                    type="text"
+                    required
+                    placeholder="Subject"
+                    value={formData.subject}
+                    onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                    className="w-full bg-gray-50 border-none rounded-lg p-4 text-zinc-900 placeholder:text-gray-400 outline-none focus:ring-2 focus:ring-red-600"
+                    name="subject"
+                  />
+                  <textarea
+                    name="message"
+                    required
+                    placeholder="How can we help you?"
+                    rows={4}
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    className="w-full bg-gray-50 border-none rounded-lg p-4 text-zinc-900 placeholder:text-gray-400 outline-none focus:ring-2 focus:ring-red-600 resize-none"
+                  />
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 rounded-lg transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
+                  >
+                    {isSubmitting ? "Sending..." : "Send Message"}
+                    <Send className="w-[18px] h-[18px]" />
+                  </button>
+                </form>
               </div>
             </div>
           </div>
+        </div>
 
-          {/* Right: Message Form */}
-          <div className="lg:col-span-7 bg-zinc-50 border border-zinc-200/90 rounded-3xl p-8 sm:p-10 shadow-sm">
-            <div className="mb-8">
-              <span className="text-red-600 text-xs font-black uppercase tracking-[0.25em] mb-2 block">
-                Send a Message
-              </span>
-              <h2 className="font-display font-black text-3xl sm:text-4xl text-zinc-900 uppercase tracking-tight">
-                How Can We Help You?
+        {/* Map Section */}
+        <div className="w-full bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-10 xl:px-16 mb-20">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                Find Us On Map
               </h2>
-              <p className="text-zinc-500 text-xs sm:text-sm mt-1">
-                Fill in the form below and one of our service supervisors will respond right away.
+              <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+                Visit our workshop in Sharjah. Professional auto maintenance services you can trust.
               </p>
             </div>
-
-            <form onSubmit={handleSubmit} className="space-y-5">
-              <div>
-                <label className="block text-xs font-bold text-zinc-700 uppercase tracking-wider mb-2">
-                  Your Name *
-                </label>
-                <input
-                  type="text"
-                  required
-                  placeholder="John Doe"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full bg-white border border-zinc-200 rounded-xl p-4 text-zinc-900 text-sm outline-none focus:border-red-600 focus:ring-2 focus:ring-red-600/15 transition-all"
+            <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200 relative group">
+              <div className="h-[400px] md:h-[600px] w-full">
+                <iframe
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  src="https://maps.google.com/maps?q=BAB%20AL%20BUSTAN%20AUTO%20MAINTENANCE%20WORKSHOP%20Industrial%20Area%205%20-%20Industrial%20Area%20-%20Sharjah&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="BAB AL BUSTAN AUTO MAINTENANCE WORKSHOP"
                 />
               </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-xs font-bold text-zinc-700 uppercase tracking-wider mb-2">
-                    Email Address *
-                  </label>
-                  <input
-                    type="email"
-                    required
-                    placeholder="name@example.com"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full bg-white border border-zinc-200 rounded-xl p-4 text-zinc-900 text-sm outline-none focus:border-red-600 focus:ring-2 focus:ring-red-600/15 transition-all"
-                  />
+              <div className="absolute top-4 left-4 z-10 bg-white rounded-md shadow-lg border border-gray-200 p-4 w-[320px] hidden md:block">
+                <div className="flex justify-between items-start mb-1">
+                  <div className="flex-1">
+                    <h3 className="text-[16px] font-semibold text-gray-900 leading-tight">
+                      BAB AL BUSTAN AUTO MAINTENANCE WORKSHOP
+                    </h3>
+                    <p className="text-[13px] text-gray-600 mt-1 leading-normal">
+                      Industrial Area 5 - Industrial Area - Sharjah
+                    </p>
+                  </div>
+                  <div className="flex gap-2 ml-2">
+                    <a
+                      href="https://www.google.com/maps/dir/?api=1&destination=25.320666,55.408305"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="p-2 bg-blue-50 rounded-full hover:bg-blue-100 text-blue-600 transition-colors"
+                      title="View on Google Maps"
+                    >
+                      <ExternalLink className="w-[18px] h-[18px]" />
+                    </a>
+                    <a
+                      href="https://www.google.com/maps/dir/?api=1&destination=25.320666,55.408305"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="p-2 bg-blue-600 rounded-full hover:bg-blue-700 text-white transition-colors"
+                      title="Get Directions"
+                    >
+                      <Navigation className="w-[18px] h-[18px] text-white fill-white" />
+                    </a>
+                  </div>
                 </div>
-
-                <div>
-                  <label className="block text-xs font-bold text-zinc-700 uppercase tracking-wider mb-2">
-                    Phone Number (+971) *
-                  </label>
-                  <input
-                    type="tel"
-                    required
-                    placeholder="+971 50 123 4567"
-                    value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full bg-white border border-zinc-200 rounded-xl p-4 text-zinc-900 text-sm outline-none focus:border-red-600 focus:ring-2 focus:ring-red-600/15 transition-all"
-                  />
+                <div className="flex items-center gap-1 mt-2 text-[13px]">
+                  <span className="text-gray-700">5.0</span>
+                  <div className="flex">
+                    {[1, 2, 3, 4, 5].map((i) => (
+                      <Star key={i} className="w-3.5 h-3.5 text-[#e57e23] fill-[#e57e23]" />
+                    ))}
+                  </div>
+                  <a
+                    href="https://maps.google.com"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-blue-600 hover:underline border-b border-transparent hover:border-blue-600"
+                  >
+                    (1)
+                  </a>
+                  <Info className="w-3.5 h-3.5 text-gray-400 ml-1 cursor-pointer" />
                 </div>
               </div>
-
-              <div>
-                <label className="block text-xs font-bold text-zinc-700 uppercase tracking-wider mb-2">
-                  Subject *
-                </label>
-                <input
-                  type="text"
-                  required
-                  placeholder="e.g. Inquiry on Major Service"
-                  value={formData.subject}
-                  onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                  className="w-full bg-white border border-zinc-200 rounded-xl p-4 text-zinc-900 text-sm outline-none focus:border-red-600 focus:ring-2 focus:ring-red-600/15 transition-all"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold text-zinc-700 uppercase tracking-wider mb-2">
-                  Message *
-                </label>
-                <textarea
-                  rows={4}
-                  required
-                  placeholder="Write your message here..."
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="w-full bg-white border border-zinc-200 rounded-xl p-4 text-zinc-900 text-sm outline-none focus:border-red-600 focus:ring-2 focus:ring-red-600/15 transition-all resize-none"
-                />
-              </div>
-
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full sm:w-auto btn-primary text-white font-black text-xs uppercase tracking-widest px-10 py-4 rounded-xl shadow-xl shadow-red-600/30 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
-                >
-                  <Send className="w-4 h-4" />
-                  <span>{isSubmitting ? "Sending..." : "Send Message"}</span>
-                </button>
-
-                <a
-                  href={WORKSHOP_INFO.whatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full sm:w-auto bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs uppercase tracking-wider px-6 py-4 rounded-xl shadow-lg transition-colors flex items-center justify-center gap-2 text-center"
-                >
-                  <MessageSquare className="w-4 h-4" />
-                  <span>Chat on WhatsApp</span>
-                </a>
-              </div>
-            </form>
+            </div>
           </div>
         </div>
       </div>
-
-      {/* Find Us On Map Section */}
-      <section className="py-20 bg-zinc-50 border-t border-zinc-200">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <span className="text-red-600 text-xs font-black uppercase tracking-[0.25em] mb-2 block">
-              Sharjah Industrial Area 5
-            </span>
-            <h2 className="font-display font-black text-3xl sm:text-4xl text-zinc-900 uppercase tracking-tight">
-              Find Us On Map
-            </h2>
-            <p className="text-zinc-500 text-sm mt-1">
-              Convenient access from all Emirates with spacious customer parking.
-            </p>
-          </div>
-
-          <div className="w-full h-[450px] rounded-3xl overflow-hidden shadow-xl border border-zinc-300">
-            <iframe
-              src={WORKSHOP_INFO.mapEmbedUrl}
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Bab Al Bustan Location Map"
-            />
-          </div>
-        </div>
-      </section>
-    </div>
+    </main>
   );
 }
