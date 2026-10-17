@@ -20,6 +20,7 @@ const barlowCondensed = Barlow_Condensed({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://babalbustan.ae"),
   title: "Best Car Workshop in Sharjah | Bab Al Bustan Auto Maintenance",
   description:
     "Professional auto repair & car maintenance in Sharjah Industrial Area 5. We specialize in oil changes, brake repair, AC service, and computer diagnostics.",
