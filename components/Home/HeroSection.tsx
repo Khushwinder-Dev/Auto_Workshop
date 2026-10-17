@@ -39,7 +39,6 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
           priority
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-black/30" />
       </div>
 
       {/* Hero Headline Content */}

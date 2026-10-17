@@ -59,9 +59,9 @@ body {
   background-color: var(--brand-dark);
 }
 
-/* Stats container outline (transparent, matching reference) */
+/* Stats container (matching reference site #0006) */
 .hero-stats-glass {
-  background: transparent;
+  background: #0006;
   border: 1px solid rgba(255, 255, 255, 0.12);
 }
 

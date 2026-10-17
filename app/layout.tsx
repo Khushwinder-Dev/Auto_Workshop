@@ -6,6 +6,7 @@ import Footer from "@/components/Common/Footer";
 import FloatingChatWidget from "@/components/Common/FloatingChatWidget";
 import { Toaster } from "react-hot-toast";
 import AosInit from "@/components/AosInit";
+import { LanguageProvider } from "@/context/LanguageContext";
 
 const inter = Inter({
   variable: "--font-main",
@@ -58,35 +59,37 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/images/logo.png" />
       </head>
       <body className="antialiased bg-white text-zinc-900 font-sans selection:bg-red-600 selection:text-white">
-        <Toaster
-          position="top-right"
-          toastOptions={{
-            duration: 4000,
-            style: {
-              background: "#18181b",
-              color: "#fff",
-              border: "1px solid #27272a",
-              borderRadius: "12px",
-              fontSize: "14px",
-            },
-            success: {
-              iconTheme: {
-                primary: "#dc2626",
-                secondary: "#fff",
+        <LanguageProvider>
+          <Toaster
+            position="top-right"
+            toastOptions={{
+              duration: 4000,
+              style: {
+                background: "#18181b",
+                color: "#fff",
+                border: "1px solid #27272a",
+                borderRadius: "12px",
+                fontSize: "14px",
               },
-            },
-          }}
-        />
+              success: {
+                iconTheme: {
+                  primary: "#dc2626",
+                  secondary: "#fff",
+                },
+              },
+            }}
+          />
 
-        <AosInit />
-        <Navbar />
-        <main className="min-h-screen">
-          {children}
-        </main>
-        <Footer />
+          <AosInit />
+          <Navbar />
+          <main className="min-h-screen">
+            {children}
+          </main>
+          <Footer />
 
-        {/* Floating WhatsApp Quick Action Button */}
-        <FloatingChatWidget />
+          {/* Floating WhatsApp Quick Action Button */}
+          <FloatingChatWidget />
+        </LanguageProvider>
       </body>
     </html>
   );
