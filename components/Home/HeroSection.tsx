@@ -63,7 +63,7 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
 
       {/* Glassmorphism Stats Bar */}
       <div className="absolute bottom-16 left-1/2 -translate-x-1/2 w-full max-w-[1200px] px-6 z-30">
-        <div className="hero-stats-glass rounded-xl md:rounded-2xl grid grid-cols-2 lg:grid-cols-4 overflow-hidden border border-white/10">
+        <div className="hero-stats-glass rounded-xl md:rounded-2xl grid grid-cols-2 lg:grid-cols-4 overflow-hidden border border-white/10 bg-[#0006]">
           {stats.map((stat, idx) => (
             <div
               key={idx}

@@ -59,11 +59,9 @@ body {
   background-color: var(--brand-dark);
 }
 
-/* Glassmorphism for stats and overlays */
+/* Stats container outline (transparent, matching reference) */
 .hero-stats-glass {
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
-  background: rgba(0, 0, 0, 0.4);
+  background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
