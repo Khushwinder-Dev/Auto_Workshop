@@ -15,41 +15,67 @@ import FourStepProcessSection from "@/components/Home/FourStepProcessSection";
 export default function Home() {
   return (
     <div className="min-h-screen bg-white">
-      {/* 1. Hero Section with Glass Stats */}
-      <HeroSection />
+      <main>
+        {/* 1. Hero Section with Glass Stats */}
+        <div>
+          <HeroSection />
+        </div>
 
-      {/* 2. Professional Services Grid */}
-      <ServicesSection />
+        {/* 2. Professional Services Grid */}
+        <div data-aos="fade-up" data-aos-delay="100">
+          <ServicesSection />
+        </div>
 
-      {/* 3. "We Go Beyond Just a Car Maintenance" */}
-      <FeatureSection />
+        {/* 3. "We Go Beyond Just a Car Maintenance" */}
+        <div data-aos="fade-up" data-aos-delay="200">
+          <FeatureSection />
+        </div>
 
-      {/* 4. "Professional Car Maintenance in Sharjah" */}
-      <WhyUsSection />
+        {/* 4. "Professional Car Maintenance in Sharjah" */}
+        <div data-aos="fade-up" data-aos-delay="100">
+          <WhyUsSection />
+        </div>
 
-      {/* 5. Appointment Quote Form & Assurance Banner */}
-      <AppointmentFormSection />
+        {/* 5. Appointment Quote Form & Assurance Banner */}
+        <div data-aos="fade-up" data-aos-delay="100">
+          <AppointmentFormSection />
+        </div>
 
-      {/* 6. Work Process ("How We Work") */}
-      <WorkProcessSection />
+        {/* 6. Work Process ("How We Work") */}
+        <div data-aos="fade-up" data-aos-delay="200">
+          <WorkProcessSection />
+        </div>
 
-      {/* 7. "Our Recent Work" Portfolio Carousel */}
-      <RecentWorkSection />
+        {/* 7. "Our Recent Work" Portfolio Carousel */}
+        <div data-aos="fade-up" data-aos-delay="200">
+          <RecentWorkSection />
+        </div>
 
-      {/* 8. Brand Partnerships */}
-      <PartnershipSection />
+        {/* 8. Brand Partnerships */}
+        <div data-aos="fade-up" data-aos-delay="100">
+          <PartnershipSection />
+        </div>
 
-      {/* 9. Frequently Asked Questions */}
-      <FaqSection />
+        {/* 9. Frequently Asked Questions */}
+        <div data-aos="fade-up" data-aos-delay="200">
+          <FaqSection />
+        </div>
 
-      {/* 10. Experience & Satisfaction Counters */}
-      <StatsSection />
+        {/* 10. Experience & Satisfaction Counters */}
+        <div data-aos="fade-up" data-aos-delay="100">
+          <StatsSection />
+        </div>
 
-      {/* 11. Latest Insights & Technical Guides */}
-      <LatestInsightsSection />
+        {/* 11. Latest Insights & Technical Guides */}
+        <div data-aos="fade-up" data-aos-delay="100">
+          <LatestInsightsSection />
+        </div>
 
-      {/* 12. Simple 4-Step Process & Bottom Banner */}
-      <FourStepProcessSection />
+        {/* 12. Simple 4-Step Process & Bottom Banner */}
+        <div data-aos="fade-up" data-aos-delay="200">
+          <FourStepProcessSection />
+        </div>
+      </main>
     </div>
   );
 }

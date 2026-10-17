@@ -61,9 +61,9 @@ body {
 
 /* Glassmorphism for stats and overlays */
 .hero-stats-glass {
-  -webkit-backdrop-filter: blur(14px);
-  backdrop-filter: blur(14px);
-  background: rgba(0, 0, 0, 0.48);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  background: rgba(0, 0, 0, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
