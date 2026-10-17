@@ -1,32 +1,47 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Anek_Malayalam } from "next/font/google";
+import { Inter, Barlow_Condensed } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Common/Footer";
 import FloatingChatWidget from "@/components/Common/FloatingChatWidget";
 import { Toaster } from "react-hot-toast";
-import { LanguageProvider } from "@/context/LanguageContext";
-import SubscribeModal from "@/components/SubscribeModal";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-main",
   subsets: ["latin"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const barlowCondensed = Barlow_Condensed({
+  variable: "--font-display",
+  weight: ["400", "600", "700", "800", "900"],
   subsets: ["latin"],
-});
-
-const anekMalayalam = Anek_Malayalam({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-anek-malayalam",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Taj Al Rahmah",
-  description: "Professional contracting and technical services in Dubai, UAE",
+  title: "Best Car Workshop in Sharjah | Bab Al Bustan Auto Maintenance",
+  description:
+    "Professional auto repair & car maintenance in Sharjah Industrial Area 5. We specialize in oil changes, brake repair, AC service, and computer diagnostics.",
+  keywords: [
+    "car maintenance Sharjah",
+    "auto repair Sharjah",
+    "car workshop Sharjah",
+    "car AC repair Sharjah",
+    "oil change Sharjah",
+    "brake repair Sharjah",
+    "Bab Al Bustan auto workshop"
+  ],
+  icons: {
+    icon: "/images/logo.png",
+    apple: "/images/logo.png",
+  },
+  openGraph: {
+    title: "Best Car Workshop in Sharjah | Bab Al Bustan Auto Maintenance",
+    description:
+      "Professional auto repair & car maintenance in Sharjah Industrial Area 5. We specialize in oil changes, brake repair, AC service, and computer diagnostics.",
+    images: ["/images/logo.png"],
+  },
 };
 
 export default function RootLayout({
@@ -35,78 +50,40 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} ${barlowCondensed.variable} scroll-smooth`}>
       <head>
-        <link rel="icon" href="/logo.png" sizes="any" />
-        <link rel="icon" href="/logo.png" type="image/png" />
-        <link rel="apple-touch-icon" href="/logo.png" />
+        <link rel="icon" href="/images/logo.png" sizes="any" />
+        <link rel="apple-touch-icon" href="/images/logo.png" />
       </head>
-      <body
-        className={`${anekMalayalam.variable} antialiased bg-white overflow-x-hidden!`}
-        suppressHydrationWarning
-      >
-        <LanguageProvider>
-          {/* Global Toast Notifications */}
-          <Toaster
-            position="top-right"
-            reverseOrder={false}
-            gutter={8}
-            containerStyle={{
-              top: 80, // Adjust this to position below navbar if needed
-            }}
-            toastOptions={{
-              duration: 4000,
-              style: {
-                fontSize: "14px",
-                maxWidth: "500px",
+      <body className="antialiased bg-white text-zinc-900 font-sans selection:bg-red-600 selection:text-white">
+        <Toaster
+          position="top-right"
+          toastOptions={{
+            duration: 4000,
+            style: {
+              background: "#18181b",
+              color: "#fff",
+              border: "1px solid #27272a",
+              borderRadius: "12px",
+              fontSize: "14px",
+            },
+            success: {
+              iconTheme: {
+                primary: "#dc2626",
+                secondary: "#fff",
               },
-              success: {
-                duration: 5000,
-                style: {
-                  background: "#01a9a0",
-                  color: "#fff",
-                  padding: "16px",
-                  borderRadius: "8px",
-                },
-                iconTheme: {
-                  primary: "#fff",
-                  secondary: "#01a9a0",
-                },
-              },
-              error: {
-                duration: 4000,
-                style: {
-                  background: "#ef4444",
-                  color: "#fff",
-                  padding: "16px",
-                  borderRadius: "8px",
-                },
-                iconTheme: {
-                  primary: "#fff",
-                  secondary: "#ef4444",
-                },
-              },
-              loading: {
-                style: {
-                  background: "#3b82f6",
-                  color: "#fff",
-                  padding: "16px",
-                  borderRadius: "8px",
-                },
-              },
-            }}
-          />
+            },
+          }}
+        />
 
-          <Navbar />
+        <Navbar />
+        <main className="min-h-screen">
           {children}
-          <Footer />
+        </main>
+        <Footer />
 
-          {/* Global Floating Chat & Call Widget */}
-          <FloatingChatWidget />
-
-          {/* Global Subscribe Newsletter Modal */}
-          <SubscribeModal />
-        </LanguageProvider>
+        {/* Floating WhatsApp Quick Action Button */}
+        <FloatingChatWidget />
       </body>
     </html>
   );

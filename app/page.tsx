@@ -1,86 +1,55 @@
-"use client";
-
-import { useEffect } from "react";
-import AOS from "aos";
-import "aos/dist/aos.css";
-import HeroSection from "@/components/HeroSection";
-import AboutCompanySection from "@/components/AboutCompanySection";
-import OurProcessSection from "@/components/OurProcessSection";
-import ProtectionServicesSection from "@/components/ProtectionServicesSection";
-import ExperienceSection from "@/components/ExperienceSection";
-import OurProjectsSection from "@/components/OurProjectsSection";
-import IndustriesSection from "@/components/IndustriesSection";
-import ConsultationSection from "@/components/ConsultationSection";
-import TrustedClientsSection from "@/components/TrustedClientsSection";
-import ProjectsClients from "@/components/Project/ProjectsClients";
-import WelcomeOfferModal from "@/components/WelcomeOfferModal";
+import React from "react";
+import HeroSection from "@/components/Home/HeroSection";
+import ServicesSection from "@/components/Home/ServicesSection";
+import FeatureSection from "@/components/Home/FeatureSection";
+import WhyUsSection from "@/components/Home/WhyUsSection";
+import AppointmentFormSection from "@/components/Home/AppointmentFormSection";
+import WorkProcessSection from "@/components/Home/WorkProcessSection";
+import RecentWorkSection from "@/components/Home/RecentWorkSection";
+import PartnershipSection from "@/components/Home/PartnershipSection";
+import FaqSection from "@/components/Home/FaqSection";
+import StatsSection from "@/components/Home/StatsSection";
+import LatestInsightsSection from "@/components/Home/LatestInsightsSection";
+import FourStepProcessSection from "@/components/Home/FourStepProcessSection";
 
 export default function Home() {
-  useEffect(() => {
-    AOS.init({
-      duration: 800,
-      easing: "ease-out",
-      once: true,
-      offset: 100,
-    });
-
-    const scrollToHash = () => {
-      if (typeof window !== "undefined" && window.location.hash) {
-        const id = window.location.hash.replace("#", "");
-        const el = document.getElementById(id);
-        if (el) {
-          el.scrollIntoView({ behavior: "smooth" });
-        }
-      }
-    };
-
-    scrollToHash();
-    const t1 = setTimeout(scrollToHash, 250);
-    const t2 = setTimeout(scrollToHash, 700);
-
-    window.addEventListener("hashchange", scrollToHash);
-    return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
-      window.removeEventListener("hashchange", scrollToHash);
-    };
-  }, []);
-
   return (
     <div className="min-h-screen bg-white">
-      <main>
-        <HeroSection />
-        <div data-aos="fade-up" data-aos-delay="100">
-          <AboutCompanySection />
-        </div>
-        <div data-aos="fade-up" data-aos-delay="125">
-          <OurProcessSection />
-        </div>
-        <div data-aos="fade-up" data-aos-delay="150">
-          <ProtectionServicesSection />
-        </div>
-        <div data-aos="fade-up" data-aos-delay="200">
-          <ExperienceSection />
-        </div>
-        <div data-aos="fade-up" data-aos-delay="250">
-          <OurProjectsSection />
-        </div>
-        <div data-aos="fade-up" data-aos-delay="300">
-          <IndustriesSection />
-        </div>
-        <div data-aos="fade-up" data-aos-delay="350">
-          <ConsultationSection />
-        </div>
-        <div data-aos="fade-up" data-aos-delay="400">
-          <TrustedClientsSection />
-        </div>
-        <div data-aos="fade-up" data-aos-delay="450">
-          <ProjectsClients themeBg={false} showPauseButton={true} />
-        </div>
+      {/* 1. Hero Section with Glass Stats */}
+      <HeroSection />
 
-        {/* Welcome Offer Popup Modal */}
-        <WelcomeOfferModal />
-      </main>
+      {/* 2. Professional Services Grid */}
+      <ServicesSection />
+
+      {/* 3. "We Go Beyond Just a Car Maintenance" */}
+      <FeatureSection />
+
+      {/* 4. "Professional Car Maintenance in Sharjah" */}
+      <WhyUsSection />
+
+      {/* 5. Appointment Quote Form & Assurance Banner */}
+      <AppointmentFormSection />
+
+      {/* 6. Work Process ("How We Work") */}
+      <WorkProcessSection />
+
+      {/* 7. "Our Recent Work" Portfolio Carousel */}
+      <RecentWorkSection />
+
+      {/* 8. Brand Partnerships */}
+      <PartnershipSection />
+
+      {/* 9. Frequently Asked Questions */}
+      <FaqSection />
+
+      {/* 10. Experience & Satisfaction Counters */}
+      <StatsSection />
+
+      {/* 11. Latest Insights & Technical Guides */}
+      <LatestInsightsSection />
+
+      {/* 12. Simple 4-Step Process & Bottom Banner */}
+      <FourStepProcessSection />
     </div>
   );
 }

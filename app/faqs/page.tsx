@@ -1,13 +1,11 @@
 import React from "react";
-import type { Metadata } from "next";
-import FaqPageContent from "@/components/FaqPageContent";
+import FAQPage from "@/app/faq/page";
 
-export const metadata: Metadata = {
-  title: "FAQs | Taj Al Rahmah Technical Services",
-  description:
-    "Find answers to frequently asked questions about waterproofing, thermal insulation, contracting, municipality approvals, warranties, and process at Taj Al Rahmah.",
+export const metadata = {
+  title: "FAQs | Bab Al Bustan Auto Maintenance Workshop",
+  description: "Find answers to frequently asked questions about vehicle repair, oil changes, AC service, and warranties at Bab Al Bustan.",
 };
 
-export default function FAQsPage() {
-  return <FaqPageContent />;
+export default function FAQsRoute() {
+  return <FAQPage />;
 }

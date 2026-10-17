@@ -3,300 +3,104 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  /* --primary: #510424; */
-  --primary: #01a9a0;
-  --secondary: #ffbf00;
-  --white: #ffffff;
+  --bg-primary: #0a0a0a;
+  --accent: #dc2626;
+  --accent-dark: #b91c1c;
+  --brand: #dc2626;
+  --brand-dark: #b91c1c;
+  --text-primary: #ffffff;
+  --text-muted: #777777;
+  --border: #242424;
+  --border-light: #2e2e2e;
+  --font-main: "Inter", system-ui, -apple-system, sans-serif;
+  --font-display: "Barlow Condensed", "Inter", system-ui, -apple-system, sans-serif;
+  --gradient-accent: linear-gradient(135deg, #dc2626, #b91c1c);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-primary: var(--primary);
-  --color-secondary: var(--secondary);
-  --font-anek: var(--font-anek-malayalam), sans-serif;
+  --color-brand: var(--brand);
+  --color-brand-dark: var(--brand-dark);
+  --font-display: var(--font-display);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  /* background: var(--background); */
   color: var(--foreground);
-  font-family: var(--font-anek-malayalam), "Anek Malayalam", sans-serif;
-}
-.theme-bg-main {
-  background: var(--primary);
-}
-.theme-text-main {
-  color: var(--primary);
-}
-.theme-text-main-hover-white {
-  color: var(--primary);
-}.theme-text-main-hover-white:hover {
-  color: var(--white);
+  background-color: #ffffff;
+  font-family: var(--font-main);
+  overflow-x: hidden;
 }
 
-/* Global pill shape for text/search/form inputs */
-input[type="text"],
-input[type="email"],
-input[type="tel"],
-input[type="password"],
-input[type="search"],
-input[type="url"],
-input[type="number"],
-input:not([type]) {
-  border-radius: 9999px;
+/* Display typography */
+.font-display {
+  font-family: var(--font-display), "Barlow Condensed", sans-serif;
 }
 
-/* Main titles bold site-wide */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-.main-title,
-.section-title,
-.page-title,
-.headline {
-  font-weight: 700 !important;
+.text-brand {
+  color: var(--brand);
 }
 
-/* Global typography on large screens (min-width: 1024px) */
-@media (min-width: 1024px) {
-  /* 1. All paragraph / short descriptions / description & form inputs = 16px */
-  p,
-  li,
-  article,
-  dd,
-  blockquote,
-  .description,
-  .short-description,
-  .shortDescription,
-  [class*="description" i],
-  [class*="Description" i],
-  [class*="short-desc" i],
-  input,
-  textarea,
-  select,
-  input[type="text"],
-  input[type="email"],
-  input[type="tel"],
-  input[type="password"],
-  input[type="search"],
-  input[type="url"],
-  input[type="number"],
-  input:not([type]),
-  .text-field {
-    font-size: 16px !important;
-    line-height: 1.6 !important;
-  }
-
-  /* 2. Sub titles (section & page subtitles, lead texts) = 17px */
-  .sub-title,
-  .section-subtitle,
-  .subtitle,
-  .hero-subtitle,
-  .page-subtitle,
-  .card-sub-title,
-  .lead,
-  p.subtitle,
-  p.sub-title,
-  p.section-subtitle,
-  p.lead,
-  p[class*="subtitle" i],
-  p[class*="Subtitle" i],
-  p[class*="sub-title" i],
-  p[class*="subheading" i],
-  p[class*="sub-heading" i],
-  span[class*="subtitle" i],
-  span[class*="sub-title" i],
-  div[class*="subtitle" i],
-  div[class*="sub-title" i],
-  h1 + p,
-  h2 + p,
-  h3 + p,
-  div:has(> h1) + p,
-  div:has(> h2) + p,
-  div:has(> h3) + p {
-    font-size: 17px !important;
-    line-height: 1.55 !important;
-  }
-
-  /* 3. Card/item titles (when specified) = 18px bold */
-  .card-main-title,
-  .item-title {
-    font-size: 18px !important;
-    font-weight: 700 !important;
-    line-height: 1.35 !important;
-  }
-
-  /* 4. Header: Desktop navigation links = 16px */
-  nav a,
-  header a,
-  nav a.font-anek,
-  nav .desktop-nav-link {
-    font-size: 16px !important;
-  }
-
-  /* 5. Footer: Column headings = bold; links and text = 16px */
-  footer h3,
-  footer h4,
-  footer .footer-heading {
-    font-weight: 700 !important;
-  }
-
-  footer a,
-  footer p,
-  footer li,
-  footer span {
-    font-size: 16px !important;
-  }
+.bg-brand {
+  background-color: var(--brand);
 }
 
-/* Enable text selection and copy across the entire site */
-html,
-body,
-div,
-p,
-span,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-li,
-a,
-blockquote,
-article,
-section,
-td,
-th {
-  -webkit-user-select: text;
-  user-select: text;
+.bg-brand-dark {
+  background-color: var(--brand-dark);
 }
 
-/* Branded text selection highlight */
-::selection {
-  background-color: #00c2b2;
+/* Glassmorphism for stats and overlays */
+.hero-stats-glass {
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  background: rgba(0, 0, 0, 0.48);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* Primary Button with high performance hover lift */
+.btn-primary {
+  background: var(--gradient-accent);
   color: #ffffff;
+  border-color: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-::-moz-selection {
-  background-color: #00c2b2;
-  color: #ffffff;
+.btn-primary:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(220, 38, 38, 0.45);
 }
 
-/* Hide default 3-dots overflow button and menu on HTML5 video controls */
-video::-webkit-media-controls-overflow-button {
-  display: none !important;
-}
-video::-webkit-media-controls-overflow-menu-list {
-  display: none !important;
+.btn-primary:active {
+  transform: translateY(0);
 }
 
-/* Custom responsive layout for footer columns: gives first brand column optimal width and balances other columns */
-@media (min-width: 1280px) {
-  .footer-nav-grid {
-    grid-template-columns: minmax(320px, 1.85fr) 1fr 1.08fr 1fr 1fr minmax(215px, 1.25fr) !important;
-  }
+/* Perforated racing style background */
+.bg-perforated {
+  background-color: var(--accent);
+  background-image: radial-gradient(rgba(0, 0, 0, 0.3) 15%, transparent 16%);
+  background-size: 8px 8px;
 }
 
-/* ─── Modern Slim, Clean Scrollbars ─────────────────────────────────────── */
-.slim-scrollbar {
-  scrollbar-width: thin;
-  scrollbar-color: #cbd5e1 transparent;
-}
-
-.slim-scrollbar::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
-}
-
-.slim-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.slim-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #cbd5e1;
-  border-radius: 9999px;
-  transition: background-color 0.2s ease;
-}
-
-.slim-scrollbar::-webkit-scrollbar-thumb:hover {
-  background-color: #01a9a0;
-}
-
-/* Global slim scrollbars to replace chunky 17px OS defaults */
+/* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 10px;
 }
-
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: #0f0f0f;
 }
-
 ::-webkit-scrollbar-thumb {
-  background-color: #cbd5e1;
-  border-radius: 9999px;
+  background: #27272a;
+  border-radius: 5px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #01a9a0;
+  background: #dc2626;
 }
-
-/* Hide scrollbar utility when needed */
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-
-/* Standard Section Spacing site-wide: Mobile 40px, Tablet 56px, Laptop/Desktop 72px */
-.section-py {
-  padding-top: 40px;
-  padding-bottom: 40px;
-}
-.section-pt {
-  padding-top: 40px;
-}
-.section-pb {
-  padding-bottom: 40px;
-}
-
-@media (min-width: 768px) {
-  .section-py {
-    padding-top: 56px;
-    padding-bottom: 56px;
-  }
-  .section-pt {
-    padding-top: 56px;
-  }
-  .section-pb {
-    padding-bottom: 56px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .section-py {
-    padding-top: 72px;
-    padding-bottom: 72px;
-  }
-  .section-pt {
-    padding-top: 72px;
-  }
-  .section-pb {
-    padding-bottom: 72px;
-  }
-}
-

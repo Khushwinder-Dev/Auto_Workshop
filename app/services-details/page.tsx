@@ -1,587 +1,236 @@
 "use client";
 
-import { useState, useEffect, Suspense } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import React, { useState, useEffect, Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useLanguage } from "@/context/LanguageContext";
+import { useSearchParams } from "next/navigation";
 import {
-  ChevronRight,
-  ChevronDown,
-  ArrowLeft,
+  CheckCircle2,
+  Clock,
+  Shield,
   ArrowRight,
-  MessageCircle,
   Phone,
+  Calendar,
+  Wrench,
 } from "lucide-react";
-import {
-  servicesDataEn,
-  servicesDataAr,
-  ServiceItem,
-  SubServiceItem,
-} from "@/data/servicesData";
-import { ServiceIcon, SubServiceIcon } from "@/components/ServiceIcon";
-import {
-  TemplateDefault,
-  TemplateA,
-  TemplateB,
-  TemplateC,
-  getTemplateKey,
-} from "@/components/service-templates";
-import { BannerSlider } from "@/components/ServiceBanners";
-import { ENABLE_SERVICES_BANNER_SLIDER } from "@/components/ServicesListing";
+import { WORKSHOP_SERVICES, WORKSHOP_INFO, ServiceItem } from "@/data/workshopData";
 
-/* ─── FALLBACKS ────────────────────────────────────────────────── */
-const DEFAULT_BANNER = "/media/servicesListing/Rectangle 14 (1).png";
-const FALLBACK_IMAGES = [
-  "/media/servicesListing/unsplash_CPs2X8JYmS8 (1).png",
-  "/media/servicesListing/unsplash_CPs2X8JYmS8.png",
-  "/media/servicesListing/unsplash_CPs2X8JYmS8 (3).png",
-  "/media/servicesListing/unsplash_CPs2X8JYmS8 (4).png",
-  "/media/servicesListing/unsplash_CPs2X8JYmS8 (5).png",
-  "/media/servicesListing/unsplash_CPs2X8JYmS8 (6).png",
-  "/media/servicesListing/unsplash_CPs2X8JYmS8 (7).png",
-  "/media/servicesListing/unsplash_CPs2X8JYmS8 (8).png",
-  "/media/servicesListing/unsplash_CPs2X8JYmS8 (9).png",
-];
-
-/* ─── STRIP HTML ──────────────────────────────────────────────── */
-function stripHtml(html: string): string {
-  return html.replace(/<[^>]*>/g, " ").replace(/\s{2,}/g, " ").trim();
-}
-
-/* ─── SMART IMAGE ──────────────────────────────────────────────── */
-function SmartImage({
-  src,
-  alt,
-  fallbackSrc,
-  className,
-  priority = false,
-}: {
-  src: string;
-  alt: string;
-  fallbackSrc: string;
-  className?: string;
-  priority?: boolean;
-}) {
-  const [imgSrc, setImgSrc] = useState(src);
-  useEffect(() => { setImgSrc(src); }, [src]);
-  return (
-    <Image
-      src={imgSrc}
-      alt={alt}
-      fill
-      unoptimized
-      priority={priority}
-      sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 33vw"
-      className={className}
-      onError={() => { if (imgSrc !== fallbackSrc) setImgSrc(fallbackSrc); }}
-    />
-  );
-}
-
-/* ─── SUB-SERVICE CARD (overview grid) ────────────────────────── */
-function SubServiceCard({
-  service,
-  sub,
-  idx,
-  isArabic,
-}: {
-  service: ServiceItem;
-  sub: SubServiceItem;
-  idx: number;
-  isArabic: boolean;
-}) {
-  const fallback = FALLBACK_IMAGES[idx % FALLBACK_IMAGES.length];
-  return (
-    <Link
-      href={`/services-details?service=${service.serviceNumber}&sub=${sub.serviceSlug}`}
-      className="group flex flex-col bg-white rounded-xl overflow-hidden border border-stone-100 hover:border-[#009e90]/30 shadow-sm hover:shadow-[0_8px_28px_rgba(0,158,144,0.12)] transition-all duration-300 hover:-translate-y-0.5"
-    >
-      {/* Image */}
-      <div className="relative w-full h-[160px] overflow-hidden bg-stone-100 flex-shrink-0">
-        <SmartImage
-          src={sub.serviceImage || service.serviceImage}
-          alt={sub.serviceTitle}
-          fallbackSrc={fallback}
-          className="object-cover group-hover:scale-[1.04] transition-transform duration-500 ease-out"
-        />
-      </div>
-      {/* Content */}
-      <div className="p-4 flex flex-col flex-grow">
-        <h3 className="text-[14px] font-bold text-stone-900 leading-snug mb-1.5 group-hover:text-[#009e90] transition-colors">
-          {sub.serviceTitle}
-        </h3>
-        <p className="text-[12.5px] text-stone-500 leading-relaxed line-clamp-3 flex-grow mb-3">
-          {sub.shortDescription || sub.serviceContent}
-        </p>
-        <span className="inline-flex items-center gap-1 text-[12.5px] font-semibold text-[#009e90] group-hover:gap-2 transition-all mt-auto">
-          {isArabic ? "عرض التفاصيل" : "View Details"}
-          <ArrowRight className={`w-3 h-3 flex-shrink-0 ${isArabic ? "rotate-180" : ""}`} />
-        </span>
-      </div>
-    </Link>
-  );
-}
-
-/* ─── SIDEBAR ──────────────────────────────────────────────────── */
-function Sidebar({
-  services,
-  activeService,
-  activeSub,
-  isArabic,
-}: {
-  services: ServiceItem[];
-  activeService: ServiceItem;
-  activeSub: SubServiceItem | null;
-  isArabic: boolean;
-}) {
-  const [openServiceSlug, setOpenServiceSlug] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (activeService?.serviceSlug) {
-      setOpenServiceSlug(activeService.serviceSlug);
-    }
-  }, [activeService?.serviceSlug]);
-
-  const toggleDropdown = (slug: string, e?: React.MouseEvent) => {
-    e?.preventDefault();
-    e?.stopPropagation();
-    setOpenServiceSlug((prev) => (prev === slug ? null : slug));
-  };
-
-  return (
-    <aside className="w-full lg:w-[240px] xl:w-[260px] flex-shrink-0 lg:sticky lg:top-24">
-      {/* Label */}
-      <p className="text-[10px] font-extrabold tracking-[0.25em] uppercase text-stone-400 mb-3 px-1">
-        {isArabic ? "الخدمات" : "TRADES"}
-      </p>
-
-      <nav className="flex flex-col gap-1">
-        {services.map((svc) => {
-          const isActive = svc.serviceSlug === activeService.serviceSlug;
-          const hasSubs = Boolean(svc.subservices && svc.subservices.length > 0);
-          const isOpen = openServiceSlug === svc.serviceSlug;
-
-          return (
-            <div key={svc.serviceSlug} className="flex flex-col">
-              {/* Parent service row */}
-              <div
-                className={`flex items-center justify-between rounded-lg w-full transition-all duration-150 group ${isActive
-                  ? "bg-[#009e90] text-white shadow-[0_4px_14px_rgba(0,158,144,0.28)]"
-                  : "text-stone-600 hover:bg-stone-100 hover:text-stone-900"
-                  }`}
-              >
-                <Link
-                  href={`/services-details?service=${svc.serviceNumber}`}
-                  className="flex items-center gap-2.5 px-3 py-2.5 flex-grow min-w-0"
-                  onClick={() => {
-                    setOpenServiceSlug(svc.serviceSlug);
-                  }}
-                >
-                  <div
-                    className={`w-6 h-6 rounded-md flex items-center justify-center flex-shrink-0 ${isActive ? "bg-white/20" : "bg-[#009e90]/10"
-                      }`}
-                  >
-                    <ServiceIcon slug={svc.serviceSlug} active={isActive} size={14} />
-                  </div>
-                  <span className="text-[13px] font-semibold flex-grow truncate leading-snug">
-                    {svc.serviceTitle}
-                  </span>
-                </Link>
-
-                {hasSubs && (
-                  <button
-                    type="button"
-                    onClick={(e) => toggleDropdown(svc.serviceSlug, e)}
-                    title={
-                      isOpen
-                        ? isArabic
-                          ? "إخفاء الخدمات الفرعية"
-                          : "Hide sub-services"
-                        : isArabic
-                          ? "عرض الخدمات الفرعية"
-                          : "Show sub-services"
-                    }
-                    className={`p-2.5 rounded-r-lg transition-colors cursor-pointer flex-shrink-0 ${isActive ? "hover:bg-white/10 text-white" : "text-stone-400 hover:text-stone-700"
-                      }`}
-                  >
-                    {isOpen ? (
-                      <ChevronDown className="w-3.5 h-3.5 flex-shrink-0 opacity-80" />
-                    ) : (
-                      <ChevronRight className={`w-3.5 h-3.5 flex-shrink-0 opacity-40 group-hover:opacity-75 ${isArabic ? "rotate-180" : ""}`} />
-                    )}
-                  </button>
-                )}
-              </div>
-
-              {/* Sub-services dropdown */}
-              {hasSubs && isOpen && (
-                <div
-                  className={`mt-1 mb-2 flex flex-col gap-0.5 py-1 ${isArabic ? "pr-3 mr-3 border-r-2" : "pl-3 ml-3 border-l-2"
-                    } border-[#009e90]/30 transition-all`}
-                >
-                  {/* Overview link */}
-                  {/* Individual subservices */}
-                  {svc.subservices.map((sub) => {
-                    const isSubActive =
-                      isActive &&
-                      activeSub &&
-                      (activeSub.id === sub.id ||
-                        activeSub.serviceSlug.toLowerCase() === sub.serviceSlug.toLowerCase());
-
-                    return (
-                      <Link
-                        key={sub.id || sub.serviceSlug}
-                        href={`/services-details?service=${svc.serviceNumber}&sub=${sub.serviceSlug}`}
-                        className={`text-[12px] py-1.5 px-2 rounded-md transition-all flex items-center gap-2 ${isSubActive
-                          ? "bg-[#009e90] text-white font-semibold shadow-xs"
-                          : "text-stone-600 hover:text-[#009e90] hover:bg-stone-100 font-medium"
-                          }`}
-                      >
-                        <span
-                          className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${isSubActive ? "bg-white" : "bg-stone-400"
-                            }`}
-                        />
-                        <span className="truncate flex-grow">{sub.serviceTitle}</span>
-                      </Link>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
-          );
-        })}
-      </nav>
-
-      {/* CTA box */}
-      <div className="mt-5 bg-[#009e90] rounded-2xl p-4 text-white">
-        <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center mb-3">
-          <MessageCircle className="w-4 h-4 text-white" />
-        </div>
-        <h4 className="text-[12.5px] font-bold mb-1.5 leading-snug">
-          {isArabic ? "تحتاج استشارة فنية؟" : "Need technical advice?"}
-        </h4>
-        <p className="text-[11px] text-white/80 leading-relaxed mb-3">
-          {isArabic
-            ? "مهندسونا جاهزون لفحص موقعك وتقديم الحل الأنسب."
-            : "Our engineers are ready to inspect your site and provide the best solution."}
-        </p>
-        <Link
-          href="/contact"
-          className="text-[11.5px] font-bold text-white underline underline-offset-2 hover:text-white/80 transition-colors"
-        >
-          {isArabic ? "احجز معاينة مجانية" : "Request a free inspection"}
-        </Link>
-      </div>
-    </aside>
-  );
-}
-
-
-/* ─── SERVICE OVERVIEW (no ?sub) ───────────────────────────────── */
-function ServiceOverview({
-  service,
-  isArabic,
-}: {
-  service: ServiceItem;
-  isArabic: boolean;
-}) {
-  return (
-    <div className="flex flex-col gap-8">
-      {/* Service intro */}
-      <div className="bg-[#f0faf9] border-l-4 border-[#009e90] rounded-r-xl px-5 py-4">
-        <p className="text-[14px] text-stone-700 leading-relaxed">
-          {service.shortDescription || service.serviceContent}
-        </p>
-      </div>
-
-      {/* Sub-service card grid */}
-      <div>
-        <div className="flex items-center gap-2 mb-5">
-          <span className="w-[3px] h-5 bg-[#009e90] rounded-full" />
-          <h2 className="text-[17px] font-extrabold text-stone-900">
-            {isArabic ? "الخدمات الفرعية" : "Sub-Services"}
-          </h2>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
-          {service.subservices.map((sub, idx) => (
-            <SubServiceCard
-              key={sub.id || sub.serviceSlug}
-              service={service}
-              sub={sub}
-              idx={idx}
-              isArabic={isArabic}
-            />
-          ))}
-        </div>
-      </div>
-
-      {/* CTA strip */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-[#0b2447] text-white p-6 sm:p-8 rounded-2xl">
-        <div>
-          <h4 className="text-[17px] sm:text-[19px] font-bold mb-1">
-            {isArabic ? "جاهز لبدء مشروعك؟" : "Ready to start your project?"}
-          </h4>
-          <p className="text-[12.5px] text-white/75">
-            {isArabic
-              ? "تواصل مع مهندسينا للحصول على عرض سعر مخصص."
-              : "Contact our engineers for a free assessment and formal proposal."}
-          </p>
-        </div>
-        <Link
-          href="/contact"
-          className="inline-flex items-center gap-2 bg-[#009e90] hover:bg-[#01887e] text-white px-7 py-3 rounded-full font-bold text-[13px] whitespace-nowrap transition-colors shadow-sm"
-        >
-          {isArabic ? "احجز استشارة" : "Schedule a Consultation"}
-          <ArrowRight className="w-4 h-4" />
-        </Link>
-      </div>
-    </div>
-  );
-}
-
-/* ─── MAIN PAGE CONTENT ────────────────────────────────────────── */
 function ServiceDetailsContent() {
   const searchParams = useSearchParams();
-  const { isArabic } = useLanguage();
+  const serviceParam = searchParams.get("service");
 
-  const services = isArabic ? servicesDataAr : servicesDataEn;
+  const [selectedService, setSelectedService] = useState<ServiceItem>(
+    WORKSHOP_SERVICES[0]
+  );
 
-  const serviceParam = searchParams.get("service") ?? "1";
-  const subParam = searchParams.get("sub") ?? null;
-
-  /* Resolve service */
-  const service: ServiceItem =
-    services.find(
-      (s) =>
-        s.serviceNumber.toString() === serviceParam ||
-        s.serviceSlug.toLowerCase() === serviceParam.toLowerCase() ||
-        s.serviceId.toLowerCase() === serviceParam.toLowerCase()
-    ) ?? services[0];
-
-  /* Resolve sub-service */
-  const activeSub: SubServiceItem | null = subParam
-    ? service.subservices.find(
-      (s) =>
-        s.serviceSlug.toLowerCase() === subParam.toLowerCase() ||
-        s.id.toLowerCase() === subParam.toLowerCase()
-    ) ?? null
-    : null;
-
-  /* Hero content */
-  const rawHeroBanner = activeSub?.serviceBanner || service.serviceBanner || DEFAULT_BANNER;
-  const staticBannerSrc = Array.isArray(rawHeroBanner) ? (rawHeroBanner[0] || DEFAULT_BANNER) : (rawHeroBanner || DEFAULT_BANNER);
-  const heroTitle = activeSub ? activeSub.serviceTitle : service.serviceTitle;
-  const heroEyebrow = activeSub
-    ? `${service.serviceTitle} • ${service.category}`
-    : isArabic ? "خدمات تاج الرحمة" : "Taj Al Rahmah Services";
-  const heroTagline = activeSub
-    ? activeSub.shortDescription || activeSub.serviceContent
-    : service.tagline;
-
-  const sliderQueryParam = searchParams.get("slider");
-  const isSliderActive =
-    sliderQueryParam !== null
-      ? sliderQueryParam === "true" || sliderQueryParam === "1"
-      : ENABLE_SERVICES_BANNER_SLIDER;
-
-  const router = useRouter();
-
-  const templateKey = activeSub
-    ? getTemplateKey(service.serviceSlug, activeSub.serviceSlug)
-    : null;
-
-  const goToService = (svc: ServiceItem) => {
-    router.push(`/services-details?service=${svc.serviceNumber}`);
-  };
-
-  const goBack = () => {
-    router.push(`/services-details?service=${service.serviceNumber}`);
-  };
-
-  // Helper: normalize serviceBanner (string | string[]) to string[]
-  const toBannerImages = (banner: string | string[] | undefined, fallback: string): string[] => {
-    if (!banner) return [fallback];
-    if (Array.isArray(banner)) return banner.length > 0 ? banner : [fallback];
-    return [banner];
-  };
-
-  // Banner slides: Sub-services of service on listing page, single sub-service banner on service details
-  const bannerSlides = activeSub
-    ? toBannerImages(
-      activeSub.serviceBanner || activeSub.serviceImage || service.serviceBanner,
-      DEFAULT_BANNER
-    ).map((image) => ({ image, title: activeSub.serviceTitle }))
-    : (service.subservices && service.subservices.length > 0)
-      ? service.subservices.flatMap((sub) =>
-        toBannerImages(
-          sub.serviceBanner || sub.serviceImage || service.serviceBanner,
-          DEFAULT_BANNER
-        ).map((image) => ({ image, title: sub.serviceTitle }))
-      )
-      : toBannerImages(
-        service.serviceBanner || service.serviceImage,
-        DEFAULT_BANNER
-      ).map((image) => ({ image, title: service.serviceTitle }));
+  useEffect(() => {
+    if (serviceParam) {
+      const found = WORKSHOP_SERVICES.find(
+        (s) => s.id.toLowerCase() === serviceParam.toLowerCase()
+      );
+      if (found) {
+        setSelectedService(found);
+      }
+    }
+  }, [serviceParam]);
 
   return (
-    <div className="w-full bg-white" dir={isArabic ? "rtl" : "ltr"}>
-
-      {/* ══ HERO BANNER (SLIDER OR STATIC BANNER) ══════════════════ */}
-      {isSliderActive ? (
-        <BannerSlider
-          slides={bannerSlides}
-          initialIndex={0}
-          className="h-[380px] sm:h-[450px] md:h-[520px] lg:h-[600px]"
-        />
-      ) : (
-        <div className="relative w-full h-[380px] sm:h-[450px] md:h-[520px] lg:h-[600px] overflow-hidden bg-[#0b2447]">
-          <SmartImage
-            src={staticBannerSrc}
-            alt={heroTitle}
-            fallbackSrc={DEFAULT_BANNER}
+    <div className="bg-white">
+      {/* Page Hero Banner */}
+      <section className="relative w-full h-[50vh] min-h-[380px] overflow-hidden flex flex-col justify-center items-center bg-black pt-20">
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/images/services-hero.png"
+            alt="Service Details Bab Al Bustan"
+            fill
             priority
-            className="object-cover object-center scale-105 transition-transform duration-1000"
+            className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/45 to-black/70" />
-          <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 sm:px-6 md:px-8 max-w-4xl mx-auto z-10">
-            <div className="inline-flex items-center gap-2 mb-2 sm:mb-3">
-              <span className="w-5 sm:w-6 h-[2px] bg-[#00c4b4] inline-block" />
-              <span className="text-xs sm:text-sm font-extrabold tracking-[0.2em] uppercase text-[#00c4b4]">
-                {heroEyebrow}
-              </span>
-              <span className="w-5 sm:w-6 h-[2px] bg-[#00c4b4] inline-block" />
-            </div>
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-white leading-tight drop-shadow-md">
-              {heroTitle}
-            </h1>
-            {heroTagline && (
-              <p className="mt-2 sm:mt-3 text-xs sm:text-sm md:text-base text-white/90 max-w-2xl leading-relaxed line-clamp-2 drop-shadow-sm font-medium">
-                {stripHtml(heroTagline)}
-              </p>
-            )}
-          </div>
+          <div className="absolute inset-0 bg-[#120505]/75 backdrop-brightness-75" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/30" />
         </div>
-      )}
 
-      {/* ── BODY ─────────────────────────────────────────────── */}
-      <div id="services-content-area" className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-[40px] md:py-[56px] lg:py-[72px] bg-stone-50/70">
-        <div className="flex flex-col lg:flex-row gap-8 lg:gap-10 items-start">
+        <div className="relative z-20 text-center px-6 max-w-3xl mx-auto">
+          <div className="inline-block px-4 py-1.5 rounded-full bg-red-600/20 border border-red-500/30 text-red-400 text-xs font-bold uppercase tracking-[0.25em] mb-4">
+            Detailed Service Specifications
+          </div>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-black tracking-tight uppercase leading-tight text-white mb-3">
+            {selectedService.title} <span className="text-red-500">Service</span>
+          </h1>
+          <p className="max-w-xl mx-auto text-zinc-300 text-sm md:text-base font-normal leading-relaxed">
+            Professional car maintenance and repair standards in Sharjah Industrial Area 5.
+          </p>
+        </div>
+      </section>
 
-          {/* Left sidebar */}
-          <Sidebar
-            services={services}
-            activeService={service}
-            activeSub={activeSub}
-            isArabic={isArabic}
-          />
+      {/* Main Content Layout */}
+      <div className="max-w-7xl mx-auto px-6 py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          {/* Left Sidebar: Service Selector & Contact */}
+          <div className="lg:col-span-4 space-y-8">
+            {/* Service Nav Tabs */}
+            <div className="bg-zinc-50 border border-zinc-200/90 rounded-2xl p-6 shadow-sm">
+              <h3 className="font-display font-black text-xl text-zinc-900 uppercase tracking-tight mb-4 pb-3 border-b border-zinc-200">
+                All Services
+              </h3>
+              <div className="space-y-2">
+                {WORKSHOP_SERVICES.map((s) => {
+                  const isActive = s.id === selectedService.id;
+                  return (
+                    <button
+                      key={s.id}
+                      onClick={() => setSelectedService(s)}
+                      className={`w-full text-left px-4 py-3 rounded-xl font-bold text-xs sm:text-sm uppercase tracking-wide transition-all flex items-center justify-between cursor-pointer ${
+                        isActive
+                          ? "bg-red-600 text-white shadow-lg shadow-red-600/30"
+                          : "bg-white text-zinc-700 hover:bg-zinc-100 border border-zinc-200/60"
+                      }`}
+                    >
+                      <span>{s.title}</span>
+                      <ArrowRight className={`w-4 h-4 ${isActive ? "text-white" : "text-zinc-400"}`} />
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
 
-          {/* Right main content */}
-          <main className="flex-1 min-w-0">
+            {/* Quick Contact & Book Box */}
+            <div className="bg-[#0c0c0e] text-white rounded-2xl p-8 border border-zinc-800 shadow-xl relative overflow-hidden">
+              <div className="relative z-10">
+                <span className="text-red-500 text-[10px] font-black uppercase tracking-[0.25em] mb-2 block">
+                  Need Fast Assistance?
+                </span>
+                <h4 className="font-display font-black text-2xl uppercase tracking-tight mb-4">
+                  Speak to Our Head Technician
+                </h4>
+                <p className="text-zinc-400 text-xs sm:text-sm leading-relaxed mb-6">
+                  Call our service team directly for instant quotes and vehicle drop-off coordination.
+                </p>
 
-            {/* Back + heading row */}
-            <div className="flex flex-col gap-1 mb-4">
-              <Link
-                href={activeSub ? `/services-details?service=${service.serviceNumber}` : "/services"}
-                className="inline-flex items-center gap-1.5 text-[12px] font-semibold text-stone-400 hover:text-[#009e90] transition-colors self-start mb-1"
-              >
-                <ArrowLeft className={`w-3.5 h-3.5 ${isArabic ? "rotate-180" : ""}`} />
-                {activeSub
-                  ? isArabic ? `العودة إلى ${service.serviceTitle}` : `Back to ${service.serviceTitle}`
-                  : isArabic ? "العودة إلى الخدمات" : "Back to Services"
-                }
-              </Link>
-              <div className="flex items-center gap-2.5">
+                <div className="space-y-3 mb-6">
+                  <a
+                    href={`tel:${WORKSHOP_INFO.phones[0]}`}
+                    className="flex items-center gap-3 text-sm text-white font-bold bg-white/10 hover:bg-white/20 p-3 rounded-xl transition-colors"
+                  >
+                    <Phone className="w-4 h-4 text-red-500" />
+                    <span>{WORKSHOP_INFO.phones[0]}</span>
+                  </a>
+                </div>
+
+                <Link
+                  href={`/booking?service=${selectedService.id}`}
+                  className="w-full btn-primary text-white font-bold text-xs uppercase tracking-widest py-3.5 rounded-xl shadow-lg shadow-red-600/30 flex items-center justify-center gap-2"
+                >
+                  <Calendar className="w-4 h-4" />
+                  <span>Book {selectedService.title}</span>
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Main Content */}
+          <div className="lg:col-span-8 space-y-8">
+            {/* Big Main Image */}
+            <div className="relative h-72 sm:h-96 w-full rounded-2xl overflow-hidden shadow-xl border border-zinc-200 bg-zinc-900">
+              <Image
+                src={selectedService.image}
+                alt={selectedService.title}
+                fill
+                priority
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+              <div className="absolute bottom-6 left-6 z-10 bg-red-600 text-white font-black text-xs uppercase tracking-widest px-4 py-2 rounded-lg shadow-lg">
+                Certified Service Bay
+              </div>
+            </div>
+
+            {/* Overview */}
+            <div className="space-y-4">
+              <h2 className="font-display font-black text-3xl sm:text-4xl text-zinc-900 uppercase tracking-tight">
+                {selectedService.title} Service Overview
+              </h2>
+              <p className="text-zinc-600 text-base leading-relaxed">
+                {selectedService.fullDesc}
+              </p>
+            </div>
+
+            {/* What's Included */}
+            <div className="bg-zinc-50 border border-zinc-200 rounded-2xl p-8">
+              <h3 className="font-display font-black text-2xl text-zinc-900 uppercase tracking-tight mb-6">
+                What&#39;s Included in This Service
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {selectedService.features.map((feat) => (
+                  <div key={feat} className="flex items-start gap-3 bg-white p-4 rounded-xl border border-zinc-200/80 shadow-xs">
+                    <CheckCircle2 className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+                    <span className="text-zinc-700 text-sm font-medium leading-snug">
+                      {feat}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Specifications & Warranty Metrics */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div className="border border-zinc-200 rounded-2xl p-6 bg-white shadow-xs flex items-center gap-4">
+                <div className="w-12 h-12 rounded-xl bg-red-50 flex items-center justify-center flex-shrink-0">
+                  <Clock className="w-6 h-6 text-red-600" />
+                </div>
                 <div>
-                  <p className="text-[11px] font-extrabold tracking-[0.2em] uppercase text-[#009e90] hidden">
-                    {/* {activeSub ? service.serviceTitle : service.category} */}
-                    {service.serviceTitle + service.tagline}
+                  <span className="text-xs text-zinc-400 uppercase font-bold tracking-wider">
+                    Average Duration
+                  </span>
+                  <p className="text-lg font-black text-zinc-900 mt-0.5">
+                    {selectedService.duration || "45 - 60 Minutes"}
                   </p>
-                  <h2 className="text-[20px] sm:text-[24px] font-extrabold text-[#009e90] leading-tight">
-                    {/* {activeSub ? activeSub.serviceTitle : service.serviceTitle} */}
-                    {service.serviceTitle + service.tagline}
-                  </h2>
+                </div>
+              </div>
+
+              <div className="border border-zinc-200 rounded-2xl p-6 bg-white shadow-xs flex items-center gap-4">
+                <div className="w-12 h-12 rounded-xl bg-red-50 flex items-center justify-center flex-shrink-0">
+                  <Shield className="w-6 h-6 text-red-600" />
+                </div>
+                <div>
+                  <span className="text-xs text-zinc-400 uppercase font-bold tracking-wider">
+                    Warranty Term
+                  </span>
+                  <p className="text-lg font-black text-zinc-900 mt-0.5">
+                    {selectedService.warranty || "100% Guaranteed Workmanship"}
+                  </p>
                 </div>
               </div>
             </div>
 
-            {/* ── MODE 1: Service overview (no sub selected) ── */}
-            {!activeSub && (
-              <ServiceOverview service={service} isArabic={isArabic} />
-            )}
+            {/* Bottom Booking Action */}
+            <div className="pt-6 border-t border-zinc-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div>
+                <p className="font-bold text-zinc-900 text-lg">
+                  Ready to book {selectedService.title}?
+                </p>
+                <p className="text-zinc-500 text-xs sm:text-sm">
+                  Choose your preferred date and time at our Sharjah Industrial Area 5 shop.
+                </p>
+              </div>
 
-            {/* ── MODE 2: Sub-service detail with template ─── */}
-            {activeSub && templateKey === "default" && (
-              <TemplateDefault service={service} sub={activeSub} isArabic={isArabic} />
-            )}
-            {activeSub && templateKey === "A" && (
-              <TemplateA service={service} sub={activeSub} isArabic={isArabic} />
-            )}
-            {activeSub && templateKey === "B" && (
-              <TemplateB service={service} sub={activeSub} isArabic={isArabic} />
-            )}
-            {activeSub && templateKey === "C" && (
-              <TemplateC service={service} sub={activeSub} isArabic={isArabic} />
-            )}
-
-          </main>
-        </div>
-      </div>
-
-      {/* ══ BOOK A VISIT CTA BANNER ════════════════════════════ */}
-      <section className="w-full bg-white py-[40px] md:py-[56px] lg:py-[72px] px-4 sm:px-6 lg:px-8">
-        <div className="max-w-8xl mx-auto">
-          <div className="relative overflow-hidden bg-gradient-to-r from-[#018b84] via-[#01a9a0] to-[#009e90] rounded-2xl sm:rounded-3xl border border-white/20 shadow-[0_15px_35px_rgba(1,169,160,0.25)] px-6 sm:px-10 py-7 sm:py-9 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
-            {/* Subtle decorative glow */}
-            <div className="absolute -top-12 -right-12 w-48 h-48 bg-white/10 rounded-full blur-2xl pointer-events-none" />
-            <div className="absolute -bottom-12 -left-12 w-48 h-48 bg-black/10 rounded-full blur-2xl pointer-events-none" />
-
-            {/* Left: text */}
-            <div className="relative z-10 flex-1 min-w-0">
-              <h3 className="text-[19px] sm:text-[23px] lg:text-[25px] font-extrabold text-white leading-snug mb-1.5">
-                {isArabic ? "احجز زيارة هذا الأسبوع." : "Book a visit for this week."}
-              </h3>
-              <p className="text-[13px] sm:text-[14.5px] text-white/90 leading-relaxed max-w-lg">
-                {isArabic
-                  ? "أخبرنا بما يحتاج إلى تنفيذ. ستحصل على عرض سعر ثابت في نفس اليوم ونافذة وصول مدتها ساعتان."
-                  : "Tell us what needs doing. You'll get a fixed quote the same day and a two-hour arrival window."}
-              </p>
-            </div>
-            {/* Right: buttons */}
-            <div className="relative z-10 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 flex-shrink-0">
               <Link
-                href="https://wa.me/971527492002"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 bg-white hover:bg-slate-50 text-[#01a9a0] font-extrabold text-[13px] sm:text-[14px] px-6 sm:px-7 py-3 sm:py-3.5 rounded-full transition-all duration-200 shadow-md shadow-black/10 hover:shadow-lg hover:scale-[1.03] active:scale-[0.98] whitespace-nowrap cursor-pointer"
+                href={`/booking?service=${selectedService.id}`}
+                className="btn-primary text-white font-black text-xs uppercase tracking-widest px-8 py-4 rounded-xl shadow-xl shadow-red-600/30 whitespace-nowrap"
               >
-                {isArabic ? "احجز فنياً" : "Book a Technician"}
+                Proceed to Booking
               </Link>
-              <a
-                href="tel:+971556173300"
-                className="inline-flex items-center justify-center gap-2 bg-white/15 hover:bg-white text-white hover:text-[#01a9a0] border border-white/40 hover:border-white font-bold text-[13px] sm:text-[14px] px-6 py-3 sm:py-3.5 rounded-full transition-all duration-200 backdrop-blur-xs hover:scale-[1.03] active:scale-[0.98] whitespace-nowrap cursor-pointer"
-              >
-                <Phone className="w-4 h-4 flex-shrink-0" />
-                {isArabic ? "اتصل الآن" : "Call Now"}
-              </a>
             </div>
           </div>
         </div>
-      </section>
+      </div>
     </div>
   );
 }
 
-/* ─── EXPORT ───────────────────────────────────────────────────── */
-export default function ServiceDetailsPage() {
+export default function ServicesDetailsPage() {
   return (
-    <Suspense
-      fallback={
-        <div className="min-h-[60vh] flex items-center justify-center">
-          <div className="w-8 h-8 border-2 border-[#009e90] border-t-transparent rounded-full animate-spin" />
-        </div>
-      }
-    >
+    <Suspense fallback={<div className="min-h-screen bg-white pt-32 text-center">Loading Service Details...</div>}>
       <ServiceDetailsContent />
     </Suspense>
   );

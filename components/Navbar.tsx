@@ -1,976 +1,168 @@
 "use client";
+
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState, useEffect, useRef, useCallback } from "react";
-import { usePathname, useRouter } from "next/navigation";
-import { ArrowRight, ChevronDown, ChevronRight, ArrowUpRight, Search, UserCheck, MapPin, Mail, PhoneCall, Truck, LifeBuoy, X } from "lucide-react";
-import ExpandableSearchBar from "./Common/ExpandableSearchBar";
-import { useLanguage } from "@/context/LanguageContext";
-import ContactModals, { ContactModalType } from "./ContactModals";
+import { usePathname } from "next/navigation";
+import { Menu, X, Phone, Calendar } from "lucide-react";
+import { WORKSHOP_INFO } from "@/data/workshopData";
 
-/* TASK-1: SERVICES */
-const servicesMegaMenu = {
-  en: {
-    label: "OUR SERVICES",
-    tagline: "Six specialist divisions — one guarantee",
-    cardImage: "/servicesSubServicesContent/services/waterproofing/subservices/grp-fiberglass/thumbnail/thumbnail.jpeg",
-    cta: "Explore More",
-    ctaHref: "/services",
-    items: [
-      { icon: "/headerIcon/SVG (6).svg", title: "GRP & Fiberglass Waterproofing", sub: "Durable protection for roofs, tanks, and exposed surfaces.", href: "/services?service=1&sub=grp-fiberglass-waterproofing" },
-      { icon: "/headerIcon/SVG (7).svg", title: "Combo System Roof Waterproofing", sub: "Multi-layer protection for long-lasting roof performance.", href: "/services?service=1&sub=combo-system-roof-waterproofing" },
-      { icon: "/headerIcon/SVG (11).svg", title: "Epoxy Floor Coating", sub: "Tough, seamless coating for durable and easy-clean floors.", href: "/services?service=1&sub=epoxy-floor-coating" },
-      { icon: "/headerIcon/SVG (12).svg", title: "Bitumen Membrane Waterproofing", sub: "Reliable moisture protection for roofs and foundations.", href: "/services?service=1&sub=bitumen-membrane-waterproofing" },
-      { icon: "/headerIcon/SVG (8).svg", title: "Polyurea Waterproofing", sub: "Fast-curing, flexible protection for demanding surfaces.", href: "/services?service=1&sub=polyurea-coating-waterproofing" },
-      { icon: "/headerIcon/SVG (15).svg", title: "Injection Waterproofing", sub: "Targeted sealing of cracks, joints, and water leaks.", href: "/services?service=1&sub=injection-waterproofing" },
-    ],
-  },
-  ar: {
-    label: "خدماتنا",
-    tagline: "ستة أقسام متخصصة — ضمان واحد",
-    cardImage: "/servicesSubServicesContent/services/waterproofing/subservices/grp-fiberglass/thumbnail/thumbnail.jpeg",
-    cta: "استكشف المزيد",
-    ctaHref: "/services",
-    items: [
-      { icon: "/headerIcon/SVG (6).svg", title: "عزل GRP والألياف الزجاجية", sub: "حماية متينة للأسطح والخزانات والمناطق المكشوفة.", href: "/services?service=1&sub=grp-fiberglass-waterproofing" },
-      { icon: "/headerIcon/SVG (7).svg", title: "نظام الكومبو للأسطح", sub: "حماية متعددة الطبقات لأداء يدوم طويلاً للأسطح.", href: "/services?service=1&sub=combo-system-roof-waterproofing" },
-      { icon: "/headerIcon/SVG (11).svg", title: "طلاء أرضيات الإيبوكسي", sub: "طلاء سلس وقوي لأرضيات متينة وسهلة التنظيف.", href: "/services?service=1&sub=epoxy-floor-coating" },
-      { icon: "/headerIcon/SVG (12).svg", title: "عزل الغشاء البيتوميني", sub: "حماية موثوقة من الرطوبة للأسطح والأساسات.", href: "/services?service=1&sub=bitumen-membrane-waterproofing" },
-      { icon: "/headerIcon/SVG (8).svg", title: "عزل البولي يوريا", sub: "حماية سريعة الجفاف ومرنة للأسطح ذات المتطلبات العالية.", href: "/services?service=1&sub=polyurea-coating-waterproofing" },
-      { icon: "/headerIcon/SVG (15).svg", title: "عزل الحقن المائي", sub: "سد مستهدف للشقوق والفواصل وتسربات المياه.", href: "/services?service=1&sub=injection-waterproofing" },
-    ],
-  },
-};
+const NAV_LINKS = [
+  { label: "About", href: "/about-us" },
+  { label: "Services", href: "/services" },
+  { label: "Gallery", href: "/gallery" },
+  { label: "Brands", href: "/brands" },
+  { label: "Contact", href: "/contact" },
+  { label: "Blogs", href: "/blogs" },
+];
 
-/* TASK-2: SOLUTIONS */
-const solutionsMegaMenu = {
-  en: {
-    label: "OUR SOLUTIONS",
-    tagline: "End-to-end protection — built to last",
-    cardImage: "/solnb.png",
-    cta: "Explore More",
-    ctaHref: "/solutions",
-    items: [
-      { icon: "/headerIcon/SVG (6).svg", title: "Waterproofing Solutions", sub: "Protection against water and moisture.", href: "/services?service=1" },
-      { icon: "/headerIcon/SVG (9).svg", title: "Concrete Repair & Protection", sub: "Restore and protect concrete structures.", href: "/services?service=1&sub=injection-waterproofing" },
-      { icon: "/headerIcon/SVG (7).svg", title: "Roofing Solutions", sub: "Durable protection for roofs and structures.", href: "/services?service=1&sub=combo-system-roof-waterproofing" },
-      { icon: "/headerIcon/SVG (12).svg", title: "Basement & Below-Ground Solutions", sub: "Protection for foundations and underground areas.", href: "/services?service=1&sub=bitumen-membrane-waterproofing" },
-      { icon: "/headerIcon/SVG (8).svg", title: "Joint Sealing Solutions", sub: "Reliable sealing for joints and movement areas.", href: "/services?service=1&sub=polyurea-coating-waterproofing" },
-      { icon: "/headerIcon/SVG (11).svg", title: "Specialized Construction Solutions", sub: "Tailored solutions for complex requirements.", href: "/solutions" },
-    ],
-  },
-  ar: {
-    label: "حلولنا",
-    tagline: "حماية شاملة من البداية للنهاية — مصممة للديمومة",
-    cardImage: "/solnb.png",
-    cta: "استكشف المزيد",
-    ctaHref: "/solutions",
-    items: [
-      { icon: "/headerIcon/SVG (6).svg", title: "حلول العزل المائي", sub: "حماية متكاملة ضد المياه والرطوبة.", href: "/services?service=1" },
-      { icon: "/headerIcon/SVG (9).svg", title: "إصلاح وحماية الخرسانة", sub: "ترميم وحماية المنشآت الخرسانية.", href: "/services?service=1&sub=injection-waterproofing" },
-      { icon: "/headerIcon/SVG (7).svg", title: "حلول الأسطح", sub: "حماية متينة للأسطح والمنشآت.", href: "/services?service=1&sub=combo-system-roof-waterproofing" },
-      { icon: "/headerIcon/SVG (12).svg", title: "حلول السراديب وتحت الأرض", sub: "حماية للأساسات والمناطق تحت الأرض.", href: "/services?service=1&sub=bitumen-membrane-waterproofing" },
-      { icon: "/headerIcon/SVG (8).svg", title: "حلول سد الفواصل", sub: "سد موثوق للفواصل ومناطق الحركة.", href: "/services?service=1&sub=polyurea-coating-waterproofing" },
-      { icon: "/headerIcon/SVG (11).svg", title: "حلول إنشائية متخصصة", sub: "حلول مصممة للمتطلبات المعقدة.", href: "/solutions" },
-    ],
-  },
-};
-
-/* TASK-3: PROJECTS */
-const projectsMegaMenu = {
-  en: {
-    label: "OUR PROJECTS",
-    tagline: "Landmark developments across the UAE",
-    cardImage: "/projnb.jpeg",
-    cta: "Explore More",
-    ctaHref: "/project",
-    items: [
-      { icon: "/headerIcon/SVG (1).svg", title: "Miami 1", sub: "Jumeirah Village Circle (JVC), Samana Developers", href: "/project" },
-      { icon: "/headerIcon/SVG (13).svg", title: "Miami Phase 2", sub: "Jumeirah Village Triangle (JVT), Samana Developers", href: "/project" },
-      { icon: "/headerIcon/SVG (7).svg", title: "City Premiere Marina Hotel Apartments", sub: "Dubai Marina, Dubai", href: "/project" },
-      { icon: "/headerIcon/SVG (4).svg", title: "NED Al Ghurair – Al Furjan South Villas", sub: "Al Furjan, Dubai", href: "/project" },
-      { icon: "/headerIcon/SVG (9).svg", title: "Dubai Hills Estate", sub: "Dubai, Emaar", href: "/project" },
-      { icon: "/headerIcon/SVG (16).svg", title: "Arabian Ranches", sub: "Dubai, Emaar", href: "/project" },
-    ],
-  },
-  ar: {
-    label: "مشاريعنا",
-    tagline: "مشاريع رائدة ومعالم منجزة في كافة أنحاء الإمارات",
-    cardImage: "/projnb.jpeg",
-    cta: "استكشف المزيد",
-    ctaHref: "/project",
-    items: [
-      { icon: "/headerIcon/SVG (1).svg", title: "ميامي 1", sub: "قرية جميرا الدائرية (JVC)، سمانا العقارية", href: "/project" },
-      { icon: "/headerIcon/SVG (13).svg", title: "ميامي المرحلة 2", sub: "مثلث قرية جميرا (JVT)، سمانا العقارية", href: "/project" },
-      { icon: "/headerIcon/SVG (7).svg", title: "شقق سيتي بريمير مارينا الفندقية", sub: "دبي مارينا، دبي", href: "/project" },
-      { icon: "/headerIcon/SVG (4).svg", title: "فلل الغرير | الفرجان جنوب", sub: "الفرجان، دبي", href: "/project" },
-      { icon: "/headerIcon/SVG (9).svg", title: "دبي هيلز استيت", sub: "دبي، إعمار", href: "/project" },
-      { icon: "/headerIcon/SVG (16).svg", title: "المرابع العربية", sub: "دبي، إعمار", href: "/project" },
-    ],
-  },
-};
-
-/* TASK-4: INDUSTRIES */
-const industriesMegaMenu = {
-  en: {
-    label: "INDUSTRIES WE SERVE",
-    tagline: "Engineering & Technical Services Across Core Sectors",
-    cardImage: "/ourExpertise/Industrial factory plant.png",
-    cta: "Explore More",
-    ctaHref: "/industries",
-    items: [
-      { icon: "/headerIcon/SVG (1).svg", title: "Commercial & Residential", sub: "Offices, retail, villas, apartments, and mixed-use developments.", href: "/industries#construction" },
-      { icon: "/headerIcon/SVG (7).svg", title: "Hospitality & Tourism", sub: "Hotels, resorts, leisure facilities, and tourism developments.", href: "/industries#hospitality" },
-      { icon: "/headerIcon/SVG (2).svg", title: "Industrial & Warehousing", sub: "Factories, industrial plants, warehouses, and logistics facilities.", href: "/industries#manufacturing" },
-      { icon: "/headerIcon/SVG (6).svg", title: "Energy, Oil & Gas", sub: "Energy facilities, oil and gas projects, and supporting infrastructure.", href: "/industries#oil-gas" },
-      { icon: "/headerIcon/SVG (8).svg", title: "Infrastructure & Transportation", sub: "Roads, utilities, airports, and transport infrastructure.", href: "/industries#power-energy" },
-      { icon: "/headerIcon/SVG (3).svg", title: "Government & Public Sector", sub: "Government buildings, public facilities, and institutional projects.", href: "/industries#marine-offshore" },
-    ],
-  },
-  ar: {
-    label: "القطاعات التي نخدمها",
-    tagline: "خدمات هندسية وفنية متخصصة عبر القطاعات الحيوية",
-    cardImage: "/ourExpertise/Industrial factory plant.png",
-    cta: "استكشف المزيد",
-    ctaHref: "/industries",
-    items: [
-      { icon: "/headerIcon/SVG (1).svg", title: "التجاري والسكني", sub: "مكاتب، تجزئة، فلل، شقق ومشاريع متعددة الاستخدامات.", href: "/industries#construction" },
-      { icon: "/headerIcon/SVG (7).svg", title: "الضيافة والسياحة", sub: "فنادق، منتجعات، مرافق ترفيهية ومشاريع سياحية.", href: "/industries#hospitality" },
-      { icon: "/headerIcon/SVG (2).svg", title: "الصناعي والمستودعات", sub: "مصانع، منشآت صناعية، مستودعات ومرافق لوجستية.", href: "/industries#manufacturing" },
-      { icon: "/headerIcon/SVG (6).svg", title: "الطاقة والنفط والغاز", sub: "منشآت طاقة، مشاريع نفط وغاز وبنية تحتية مساندة.", href: "/industries#oil-gas" },
-      { icon: "/headerIcon/SVG (8).svg", title: "البنية التحتية والنقل", sub: "طرق، مرافق عامة، مطارات وبنية تحتية للمواصلات.", href: "/industries#power-energy" },
-      { icon: "/headerIcon/SVG (3).svg", title: "القطاع الحكومي والعام", sub: "مبانٍ حكومية، مرافق عامة ومشاريع مؤسسية.", href: "/industries#marine-offshore" },
-    ],
-  },
-};
-
-/* TASK-5: SUBCONTRACTORS */
-const subcontractorsMegaMenu = {
-  en: {
-    label: "SUBCONTRACTORS",
-    tagline: "Certified Subcontracting Execution Partner",
-    cardImage: "/subcontract/hero.png",
-    cta: "Explore More",
-    ctaHref: "/subcontract",
-    items: [
-      { icon: "/headerIcon/SVG (1).svg", title: "Subcontracting Capabilities", sub: "Explore our expertise and capabilities as a subcontracting partner.", href: "/subcontract#capabilities" },
-      { icon: "/headerIcon/SVG (6).svg", title: "Our Services", sub: "Discover the services we provide to main contractors and project partners.", href: "/subcontract#services" },
-      { icon: "/headerIcon/SVG (13).svg", title: "Project Experience", sub: "View our relevant project experience and completed works.", href: "/subcontract#projects" },
-      { icon: "/headerIcon/SVG (8).svg", title: "Technical Expertise", sub: "Learn about our technical resources, skills, and capabilities.", href: "/subcontract#expertise" },
-      { icon: "/headerIcon/SVG (15).svg", title: "Certifications & Compliance", sub: "Review our certifications, approvals, and compliance standards.", href: "/subcontract#certifications" },
-      { icon: "/headerIcon/SVG (11).svg", title: "Partner With Us", sub: "Connect with our team for subcontracting opportunities and collaboration.", href: "/subcontract#partner" },
-    ],
-  },
-  ar: {
-    label: "المقاولون من الباطن",
-    tagline: "شريك مقاولات باطن معتمد وموثوق للمشاريع",
-    cardImage: "/subcontract/hero.png",
-    cta: "استكشف المزيد",
-    ctaHref: "/subcontract",
-    items: [
-      { icon: "/headerIcon/SVG (1).svg", title: "قدرات المقاولة من الباطن", sub: "استكشف خبراتنا وإمكانياتنا كشريك مقاولات تخصصي.", href: "/subcontract#capabilities" },
-      { icon: "/headerIcon/SVG (6).svg", title: "خدماتنا", sub: "تعرف على الخدمات التي نقدمها للمقاولين الرئيسيين وشركاء المشاريع.", href: "/subcontract#services" },
-      { icon: "/headerIcon/SVG (13).svg", title: "خبرة المشاريع", sub: "استعرض خبراتنا في المشاريع السابقة والأعمال المنجزة.", href: "/subcontract#projects" },
-      { icon: "/headerIcon/SVG (8).svg", title: "الخبرة الفنية", sub: "تعرّف على مواردنا الفنية ومهاراتنا وقدراتنا الهندسية.", href: "/subcontract#expertise" },
-      { icon: "/headerIcon/SVG (15).svg", title: "الشهادات والامتثال", sub: "اطلع على شهاداتنا واعتماداتنا ومعايير الامتثال المعتمدة.", href: "/subcontract#certifications" },
-      { icon: "/headerIcon/SVG (11).svg", title: "شاركنا النجاح", sub: "تواصل مع فريقنا لفرص المقاولات والشراكات المستقبلية.", href: "/subcontract#partner" },
-    ],
-  },
-};
-
-/* TASK-6: CONTACT */
-const contactMegaMenu = {
-  en: {
-    label: "CONTACT",
-    tagline: "Get in touch with our expert engineering team",
-    cardImage: "/contact.jpeg",
-    cta: "Explore Contact",
-    ctaHref: "/contact",
-    items: [
-      {
-        icon: "expert",
-        title: "Talk to an Expert",
-        sub: "Expert consultation",
-        href: "/contact#expert",
-        action: "expert" as ContactModalType,
-      },
-      {
-        icon: "location",
-        title: "Our Locations",
-        sub: "Offices & map",
-        href: "/contact#map",
-      },
-      {
-        icon: "enquiry",
-        title: "Send an Enquiry",
-        sub: "General enquiry",
-        href: "/contact#enquiry",
-        action: "enquiry" as ContactModalType,
-      },
-      {
-        icon: "callback",
-        title: "Request a Callback",
-        sub: "Request a call",
-        href: "/contact#callback",
-        action: "callback" as ContactModalType,
-      },
-      {
-        icon: "supplier",
-        title: "Supplier Enquiries",
-        sub: "Supplier enquiries",
-        href: "/contact#supplier",
-        action: "supplier" as ContactModalType,
-      },
-      {
-        icon: "support",
-        title: "Customer Support",
-        sub: "Project & service support",
-        href: "/support",
-      },
-    ],
-  },
-  ar: {
-    label: "اتصل بنا",
-    tagline: "تواصل مع فريق خبرائنا الهندسي المتميز",
-    cardImage: "/contact.jpeg",
-    cta: "صفحة الاتصال",
-    ctaHref: "/contact",
-    items: [
-      {
-        icon: "expert",
-        title: "تحدث مع خبير",
-        sub: "استشارة فنية متخصصة",
-        href: "/contact#expert",
-        action: "expert" as ContactModalType,
-      },
-      {
-        icon: "location",
-        title: "مواقعنا ومكاتبنا",
-        sub: "المكاتب والخريطة",
-        href: "/contact#map",
-      },
-      {
-        icon: "enquiry",
-        title: "إرسال استفسار",
-        sub: "استفسار عام",
-        href: "/contact#enquiry",
-        action: "enquiry" as ContactModalType,
-      },
-      {
-        icon: "callback",
-        title: "طلب معاودة الاتصال",
-        sub: "طلب اتصال هاتفي",
-        href: "/contact#callback",
-        action: "callback" as ContactModalType,
-      },
-      {
-        icon: "supplier",
-        title: "استفسارات الموردين",
-        sub: "توريد المواد والمعدات",
-        href: "/contact#supplier",
-        action: "supplier" as ContactModalType,
-      },
-      {
-        icon: "support",
-        title: "خدمة العملاء والدعم",
-        sub: "دعم المشاريع والخدمات",
-        href: "/support",
-      },
-    ],
-  },
-};
-
-/* TASK-7: CAREERS */
-const careersMegaMenu = {
-  en: {
-    label: "CAREERS",
-    tagline: "Build Your Career With Engineering Excellence",
-    cardImage: "/career/b.png",
-    cta: "Explore More",
-    ctaHref: "/career",
-    items: [
-      { icon: "arrow", title: "Why Join Us", sub: "What makes us a great place to build your career.", href: "/career#why-join-us" },
-      { icon: "arrow", title: "Current Openings", sub: "Explore our latest career opportunities.", href: "/career#current-openings" },
-      { icon: "arrow", title: "Life at Our Company", sub: "Discover our workplace and culture.", href: "/career#life-at-our-company" },
-      { icon: "arrow", title: "Submit Your CV", sub: "Share your CV for current or future opportunities.", href: "/career?job=1" },
-      { icon: "arrow", title: "Recruitment Process", sub: "Learn about our hiring process.", href: "/career#recruitment-process" },
-      { icon: "arrow", title: "FAQs", sub: "Answers to common career questions.", href: "/career#faqs" },
-    ],
-  },
-  ar: {
-    label: "الوظائف",
-    tagline: "ابنِ مسيرتك المهنية مع رواد التميز الهندسي",
-    cardImage: "/career/b.png",
-    cta: "استكشف المزيد",
-    ctaHref: "/career",
-    items: [
-      { icon: "arrow", title: "لماذا تنضم إلينا", sub: "ما يجعل شركتنا المكان المثالي لبناء مسيرتك المهنية.", href: "/career#why-join-us" },
-      { icon: "arrow", title: "الوظائف الشاغرة", sub: "استكشف أحدث الفرص الوظيفية المتاحة لدينا.", href: "/career#current-openings" },
-      { icon: "arrow", title: "بيئة العمل وثقافتنا", sub: "اكتشف ثقافة العمل وبيئتنا المهنية المتميزة.", href: "/career#life-at-our-company" },
-      { icon: "arrow", title: "أرسل سيرتك الذاتية", sub: "شارك سيرتك الذاتية للفرص الحالية والمستقبلية.", href: "/career?job=1" },
-      { icon: "arrow", title: "آلية التوظيف", sub: "تعرف على مراحل التوظيف والاختيار في شركتنا.", href: "/career#recruitment-process" },
-      { icon: "arrow", title: "الأسئلة الشائعة", sub: "إجابات عن أبرز الاستفسارات الوظيفية الشائعة.", href: "/career#faqs" },
-    ],
-  },
-};
-
-/* TASK-8: COMPANY */
-const companyMegaMenu = {
-  en: {
-    label: "COMPANY",
-    tagline: "Engineering Excellence Across the UAE",
-    cardImage: "/qw.jpeg",
-    cta: "Explore More",
-    ctaHref: "/about-us",
-    items: [
-      { icon: "arrow", title: "About Us", sub: "Who we are and what we do.", href: "/about-us" },
-      { icon: "arrow", title: "Our Expertise", sub: "Our skills and capabilities.", href: "/expertise" },
-      { icon: "arrow", title: "Why Choose Us", sub: "What sets us apart.", href: "/#why-choose-us" },
-      { icon: "arrow", title: "Certifications", sub: "Our credentials and approvals.", href: "/certifications" },
-      { icon: "arrow", title: "Company Profile", sub: "Get our company profile.", href: "/about-us#company-profile" },
-      { icon: "arrow", title: "Contact Us", sub: "Connect with our team.", href: "/contact" },
-    ],
-  },
-  ar: {
-    label: "الشركة",
-    tagline: "الريادة والتميز الهندسي في الإمارات",
-    cardImage: "/qw.jpeg",
-    cta: "استكشف المزيد",
-    ctaHref: "/about-us",
-    items: [
-      { icon: "arrow", title: "من نحن", sub: "من نحن ورؤيتنا وما نقوم به.", href: "/about-us" },
-      { icon: "arrow", title: "خبراتنا", sub: "مهاراتنا الفنية وقدراتنا المتخصصة.", href: "/expertise" },
-      { icon: "arrow", title: "لماذا تختارنا", sub: "ما يميزنا عن غيرنا في الجودة والتنفيذ.", href: "/#why-choose-us" },
-      { icon: "arrow", title: "الشهادات والاعتمادات", sub: "شهاداتنا واعتماداتنا الرسمية.", href: "/certifications" },
-      { icon: "arrow", title: "الملف التعريفي للشركة", sub: "احصل على الملف التعريفي الكامل للشركة.", href: "/about-us#company-profile" },
-      { icon: "arrow", title: "اتصل بنا", sub: "تواصل مع مكاتبنا في دبي والشارقة.", href: "/contact" },
-    ],
-  },
-};
-
-/* ─── TYPES ──────────────────────────────────────────────────────────── */
-type MegaMenuKey = "services" | "solutions" | "projects" | "industries" | "subcontractors" | "contact" | "careers" | "company" | null;
-
-type MegaItem = { icon: string; title: string; sub: string; href: string; action?: ContactModalType };
-
-type MegaData = {
-  label: string;
-  tagline: string;
-  cta: string;
-  ctaHref: string;
-  items: MegaItem[];
-  cardImage?: string;
-};
-
-/* ─── ICON COMPONENT ─────────────────────────────────────────────────── */
-function NavIcon({ src, alt, size = 18 }: { src?: string; alt: string; size?: number }) {
-  if (src === "expert") {
-    return <UserCheck className="w-4 h-4 text-[#009e90]" />;
-  }
-  if (src === "location") {
-    return <MapPin className="w-4 h-4 text-[#009e90]" />;
-  }
-  if (src === "enquiry") {
-    return <Mail className="w-4 h-4 text-[#009e90]" />;
-  }
-  if (src === "callback") {
-    return <PhoneCall className="w-4 h-4 text-[#009e90]" />;
-  }
-  if (src === "supplier") {
-    return <Truck className="w-4 h-4 text-[#009e90]" />;
-  }
-  if (src === "support") {
-    return <LifeBuoy className="w-4 h-4 text-[#009e90]" />;
-  }
-  if (!src || src === "arrow") {
-    return <ArrowRight className="w-4 h-4 text-[#009e90] rtl:rotate-180 group-hover:translate-x-0.5 transition-transform" />;
-  }
-  return (
-    <Image
-      src={src}
-      alt={alt}
-      width={size}
-      height={size}
-      className="object-contain"
-      unoptimized
-    />
-  );
-}
-
-/* ─── COMPONENT ──────────────────────────────────────────────────────── */
-const Navbar = () => {
-  const { language, toggleLanguage, t, isArabic } = useLanguage();
+export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeMega, setActiveMega] = useState<MegaMenuKey>(null);
-  const [mobileExpanded, setMobileExpanded] = useState<MegaMenuKey>(null);
-  const [activeContactModal, setActiveContactModal] = useState<ContactModalType>(null);
-  const menuRef = useRef<HTMLDivElement>(null);
-  const navRef = useRef<HTMLDivElement>(null);
-  const hoverTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
-
-  const lang = language === "ar" ? "ar" : "en";
-
-  const searchSuggestions = [
-    t.nav.services, t.nav.solutions, t.nav.projects,
-    t.nav.industries, t.nav.subcontractors, t.nav.contact,
-    t.nav.careers, t.nav.company, "Waterproofing", "Contracting",
-  ];
-
-  const isLinkActive = (href: string) => {
-    if (href === "/") return pathname === "/";
-    if (href === "/project") return pathname === "/project" || pathname.startsWith("/project") || pathname === "/projects";
-    if (href === "/services") return pathname === "/services" || pathname.startsWith("/services");
-    if (href === "/solutions") return pathname === "/solutions" || pathname.startsWith("/solutions");
-    if (href === "/industries") return pathname === "/industries" || pathname.startsWith("/industries");
-    if (href === "/subcontract") return pathname === "/subcontract" || pathname.startsWith("/subcontract");
-    if (href === "/contact") return pathname === "/contact" || pathname.startsWith("/contact");
-    if (href === "/resources") return pathname === "/resources" || pathname.startsWith("/blogs") || pathname.startsWith("/media") || pathname.startsWith("/faqs") || pathname.startsWith("/support") || pathname.startsWith("/warranty");
-    if (href === "/career") return pathname === "/career" || pathname.startsWith("/career") || pathname === "/careers" || pathname.startsWith("/careers");
-    if (href === "/about-us") return pathname === "/about-us" || pathname === "/about" || pathname.startsWith("/expertise") || pathname.startsWith("/certifications");
-    return pathname === href || pathname.startsWith(href);
-  };
-
-  const router = useRouter();
-
-  const handleSearch = (query: string, href?: string) => {
-    if (href) {
-      router.push(href);
-      return;
-    }
-    const q = query.trim();
-    if (!q) return;
-
-    const lower = q.toLowerCase();
-    if (lower.includes("subcontract") || lower.includes("مقاولة")) {
-      router.push("/subcontract");
-    } else if (lower.includes("quote") || lower.includes("price") || lower.includes("cost") || lower.includes("تسعير")) {
-      router.push("/get-a-quote");
-    } else if (lower.includes("career") || lower.includes("job") || lower.includes("وظائف")) {
-      router.push("/career");
-    } else if (lower.includes("project") || lower.includes("مشاريع")) {
-      router.push("/project");
-    } else if (lower.includes("product") || lower.includes("chemical") || lower.includes("membrane") || lower.includes("منتجات")) {
-      router.push(`/products?search=${encodeURIComponent(q)}`);
-    } else if (lower.includes("industry") || lower.includes("قطاعات")) {
-      router.push("/industries");
-    } else if (lower.includes("contact") || lower.includes("اتصل")) {
-      router.push("/contact");
-    } else if (lower.includes("about") || lower.includes("company") || lower.includes("من نحن")) {
-      router.push("/about-us");
-    } else if (lower.includes("faq") || lower.includes("أسئلة")) {
-      router.push("/faqs");
-    } else {
-      router.push(`/services?search=${encodeURIComponent(q)}`);
-    }
-  };
+  const isHomePage = pathname === "/";
 
   useEffect(() => {
-    const onScroll = () => setIsScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  useEffect(() => { setActiveMega(null); setIsMobileMenuOpen(false); }, [pathname]);
-
-  useEffect(() => {
-    const onOutside = (e: MouseEvent) => {
-      if (navRef.current && !navRef.current.contains(e.target as Node)) setActiveMega(null);
+    const handleScroll = () => {
+      if (window.scrollY > 40) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
     };
-    document.addEventListener("mousedown", onOutside);
-    return () => document.removeEventListener("mousedown", onOutside);
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Close mobile menu on route change
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") { setActiveMega(null); setIsMobileMenuOpen(false); }
-    };
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, []);
+    setMobileMenuOpen(false);
+  }, [pathname]);
 
-  useEffect(() => {
-    document.body.style.overflow = isMobileMenuOpen ? "hidden" : "unset";
-    return () => { document.body.style.overflow = "unset"; };
-  }, [isMobileMenuOpen]);
-
-  useEffect(() => {
-    const onResize = () => { if (window.innerWidth >= 1024) setIsMobileMenuOpen(false); };
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
-  }, []);
-
-  const openMega = useCallback((key: MegaMenuKey) => {
-    if (hoverTimeout.current) clearTimeout(hoverTimeout.current);
-    setActiveMega(key);
-  }, []);
-
-  const closeMega = useCallback(() => {
-    hoverTimeout.current = setTimeout(() => setActiveMega(null), 150);
-  }, []);
-
-  const cancelClose = useCallback(() => {
-    if (hoverTimeout.current) clearTimeout(hoverTimeout.current);
-  }, []);
-
-  const navBg = isScrolled
-    ? "bg-white/95 backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.06)] border-b-0 border-none"
-    : "bg-transparent border-b-0 border-none";
-
-  /* ─── MEGA MENU DROPDOWN RENDERER ──────────────────────────────────── */
-  const renderMegaMenu = (data: MegaData) => (
-    <div
-      className="absolute top-full pt-2 left-1/2 -translate-x-1/2 w-[760px] xl:w-[820px] transition-all"
-      style={{ zIndex: 10 }}
-      onMouseEnter={cancelClose}
-      onMouseLeave={closeMega}
-      dir={isArabic ? "rtl" : "ltr"}
-    >
-      {/* ── Dropdown panel ── */}
-      <div className="bg-white rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.18)] border border-stone-200/80 overflow-hidden">
-        {/* ── Top strip ── */}
-        <div className="flex items-center justify-between px-6 py-3 border-b border-stone-100 bg-stone-50/70">
-          <span className="text-[11px] font-extrabold tracking-[0.22em] uppercase text-[#009e90]">
-            {data.label}
-          </span>
-          <span className="text-[11px] text-stone-600 font-medium">{data.tagline}</span>
-        </div>
-
-        <div className="flex">
-          {/* ── Left: items grid (2 columns x 3 rows) ── */}
-          <div className="flex flex-col p-4 flex-1 justify-center">
-            <div className="grid grid-cols-2 gap-2">
-              {data.items.map((item, i) => (
-                <Link
-                  key={i}
-                  href={item.href}
-                  onClick={(e) => {
-                    if (item.action) {
-                      e.preventDefault();
-                      setActiveMega(null);
-                      setActiveContactModal(item.action);
-                      return;
-                    }
-                    setActiveMega(null);
-                    if (item.href.includes("#")) {
-                      const [targetPath, hash] = item.href.split("#");
-                      const isCurrent = (targetPath === "" && pathname === "/") || targetPath === pathname;
-                      if (isCurrent && hash) {
-                        e.preventDefault();
-                        const el = document.getElementById(hash);
-                        if (el) {
-                          el.scrollIntoView({ behavior: "smooth" });
-                          window.history.pushState(null, "", item.href);
-                        }
-                      }
-                    }
-                  }}
-                  className="group flex items-center gap-4 px-1 py-2.5 rounded-xl hover:bg-[#f0faf9] transition-all duration-150"
-                >
-                  {/* Icon box */}
-                  <div className="w-9 h-9 rounded-lg bg-[#f0faf9] border border-[#009e90]/15 flex items-center justify-center flex-shrink-0 group-hover:bg-[#009e90]/15 group-hover:border-[#009e90]/30 transition-all">
-                    <NavIcon src={item.icon} alt={item.title} size={18} />
-                  </div>
-
-                  {/* Text */}
-                  <div className="min-w-0 flex-1">
-                    <p className="text-[13px] font-bold text-[#009e90] group-hover:text-[#007a6f] transition-colors leading-snug truncate">
-                      {item.title}
-                    </p>
-                    <p className="text-[11px] text-stone-600 truncate leading-tight mt-0.5">
-                      {item.sub}
-                    </p>
-                  </div>
-
-                  {/* Arrow */}
-                  <span className="hidden flex-shrink-0 w-5 h-5 rounded-full border border-stone-200 group-hover:border-[#009e90]/40 group-hover:bg-[#009e90]/10 flex items-center justify-center transition-all opacity-0 group-hover:opacity-100">
-                    <ArrowRight className="w-2.5 h-2.5 text-[#009e90] rtl:rotate-180" />
-                  </span>
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          {/* ── Right: featured card with image ── */}
-          <div className="w-[245px] xl:w-[265px] flex-shrink-0 bg-gradient-to-br from-[#f8fdfc] to-[#eef9f7] border-l rtl:border-l-0 rtl:border-r border-stone-100 p-5 flex flex-col justify-between group/card">
-            {/* Image Banner */}
-            {data.cardImage && (
-              <Link
-                href={data.ctaHref}
-                onClick={() => setActiveMega(null)}
-                className="relative w-full h-[140px] xl:h-[155px] rounded-xl overflow-hidden border border-stone-200/60 shadow-xs bg-stone-100 block group/img mb-4"
-              >
-                <Image
-                  src={data.cardImage}
-                  alt={data.label}
-                  fill
-                  className="object-cover group-hover/img:scale-105 transition-transform duration-300"
-                  sizes="265px"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity" />
-              </Link>
-            )}
-
-            <Link
-              href={data.ctaHref}
-              onClick={() => setActiveMega(null)}
-              className="inline-flex items-center gap-1.5 bg-[#009e90] hover:bg-[#01887e] text-white text-[12px] font-bold px-4 py-2 rounded-full transition-all self-start shadow-sm hover:gap-2"
-            >
-              <span>{data.cta || (isArabic ? "استكشف المزيد" : "Explore More")}</span>
-              <span className="rtl:rotate-180">→</span>
-            </Link>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
-  /* ─── NAV ITEMS ─────────────────────────────────────────────────────── */
-  const navItems: { name: string; href: string; megaKey?: MegaMenuKey }[] = [
-    { name: t.nav.services, href: "/services", megaKey: "services" },
-    { name: t.nav.solutions, href: "/solutions", megaKey: "solutions" },
-    { name: t.nav.projects, href: "/project", megaKey: "projects" },
-    { name: t.nav.industries, href: "/industries", megaKey: "industries" },
-    { name: t.nav.subcontractors, href: "/subcontract", megaKey: "subcontractors" },
-    { name: t.nav.company, href: "/about-us", megaKey: "company" },
-    { name: t.nav.careers, href: "/career", megaKey: "careers" },
-    { name: t.nav.contact, href: "/contact", megaKey: "contact" },
-  ];
-
-  /* ─── ACTIVE MEGA DATA ──────────────────────────────────────────────── */
-  const activeMegaData: MegaData | null =
-    activeMega === "services" ? servicesMegaMenu[lang] :
-      activeMega === "solutions" ? solutionsMegaMenu[lang] :
-        activeMega === "projects" ? projectsMegaMenu[lang] :
-          activeMega === "industries" ? industriesMegaMenu[lang] :
-            activeMega === "subcontractors" ? subcontractorsMegaMenu[lang] :
-              activeMega === "contact" ? contactMegaMenu[lang] :
-                activeMega === "careers" ? careersMegaMenu[lang] :
-                  activeMega === "company" ? companyMegaMenu[lang] : null;
+  const navBackground = !isHomePage || isScrolled
+    ? "bg-[#09090b]/95 backdrop-blur-md border-b border-white/10 shadow-lg"
+    : "bg-transparent";
 
   return (
     <>
-      <nav
-        ref={navRef}
-        className={`fixed top-0 left-0 right-0 transition-all duration-300 py-3 sm:py-4 border-b-0 ${navBg}`}
-        style={{ zIndex: 99999 }}
-      >
-        <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14">
-          <div className="flex items-center justify-between h-16">
-
-            {/* ── LOGO ────────────────────────────────────────────── */}
+      <nav className={`fixed top-0 left-0 right-0 z-[9999] transition-all duration-300 ${navBackground}`}>
+        <div className="max-w-[1400px] mx-auto px-6">
+          <div className="flex items-center justify-between h-20 lg:h-24">
+            {/* Logo */}
             <div className="flex-shrink-0">
-              <Link href="/">
-                <Image
-                  src="/logo.png"
-                  alt="Company Logo"
-                  width={100}
-                  height={80}
-                  className="max-w-[100px] max-h-[80px] w-auto h-auto object-contain"
-                />
-              </Link>
-            </div>
-
-            {/* ── DESKTOP NAV ─────────────────────────────────────── */}
-            <div className="hidden lg:block relative" onMouseLeave={closeMega}>
-              <div className="flex items-center gap-1.5 lg:gap-2.5 xl:gap-4 2xl:gap-5 relative z-20">
-                {navItems.map((item) => {
-                  const active = isLinkActive(item.href);
-                  const hasMega = Boolean(item.megaKey);
-                  const isOpen = activeMega === item.megaKey;
-
-                  return (
-                    <div
-                      key={item.name}
-                      className="relative"
-                      onMouseEnter={() => hasMega ? openMega(item.megaKey!) : openMega(null)}
-                      onMouseLeave={() => hasMega ? closeMega() : undefined}
-                    >
-                      <Link
-                        href={item.href}
-                        className={`inline-flex items-center font-semibold uppercase transition-colors text-xs lg:text-[16px] font-anek tracking-wide whitespace-nowrap ${active
-                          ? isScrolled
-                            ? "text-[#01a9a0] font-black"
-                            : "text-[#00c2b2] font-bold"
-                          : isScrolled
-                            ? "text-[#01a9a0] hover:text-[#007069] font-bold"
-                            : "text-white hover:text-[#00c2b2]"
-                          }`}
-                        onClick={() => setActiveMega(null)}
-                      >
-                        {item.name}
-                      </Link>
-
-                      {/* Active underline */}
-                      {active && (
-                        <span
-                          className={`hidden absolute -bottom-1 left-0 right-0 h-[2.5px] rounded-full ${isScrolled ? "bg-[#01a9a0] shadow-[0_1px_4px_rgba(1,169,160,0.4)]" : "bg-[#00c2b2]"
-                            }`}
-                        />
-                      )}
-
-                      {/* Top triangle pointer for hovered menu */}
-                      {hasMega && isOpen && (
-                        <div className="absolute top-full left-1/2 -translate-x-1/2 z-30 pointer-events-none flex items-center justify-center">
-                          <svg
-                            width="18"
-                            height="9"
-                            viewBox="0 0 18 9"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="text-[#01a9a0]"
-                          >
-                            <path d="M0 9L9 0L18 9H0Z" fill="currentColor" />
-                          </svg>
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-
-              {/* Mega dropdown */}
-              {activeMega && activeMegaData && renderMegaMenu(activeMegaData)}
-            </div>
-
-            {/* ── RIGHT CONTROLS ──────────────────────────────────── */}
-            <div className="hidden lg:flex items-center space-x-2 xl:space-x-4 flex-shrink-0">
-              <ExpandableSearchBar
-                onSearch={handleSearch}
-                placeholder={t.nav.searchPlaceholder}
-                suggestions={searchSuggestions}
-                dashedButton={true}
-                isScrolled={isScrolled}
-                iconColor={isScrolled ? "text-[#01a9a0]" : "text-white"}
-                hoverIconColor="hover:text-[#00c2b2]"
-              />
-              <Link
-                href="/get-a-quote"
-                className={`pl-4 pr-1.5 py-1.5 sm:pl-5 sm:pr-2 sm:py-2 xl:pl-6 xl:pr-2.5 xl:py-2.5 rounded-full font-bold text-xs xl:text-sm tracking-wider uppercase inline-flex items-center gap-2 xl:gap-3 transition-all duration-300 hover:scale-105 active:scale-95 flex-shrink-0 cursor-pointer group ${isScrolled
-                  ? "bg-[#01a9a0] hover:bg-[#008f88] text-white shadow-[0_4px_18px_rgba(1,169,160,0.35)] hover:shadow-[0_6px_24px_rgba(1,169,160,0.5)]"
-                  : "bg-[#00b3a4] hover:bg-[#00c2b2] text-white shadow-[0_4px_18px_rgba(0,179,164,0.4)] hover:shadow-[0_6px_24px_rgba(0,194,178,0.6)]"
-                  }`}
-              >
-                <span className="whitespace-nowrap font-anek">{t.nav.getQuote}</span>
-                <span
-                  className="w-6 h-6 sm:w-7 sm:h-7 xl:w-8 xl:h-8 rounded-full flex items-center justify-center transition-transform group-hover:translate-x-0.5 bg-white text-[#01a9a0] shadow-sm"
-                >
-                  <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 xl:w-4 xl:h-4 stroke-[2.5]" />
-                </span>
-              </Link>
-            </div>
-
-            {/* ── MOBILE HAMBURGER ────────────────────────────────── */}
-            <div className="lg:hidden" style={{ zIndex: 100000, position: "relative" }}>
-              <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className={`relative w-11 h-11 transition-all flex items-center justify-center cursor-pointer rounded-full ${isScrolled
-                  ? "text-[#01a9a0] hover:bg-[#01a9a0]/10"
-                  : "text-[#01a9a0] hover:opacity-80"
-                  }`}
-                aria-expanded={isMobileMenuOpen}
-                aria-label="Toggle mobile menu"
-              >
-                <div className="w-6 h-6 relative">
-                  <span className={`absolute left-0 top-1 w-6 h-0.5 bg-current transform transition-all duration-300 ${isMobileMenuOpen ? "rotate-45 translate-y-2" : ""}`} />
-                  <span className={`absolute left-0 top-3 w-6 h-0.5 bg-current transition-all duration-300 ${isMobileMenuOpen ? "opacity-0" : ""}`} />
-                  <span className={`absolute left-0 top-5 w-6 h-0.5 bg-current transform transition-all duration-300 ${isMobileMenuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
+              <Link href="/" className="block">
+                <div className="relative h-12 lg:h-16 w-36 lg:w-44">
+                  <Image
+                    src="/images/logo.png"
+                    alt="Bab Al Bustan Logo"
+                    fill
+                    className="object-contain"
+                    priority
+                  />
                 </div>
-              </button>
+              </Link>
             </div>
+
+            {/* Desktop Navigation Links */}
+            <div className="hidden lg:flex items-center gap-8 xl:gap-12">
+              {NAV_LINKS.map((link) => {
+                const isActive = pathname === link.href || (link.href !== "/" && pathname.startsWith(link.href));
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={`relative py-2 font-bold text-sm tracking-widest uppercase transition-colors duration-300 group ${
+                      isActive ? "text-red-500" : "text-white hover:text-white"
+                    }`}
+                  >
+                    {link.label}
+                    <span
+                      className={`absolute bottom-0 left-0 w-full h-[2px] bg-red-600 transition-transform duration-300 ease-out origin-center ${
+                        isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                      }`}
+                    />
+                  </Link>
+                );
+              })}
+            </div>
+
+            {/* CTA Button */}
+            <div className="hidden lg:flex items-center gap-4">
+              <a
+                href={`tel:${WORKSHOP_INFO.phones[0]}`}
+                className="flex items-center gap-2 text-white/80 hover:text-white text-xs font-bold uppercase tracking-wider transition-colors mr-2"
+              >
+                <Phone className="w-4 h-4 text-red-500" />
+                <span>Call Us</span>
+              </a>
+
+              <Link
+                href="/booking"
+                className="btn-primary hover:bg-red-700 text-white px-8 py-3 rounded-full text-sm font-bold tracking-widest cursor-pointer shadow-lg shadow-red-600/30 transition-all hover:scale-105 active:scale-95"
+              >
+                APPOINTMENT
+              </Link>
+            </div>
+
+            {/* Mobile Hamburger Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="lg:hidden text-white p-2 focus:outline-none"
+              aria-label="Toggle Navigation Menu"
+            >
+              {mobileMenuOpen ? <X className="w-7 h-7 text-red-500" /> : <Menu className="w-7 h-7" />}
+            </button>
           </div>
         </div>
       </nav>
 
-      {/* ── MOBILE OVERLAY ──────────────────────────────────────────── */}
-      {isMobileMenuOpen && (
-        <div
-          className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs lg:hidden transition-opacity"
-          onClick={() => setIsMobileMenuOpen(false)}
-          style={{ zIndex: 2147483646 }}
-        />
-      )}
-
-      {/* ── MOBILE PANEL ────────────────────────────────────────────── */}
+      {/* Mobile Drawer Menu */}
       <div
-        ref={menuRef}
-        className={`fixed top-0 right-0 h-full w-full sm:w-[380px] bg-white text-slate-800 shadow-2xl border-l border-slate-100 flex flex-col transform transition-transform duration-300 ease-out lg:hidden ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
-          }`}
-        style={{ zIndex: 2147483647 }}
-        dir={isArabic ? "rtl" : "ltr"}
+        className={`fixed inset-0 z-[9998] bg-black/90 backdrop-blur-xl transition-all duration-300 lg:hidden flex flex-col justify-between p-8 pt-28 ${
+          mobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        }`}
       >
-        {/* Top Header: Logo + Close Button */}
-        <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between shrink-0 bg-white">
-          <Link href="/" onClick={() => setIsMobileMenuOpen(false)}>
-            <Image
-              src="/logo.png"
-              alt="Taj Al Rahmah"
-              width={90}
-              height={50}
-              className="w-auto h-auto max-h-10 object-contain"
-            />
-          </Link>
-          <button
-            onClick={() => setIsMobileMenuOpen(false)}
-            className="w-9 h-9 text-slate-400 hover:text-[#01a9a0] hover:bg-[#01a9a0]/10 transition-colors flex items-center justify-center rounded-full cursor-pointer"
-            aria-label="Close menu"
-          >
-            <X className="w-5 h-5 stroke-[2.2]" />
-          </button>
-        </div>
-
-        {/* Mobile Search Input */}
-        <div className="px-5 py-3 border-b border-slate-100 bg-slate-50/70 relative z-30 shrink-0">
-          <ExpandableSearchBar
-            isDrawer={true}
-            onSearch={handleSearch}
-            onCloseMenu={() => setIsMobileMenuOpen(false)}
-            placeholder={t.nav.searchPlaceholder}
-            suggestions={searchSuggestions}
-          />
-        </div>
-
-        {/* Nav list */}
-        <div className="overflow-y-auto flex-1 overscroll-contain py-2 divide-y divide-slate-100">
-          <nav className="flex flex-col">
-            {navItems.map((item) => {
-              const active = isLinkActive(item.href);
-              const hasMega = !!item.megaKey;
-              const isExpanded = mobileExpanded === item.megaKey;
-
-              const megaData: MegaData | null =
-                item.megaKey === "services" ? servicesMegaMenu[lang] :
-                  item.megaKey === "solutions" ? solutionsMegaMenu[lang] :
-                    item.megaKey === "projects" ? projectsMegaMenu[lang] :
-                      item.megaKey === "industries" ? industriesMegaMenu[lang] :
-                        item.megaKey === "subcontractors" ? subcontractorsMegaMenu[lang] :
-                          item.megaKey === "contact" ? contactMegaMenu[lang] :
-                            item.megaKey === "careers" ? careersMegaMenu[lang] :
-                              item.megaKey === "company" ? companyMegaMenu[lang] : null;
-
-              return (
-                <div key={item.name} className="group/navitem">
-                  <div
-                    className={`flex items-center transition-colors ${active ? "bg-[#01a9a0]/8" : "hover:bg-slate-50"
-                      }`}
-                  >
-                    <Link
-                      href={item.href}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className={`flex-1 px-6 py-3.5 text-[15px] sm:text-[16px] font-bold uppercase tracking-wider font-anek transition-colors ${active
-                        ? "text-[#01a9a0]"
-                        : "text-slate-800 hover:text-[#01a9a0]"
-                        }`}
-                    >
-                      {item.name}
-                    </Link>
-                    {hasMega && (
-                      <button
-                        onClick={() => setMobileExpanded(isExpanded ? null : item.megaKey!)}
-                        className={`px-5 py-3.5 transition-colors cursor-pointer ${isExpanded
-                          ? "text-[#01a9a0]"
-                          : "text-slate-400 hover:text-[#01a9a0]"
-                          }`}
-                        aria-label={`Toggle ${item.name}`}
-                      >
-                        <ChevronDown
-                          className={`w-4 h-4 transition-transform duration-200 stroke-[2.2] ${isExpanded ? "rotate-180" : ""
-                            }`}
-                        />
-                      </button>
-                    )}
-                  </div>
-
-                  {/* Accordion */}
-                  {hasMega && isExpanded && megaData && (
-                    <div className="bg-[#f0faf9]/80 border-y border-[#01a9a0]/15 px-4 pb-3 pt-1 animate-in fade-in duration-200">
-                      <div className="flex flex-col gap-0.5">
-                        {megaData.items.map((sub, i) => (
-                          <Link
-                            key={i}
-                            href={sub.href}
-                            onClick={(e) => {
-                              if (sub.action) {
-                                e.preventDefault();
-                                setIsMobileMenuOpen(false);
-                                setMobileExpanded(null);
-                                setActiveContactModal(sub.action);
-                                return;
-                              }
-                              setIsMobileMenuOpen(false);
-                              setMobileExpanded(null);
-                              if (sub.href.includes("#")) {
-                                const [targetPath, hash] = sub.href.split("#");
-                                const isCurrent = (targetPath === "" && pathname === "/") || targetPath === pathname;
-                                if (isCurrent && hash) {
-                                  e.preventDefault();
-                                  const el = document.getElementById(hash);
-                                  if (el) {
-                                    el.scrollIntoView({ behavior: "smooth" });
-                                    window.history.pushState(null, "", sub.href);
-                                  }
-                                }
-                              }
-                            }}
-                            className="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-white/80 hover:bg-white border border-[#01a9a0]/10 hover:border-[#01a9a0]/30 shadow-xs hover:shadow-sm transition-all group"
-                          >
-                            {/* Icon */}
-                            <div className="w-8 h-8 rounded-lg bg-[#01a9a0]/10 border border-[#01a9a0]/20 flex items-center justify-center flex-shrink-0 group-hover:bg-[#01a9a0]/20 transition-colors">
-                              <NavIcon src={sub.icon} alt={sub.title} size={16} />
-                            </div>
-                            <div className="min-w-0 flex-1">
-                              <p className="text-[15px] sm:text-[16px] font-bold text-slate-900 group-hover:text-[#01a9a0] transition-colors truncate leading-snug">
-                                {sub.title}
-                              </p>
-                              <p className="text-[14px] sm:text-[14.5px] text-slate-500 truncate mt-0.5">{sub.sub}</p>
-                            </div>
-                            <ChevronRight
-                              className={`w-3.5 h-3.5 text-slate-300 group-hover:text-[#01a9a0] group-hover:translate-x-0.5 flex-shrink-0 transition-all ${isArabic ? "rotate-180 group-hover:-translate-x-0.5" : ""
-                                }`}
-                            />
-                          </Link>
-                        ))}
-                      </div>
-                      {/* Section CTA */}
-                      <Link
-                        href={megaData.ctaHref}
-                        onClick={() => { setIsMobileMenuOpen(false); setMobileExpanded(null); }}
-                        className="mt-3 w-full inline-flex items-center justify-center gap-2 bg-[#01a9a0] hover:bg-[#008f88] text-white text-[13px] sm:text-[13.5px] font-bold px-4 py-2.5 rounded-full shadow-xs hover:shadow-md transition-all"
-                      >
-                        <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.2]" />
-                        {megaData.cta}
-                      </Link>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </nav>
-        </div>
-
-        {/* Mobile bottom controls */}
-        <div className="p-5 border-t border-slate-100 bg-white shrink-0 space-y-3">
+        <div className="flex flex-col gap-6">
           <Link
-            href="/get-a-quote"
-            onClick={() => setIsMobileMenuOpen(false)}
-            className="w-full pl-5 pr-1.5 py-2.5 rounded-full bg-[#01a9a0] hover:bg-[#008f88] text-white font-bold text-xs sm:text-sm tracking-wider uppercase inline-flex items-center justify-center gap-2.5 shadow-md shadow-[#01a9a0]/20 hover:shadow-lg transition-all group"
+            href="/"
+            onClick={() => setMobileMenuOpen(false)}
+            className="text-2xl font-black uppercase tracking-wider text-white hover:text-red-500 transition-colors"
           >
-            <span className="whitespace-nowrap font-anek">{t.nav.getQuote}</span>
-            <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white text-[#01a9a0] flex items-center justify-center transition-transform group-hover:translate-x-0.5">
-              <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />
-            </span>
+            Home
           </Link>
+          {NAV_LINKS.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-2xl font-black uppercase tracking-wider text-white hover:text-red-500 transition-colors"
+            >
+              {link.label}
+            </Link>
+          ))}
+        </div>
+
+        <div className="space-y-4 pt-8 border-t border-white/10">
+          <Link
+            href="/booking"
+            onClick={() => setMobileMenuOpen(false)}
+            className="w-full btn-primary py-4 rounded-xl text-center text-sm font-bold uppercase tracking-widest shadow-xl flex items-center justify-center gap-2"
+          >
+            <Calendar className="w-4 h-4" />
+            Book an Appointment
+          </Link>
+
+          <a
+            href={`tel:${WORKSHOP_INFO.phones[0]}`}
+            className="w-full bg-white/10 text-white py-4 rounded-xl text-center text-sm font-bold uppercase tracking-widest flex items-center justify-center gap-2"
+          >
+            <Phone className="w-4 h-4 text-red-500" />
+            Call: {WORKSHOP_INFO.phones[0]}
+          </a>
         </div>
       </div>
-
-      {/* ── Contact Modals (Talk to an Expert, Send an Enquiry, Request Callback, Supplier) ── */}
-      <ContactModals
-        activeModal={activeContactModal}
-        onClose={() => setActiveContactModal(null)}
-      />
     </>
   );
-};
-
-export default Navbar;
+}
