@@ -534,7 +534,7 @@ const Navbar = () => {
           <span className="text-[11px] font-extrabold tracking-[0.22em] uppercase text-[#009e90]">
             {data.label}
           </span>
-          <span className="text-[11px] text-stone-400 font-medium">{data.tagline}</span>
+          <span className="text-[11px] text-stone-600 font-medium">{data.tagline}</span>
         </div>
 
         <div className="flex">
@@ -575,10 +575,10 @@ const Navbar = () => {
 
                   {/* Text */}
                   <div className="min-w-0 flex-1">
-                    <p className="text-[13px] font-bold text-stone-900 group-hover:text-[#009e90] transition-colors leading-snug truncate">
+                    <p className="text-[13px] font-bold text-[#009e90] group-hover:text-[#007a6f] transition-colors leading-snug truncate">
                       {item.title}
                     </p>
-                    <p className="text-[11px] text-stone-400 truncate leading-tight mt-0.5">
+                    <p className="text-[11px] text-stone-600 truncate leading-tight mt-0.5">
                       {item.sub}
                     </p>
                   </div>
