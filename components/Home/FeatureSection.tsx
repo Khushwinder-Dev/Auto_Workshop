@@ -25,7 +25,7 @@ export default function FeatureSection() {
               Bab Al Bustan Auto Maintenance Workshop
             </span>
           </div>
-          <h2 className="font-display text-2xl md:text-5xl font-medium text-white leading-tight mb-6 tracking-tight">
+          <h2 className="font-display text-2xl md:text-5xl font-bold text-white leading-tight mb-6 tracking-tight">
             We Go Beyond Just a <br /> Car Maintenance
           </h2>
           <p className="text-zinc-400 text-sm md:text-base leading-relaxed mb-4 max-w-3xl">

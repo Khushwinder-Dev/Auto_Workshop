@@ -67,7 +67,7 @@ export default function AboutUsPage() {
           </div>
           <div className="relative z-20 flex-grow flex flex-col items-center justify-center text-center px-6 mt-10">
             <div data-aos="zoom-out" data-aos-delay="200" className="mb-4">
-              <h1 className="text-3xl md:text-[50px] font-display tracking-[-0.04em] leading-[0.9] flex items-center justify-center gap-4 max-w-[800px]">
+              <h1 className="text-3xl md:text-[50px] font-display font-bold tracking-[-0.04em] leading-[0.9] flex items-center justify-center gap-4 max-w-[800px]">
                 <span className="text-white">About</span>
                 <span className="text-[#e11d23]">Us</span>
               </h1>
@@ -110,7 +110,7 @@ export default function AboutUsPage() {
                     <ThumbsUp className="w-8 h-8 text-[#e11d23]" strokeWidth={3} />
                   </div>
                   <div>
-                    <h3 className="text-2xl font-display text-slate-900 leading-none">
+                    <h3 className="text-2xl font-display font-bold text-slate-900 leading-none">
                       1,600+
                     </h3>
                     <p className="text-gray-500 text-sm mt-1">Happy Customers</p>
@@ -121,7 +121,7 @@ export default function AboutUsPage() {
                     <Award className="w-8 h-8 text-[#e11d23]" strokeWidth={3} />
                   </div>
                   <div>
-                    <h3 className="text-2xl font-display text-slate-900 leading-none">
+                    <h3 className="text-2xl font-display font-bold text-slate-900 leading-none">
                       12+
                     </h3>
                     <p className="text-gray-500 text-sm mt-1">Years of Experience</p>
@@ -133,7 +133,7 @@ export default function AboutUsPage() {
               <span className="text-[#e11d23] text-xs font-bold uppercase tracking-[0.2em]">
                 About Us
               </span>
-              <h2 className="text-4xl md:text-5xl font-display text-slate-900 mt-4 leading-[1.1] tracking-tight">
+              <h2 className="text-4xl md:text-5xl font-display font-bold text-slate-900 mt-4 leading-[1.1] tracking-tight">
                 Keeping Your Drive Smooth
               </h2>
               <div className="mt-8 space-y-4 text-gray-600 leading-relaxed text-sm md:text-base">

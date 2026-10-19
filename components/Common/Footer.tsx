@@ -86,7 +86,7 @@ export default function Footer() {
 
         <div>
           <div className="mb-6">
-            <h4 className="text-white text-xl uppercase tracking-tight font-display">
+            <h4 className="text-white text-xl uppercase tracking-tight font-display font-bold">
               Quick Links
             </h4>
             <div className="h-0.5 w-10 bg-red-600 mt-1"></div>
@@ -116,7 +116,7 @@ export default function Footer() {
 
         <div>
           <div className="mb-6">
-            <h4 className="text-white text-xl uppercase tracking-tight font-display">
+            <h4 className="text-white text-xl uppercase tracking-tight font-display font-bold">
               Opening Hours
             </h4>
             <div className="h-0.5 w-10 bg-red-600 mt-1"></div>
@@ -127,7 +127,7 @@ export default function Footer() {
             <p>Friday : Closed</p>
           </div>
           <div className="mb-6">
-            <h4 className="text-white text-xl uppercase tracking-tight font-display">
+            <h4 className="text-white text-xl uppercase tracking-tight font-display font-bold">
               Support
             </h4>
             <div className="h-0.5 w-10 bg-red-600 mt-1"></div>
@@ -156,7 +156,7 @@ export default function Footer() {
 
         <div>
           <div className="mb-6">
-            <h4 className="text-white text-xl uppercase tracking-tight font-display">
+            <h4 className="text-white text-xl uppercase tracking-tight font-display font-bold">
               Contact Info
             </h4>
             <div className="h-0.5 w-10 bg-red-600 mt-1"></div>

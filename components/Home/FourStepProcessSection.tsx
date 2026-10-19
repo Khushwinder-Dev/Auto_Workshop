@@ -39,7 +39,7 @@ export default function FourStepProcessSection() {
             How It Works
           </span>
         </div>
-        <h2 className="font-display text-2xl md:text-5xl text-white leading-tight uppercase tracking-tight mb-20 text-center">
+        <h2 className="font-display font-bold text-2xl md:text-5xl text-white leading-tight uppercase tracking-tight mb-20 text-center">
           Simple 4-Step Process
         </h2>
         <div className="flex flex-col lg:flex-row items-center justify-center gap-6 lg:gap-0 w-full">

@@ -61,7 +61,7 @@ export default function BookingPage() {
           </div>
           <div className="relative z-20 flex-grow flex flex-col items-center justify-center text-center px-6 mt-10">
             <div data-aos="zoom-out" data-aos-delay="200" className="mb-4">
-              <h1 className="text-3xl md:text-[50px] font-display tracking-[-0.04em] leading-[0.9] flex items-center justify-center gap-4 max-w-[800px]">
+              <h1 className="text-3xl md:text-[50px] font-display font-bold tracking-[-0.04em] leading-[0.9] flex items-center justify-center gap-4 max-w-[800px]">
                 <span className="text-white">Book an </span>
                 <span className="text-[#e11d23]">Appointment</span>
               </h1>

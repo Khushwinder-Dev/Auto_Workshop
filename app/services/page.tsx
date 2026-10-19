@@ -132,7 +132,7 @@ export default function ServicesPage() {
         </div>
         <div className="relative z-20 flex-grow flex flex-col items-center justify-center text-center px-6 mt-10">
           <div data-aos="zoom-out" data-aos-delay="200" className="mb-4">
-            <h1 className="text-3xl md:text-[50px] font-display tracking-[-0.04em] leading-[0.9] flex items-center justify-center gap-4 max-w-[800px]">
+            <h1 className="text-3xl md:text-[50px] font-display font-bold tracking-[-0.04em] leading-[0.9] flex items-center justify-center gap-4 max-w-[800px]">
               <span className="text-white">Our</span>
               <span className="text-[#e11d23]">Services</span>
             </h1>
@@ -155,7 +155,7 @@ export default function ServicesPage() {
               <span className="text-[8px]">▲</span>OUR SERVICES
               <span className="text-[8px]">▲</span>
             </div>
-            <h2 className="font-display text-4xl md:text-5xl lg:text-[56px] text-zinc-900 leading-[1.1] max-w-4xl mx-auto">
+            <h2 className="font-display font-bold text-4xl md:text-5xl lg:text-[56px] text-zinc-900 leading-[1.1] max-w-4xl mx-auto">
               Professional car maintenance services in Sharjah with certified technicians
             </h2>
           </div>
@@ -216,7 +216,7 @@ export default function ServicesPage() {
         </div>
         <div className="relative z-10 max-w-7xl mx-auto w-full">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-display text-white uppercase tracking-tight">
+            <h2 className="text-4xl md:text-5xl font-display font-bold text-white uppercase tracking-tight">
               How It Works
             </h2>
           </div>
@@ -243,7 +243,7 @@ export default function ServicesPage() {
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           <div className="space-y-8">
             <div className="space-y-4">
-              <h2 className="text-4xl font-display uppercase tracking-tight text-slate-900">
+              <h2 className="text-4xl font-display font-bold uppercase tracking-tight text-slate-900">
                 Frequently Asked Questions
               </h2>
               <p className="text-gray-500 text-sm md:text-base leading-relaxed max-w-lg">

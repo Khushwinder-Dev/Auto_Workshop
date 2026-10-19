@@ -65,7 +65,7 @@ export default function ServicesSection() {
             OUR SERVICES
             <span className="text-[8px]">▲</span>
           </div>
-          <h2 className="font-display text-4xl md:text-5xl lg:text-[56px] text-zinc-900 leading-[1.1] max-w-4xl mx-auto">
+          <h2 className="font-display font-bold text-4xl md:text-5xl lg:text-[56px] text-zinc-900 leading-[1.1] max-w-4xl mx-auto">
             Professional car maintenance services in Sharjah with certified technicians
           </h2>
         </div>
