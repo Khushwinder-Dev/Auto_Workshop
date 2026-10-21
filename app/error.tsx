@@ -11,7 +11,6 @@ export default function GlobalErrorPage({
   reset: () => void;
 }) {
   useEffect(() => {
-    // Log unexpected runtime errors for debugging
     console.error("Application error captured by app/error.tsx:", error);
   }, [error]);
 

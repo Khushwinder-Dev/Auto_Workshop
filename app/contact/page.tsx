@@ -43,7 +43,6 @@ export default function ContactPage() {
   return (
     <main>
       <div>
-        {/* Hero Section */}
         <section className="relative w-full h-[60vh] min-h-[450px] overflow-hidden flex flex-col bg-black">
           <div className="absolute inset-0 z-0">
             <Image
@@ -73,7 +72,6 @@ export default function ContactPage() {
           </div>
         </section>
 
-        {/* Contact Information & Form */}
         <div className="bg-white py-16 px-6 lg:px-24">
           <div className="max-w-7xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 border-b pb-12">
@@ -189,7 +187,6 @@ export default function ContactPage() {
           </div>
         </div>
 
-        {/* Map Section */}
         <div className="w-full bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
           <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-10 xl:px-16 mb-20">
             <div className="text-center mb-12">

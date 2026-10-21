@@ -117,7 +117,6 @@ export default function ServicesPage() {
 
   return (
     <main>
-      {/* 1. Hero Section */}
       <section className="relative w-full h-[60vh] min-h-[450px] overflow-hidden flex flex-col bg-black">
         <div className="absolute inset-0 z-0">
           <Image
@@ -147,7 +146,6 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* 2. Services Grid */}
       <section className="py-20 bg-zinc-50">
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="text-center mb-16">
@@ -203,7 +201,6 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* 3. How It Works Banner */}
       <section className="relative py-24 px-6 overflow-hidden min-h-[500px] flex flex-col justify-center bg-black">
         <div className="absolute inset-0 z-0 bg-black">
           <Image
@@ -239,7 +236,6 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* 4. Frequently Asked Questions */}
       <section className="py-24 bg-white px-6">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           <div className="space-y-8">

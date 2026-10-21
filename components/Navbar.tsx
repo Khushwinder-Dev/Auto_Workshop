@@ -47,7 +47,6 @@ export default function Navbar() {
       >
         <div className="max-w-[1400px] mx-auto px-6">
           <div className="flex items-center justify-between h-20 lg:h-24">
-            {/* Logo */}
             <div className="flex-shrink-0">
               <Link href="/" className="block">
                 <div className="relative h-12 lg:h-16 w-32 lg:w-40">
@@ -62,7 +61,6 @@ export default function Navbar() {
               </Link>
             </div>
 
-            {/* Desktop Navigation Links */}
             <div className="hidden lg:flex items-center gap-8 xl:gap-12">
               {NAV_LINKS.map((link) => {
                 const isActive = pathname === link.href;
@@ -85,7 +83,6 @@ export default function Navbar() {
               })}
             </div>
 
-            {/* Desktop APPOINTMENT Button */}
             <div className="hidden lg:block">
               <button
                 onClick={() => router.push("/booking")}
@@ -95,7 +92,6 @@ export default function Navbar() {
               </button>
             </div>
 
-            {/* Mobile Hamburger Button */}
             <button
               className="lg:hidden text-white"
               onClick={() => setMobileMenuOpen(true)}
@@ -107,7 +103,6 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Mobile Drawer Menu with Framer Motion */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div

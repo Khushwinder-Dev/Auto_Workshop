@@ -23,7 +23,6 @@ export default function GalleryPage() {
   return (
     <main>
       <div>
-        {/* Hero Section */}
         <section className="relative w-full h-[60vh] min-h-[450px] overflow-hidden flex flex-col bg-black">
           <div className="absolute inset-0 z-0">
             <Image
@@ -53,7 +52,6 @@ export default function GalleryPage() {
           </div>
         </section>
 
-        {/* Video Grid */}
         <div className="bg-[#0a0a0a] min-h-screen py-16 px-4 sm:px-6 lg:px-8 text-white">
           <div className="max-w-7xl mx-auto">
             <div className="flex flex-col md:flex-row justify-between items-end mb-12 border-b border-zinc-800 pb-8" />
@@ -79,7 +77,6 @@ export default function GalleryPage() {
             </div>
           </div>
 
-          {/* Bottom Transformation CTA */}
           <section className="relative bg-[#1a0b0b] py-20 px-6 overflow-hidden mt-20">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-red-900/10 blur-[120px] rounded-full pointer-events-none" />
             <div className="max-w-4xl mx-auto text-center relative z-10">

@@ -87,7 +87,6 @@ export default function RootLayout({
           </main>
           <Footer />
 
-          {/* Floating WhatsApp Quick Action Button */}
           <FloatingChatWidget />
         </LanguageProvider>
       </body>

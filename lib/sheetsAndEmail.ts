@@ -21,10 +21,6 @@ export interface FormSubmissionPayload {
   }>;
 }
 
-/**
- * Maps the standard FormType to snake_case and human aliases so
- * the Google Apps Script can identify it regardless of script version.
- */
 export function getFormTypeAliases(formType: FormType): string[] {
   switch (formType) {
     case "1_Welcome_Popup":
@@ -67,9 +63,6 @@ export function getPrimaryFormKey(formType: FormType): string {
   }
 }
 
-/**
- * Sends form submission data to Google Sheets via Webhook URL
- */
 export async function sendToGoogleSheet(
   formType: FormType,
   data: Record<string, any>
@@ -95,7 +88,6 @@ export async function sendToGoogleSheet(
     hour12: true,
   });
 
-  // Provide broad alias coverage for all data fields
   const normalizedData: Record<string, any> = { ...data };
   if (data.fullName && !data.name) normalizedData.name = data.fullName;
   if (data.name && !data.fullName) normalizedData.fullName = data.name;
@@ -107,8 +99,8 @@ export async function sendToGoogleSheet(
   if (data.companyName && !data.company) normalizedData.company = data.companyName;
 
   const payload = {
-    formType: primaryKey, // Matches current and new Google Apps Script
-    sheetName: formType,  // Official tab name (1_Welcome_Popup, etc.)
+    formType: primaryKey,
+    sheetName: formType,
     targetSheet: formType,
     type: primaryKey,
     timestamp: timestampDubai,
@@ -141,9 +133,6 @@ export async function sendToGoogleSheet(
   }
 }
 
-/**
- * Sends formatted email notification to the website owner
- */
 export async function sendEmailNotification({
   formType,
   title,
@@ -210,8 +199,6 @@ export async function sendEmailNotification({
           <tr>
             <td align="center">
               <table width="100%" max-width="640" style="max-width: 640px; background-color: #ffffff; border-radius: 14px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.06); border: 1px solid #e2e8f0;">
-                
-                <!-- HEADER -->
                 <tr>
                   <td style="background: linear-gradient(135deg, #009e90 0%, #00756a 100%); padding: 26px 30px; text-align: left;">
                     <div style="display: inline-block; background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; color: #ffffff; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">
@@ -226,7 +213,6 @@ export async function sendEmailNotification({
                   </td>
                 </tr>
 
-                <!-- CONTENT -->
                 <tr>
                   <td style="padding: 28px 30px;">
                     <p style="margin: 0 0 18px 0; font-size: 14px; color: #64748b; line-height: 1.5;">
@@ -234,12 +220,10 @@ export async function sendEmailNotification({
                       <strong style="color: #009e90;">${escapeHtml(formType)}</strong>.
                     </p>
 
-                    <!-- FIELDS TABLE -->
                     <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse: collapse; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; margin-bottom: 24px;">
                       ${rowsHtml}
                     </table>
 
-                    <!-- FOOTER INFO BOX -->
                     <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f0fdfa; border-left: 4px solid #009e90; border-radius: 4px; padding: 12px 16px;">
                       <tr>
                         <td style="font-size: 12px; color: #134e4a; line-height: 1.6;">
@@ -253,7 +237,6 @@ export async function sendEmailNotification({
                   </td>
                 </tr>
 
-                <!-- FOOTER -->
                 <tr>
                   <td style="background-color: #f8fafc; padding: 18px 30px; border-top: 1px solid #e2e8f0; text-align: center; font-size: 12px; color: #94a3b8;">
                     Taj Al Rahmah Contracting UAE — Automated Lead & Inquiries System
@@ -295,9 +278,6 @@ ${validFields.map((f) => `${f.label}: ${f.value}`).join("\n")}
   }
 }
 
-/**
- * High-level helper that executes both Google Sheets sync and Email Notification concurrently
- */
 export async function processFormSubmission(payload: FormSubmissionPayload): Promise<{
   sheetResult: { success: boolean; message?: string; error?: any };
   emailResult: { success: boolean; error?: any };
@@ -344,6 +324,5 @@ function formatFieldValue(label: string, value: any): string {
     `;
   }
 
-  // Preserve newlines for messages, cover letters, details
   return escapeHtml(str).replace(/\n/g, "<br/>");
 }

@@ -30,27 +30,22 @@ export default function ErrorPageContent({
   return (
     <div className="w-full min-h-[70vh] bg-slate-900 text-white flex flex-col items-center justify-center py-20 px-4">
       <div className="max-w-2xl mx-auto flex flex-col items-center text-center">
-        {/* Icon Badge */}
         <div className="w-20 h-20 rounded-2xl bg-red-600/20 border border-red-500/30 flex items-center justify-center mb-6 text-red-500 shadow-xl shadow-red-950/40">
           <Wrench className="w-10 h-10 animate-pulse" />
         </div>
 
-        {/* Big Code */}
         <span className="text-7xl md:text-9xl font-black font-barlow tracking-wider text-red-600/30 mb-2 select-none">
           {isRuntimeError ? "500" : "404"}
         </span>
 
-        {/* Heading */}
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-black font-barlow uppercase tracking-tight text-white mb-4">
           {displayTitle}
         </h1>
 
-        {/* Subtitle */}
         <p className="text-slate-400 text-base sm:text-lg max-w-lg mb-8 leading-relaxed">
           {displaySubtitle}
         </p>
 
-        {/* Actions */}
         <div className="flex flex-wrap items-center justify-center gap-4">
           {reset && (
             <button

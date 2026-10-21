@@ -31,7 +31,6 @@ export default function BlogsPage() {
   return (
     <main>
       <div>
-        {/* Hero Section */}
         <section className="relative w-full h-[60vh] min-h-[450px] overflow-hidden flex flex-col bg-black">
           <div className="absolute inset-0 z-0">
             <Image
@@ -61,7 +60,6 @@ export default function BlogsPage() {
           </div>
         </section>
 
-        {/* Content Section */}
         <div className="min-h-screen bg-white">
           <div className="w-full py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-10 xl:px-16">
@@ -75,7 +73,6 @@ export default function BlogsPage() {
               </div>
 
               <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
-                {/* Sidebar */}
                 <aside className="w-full lg:w-96 flex flex-col gap-6">
                   <div
                     className="bg-gray-50 border border-gray-200 rounded-2xl p-5 sm:p-7"
@@ -133,7 +130,6 @@ export default function BlogsPage() {
                   </div>
                 </aside>
 
-                {/* Articles Grid */}
                 <main className="flex-1">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {filteredPosts.map((post, idx) => (
@@ -190,7 +186,6 @@ export default function BlogsPage() {
                 </main>
               </div>
 
-              {/* Bottom CTA Banner */}
               <section className="mt-20" data-aos="fade-up">
                 <div className="bg-red-600 rounded-[40px] p-8 lg:p-16 relative overflow-hidden">
                   <div className="absolute top-0 right-0 w-64 h-64 bg-red-500 rounded-full -mr-20 -mt-20 opacity-50" />

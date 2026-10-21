@@ -36,7 +36,6 @@ function ServiceDetailsContent() {
 
   return (
     <div className="bg-white">
-      {/* Page Hero Banner */}
       <section className="relative w-full h-[50vh] min-h-[380px] overflow-hidden flex flex-col justify-center items-center bg-black pt-20">
         <div className="absolute inset-0 z-0">
           <Image
@@ -63,12 +62,9 @@ function ServiceDetailsContent() {
         </div>
       </section>
 
-      {/* Main Content Layout */}
       <div className="max-w-7xl mx-auto px-6 py-20">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-          {/* Left Sidebar: Service Selector & Contact */}
           <div className="lg:col-span-4 space-y-8">
-            {/* Service Nav Tabs */}
             <div className="bg-zinc-50 border border-zinc-200/90 rounded-2xl p-6 shadow-sm">
               <h3 className="font-display font-black text-xl text-zinc-900 uppercase tracking-tight mb-4 pb-3 border-b border-zinc-200">
                 All Services
@@ -94,7 +90,6 @@ function ServiceDetailsContent() {
               </div>
             </div>
 
-            {/* Quick Contact & Book Box */}
             <div className="bg-[#0c0c0e] text-white rounded-2xl p-8 border border-zinc-800 shadow-xl relative overflow-hidden">
               <div className="relative z-10">
                 <span className="text-red-500 text-[10px] font-black uppercase tracking-[0.25em] mb-2 block">
@@ -128,9 +123,7 @@ function ServiceDetailsContent() {
             </div>
           </div>
 
-          {/* Right Main Content */}
           <div className="lg:col-span-8 space-y-8">
-            {/* Big Main Image */}
             <div className="relative h-72 sm:h-96 w-full rounded-2xl overflow-hidden shadow-xl border border-zinc-200 bg-zinc-900">
               <Image
                 src={selectedService.image}
@@ -145,7 +138,6 @@ function ServiceDetailsContent() {
               </div>
             </div>
 
-            {/* Overview */}
             <div className="space-y-4">
               <h2 className="font-display font-black text-3xl sm:text-4xl text-zinc-900 uppercase tracking-tight">
                 {selectedService.title} Service Overview
@@ -155,7 +147,6 @@ function ServiceDetailsContent() {
               </p>
             </div>
 
-            {/* What's Included */}
             <div className="bg-zinc-50 border border-zinc-200 rounded-2xl p-8">
               <h3 className="font-display font-black text-2xl text-zinc-900 uppercase tracking-tight mb-6">
                 What&#39;s Included in This Service
@@ -172,7 +163,6 @@ function ServiceDetailsContent() {
               </div>
             </div>
 
-            {/* Specifications & Warranty Metrics */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div className="border border-zinc-200 rounded-2xl p-6 bg-white shadow-xs flex items-center gap-4">
                 <div className="w-12 h-12 rounded-xl bg-red-50 flex items-center justify-center flex-shrink-0">
@@ -203,7 +193,6 @@ function ServiceDetailsContent() {
               </div>
             </div>
 
-            {/* Bottom Booking Action */}
             <div className="pt-6 border-t border-zinc-200 flex flex-col sm:flex-row items-center justify-between gap-4">
               <div>
                 <p className="font-bold text-zinc-900 text-lg">

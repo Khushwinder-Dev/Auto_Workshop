@@ -9,7 +9,6 @@ export async function POST(request: NextRequest) {
     let body: Record<string, any> = {};
     const rawFiles: File[] = [];
 
-    // Support both multipart/form-data (with file uploads) and application/json
     if (contentType.includes("multipart/form-data")) {
       const formData = await request.formData();
       for (const [key, value] of formData.entries()) {
@@ -50,7 +49,6 @@ export async function POST(request: NextRequest) {
     const resolvedMessage = (message || notes || description || "").toString().trim();
     const resolvedService = (service || projectType || "").toString().trim();
 
-    // Validate essential fields
     if (!resolvedName && !resolvedEmail && !resolvedPhone) {
       return NextResponse.json(
         { error: "Please provide your contact information (name, phone or email)." },
@@ -58,7 +56,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Determine target form type and sheet tab
     let formType: FormType = "4_Contact_Us";
     let title = "New Contact Us Inquiry";
 
@@ -76,7 +73,6 @@ export async function POST(request: NextRequest) {
         formType = ft;
       }
     } else {
-      // Auto-detect based on context if not explicitly passed
       const combined = `${resolvedService} ${resolvedMessage}`.toLowerCase();
       if (combined.includes("welcome offer") || combined.includes("10% discount")) {
         formType = "1_Welcome_Popup";
@@ -101,7 +97,6 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Set human-readable title based on formType
     switch (formType) {
       case "1_Welcome_Popup":
         title = `Welcome Offer Claim (10% Discount) from ${resolvedName}`;
@@ -120,7 +115,6 @@ export async function POST(request: NextRequest) {
         break;
     }
 
-    // ── PROCESS & STORE UPLOADED FILES (DRAWINGS / BOQ) ──────────────
     const savedFilesInfo: Array<{
       originalName: string;
       sizeFormatted: string;
@@ -169,7 +163,6 @@ export async function POST(request: NextRequest) {
         });
       }
 
-      // Maintain local quotes applications log
       try {
         const indexPath = path.join(quotesDir, "quotes_index.json");
         let quotesIndex: any[] = [];
@@ -206,7 +199,6 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Construct readable file links text
     let filesSummary = "None";
     if (savedFilesInfo.length > 0) {
       filesSummary = savedFilesInfo
@@ -216,7 +208,6 @@ export async function POST(request: NextRequest) {
       filesSummary = Array.isArray(rawBodyFiles) ? rawBodyFiles.join(", ") : String(rawBodyFiles);
     }
 
-    // Prepare fields for structured email
     const fields = [
       { label: "Full Name", value: resolvedName },
       { label: "Phone Number", value: resolvedPhone },
@@ -232,7 +223,6 @@ export async function POST(request: NextRequest) {
       { label: "Message / Notes", value: resolvedMessage },
     ];
 
-    // Prepare clean data object for Google Sheets
     const sheetData: Record<string, any> = {
       fullName: resolvedName,
       name: resolvedName,
@@ -254,14 +244,12 @@ export async function POST(request: NextRequest) {
       fileLinks: savedFilesInfo.map((f) => f.directUrl).join("\n"),
     };
 
-    // Attach actual files to nodemailer email
     const emailAttachments = savedFilesInfo.map((f) => ({
       filename: f.originalName,
       content: f.buffer,
       contentType: f.contentType,
     }));
 
-    // Execute concurrently: sync to Google Sheets and send email notification to owner
     const { sheetResult, emailResult } = await processFormSubmission({
       formType,
       title,

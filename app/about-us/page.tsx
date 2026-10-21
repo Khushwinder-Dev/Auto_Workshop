@@ -52,7 +52,6 @@ export default function AboutUsPage() {
   return (
     <main>
       <div>
-        {/* Hero Section */}
         <section className="relative w-full h-[60vh] min-h-[450px] overflow-hidden flex flex-col bg-black">
           <div className="absolute inset-0 z-0">
             <Image
@@ -82,7 +81,6 @@ export default function AboutUsPage() {
           </div>
         </section>
 
-        {/* Keeping Your Drive Smooth */}
         <section className="py-20 bg-white px-6">
           <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="space-y-10">
@@ -148,7 +146,6 @@ export default function AboutUsPage() {
           </div>
         </section>
 
-        {/* Before & After Transformation */}
         <section className="bg-[#0a0a0a] py-24 px-6 overflow-hidden">
           <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-2 items-center">
             <div className="space-y-8">
@@ -185,7 +182,6 @@ export default function AboutUsPage() {
           </div>
         </section>
 
-        {/* Why Choose Us */}
         <section className="py-20 bg-[#fcfcfc] px-6">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16 space-y-4">

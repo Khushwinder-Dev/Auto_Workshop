@@ -28,7 +28,6 @@ export default function BrandsPage() {
   return (
     <main>
       <div className="bg-black min-h-screen">
-        {/* Hero Section */}
         <section className="relative w-full h-[60vh] min-h-[450px] overflow-hidden flex flex-col bg-black">
           <div className="absolute inset-0 z-0">
             <Image
@@ -58,7 +57,6 @@ export default function BrandsPage() {
           </div>
         </section>
 
-        {/* Brands Grid */}
         <section className="py-16 px-6 md:px-12">
           <div className="max-w-[1400px] mx-auto">
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 lg:gap-5">

@@ -46,7 +46,6 @@ export default function BookingPage() {
   return (
     <main>
       <div>
-        {/* Hero Section */}
         <section className="relative w-full h-[60vh] min-h-[450px] overflow-hidden flex flex-col bg-black">
           <div className="absolute inset-0 z-0">
             <Image
@@ -76,10 +75,8 @@ export default function BookingPage() {
           </div>
         </section>
 
-        {/* Info + Booking Form Section */}
         <section className="bg-white py-16 px-6 md:px-12 lg:px-24">
           <div className="max-w-[1400px] mx-auto">
-            {/* Top 3 Info Columns */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10 border-b border-gray-100 pb-12 mb-16">
               <div className="flex items-start gap-4">
                 <div className="bg-red-600 p-3 rounded-lg text-white shrink-0">
@@ -118,7 +115,6 @@ export default function BookingPage() {
               </div>
             </div>
 
-            {/* Image + Form */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
               <div className="relative min-h-[450px] rounded-[24px] overflow-hidden shadow-lg">
                 <Image
@@ -225,7 +221,6 @@ export default function BookingPage() {
           </div>
         </section>
 
-        {/* Map Section */}
         <div className="w-full bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
           <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-10 xl:px-16 mb-20">
             <div className="text-center mb-12">

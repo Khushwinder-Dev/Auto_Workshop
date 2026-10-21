@@ -44,7 +44,6 @@ export default async function BlogPostPage({ params }: Props) {
   return (
     <main>
       <article className="bg-white min-h-screen">
-        {/* Hero */}
         <div className="relative h-[40vh] md:h-[50vh] w-full">
           <Image
             alt={post.title}
@@ -65,7 +64,6 @@ export default async function BlogPostPage({ params }: Props) {
           </div>
         </div>
 
-        {/* Content Layout */}
         <div className="max-w-7xl mx-auto px-6 py-16 lg:py-24">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
             <div className="lg:col-span-8">
@@ -89,7 +87,6 @@ export default async function BlogPostPage({ params }: Props) {
               </div>
             </div>
 
-            {/* Sidebar */}
             <aside className="lg:col-span-4 space-y-12">
               <div className="sticky top-24">
                 <div className="flex items-center gap-3 mb-8">

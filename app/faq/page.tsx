@@ -15,7 +15,6 @@ export default function FAQPage() {
 
   return (
     <div className="bg-white">
-      {/* Page Hero Banner */}
       <section className="relative w-full h-[50vh] min-h-[380px] overflow-hidden flex flex-col justify-center items-center bg-black pt-20">
         <div className="absolute inset-0 z-0">
           <Image
@@ -42,7 +41,6 @@ export default function FAQPage() {
         </div>
       </section>
 
-      {/* Main FAQ Container */}
       <div className="max-w-4xl mx-auto px-6 py-20">
         <div className="space-y-4">
           {WORKSHOP_FAQS.map((faq, idx) => {
@@ -79,7 +77,6 @@ export default function FAQPage() {
           })}
         </div>
 
-        {/* Still Have Questions Box */}
         <div className="mt-16 p-8 bg-zinc-900 text-white rounded-3xl border border-zinc-800 text-center relative overflow-hidden">
           <div className="relative z-10 max-w-xl mx-auto">
             <h3 className="font-display font-black text-2xl uppercase tracking-tight mb-2">

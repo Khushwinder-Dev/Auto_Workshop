@@ -30,7 +30,6 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
 
   return (
     <section className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden">
-      {/* Background Hero Image */}
       <div className="absolute inset-0 z-0">
         <Image
           src="/images/home-hero.png"
@@ -41,7 +40,6 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
         />
       </div>
 
-      {/* Hero Headline Content */}
       <div className="relative z-20 text-center px-4 mb-20 max-w-[1000px]">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
@@ -60,7 +58,6 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
         </motion.h3>
       </div>
 
-      {/* Glassmorphism Stats Bar */}
       <div className="absolute bottom-16 left-1/2 -translate-x-1/2 w-full max-w-[1200px] px-6 z-30">
         <div className="hero-stats-glass rounded-xl md:rounded-2xl grid grid-cols-2 lg:grid-cols-4 overflow-hidden border border-white/10 bg-[#0006]">
           {stats.map((stat, idx) => (
@@ -84,7 +81,6 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
         </div>
       </div>
 
-      {/* Scroll Down Cue */}
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-60 z-30 pointer-events-none">
         <span className="text-[10px] font-bold text-white uppercase tracking-[0.4em]">
           Scroll Down
