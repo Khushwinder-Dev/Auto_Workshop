@@ -204,15 +204,16 @@ export default function ServicesPage() {
       </section>
 
       {/* 3. How It Works Banner */}
-      <section className="relative py-24 px-6 overflow-hidden min-h-[500px] flex flex-col justify-center">
-        <div className="absolute inset-0 z-0">
+      <section className="relative py-24 px-6 overflow-hidden min-h-[500px] flex flex-col justify-center bg-black">
+        <div className="absolute inset-0 z-0 bg-black">
           <Image
             alt="How it works background"
             fill
-            className="object-cover opacity-50 grayscale-[0.5]"
+            className="object-cover object-center"
             src="/images/bottomcar.jpg"
           />
-          <div className="absolute inset-0 bg-black/50" />
+          <div className="absolute inset-0 bg-black/75" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black opacity-90" />
         </div>
         <div className="relative z-10 max-w-7xl mx-auto w-full">
           <div className="text-center mb-16">
