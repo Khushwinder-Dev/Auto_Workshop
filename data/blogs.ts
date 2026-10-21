@@ -47,7 +47,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: "Why Squeaking Brakes Should Never Be Ignored",
     category: "Safety",
     date: "October 15, 2024",
-    image: "/news/Ensuring Quality with Comprehensive Inspection Services.png",
+    image: "/images/service-2.png",
     readTime: "4 min read",
     excerpt: "Persistent squeaking, grinding, or soft pedals are vital warning signs that your brake system needs immediate inspection. Here is what you need to know.",
     content: [
@@ -63,7 +63,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: "Signs Your Transmission Needs Urgent Service",
     category: "Repair",
     date: "October 10, 2024",
-    image: "/news/Advanced Process Control Instrumentation for Industrial Efficiency.png",
+    image: "/images/service-5.png",
     readTime: "5 min read",
     excerpt: "Delayed gear shifts, burning odors, or fluid leaks can indicate serious transmission issues. Catching them early saves thousands of dirhams in repair costs.",
     content: [
@@ -79,7 +79,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: "How the UAE Heat Shortens Your Battery Life",
     category: "Maintenance",
     date: "October 05, 2024",
-    image: "/news/Electrical Electronics Testing for Reliable Operations.png",
+    image: "/images/service-8.png",
     readTime: "4 min read",
     excerpt: "Intense heat accelerates chemical degradation inside car batteries, cutting lifespan down to 2-3 years. Learn how to test, maintain, and protect your battery.",
     content: [
@@ -95,7 +95,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: "Save Fuel with Proper Wheel Alignment",
     category: "Inspection",
     date: "September 28, 2024",
-    image: "/news/Lifting Non-Destructive Equipment Mechanical Solutions.png",
+    image: "/images/service-6.png",
     readTime: "4 min read",
     excerpt: "Misaligned wheels cause uneven tire wear and increase rolling resistance, burning extra fuel. Discover the benefits of precision computerized alignment.",
     content: [
