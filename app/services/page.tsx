@@ -230,7 +230,7 @@ export default function ServicesPage() {
                 <h3 className="text-white text-lg font-black mb-4 uppercase tracking-tight">
                   {step.title}
                 </h3>
-                <p className="text-gray-400 text-sm leading-relaxed max-w-[280px]">
+                <p className="text-gray-300 text-sm leading-relaxed max-w-[280px]">
                   {step.desc}
                 </p>
               </div>
