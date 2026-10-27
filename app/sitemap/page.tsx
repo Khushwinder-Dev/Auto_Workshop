@@ -1,329 +1,496 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
-import Link from "next/link";
+import React, { useState, useMemo, useRef } from "react";
 import Image from "next/image";
-import {
-  Search,
-  Wrench,
-  Car,
-  FileText,
-  Video,
-  HelpCircle,
-  Phone,
-  Calendar,
-  Compass,
-  ArrowRight,
-  ExternalLink,
-  ShieldCheck,
-  Cpu,
-  Droplets,
-  Disc,
-  Fan,
-  X,
-} from "lucide-react";
-import { WORKSHOP_SERVICES, CAR_BRANDS, WORKSHOP_VIDEOS } from "@/data/workshopData";
-import { BLOG_POSTS } from "@/data/blogs";
+import Link from "next/link";
+import { Search, Mic, MicOff, X } from "lucide-react";
+import toast from "react-hot-toast";
 
-interface SitemapSection {
+interface SitemapItem {
   title: string;
-  description: string;
-  icon: React.ComponentType<{ className?: string }>;
-  links: {
-    title: string;
-    description?: string;
-    href: string;
-    badge?: string;
-  }[];
+  href: string;
 }
+
+interface SitemapGroup {
+  id: string;
+  title: string;
+  mainHref: string;
+  items: SitemapItem[];
+}
+
+const SITEMAP_GROUPS: SitemapGroup[] = [
+  // 1. SERVICES
+  {
+    id: "services",
+    title: "Services",
+    mainHref: "/services",
+    items: [
+      {
+        title: "Diagnostics & Computer Scanning",
+        href: "/services-details?service=diagnostics",
+      },
+      {
+        title: "Oil Change & Synthetic Lubricants",
+        href: "/services-details?service=oil-change",
+      },
+      {
+        title: "Brake Repair & Rotor Skimming",
+        href: "/services-details?service=brakes",
+      },
+      {
+        title: "Suspension & Shock Absorber Renewal",
+        href: "/services-details?service=suspension",
+      },
+      {
+        title: "Battery Testing & Replacement",
+        href: "/services-details?service=battery",
+      },
+      {
+        title: "A/C Repair & Gas Recharge",
+        href: "/services-details?service=ac-repair",
+      },
+      {
+        title: "Tires & Computerized Laser Alignment",
+        href: "/services-details?service=tires",
+      },
+      {
+        title: "Computer Programming & Key Coding",
+        href: "/services-details?service=computer-programming",
+      },
+    ],
+  },
+
+  // 2. BRANDS WE SERVICE
+  {
+    id: "brands",
+    title: "Brands We Service",
+    mainHref: "/brands",
+    items: [
+      {
+        title: "Mercedes-Benz & AMG Specialist Maintenance",
+        href: "/brands",
+      },
+      {
+        title: "BMW iDrive & TwinPower Turbo Service",
+        href: "/brands",
+      },
+      {
+        title: "Audi & Quattro TFSI Engine Care",
+        href: "/brands",
+      },
+      {
+        title: "Porsche Performance Diagnostics & PDK Service",
+        href: "/brands",
+      },
+      {
+        title: "Volkswagen & DSG Transmission Service",
+        href: "/brands",
+      },
+      {
+        title: "Land Rover & Range Rover Air Suspension Repair",
+        href: "/brands",
+      },
+      {
+        title: "Toyota & Lexus Hybrid Inverter Maintenance",
+        href: "/brands",
+      },
+      {
+        title: "Nissan Patrol V8 & CVT Gearbox Care",
+        href: "/brands",
+      },
+      {
+        title: "Infiniti, Honda, Mitsubishi & Suzuki",
+        href: "/brands",
+      },
+      {
+        title: "Ford, Chevrolet & Jeep 4x4 Drivetrain Service",
+        href: "/brands",
+      },
+    ],
+  },
+
+  // 3. COMPANY & NAVIGATION
+  {
+    id: "company",
+    title: "Company",
+    mainHref: "/about-us",
+    items: [
+      {
+        title: "Home",
+        href: "/",
+      },
+      {
+        title: "About Us & Workshop Heritage",
+        href: "/about-us",
+      },
+      {
+        title: "All Auto Repair Services",
+        href: "/services",
+      },
+      {
+        title: "Car Brands Directory",
+        href: "/brands",
+      },
+      {
+        title: "Workshop Video Tours & Repairs",
+        href: "/gallery",
+      },
+      {
+        title: "Car Maintenance Blogs & UAE Tips",
+        href: "/blogs",
+      },
+      {
+        title: "Book Service Appointment Online",
+        href: "/booking",
+      },
+      {
+        title: "Contact Us & Location Map",
+        href: "/contact",
+      },
+      {
+        title: "Frequently Asked Questions (FAQs)",
+        href: "/faqs",
+      },
+    ],
+  },
+
+  // 4. MAINTENANCE BLOGS & GUIDES
+  {
+    id: "blogs",
+    title: "Maintenance Guides & Tips",
+    mainHref: "/blogs",
+    items: [
+      {
+        title: "5 Tips to Maintain Your Car AC in Sharjah Heat",
+        href: "/blogs/car-ac-repair-sharjah-tips",
+      },
+      {
+        title: "Best Oil Change Intervals for UAE Drivers",
+        href: "/blogs/best-oil-change-intervals-uae",
+      },
+      {
+        title: "Why Squeaking Brakes Should Never Be Ignored",
+        href: "/blogs/brake-safety-check-guide",
+      },
+      {
+        title: "How Extreme Heat Affects Car Battery Longevity",
+        href: "/blogs",
+      },
+      {
+        title: "Computer Diagnostic Warning Lights Explained",
+        href: "/blogs",
+      },
+    ],
+  },
+
+  // 5. WORKSHOP VIDEOS
+  {
+    id: "gallery",
+    title: "Workshop Videos & Gallery",
+    mainHref: "/gallery",
+    items: [
+      {
+        title: "Mercedes V8 Engine Rebuild & Timing Setup",
+        href: "/gallery",
+      },
+      {
+        title: "Nissan Patrol AC Evaporator Core Replacement",
+        href: "/gallery",
+      },
+      {
+        title: "Toyota Hybrid Inverter & High Voltage Service",
+        href: "/gallery",
+      },
+      {
+        title: "Automated AC Refrigerant Recovery & Recharge",
+        href: "/gallery",
+      },
+      {
+        title: "Brake Rotor Skimming on Computerized Lathe",
+        href: "/gallery",
+      },
+      {
+        title: "Workshop Tour in Sharjah Industrial Area 5",
+        href: "/gallery",
+      },
+    ],
+  },
+
+  // 6. CUSTOMER SUPPORT & POLICIES
+  {
+    id: "support",
+    title: "Support & Contact",
+    mainHref: "/contact",
+    items: [
+      {
+        title: "Book Online Priority Appointment",
+        href: "/booking",
+      },
+      {
+        title: "Customer Service Reception & Phone Numbers",
+        href: "/contact",
+      },
+      {
+        title: "WhatsApp Service Advisor Direct Chat",
+        href: "https://api.whatsapp.com/send?phone=971564406456",
+      },
+      {
+        title: "Frequently Asked Questions",
+        href: "/faqs",
+      },
+      {
+        title: "Privacy Policy",
+        href: "/contact",
+      },
+      {
+        title: "Terms & Conditions",
+        href: "/contact",
+      },
+    ],
+  },
+];
 
 export default function SitemapPage() {
   const [searchQuery, setSearchQuery] = useState("");
+  const [isListening, setIsListening] = useState(false);
+  const recognitionRef = useRef<any>(null);
 
-  const sitemapSections: SitemapSection[] = useMemo(() => [
-    {
-      title: "Core Pages",
-      description: "Essential company and informational pages",
-      icon: Compass,
-      links: [
-        {
-          title: "Home",
-          description: "Leading car repair & maintenance workshop in Sharjah Industrial Area 5",
-          href: "/",
-          badge: "Main",
-        },
-        {
-          title: "About Us",
-          description: "Over 15+ years of automotive excellence and certified master mechanics",
-          href: "/about-us",
-        },
-        {
-          title: "All Services Overview",
-          description: "Complete list of mechanical, electrical, and AC automotive services",
-          href: "/services",
-          badge: "Hub",
-        },
-        {
-          title: "Book Appointment",
-          description: "Priority online service bay booking and quick consultation",
-          href: "/booking",
-          badge: "Action",
-        },
-        {
-          title: "Brands We Service",
-          description: "Specialized repairs for German, Japanese, and American makes",
-          href: "/brands",
-        },
-        {
-          title: "Workshop Video Gallery",
-          description: "Real repair tours: engine rebuilds, AC overhauls, and rotor skimming",
-          href: "/gallery",
-        },
-        {
-          title: "Maintenance Blogs & Guides",
-          description: "Expert advice on driving, heat protection, and fluid intervals in the UAE",
-          href: "/blogs",
-        },
-        {
-          title: "Contact Us & Location Map",
-          description: "Workshop address in Industrial Area 5, phone numbers, and WhatsApp",
-          href: "/contact",
-        },
-        {
-          title: "Frequently Asked Questions",
-          description: "Answers about estimates, turnaround time, warranty, and pricing",
-          href: "/faqs",
-        },
-      ],
-    },
-    {
-      title: "Automotive Services",
-      description: "Detailed workshop service pages and technical specs",
-      icon: Wrench,
-      links: WORKSHOP_SERVICES.map((s) => ({
-        title: s.title,
-        description: s.shortDesc,
-        href: `/services-details?service=${s.id}`,
-        badge: s.duration || "Service",
-      })),
-    },
-    {
-      title: "Vehicle Brands Serviced",
-      description: "Luxury German, Japanese, American and Korean auto care",
-      icon: Car,
-      links: CAR_BRANDS.map((b) => ({
-        title: `${b.name} (${b.category})`,
-        description: b.specialty,
-        href: "/brands",
-        badge: b.category.split(" ")[0],
-      })),
-    },
-    {
-      title: "Car Care Blogs & Articles",
-      description: "UAE driving tips, troubleshooting, and preventive guides",
-      icon: FileText,
-      links: BLOG_POSTS.map((p) => ({
-        title: p.title,
-        description: `${p.category} • ${p.readTime}`,
-        href: `/blogs/${p.slug}`,
-        badge: p.category,
-      })),
-    },
-    {
-      title: "Workshop Video Tours",
-      description: "Behind-the-scenes mechanical repairs and diagnostic walk-throughs",
-      icon: Video,
-      links: WORKSHOP_VIDEOS.map((v) => ({
-        title: v.title,
-        description: v.description,
-        href: "/gallery",
-        badge: v.category,
-      })),
-    },
-    {
-      title: "Customer Support & Actions",
-      description: "Direct customer portals, inquiries, and advisor channels",
-      icon: HelpCircle,
-      links: [
-        {
-          title: "Online Appointment Scheduler",
-          description: "Reserve your slot with priority bay access",
-          href: "/booking",
-          badge: "Book",
-        },
-        {
-          title: "General Inquiries & Directions",
-          description: "Speak with our service reception",
-          href: "/contact",
-        },
-        {
-          title: "Frequently Asked Questions",
-          description: "Warranty, parts authenticity, and diagnostic estimates",
-          href: "/faqs",
-        },
-      ],
-    },
-  ], []);
+  const handleVoiceSearch = () => {
+    if (typeof window === "undefined") return;
 
-  // Filter sections by search query
-  const filteredSections = useMemo(() => {
-    if (!searchQuery.trim()) return sitemapSections;
-    const q = searchQuery.toLowerCase().trim();
+    const SpeechRecognition =
+      (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
 
-    return sitemapSections
-      .map((sec) => {
-        const matchingLinks = sec.links.filter(
-          (link) =>
-            link.title.toLowerCase().includes(q) ||
-            (link.description && link.description.toLowerCase().includes(q))
-        );
-        return {
-          ...sec,
-          links: matchingLinks,
-        };
-      })
-      .filter((sec) => sec.links.length > 0);
-  }, [sitemapSections, searchQuery]);
+    if (!SpeechRecognition) {
+      toast.error("Voice search is not supported in this browser.");
+      return;
+    }
 
-  const totalLinks = useMemo(
-    () => sitemapSections.reduce((acc, s) => acc + s.links.length, 0),
-    [sitemapSections]
-  );
+    if (isListening) {
+      try {
+        recognitionRef.current?.stop();
+      } catch {}
+      setIsListening(false);
+      return;
+    }
+
+    try {
+      const recognition = new SpeechRecognition();
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.lang = "en-US";
+
+      recognition.onstart = () => setIsListening(true);
+      recognition.onresult = (event: any) => {
+        const transcript = event.results?.[0]?.[0]?.transcript;
+        if (transcript) {
+          setSearchQuery(transcript);
+        }
+        setIsListening(false);
+      };
+      recognition.onerror = () => setIsListening(false);
+      recognition.onend = () => setIsListening(false);
+
+      recognitionRef.current = recognition;
+      recognition.start();
+    } catch {
+      setIsListening(false);
+    }
+  };
+
+  // Filter groups and their child links based on search query
+  const filteredGroups = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
+    if (!q) return SITEMAP_GROUPS;
+
+    return SITEMAP_GROUPS.map((group) => {
+      const groupMatches = group.title.toLowerCase().includes(q);
+
+      if (groupMatches) {
+        return group;
+      }
+
+      const matchingItems = group.items.filter(
+        (item) =>
+          item.title.toLowerCase().includes(q) ||
+          item.href.toLowerCase().includes(q)
+      );
+
+      return {
+        ...group,
+        items: matchingItems,
+      };
+    }).filter((group) => group.items.length > 0);
+  }, [searchQuery]);
+
+  const totalMatchingCount = useMemo(() => {
+    return filteredGroups.reduce((acc, g) => acc + g.items.length, 0);
+  }, [filteredGroups]);
 
   return (
-    <main className="min-h-screen bg-zinc-50 pt-24 pb-20">
-      {/* Header Banner */}
-      <section className="bg-black text-white py-16 px-6 relative overflow-hidden">
+    <main className="min-h-screen bg-white">
+      {/* ============================================================
+          TOP HERO BANNER (Following Bab Al Bustan's Subpage Banner Style)
+          ============================================================ */}
+      <section className="relative w-full h-[55vh] min-h-[420px] overflow-hidden flex flex-col bg-black">
         <div className="absolute inset-0 z-0">
           <Image
-            src="/images/services-hero.png"
-            alt="Sitemap Hero"
+            alt="Workshop Hero"
             fill
-            className="object-cover opacity-30"
+            className="object-cover"
+            src="/images/services-hero.png"
+            priority
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent" />
+          <div className="absolute inset-0 bg-[#1a0a05]/75" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/30" />
         </div>
-
-        <div className="max-w-7xl mx-auto relative z-10 text-center">
-          <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-red-500 bg-red-950/60 border border-red-800/40 px-3 py-1 rounded-full mb-3">
-            <Compass className="w-3.5 h-3.5" />
-            <span>Complete Website Directory</span>
+        <div className="relative z-20 flex-grow flex flex-col items-center justify-center text-center px-6 mt-10">
+          <div data-aos="zoom-out" data-aos-delay="200" className="mb-4">
+            <h1 className="text-4xl md:text-[56px] font-display font-bold tracking-tight leading-[0.9] flex items-center justify-center gap-3 max-w-[800px]">
+              <span className="text-white">HTML</span>
+              <span className="text-[#e11d23]">Sitemap</span>
+            </h1>
           </div>
-
-          <h1 className="text-4xl md:text-5xl font-extrabold font-display uppercase tracking-tight text-white mb-4">
-            HTML <span className="text-red-600">Sitemap</span>
-          </h1>
-
-          <p className="text-zinc-400 text-sm md:text-base max-w-xl mx-auto mb-8">
-            Easily navigate every service, car brand, technical repair guide, and customer support page at Bab Al Bustan Auto Maintenance Workshop.
+          <p
+            data-aos="fade-up"
+            data-aos-delay="400"
+            className="max-w-xl text-gray-300 text-sm md:text-base font-medium tracking-wide opacity-90"
+          >
+            Complete directory of all auto repair services, car brands, maintenance tips, and customer portals.
           </p>
 
-          {/* Search Bar for Sitemap */}
-          <div className="max-w-xl mx-auto relative flex items-center">
-            <Search className="w-5 h-5 text-red-500 absolute left-4" />
+          {/* Breadcrumb Navigation */}
+          <div className="mt-6 flex items-center gap-2 text-xs font-bold text-gray-400">
+            <Link href="/" className="hover:text-white transition-colors">
+              Home
+            </Link>
+            <span>/</span>
+            <span className="text-red-500">Sitemap</span>
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================
+          SEARCH & DIRECTORY MAIN CONTENT
+          ============================================================ */}
+      <div className="max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-12 py-16 sm:py-20">
+        {/* 1. CENTERED SEARCH PILL (Following Bab Al Bustan Red & Dark Theme) */}
+        <div className="max-w-2xl mx-auto mb-14 sm:mb-16">
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-red-600">
+              <Search className="w-5 h-5 stroke-[2.2]" />
+            </div>
+
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search sitemap pages, services, or brands..."
-              className="w-full bg-zinc-900/90 border border-zinc-700 focus:border-red-600 focus:ring-2 focus:ring-red-600/20 text-white placeholder-zinc-500 rounded-full pl-12 pr-10 py-3.5 text-sm outline-none transition-all shadow-xl"
+              placeholder="Search sitemap links..."
+              className="w-full pl-11 pr-20 py-3.5 sm:py-4 text-sm sm:text-base rounded-full border border-zinc-300 hover:border-red-500 bg-white text-zinc-900 shadow-sm transition-all outline-none focus:border-red-600 focus:ring-4 focus:ring-red-600/15 placeholder:text-zinc-400"
             />
-            {searchQuery && (
+
+            <div className="absolute inset-y-0 right-0 pr-4 flex items-center gap-1.5">
+              <button
+                type="button"
+                onClick={handleVoiceSearch}
+                className={`p-1.5 rounded-full transition-all cursor-pointer ${
+                  isListening
+                    ? "bg-red-600 text-white animate-pulse shadow-md shadow-red-600/40"
+                    : "text-zinc-400 hover:text-red-600 hover:bg-red-50"
+                }`}
+                title="Voice Search"
+                aria-label="Voice search"
+              >
+                {isListening ? (
+                  <MicOff className="w-4 h-4" />
+                ) : (
+                  <Mic className="w-4 h-4" />
+                )}
+              </button>
+
+              {searchQuery && (
+                <button
+                  type="button"
+                  onClick={() => setSearchQuery("")}
+                  className="text-zinc-400 hover:text-zinc-700 transition-colors cursor-pointer p-1"
+                  aria-label="Clear search"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Search Result Feedback */}
+          {searchQuery.trim() && (
+            <div className="mt-3 flex items-center justify-between text-xs sm:text-sm text-zinc-600 px-2">
+              <span>
+                Found {totalMatchingCount} link{totalMatchingCount === 1 ? "" : "s"} matching "{searchQuery}"
+              </span>
               <button
                 type="button"
                 onClick={() => setSearchQuery("")}
-                className="absolute right-4 text-zinc-400 hover:text-white"
-                aria-label="Clear sitemap search"
+                className="text-red-600 hover:text-red-700 hover:underline font-semibold cursor-pointer"
               >
-                <X className="w-4 h-4" />
+                Reset search
               </button>
-            )}
-          </div>
-
-          <div className="mt-4 text-xs text-zinc-400 font-medium">
-            Showing {filteredSections.reduce((acc, s) => acc + s.links.length, 0)} of {totalLinks} total pages
-          </div>
-        </div>
-      </section>
-
-      {/* Directory Grid */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 relative z-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          {filteredSections.map((sec, idx) => {
-            const Icon = sec.icon;
-            return (
-              <div
-                key={idx}
-                className="bg-white rounded-3xl p-6 sm:p-7 shadow-sm hover:shadow-xl transition-all duration-300 border border-zinc-200/80 flex flex-col group"
-              >
-                {/* Section Header */}
-                <div className="flex items-center gap-3.5 pb-4 mb-5 border-b border-zinc-100">
-                  <div className="w-11 h-11 rounded-2xl bg-red-50 text-red-600 group-hover:bg-red-600 group-hover:text-white flex items-center justify-center transition-colors duration-300 shadow-xs">
-                    <Icon className="w-5 h-5 stroke-[2.2]" />
-                  </div>
-                  <div>
-                    <h2 className="text-lg font-bold text-zinc-900 group-hover:text-red-600 transition-colors">
-                      {sec.title}
-                    </h2>
-                    <p className="text-xs text-zinc-400">
-                      {sec.links.length} pages available
-                    </p>
-                  </div>
-                </div>
-
-                {/* Section Links List */}
-                <div className="space-y-2.5 flex-grow">
-                  {sec.links.map((link, lIdx) => (
-                    <Link
-                      key={lIdx}
-                      href={link.href}
-                      className="group/item flex items-start justify-between p-2.5 rounded-xl hover:bg-zinc-50 border border-transparent hover:border-zinc-200 transition-all cursor-pointer"
-                    >
-                      <div className="min-w-0 flex-1 pr-2">
-                        <div className="flex items-center gap-2">
-                          <h3 className="text-sm font-bold text-zinc-800 group-hover/item:text-red-600 transition-colors truncate">
-                            {link.title}
-                          </h3>
-                          {link.badge && (
-                            <span className="text-[9px] font-black uppercase tracking-wider bg-red-50 text-red-600 border border-red-200/60 px-2 py-0.5 rounded-full shrink-0">
-                              {link.badge}
-                            </span>
-                          )}
-                        </div>
-                        {link.description && (
-                          <p className="text-xs text-zinc-500 line-clamp-1 mt-0.5">
-                            {link.description}
-                          </p>
-                        )}
-                      </div>
-                      <ArrowRight className="w-4 h-4 text-zinc-300 group-hover/item:text-red-600 group-hover/item:translate-x-1 transition-all shrink-0 mt-1" />
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            );
-          })}
+            </div>
+          )}
         </div>
 
-        {/* If search query has 0 results */}
-        {filteredSections.length === 0 && (
-          <div className="bg-white rounded-3xl p-12 text-center border border-zinc-200 max-w-lg mx-auto shadow-sm">
-            <HelpCircle className="w-12 h-12 text-zinc-300 mx-auto mb-3" />
-            <h3 className="text-lg font-bold text-zinc-800">
-              No matching pages found for "{searchQuery}"
+        {/* 2. SITEMAP GROUPS & VERTICAL LINK LISTS */}
+        {filteredGroups.length === 0 ? (
+          <div className="py-16 text-center max-w-md mx-auto">
+            <div className="w-14 h-14 rounded-full bg-zinc-100 flex items-center justify-center mx-auto text-zinc-400 mb-4">
+              <Search className="w-6 h-6" />
+            </div>
+            <h3 className="text-lg font-bold text-zinc-900">
+              No matching links found
             </h3>
-            <p className="text-xs text-zinc-500 mt-1 mb-5">
-              Try searching for general terms like "oil", "brakes", "Mercedes", "ac", or "booking".
+            <p className="mt-1.5 text-sm text-zinc-500 leading-relaxed">
+              No links in the sitemap matched "{searchQuery}". Please try searching with a different keyword.
             </p>
             <button
+              type="button"
               onClick={() => setSearchQuery("")}
-              className="px-5 py-2.5 rounded-full bg-red-600 hover:bg-red-700 text-white text-xs font-bold transition-all shadow-sm"
+              className="mt-5 px-5 py-2.5 rounded-full bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm font-semibold transition-all cursor-pointer shadow-md shadow-red-600/30"
             >
-              Reset Search
+              Show All Links
             </button>
           </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 lg:gap-x-12 gap-y-10 sm:gap-y-12">
+            {filteredGroups.map((group) => (
+              <div key={group.id} className="flex flex-col">
+                {/* Group Title: Bold Red Brand Color */}
+                <h2 className="text-lg sm:text-xl font-bold font-display uppercase tracking-tight text-red-600 mb-3.5 flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-red-600 inline-block" />
+                  <Link
+                    href={group.mainHref}
+                    className="hover:text-red-700 transition-colors"
+                  >
+                    {group.title}
+                  </Link>
+                </h2>
+
+                {/* Vertical list of dark links with red hover & underline */}
+                <ul className="space-y-2.5 sm:space-y-3">
+                  {group.items.map((item, idx) => (
+                    <li key={idx}>
+                      <Link
+                        href={item.href}
+                        className="text-zinc-700 hover:text-red-600 hover:underline text-[15px] sm:text-[15.5px] leading-snug inline-block transition-colors font-medium"
+                      >
+                        {item.title}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         )}
-      </section>
+      </div>
     </main>
   );
 }

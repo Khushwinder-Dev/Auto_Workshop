@@ -35,7 +35,7 @@ export default function Footer() {
             ============================================================ */}
         <div className="mb-16 p-8 sm:p-10 rounded-3xl bg-gradient-to-r from-zinc-900 via-zinc-900/90 to-zinc-950 border border-zinc-800 shadow-2xl relative overflow-hidden">
           <div className="absolute top-0 right-0 w-80 h-80 bg-red-600/10 rounded-full blur-3xl pointer-events-none" />
-          
+
           <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8">
             <div className="max-w-xl text-center lg:text-left space-y-2">
               <div className="inline-flex items-center gap-2 text-xs font-bold text-red-500 uppercase tracking-widest bg-red-950/60 border border-red-800/40 px-3 py-1 rounded-full mb-1">
@@ -182,7 +182,7 @@ export default function Footer() {
                 { label: "Maintenance Blogs", href: "/blogs" },
                 { label: "Book Appointment", href: "/booking" },
                 { label: "Contact Us", href: "/contact" },
-                { label: "HTML Sitemap", href: "/sitemap" },
+                { label: "Sitemap", href: "/sitemap" },
               ].map((link) => (
                 <li key={link.label}>
                   <Link
