@@ -459,12 +459,11 @@ export default function SitemapPage() {
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 lg:gap-x-12 gap-y-10 sm:gap-y-12">
+          <div className="grid grid-cols-1 gap-y-10 sm:gap-y-12">
             {filteredGroups.map((group) => (
               <div key={group.id} className="flex flex-col">
                 {/* Group Title: Bold Red Brand Color */}
-                <h2 className="text-lg sm:text-xl font-bold font-display uppercase tracking-tight text-red-600 mb-3.5 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-red-600 inline-block" />
+                <h2 className="text-lg sm:text-xl font-bold tracking-tight text-red-600 mb-3.5">
                   <Link
                     href={group.mainHref}
                     className="hover:text-red-700 transition-colors"
@@ -473,7 +472,7 @@ export default function SitemapPage() {
                   </Link>
                 </h2>
 
-                {/* Vertical list of dark links with red hover & underline */}
+                {/* Vertical list of links with red hover & underline */}
                 <ul className="space-y-2.5 sm:space-y-3">
                   {group.items.map((item, idx) => (
                     <li key={idx}>
