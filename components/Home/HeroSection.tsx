@@ -2,7 +2,9 @@
 
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
+import { ArrowRight, Calendar } from "lucide-react";
 
 export default function HeroSection({ s }: { s?: Record<string, string> }) {
   const stats = [
@@ -56,6 +58,31 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
         >
           {s?.home_hero_subtitle || "Trusted Car Maintenance in Sharjah"}
         </motion.h3>
+
+        {/* CTA Buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+          className="mt-8 flex flex-wrap items-center justify-center gap-4"
+        >
+          <Link
+            href="/services"
+            className="group btn-primary px-8 py-3.5 rounded-full text-sm font-bold tracking-wider uppercase inline-flex items-center gap-3 shadow-lg shadow-red-600/40 hover:scale-105 active:scale-95 transition-all cursor-pointer"
+          >
+            <span>Explore More</span>
+            <span className="w-7 h-7 rounded-full bg-white text-red-600 flex items-center justify-center transition-transform group-hover:translate-x-1 shadow-sm">
+              <ArrowRight className="w-4 h-4 stroke-[2.5]" />
+            </span>
+          </Link>
+          <Link
+            href="/booking"
+            className="px-8 py-3.5 rounded-full text-sm font-bold tracking-wider uppercase inline-flex items-center gap-2.5 bg-black/50 hover:bg-black/80 text-white border border-white/20 hover:border-white/50 backdrop-blur-md transition-all hover:scale-105 active:scale-95 cursor-pointer"
+          >
+            <Calendar className="w-4 h-4 text-red-500" />
+            <span>Book Service</span>
+          </Link>
+        </motion.div>
       </div>
 
       <div className="absolute bottom-16 left-1/2 -translate-x-1/2 w-full max-w-[1200px] px-6 z-30">

@@ -2,115 +2,123 @@
 
 import React from "react";
 import Image from "next/image";
-import { Cpu, Droplets, ShieldCheck, Car } from "lucide-react";
-
-const SERVICES_DATA = [
-  {
-    title: "Diagnostics",
-    desc: "Advanced computer diagnostics to identify and resolve engine problems",
-    image: "/images/ims_b_3.jpg",
-    icon: <Cpu className="relative z-20 text-white w-6 h-6 mt-4" />,
-  },
-  {
-    title: "Oil Change",
-    desc: "Quick and professional oil change service with premium quality oils",
-    image: "/images/service-1.png",
-    icon: <Droplets className="relative z-20 text-white w-6 h-6 mt-4" />,
-  },
-  {
-    title: "Brakes",
-    desc: "Complete brake system inspection, repair and replacement",
-    image: "/images/service-2.png",
-    icon: <ShieldCheck className="relative z-20 text-white w-6 h-6 mt-4" />,
-  },
-  {
-    title: "Suspension",
-    desc: "Full suspension inspection, repair and replacement for a smooth ride",
-    image: "/images/service-5.png",
-    icon: <Car className="relative z-20 text-white w-6 h-6 mt-4" />,
-  },
-  {
-    title: "Battery",
-    desc: "Battery testing, replacement and charging system diagnostics",
-    image: "/images/service-8.png",
-    icon: <Cpu className="relative z-20 text-white w-6 h-6 mt-4" />,
-  },
-  {
-    title: "A/C Repair",
-    desc: "Air conditioning repair and maintenance for optimal comfort",
-    image: "/images/service-3.png",
-    icon: <Droplets className="relative z-20 text-white w-6 h-6 mt-4" />,
-  },
-  {
-    title: "Tires",
-    desc: "Tire inspection, rotation, balancing and replacement service",
-    image: "/images/service-6.png",
-    icon: <ShieldCheck className="relative z-20 text-white w-6 h-6 mt-4" />,
-  },
-  {
-    title: "Computer Programming",
-    desc: "ECU programming, software updates and vehicle system configuration",
-    image: "/images/service-7.png",
-    icon: <Car className="relative z-20 text-white w-6 h-6 mt-4" />,
-  },
-];
+import Link from "next/link";
+import {
+  ArrowRight,
+  Cpu,
+  Droplets,
+  ShieldCheck,
+  Wrench,
+  Disc,
+  Fan,
+  Car,
+  Code,
+} from "lucide-react";
+import { WORKSHOP_SERVICES } from "@/data/workshopData";
 
 export default function ServicesSection() {
+  const iconMap: Record<string, React.ReactNode> = {
+    diagnostics: <Cpu className="w-5 h-5 text-red-600" />,
+    "oil-change": <Droplets className="w-5 h-5 text-red-600" />,
+    brakes: <Disc className="w-5 h-5 text-red-600" />,
+    suspension: <Car className="w-5 h-5 text-red-600" />,
+    battery: <Wrench className="w-5 h-5 text-red-600" />,
+    "ac-repair": <Fan className="w-5 h-5 text-red-600" />,
+    tires: <ShieldCheck className="w-5 h-5 text-red-600" />,
+    "computer-programming": <Code className="w-5 h-5 text-red-600" />,
+  };
+
   return (
-    <section className="py-20 bg-zinc-50">
-      <div className="max-w-[1200px] mx-auto px-6">
-        <div className="text-center mb-16">
-          <div className="flex items-center justify-center gap-2 text-brand font-bold text-[10px] uppercase tracking-[0.2em] mb-4">
-            <span className="text-[8px]">▲</span>
-            OUR SERVICES
-            <span className="text-[8px]">▲</span>
+    <section className="relative w-full py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-zinc-50 overflow-hidden">
+      <div className="max-w-7xl mx-auto">
+        {/* ============================================================
+            SECTION HEADER (Matching Taj Al Rahmah Style)
+            ============================================================ */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 sm:gap-8 mb-12 sm:mb-16">
+          <div>
+            {/* Eyebrow / Tag */}
+            <div className="flex items-center gap-2.5 mb-3 sm:mb-4">
+              <span className="inline-block h-[2px] w-6 sm:w-8 bg-red-600 rounded-full" />
+              <span className="text-xs sm:text-sm font-extrabold tracking-[0.16em] uppercase text-red-600">
+                OUR SERVICES
+              </span>
+            </div>
+
+            {/* Main Heading */}
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-extrabold text-zinc-900 tracking-tight leading-[1.14]">
+              <span>Professional Car Care For</span>
+              <br />
+              <span className="text-red-600">Every Make & Model</span>
+            </h2>
           </div>
-          <h2 className="font-display font-bold text-4xl md:text-5xl lg:text-[56px] text-zinc-900 leading-[1.1] max-w-4xl mx-auto">
-            Professional car maintenance services in Sharjah with certified technicians
-          </h2>
+
+          {/* Right CTA Button */}
+          <div className="flex-shrink-0">
+            <Link
+              href="/services"
+              className="inline-flex items-center gap-3.5 bg-red-600 hover:bg-red-700 text-white pl-6 pr-2.5 py-2.5 rounded-full font-bold text-xs sm:text-sm tracking-wider uppercase shadow-[0_4px_16px_rgba(220,38,38,0.25)] hover:shadow-[0_6px_22px_rgba(220,38,38,0.35)] transition-all duration-300 group hover:scale-105 active:scale-95 cursor-pointer"
+            >
+              <span>VIEW ALL SERVICES</span>
+              <span className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-red-600 group-hover:scale-105 transition-transform duration-300 shadow-sm">
+                <ArrowRight className="w-4 h-4 text-red-600 group-hover:translate-x-0.5 transition-transform duration-300 stroke-[2.5]" />
+              </span>
+            </Link>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {SERVICES_DATA.map((service) => (
-            <div
-              key={service.title}
-              className="bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col group border border-zinc-100"
+        {/* ============================================================
+            SERVICES CARD GRID (Overlapping Floating Info Cards)
+            ============================================================ */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-12 sm:gap-y-14 gap-x-6 lg:gap-x-7">
+          {WORKSHOP_SERVICES.map((service, index) => (
+            <Link
+              key={service.id}
+              href={`/services-details?service=${service.id}`}
+              className="group flex flex-col cursor-pointer"
             >
-              <div className="relative h-60 w-full overflow-hidden">
+              {/* Card Image Container */}
+              <div className="relative w-full h-[220px] sm:h-[230px] rounded-3xl overflow-hidden shadow-[0_8px_25px_-10px_rgba(0,0,0,0.12)] bg-zinc-900">
                 <Image
                   src={service.image}
                   alt={service.title}
                   fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                  className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out opacity-90 group-hover:opacity-100"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
               </div>
 
-              <div className="relative pt-12 pb-10 px-6 text-center flex-grow">
-                <div className="absolute left-1/2 -translate-x-1/2 top-[-36px] w-[72px] h-[72px] z-10 flex items-center justify-center">
-                  <svg
-                    className="absolute inset-0 w-full h-full drop-shadow-md"
-                    viewBox="0 0 72 72"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M36 5L68 65H4L36 5Z"
-                      fill="#dc2626"
-                      stroke="#b91c1c"
-                      strokeWidth="1"
-                    />
-                  </svg>
-                  {service.icon}
+              {/* Overlapping Floating Info Card */}
+              <div className="relative -mt-14 sm:-mt-16 mx-3 sm:mx-4 bg-white rounded-2xl p-5 sm:p-6 shadow-[0_12px_32px_-8px_rgba(0,0,0,0.1)] border border-zinc-100 transition-all duration-300 group-hover:-translate-y-1.5 group-hover:shadow-[0_18px_38px_-8px_rgba(220,38,38,0.22)] group-hover:border-red-200">
+                {/* Header: Icon + Title */}
+                <div className="flex items-center gap-3 mb-2.5">
+                  <div className="flex-shrink-0 w-9 h-9 rounded-xl bg-red-50 group-hover:bg-red-600 text-red-600 group-hover:text-white flex items-center justify-center transition-colors duration-300 shadow-xs">
+                    {iconMap[service.id] || <Wrench className="w-5 h-5 text-red-600 group-hover:text-white" />}
+                  </div>
+                  <h3 className="text-base sm:text-[17px] font-bold text-zinc-900 leading-snug tracking-tight group-hover:text-red-600 transition-colors duration-300 line-clamp-1">
+                    {service.title}
+                  </h3>
                 </div>
 
-                <h3 className="text-2xl font-black text-zinc-900 mb-3 uppercase tracking-tight">
-                  {service.title}
-                </h3>
-                <p className="text-zinc-500 text-sm leading-relaxed font-medium">
-                  {service.desc}
+                {/* Subtitle / Description */}
+                <p className="text-xs sm:text-[13px] text-zinc-500 font-normal leading-relaxed min-h-[38px] line-clamp-2">
+                  {service.shortDesc}
                 </p>
+
+                {/* CTA Link: Get Started */}
+                <div className="mt-4 pt-2 border-t border-zinc-100 flex items-center justify-between">
+                  <span className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-red-600 group-hover:text-red-700 transition-colors">
+                    <span>Explore Service</span>
+                    <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+                  </span>
+                  {service.duration && (
+                    <span className="text-[10px] font-bold text-zinc-400 bg-zinc-100 px-2 py-0.5 rounded-full">
+                      {service.duration}
+                    </span>
+                  )}
+                </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

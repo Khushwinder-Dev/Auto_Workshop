@@ -2,11 +2,12 @@ import React from "react";
 import HeroSection from "@/components/Home/HeroSection";
 import ServicesSection from "@/components/Home/ServicesSection";
 import FeatureSection from "@/components/Home/FeatureSection";
-import WhyUsSection from "@/components/Home/WhyUsSection";
+import WhyChooseUsSection from "@/components/Home/WhyChooseUsSection";
 import AppointmentFormSection from "@/components/Home/AppointmentFormSection";
 import WorkProcessSection from "@/components/Home/WorkProcessSection";
 import RecentWorkSection from "@/components/Home/RecentWorkSection";
 import PartnershipSection from "@/components/Home/PartnershipSection";
+import TestimonialSection from "@/components/Home/TestimonialSection";
 import FaqSection from "@/components/Home/FaqSection";
 import StatsSection from "@/components/Home/StatsSection";
 import LatestInsightsSection from "@/components/Home/LatestInsightsSection";
@@ -29,7 +30,7 @@ export default function Home() {
         </div>
 
         <div data-aos="fade-up" data-aos-delay="100">
-          <WhyUsSection />
+          <WhyChooseUsSection />
         </div>
 
         <div data-aos="fade-up" data-aos-delay="100">
@@ -46,6 +47,10 @@ export default function Home() {
 
         <div data-aos="fade-up" data-aos-delay="100">
           <PartnershipSection />
+        </div>
+
+        <div data-aos="fade-up" data-aos-delay="150">
+          <TestimonialSection />
         </div>
 
         <div data-aos="fade-up" data-aos-delay="200">

@@ -87,10 +87,10 @@ export default function Navbar() {
             <div className="hidden lg:flex items-center gap-4">
               <ExpandableSearchBar isScrolled={isScrolled} />
               <button
-                onClick={() => router.push("/booking")}
+                onClick={() => router.push("/contact")}
                 className="btn-primary hover:bg-red-700 text-white px-8 py-3 rounded-full text-sm font-bold transition-colors tracking-widest cursor-pointer"
               >
-                APPOINTMENT
+                CONTACT
               </button>
             </div>
 
@@ -159,12 +159,12 @@ export default function Navbar() {
 
               <button
                 onClick={() => {
-                  router.push("/booking");
+                  router.push("/contact");
                   setMobileMenuOpen(false);
                 }}
                 className="mt-8 btn-primary py-5 text-white font-bold uppercase tracking-widest rounded-full"
               >
-                APPOINTMENT
+                CONTACT
               </button>
             </div>
           </motion.div>
