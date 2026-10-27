@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import ExpandableSearchBar from "@/components/Common/ExpandableSearchBar";
 
 const NAV_LINKS = [
   { label: "About", href: "/about-us" },
@@ -83,7 +84,8 @@ export default function Navbar() {
               })}
             </div>
 
-            <div className="hidden lg:block">
+            <div className="hidden lg:flex items-center gap-4">
+              <ExpandableSearchBar isScrolled={isScrolled} />
               <button
                 onClick={() => router.push("/booking")}
                 className="btn-primary hover:bg-red-700 text-white px-8 py-3 rounded-full text-sm font-bold transition-colors tracking-widest cursor-pointer"
@@ -92,13 +94,16 @@ export default function Navbar() {
               </button>
             </div>
 
-            <button
-              className="lg:hidden text-white"
-              onClick={() => setMobileMenuOpen(true)}
-              aria-label="Open Navigation Menu"
-            >
-              <Menu size={30} />
-            </button>
+            <div className="flex items-center gap-2 lg:hidden">
+              <ExpandableSearchBar isScrolled={isScrolled} />
+              <button
+                className="text-white p-1.5 hover:bg-white/10 rounded-full transition-colors"
+                onClick={() => setMobileMenuOpen(true)}
+                aria-label="Open Navigation Menu"
+              >
+                <Menu size={28} />
+              </button>
+            </div>
           </div>
         </div>
       </nav>
@@ -130,7 +135,15 @@ export default function Navbar() {
               </button>
             </div>
 
-            <div className="flex flex-col gap-6">
+            {/* Mobile Drawer Search Bar */}
+            <div className="mb-6">
+              <ExpandableSearchBar
+                isDrawer={true}
+                onCloseMenu={() => setMobileMenuOpen(false)}
+              />
+            </div>
+
+            <div className="flex flex-col gap-6 overflow-y-auto max-h-[calc(100vh-250px)]">
               {NAV_LINKS.map((link) => (
                 <Link
                   key={link.href}
