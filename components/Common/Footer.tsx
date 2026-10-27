@@ -182,7 +182,7 @@ export default function Footer() {
                 { label: "Maintenance Blogs", href: "/blogs" },
                 { label: "Book Appointment", href: "/booking" },
                 { label: "Contact Us", href: "/contact" },
-                { label: "Sitemap", href: "/sitemap" },
+                // { label: "Sitemap", href: "/sitemap" },
               ].map((link) => (
                 <li key={link.label}>
                   <Link
