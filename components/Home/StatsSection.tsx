@@ -3,32 +3,35 @@
 import React from "react";
 import { Award, UserCog, ClipboardCheck, ThumbsUp } from "lucide-react";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function StatsSection() {
+  const { t } = useLanguage();
+
   const stats = [
     {
       icon: <Award className="w-6 h-6 text-white" strokeWidth={2.5} />,
       val: "15",
       hasPlus: true,
-      label: "YEAR EXPERIENCE",
+      label: t.home.stats.yearsExp,
     },
     {
       icon: <UserCog className="w-6 h-6 text-white" strokeWidth={2.5} />,
       val: "50",
       hasPlus: true,
-      label: "EXPERT TECHNICIANS",
+      label: t.home.stats.technicians,
     },
     {
       icon: <ClipboardCheck className="w-6 h-6 text-white" strokeWidth={2.5} />,
       val: "5000",
       hasPlus: false,
-      label: "COMPLETE PROJECTS",
+      label: t.home.stats.projects,
     },
     {
       icon: <ThumbsUp className="w-6 h-6 text-white" strokeWidth={2.5} />,
       val: "4800",
       hasPlus: false,
-      label: "HAPPY CUSTOMERS",
+      label: t.home.stats.customers,
     },
   ];
 
@@ -51,7 +54,7 @@ export default function StatsSection() {
                   <div className="-rotate-45">{item.icon}</div>
                 </div>
               </div>
-              <div className="flex items-baseline gap-1">
+              <div className="flex items-baseline gap-1" dir="ltr">
                 <span className="font-display text-4xl md:text-[44px] font-[900] text-zinc-900 leading-none">
                   {item.val}
                 </span>

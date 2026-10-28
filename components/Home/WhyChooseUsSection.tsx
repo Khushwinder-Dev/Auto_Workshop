@@ -3,50 +3,49 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { CheckCircle2, ShieldCheck, ArrowRight, Wrench, Award, Clock } from "lucide-react";
+import { CheckCircle2, ShieldCheck, ArrowRight, ArrowLeft, Award } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function WhyChooseUsSection() {
+  const { isArabic, t } = useLanguage();
+
   const leftCards = [
     {
       number: "01",
-      title: "Certified Master Mechanics",
-      description:
-        "Skilled professionals with 15+ years of hands-on dealership experience across German, Japanese, and American automobiles.",
+      title: t.home.whyChooseUs.card1Title,
+      description: t.home.whyChooseUs.card1Desc,
     },
     {
       number: "03",
-      title: "Dealership-Grade Diagnostics",
-      description:
-        "Cutting-edge computerized scanners and live sensor analyzers pinpoint ECU fault codes with 100% precision.",
+      title: t.home.whyChooseUs.card3Title,
+      description: t.home.whyChooseUs.card3Desc,
     },
     {
       number: "05",
-      title: "Express Bays & Quick Turnaround",
-      description:
-        "Fast-lane oil changes, computer code resets, and brake services completed in under 60 minutes in our express bays.",
+      title: t.home.whyChooseUs.card5Title,
+      description: t.home.whyChooseUs.card5Desc,
     },
   ];
 
   const rightCards = [
     {
       number: "02",
-      title: "100% Transparent Upfront Pricing",
-      description:
-        "Itemized quotes detailing parts and labor provided before turning a single wrench — absolutely zero hidden fees.",
+      title: t.home.whyChooseUs.card2Title,
+      description: t.home.whyChooseUs.card2Desc,
     },
     {
       number: "04",
-      title: "Genuine OEM & Certified Parts",
-      description:
-        "We only install manufacturer-approved OEM or certified components backed by full workshop warranty guarantees.",
+      title: t.home.whyChooseUs.card4Title,
+      description: t.home.whyChooseUs.card4Desc,
     },
     {
       number: "06",
-      title: "Dedicated Advisor & Aftercare",
-      description:
-        "Direct WhatsApp mechanic support, detailed vehicle health reports, and trusted after-service care in Sharjah.",
+      title: t.home.whyChooseUs.card6Title,
+      description: t.home.whyChooseUs.card6Desc,
     },
   ];
+
+  const ArrowIcon = isArabic ? ArrowLeft : ArrowRight;
 
   return (
     <section
@@ -62,20 +61,20 @@ export default function WhyChooseUsSection() {
           <div className="inline-flex items-center justify-center gap-3 mb-4">
             <span className="inline-block h-[2px] w-6 sm:w-8 bg-red-600 rounded-full" />
             <span className="text-xs sm:text-sm font-extrabold tracking-[0.18em] uppercase text-red-600">
-              WHY CHOOSE US
+              {t.home.whyChooseUs.eyebrow}
             </span>
             <span className="inline-block h-[2px] w-6 sm:w-8 bg-red-600 rounded-full" />
           </div>
 
           {/* Heading */}
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-extrabold text-zinc-900 tracking-tight leading-[1.15]">
-            <span>Precision, Quality &amp;</span>{" "}
-            <span className="text-red-600">Commitment</span>
+            <span>{t.home.whyChooseUs.titlePart1}</span>{" "}
+            <span className="text-red-600">{t.home.whyChooseUs.titlePart2}</span>
             <br />
-            <span className="text-red-600">You Can Always Count On</span>
+            <span className="text-red-600">{t.home.whyChooseUs.titlePart3}</span>
           </h2>
           <p className="mt-4 text-zinc-600 text-sm md:text-base max-w-xl mx-auto">
-            From luxury sedans to heavy SUVs, we combine advanced technology with honest craftsmanship in Sharjah Industrial Area 5.
+            {t.home.whyChooseUs.subtitle}
           </p>
         </div>
 
@@ -127,10 +126,10 @@ export default function WhyChooseUsSection() {
                   <Award className="w-5 h-5" />
                 </div>
                 <h4 className="text-white text-base font-extrabold uppercase tracking-tight">
-                  15+ Years Excellence
+                  {t.home.whyChooseUs.badgeTitle}
                 </h4>
                 <p className="text-zinc-300 text-xs mt-0.5">
-                  Over 5,000+ Vehicles Serviced in Sharjah
+                  {t.home.whyChooseUs.badgeSub}
                 </p>
               </div>
             </div>
@@ -164,27 +163,27 @@ export default function WhyChooseUsSection() {
 
         {/* Bottom CTA Banner */}
         <div className="mt-14 sm:mt-16 p-8 rounded-3xl bg-zinc-950 text-white flex flex-col md:flex-row items-center justify-between gap-6 border border-red-600/30 shadow-2xl">
-          <div className="space-y-1 text-center md:text-left">
+          <div className="space-y-1 text-center md:text-start">
             <h4 className="text-xl md:text-2xl font-bold font-display uppercase tracking-tight">
-              Ready to experience dealership-quality car service?
+              {t.home.whyChooseUs.bannerTitle}
             </h4>
             <p className="text-zinc-400 text-xs sm:text-sm">
-              Schedule your appointment online or visit our workshop in Sharjah Industrial Area 5 today.
+              {t.home.whyChooseUs.bannerDesc}
             </p>
           </div>
           <div className="flex items-center gap-3 shrink-0">
             <Link
               href="/booking"
-              className="px-6 py-3 rounded-full bg-red-600 hover:bg-red-700 text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md shadow-red-600/30 inline-flex items-center gap-2 hover:scale-105"
+              className="px-6 py-3 rounded-full bg-red-600 hover:bg-red-700 text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md shadow-red-600/30 inline-flex items-center gap-2 hover:scale-105 cursor-pointer"
             >
-              <span>Book Appointment</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              <span>{t.home.whyChooseUs.bookBtn}</span>
+              <ArrowIcon className="w-3.5 h-3.5" />
             </Link>
             <Link
               href="/contact"
-              className="px-6 py-3 rounded-full bg-zinc-800 hover:bg-zinc-700 text-white font-bold text-xs uppercase tracking-wider transition-all border border-zinc-700"
+              className="px-6 py-3 rounded-full bg-zinc-800 hover:bg-zinc-700 text-white font-bold text-xs uppercase tracking-wider transition-all border border-zinc-700 cursor-pointer"
             >
-              Contact Us
+              {t.home.whyChooseUs.contactBtn}
             </Link>
           </div>
         </div>

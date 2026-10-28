@@ -2,20 +2,23 @@
 
 import React from "react";
 import { WORKSHOP_INFO } from "@/data/workshopData";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function FloatingChatWidget() {
+  const { isArabic, t } = useLanguage();
+
   return (
-    <div className="fixed bottom-6 right-6 z-50">
+    <div className={`fixed bottom-6 ${isArabic ? "left-6" : "right-6"} z-50`}>
       <a
         href={WORKSHOP_INFO.whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Chat on WhatsApp"
+        aria-label={t.chat.tooltip}
         className="group relative flex items-center justify-end transition-all duration-300"
       >
-        <div className="absolute right-20 opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-300 pointer-events-none">
+        <div className={`absolute ${isArabic ? "left-20" : "right-20"} opacity-0 group-hover:opacity-100 ${isArabic ? "-translate-x-2" : "translate-x-2"} group-hover:translate-x-0 transition-all duration-300 pointer-events-none`}>
           <div className="bg-white text-gray-800 px-5 py-2 rounded-full text-sm font-bold shadow-xl border border-gray-100 whitespace-nowrap">
-            Chat on WhatsApp
+            {t.chat.tooltip}
           </div>
         </div>
         <div className="w-14 h-14 bg-[#25D366] hover:bg-[#20bd5a] rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_10px_30px_rgba(37,211,102,0.4)]">

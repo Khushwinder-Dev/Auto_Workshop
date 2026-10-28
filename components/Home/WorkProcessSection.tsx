@@ -10,29 +10,33 @@ import {
   MapPin,
   CreditCard,
 } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function WorkProcessSection() {
+  const { isArabic, t } = useLanguage();
+
   return (
     <section className="py-24 bg-white overflow-hidden">
       <div className="max-w-[1350px] mx-auto px-6">
         <div className="text-center mb-20">
           <div className="flex items-center justify-center gap-2 text-red-600 font-bold text-[11px] uppercase tracking-[0.2em] mb-4">
-            OUR WORK PROCESS
+            {t.home.workProcess.eyebrow}
           </div>
-          <h2 className="font-display text-5xl md:text-6xl font-[900] text-zinc-900 leading-tight uppercase tracking-tight">
-            How We Work
+          <h2 className="font-display text-4xl md:text-6xl font-[900] text-zinc-900 leading-tight uppercase tracking-tight">
+            {t.home.workProcess.title}
           </h2>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 xl:gap-16 items-center">
+          {/* Left Column (Steps 1, 2, 3) */}
           <div className="flex flex-col gap-12 lg:order-1">
             <div className="flex items-start gap-6">
               <div className="flex-shrink-0 w-14 h-14 bg-red-50 rounded-xl flex items-center justify-center">
                 <ClipboardList className="w-5 h-5 text-red-600" />
               </div>
               <div className="pt-1">
-                <h4 className="text-zinc-900 font-bold text-xl mb-1.5">Share Requirement</h4>
-                <p className="text-zinc-400 text-sm leading-relaxed max-w-[240px]">
-                  Let us know what&#x27;s bothering your car
+                <h4 className="text-zinc-900 font-bold text-xl mb-1.5">{t.home.workProcess.step1Title}</h4>
+                <p className="text-zinc-500 text-sm leading-relaxed max-w-[260px]">
+                  {t.home.workProcess.step1Desc}
                 </p>
               </div>
             </div>
@@ -41,9 +45,9 @@ export default function WorkProcessSection() {
                 <Receipt className="w-5 h-5 text-red-600" />
               </div>
               <div className="pt-1">
-                <h4 className="text-zinc-900 font-bold text-xl mb-1.5">Receive Up Front Quote</h4>
-                <p className="text-zinc-400 text-sm leading-relaxed max-w-[240px]">
-                  Transparent pricing catering to your specific needs
+                <h4 className="text-zinc-900 font-bold text-xl mb-1.5">{t.home.workProcess.step2Title}</h4>
+                <p className="text-zinc-500 text-sm leading-relaxed max-w-[260px]">
+                  {t.home.workProcess.step2Desc}
                 </p>
               </div>
             </div>
@@ -52,13 +56,15 @@ export default function WorkProcessSection() {
                 <CalendarDays className="w-5 h-5 text-red-600" />
               </div>
               <div className="pt-1">
-                <h4 className="text-zinc-900 font-bold text-xl mb-1.5">Schedule Appointment</h4>
-                <p className="text-zinc-400 text-sm leading-relaxed max-w-[240px]">
-                  Transparent pricing catering to your specific needs
+                <h4 className="text-zinc-900 font-bold text-xl mb-1.5">{t.home.workProcess.step3Title}</h4>
+                <p className="text-zinc-500 text-sm leading-relaxed max-w-[260px]">
+                  {t.home.workProcess.step3Desc}
                 </p>
               </div>
             </div>
           </div>
+
+          {/* Center Image */}
           <div className="lg:order-2 flex justify-center">
             <div className="relative w-full max-w-[420px] h-[580px] rounded-3xl overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] border border-zinc-100">
               <Image
@@ -69,37 +75,39 @@ export default function WorkProcessSection() {
               />
             </div>
           </div>
+
+          {/* Right Column (Steps 4, 5, 6) */}
           <div className="flex flex-col gap-12 lg:order-3">
-            <div className="flex items-start gap-6 flex-row lg:flex-row-reverse lg:text-right">
+            <div className={`flex items-start gap-6 flex-row ${isArabic ? "lg:flex-row lg:text-start" : "lg:flex-row-reverse lg:text-right"}`}>
               <div className="flex-shrink-0 w-14 h-14 bg-red-50 rounded-xl flex items-center justify-center">
                 <UserCheck className="w-5 h-5 text-red-600" />
               </div>
               <div className="pt-1">
-                <h4 className="text-zinc-900 font-bold text-xl mb-1.5">Personal Attention</h4>
-                <p className="text-zinc-400 text-sm leading-relaxed max-w-[240px] lg:ml-auto">
-                  Dedicated engineers working exclusively on your car
+                <h4 className="text-zinc-900 font-bold text-xl mb-1.5">{t.home.workProcess.step4Title}</h4>
+                <p className={`text-zinc-500 text-sm leading-relaxed max-w-[260px] ${isArabic ? "lg:mr-auto" : "lg:ml-auto"}`}>
+                  {t.home.workProcess.step4Desc}
                 </p>
               </div>
             </div>
-            <div className="flex items-start gap-6 flex-row lg:flex-row-reverse lg:text-right">
+            <div className={`flex items-start gap-6 flex-row ${isArabic ? "lg:flex-row lg:text-start" : "lg:flex-row-reverse lg:text-right"}`}>
               <div className="flex-shrink-0 w-14 h-14 bg-red-50 rounded-xl flex items-center justify-center">
                 <MapPin className="w-5 h-5 text-red-600" />
               </div>
               <div className="pt-1">
-                <h4 className="text-zinc-900 font-bold text-xl mb-1.5">Live Tracking &amp; Updates</h4>
-                <p className="text-zinc-400 text-sm leading-relaxed max-w-[240px] lg:ml-auto">
-                  Track your car service visually in real time
+                <h4 className="text-zinc-900 font-bold text-xl mb-1.5">{t.home.workProcess.step5Title}</h4>
+                <p className={`text-zinc-500 text-sm leading-relaxed max-w-[260px] ${isArabic ? "lg:mr-auto" : "lg:ml-auto"}`}>
+                  {t.home.workProcess.step5Desc}
                 </p>
               </div>
             </div>
-            <div className="flex items-start gap-6 flex-row lg:flex-row-reverse lg:text-right">
+            <div className={`flex items-start gap-6 flex-row ${isArabic ? "lg:flex-row lg:text-start" : "lg:flex-row-reverse lg:text-right"}`}>
               <div className="flex-shrink-0 w-14 h-14 bg-red-50 rounded-xl flex items-center justify-center">
                 <CreditCard className="w-5 h-5 text-red-600" />
               </div>
               <div className="pt-1">
-                <h4 className="text-zinc-900 font-bold text-xl mb-1.5">Pay Post Service</h4>
-                <p className="text-zinc-400 text-sm leading-relaxed max-w-[240px] lg:ml-auto">
-                  Pay online, through card or cash, post service completion.
+                <h4 className="text-zinc-900 font-bold text-xl mb-1.5">{t.home.workProcess.step6Title}</h4>
+                <p className={`text-zinc-500 text-sm leading-relaxed max-w-[260px] ${isArabic ? "lg:mr-auto" : "lg:ml-auto"}`}>
+                  {t.home.workProcess.step6Desc}
                 </p>
               </div>
             </div>

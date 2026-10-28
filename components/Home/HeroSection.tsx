@@ -4,32 +4,34 @@ import React, { useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, Calendar, Play, Pause } from "lucide-react";
+import { ArrowRight, ArrowLeft, Calendar, Play, Pause } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function HeroSection({ s }: { s?: Record<string, string> }) {
   const [isPlayingVideo, setIsPlayingVideo] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const { isArabic, t } = useLanguage();
 
   const stats = [
     {
       target: s?.home_stat1_target || "5,000",
       suffix: s?.home_stat1_suffix || "+",
-      label: s?.home_stat1_label || "Happy Clients",
+      label: s?.home_stat1_label || t.home.hero.happyClients,
     },
     {
       target: s?.home_stat2_target || "15",
       suffix: s?.home_stat2_suffix || "+",
-      label: s?.home_stat2_label || "Years Experience",
+      label: s?.home_stat2_label || t.home.hero.yearsExp,
     },
     {
       target: s?.home_stat3_target || "20",
       suffix: s?.home_stat3_suffix || "+",
-      label: s?.home_stat3_label || "Services Offered",
+      label: s?.home_stat3_label || t.home.hero.servicesOffered,
     },
     {
       target: s?.home_stat4_target || "98",
       suffix: s?.home_stat4_suffix || "%",
-      label: s?.home_stat4_label || "Satisfaction Rate",
+      label: s?.home_stat4_label || t.home.hero.satisfactionRate,
     },
   ];
 
@@ -51,9 +53,11 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
     }
   };
 
+  const ArrowIcon = isArabic ? ArrowLeft : ArrowRight;
+
   return (
     <section className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden">
-      {/* 1. Background Image Banner (Original Look, No Overlays) */}
+      {/* 1. Background Image Banner */}
       <div
         className={`absolute inset-0 transition-opacity duration-700 ease-in-out z-0 ${isPlayingVideo
           ? "opacity-0 pointer-events-none"
@@ -69,7 +73,7 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
         />
       </div>
 
-      {/* 2. Background Video Banner (Workshop Video, No Overlays) */}
+      {/* 2. Background Video Banner */}
       <div
         className={`absolute inset-0 transition-opacity duration-700 ease-in-out z-0 ${isPlayingVideo
           ? "opacity-100"
@@ -90,17 +94,17 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="font-display text-[clamp(3.2rem,7.5vw,6rem)] font-extrabold text-white leading-[1.05] tracking-[-0.01em] uppercase mb-[1.25rem] drop-shadow-[0_2px_20px_rgba(0,0,0,0.5)]"
+          className="font-display text-[clamp(2.5rem,6.5vw,5.5rem)] font-extrabold text-white leading-[1.1] tracking-[-0.01em] uppercase mb-[1.25rem] drop-shadow-[0_2px_20px_rgba(0,0,0,0.5)]"
         >
-          {s?.home_hero_title || "Bab Al Bustan Auto Maintenance Workshop"}
+          {s?.home_hero_title || t.home.hero.title}
         </motion.h1>
         <motion.h3
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4 }}
-          className="text-white text-xl md:text-2xl font-bold tracking-wider opacity-90 drop-shadow-lg"
+          className="text-white text-lg md:text-2xl font-bold tracking-wider opacity-90 drop-shadow-lg"
         >
-          {s?.home_hero_subtitle || "Trusted Car Maintenance in Sharjah"}
+          {s?.home_hero_subtitle || t.home.hero.subtitle}
         </motion.h3>
 
         {/* CTA Buttons & Video Play/Pause Circle */}
@@ -114,9 +118,9 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
             href="/services"
             className="group btn-primary px-8 py-3.5 rounded-full text-sm font-bold tracking-wider uppercase inline-flex items-center gap-3 shadow-lg shadow-red-600/40 hover:scale-105 active:scale-95 transition-all cursor-pointer"
           >
-            <span>Explore More</span>
-            <span className="w-7 h-7 rounded-full bg-white text-red-600 flex items-center justify-center transition-transform group-hover:translate-x-1 shadow-sm">
-              <ArrowRight className="w-4 h-4 stroke-[2.5]" />
+            <span>{t.home.hero.exploreMore}</span>
+            <span className="w-7 h-7 rounded-full bg-white text-red-600 flex items-center justify-center transition-transform group-hover:scale-110 shadow-sm">
+              <ArrowIcon className="w-4 h-4 stroke-[2.5]" />
             </span>
           </Link>
 
@@ -125,7 +129,7 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
             className="px-8 py-3.5 rounded-full text-sm font-bold tracking-wider uppercase inline-flex items-center gap-2.5 bg-black/50 hover:bg-black/80 text-white border border-white/20 hover:border-white/50 backdrop-blur-md transition-all hover:scale-105 active:scale-95 cursor-pointer"
           >
             <Calendar className="w-4 h-4 text-red-500" />
-            <span>Book Service</span>
+            <span>{t.home.hero.bookService}</span>
           </Link>
 
           {/* Circular Play / Pause Button with Pulsing Halo */}
@@ -138,13 +142,13 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
               onClick={handleToggleVideo}
               aria-label={
                 isPlayingVideo
-                  ? "Pause video and return to image"
-                  : "Play workshop video"
+                  ? t.home.hero.videoPauseHint
+                  : t.home.hero.videoPlayHint
               }
               title={
                 isPlayingVideo
-                  ? "Pause video and return to image"
-                  : "Play workshop video"
+                  ? t.home.hero.videoPauseHint
+                  : t.home.hero.videoPlayHint
               }
               className="relative w-12 h-12 rounded-full bg-red-600 hover:bg-red-700 border-2 border-white/50 flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 shadow-[0_0_25px_rgba(220,38,38,0.5)] focus:outline-none"
             >
@@ -166,7 +170,7 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
               key={idx}
               className="flex flex-col items-center justify-center py-8 md:py-10 border-white/10 lg:[&:not(:last-child)]:border-r max-lg:[&:nth-child(odd)]:border-r max-lg:[&:nth-child(-n+2)]:border-b"
             >
-              <div className="flex items-baseline">
+              <div className="flex items-baseline" dir="ltr">
                 <span className="font-display text-4xl md:text-5xl font-black text-white">
                   {stat.target}
                 </span>
@@ -185,7 +189,7 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
       {/* 6. Scroll Indicator */}
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-60 z-30 pointer-events-none">
         <span className="text-[10px] font-bold text-white uppercase tracking-[0.4em]">
-          Scroll Down
+          {t.home.hero.scrollDown}
         </span>
         <div className="w-[1px] h-10 bg-gradient-to-b from-brand to-transparent" />
       </div>

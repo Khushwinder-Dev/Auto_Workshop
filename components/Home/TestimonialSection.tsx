@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { Star, Quote, ChevronLeft, ChevronRight, CheckCircle2 } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface Testimonial {
   name: string;
@@ -14,7 +15,7 @@ interface Testimonial {
   avatar: string;
 }
 
-const TESTIMONIALS_DATA: Testimonial[] = [
+const TESTIMONIALS_DATA_EN: Testimonial[] = [
   {
     name: "Tariq Al Mansoori",
     role: "Verified Customer, Sharjah",
@@ -57,18 +58,67 @@ const TESTIMONIALS_DATA: Testimonial[] = [
   },
 ];
 
+const TESTIMONIALS_DATA_AR: Testimonial[] = [
+  {
+    name: "طارق المنصوري",
+    role: "عميل موثق، الشارقة",
+    vehicle: "مرسيدس بنز E300 AMG",
+    rating: 5,
+    date: "أكتوبر ٢٠٢٤",
+    comment:
+      "قامت ورشة باب البستان بحل مشكلة تقطيع القير ولمبة فحص المحرك التي عجزت ورشتان أخريان عن تشخيصها. قام الفني بفحص كمبيوتر Star واكتشف حساس السرعة التالف وأنهى الإصلاح في نفس اليوم. فريق في قمة الاحترافية والأمانة!",
+    avatar: "/images/service-10.png",
+  },
+  {
+    name: "راشد النعيمي",
+    role: "عميل موثق، عجمان",
+    vehicle: "نيسان باترول V8 تيتانيوم",
+    rating: 5,
+    date: "سبتمبر ٢٠٢٤",
+    comment:
+      "صيف الشارقة بدون مكيف قوي مستحيل تماماً. توقف تبريد سيارتي بالكامل. قام الفريق بفحص ضغط الفاكيوم واستبدال ثلاجة المكيف المسربة وشحن غاز تبريد جديد. المكيف يثلج الآن حتى في زحمة الظهيرة. أفضل ورشة في الصناعية 5!",
+    avatar: "/images/service-9.png",
+  },
+  {
+    name: "ديفيد ميلر",
+    role: "مدير أعمال، دبي",
+    vehicle: "بي إم دبليو 530i إم سبورت",
+    rating: 5,
+    date: "أغسطس ٢٠٢٤",
+    comment:
+      "أكثر ما أبهرني هو الشفافية التامة؛ قدموا لي عرض سعر مكتوباً ومفصلاً قبل لمس السيارة. تم تركيب سفايف سيراميك أصلية وخرط الديسكات على السيارة. اختفت الرجة تماماً عند السرعات العالية. سأعود دائماً للصيانة الدورية.",
+    avatar: "/images/service-8.png",
+  },
+  {
+    name: "فاطمة الشحي",
+    role: "عميلة موثقة، الشارقة",
+    vehicle: "تويوتا لاندكروزر VXR",
+    rating: 5,
+    date: "يوليو ٢٠٢٤",
+    comment:
+      "أحضرت سيارتي لتغيير الزيت التخليقي بالكامل مع فحص شامل من 25 نقطة. انتهى العمل في 35 دقيقة فقط وأنا أنتظر في صالة الاستقبال المكيفة. طاقم العمل محترم وودود ويعامل سيارتك بعناية تامة. أنصح بهم بشدة!",
+    avatar: "/images/service-7.png",
+  },
+];
+
 export default function TestimonialSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const { isArabic, t } = useLanguage();
+
+  const testimonials = isArabic ? TESTIMONIALS_DATA_AR : TESTIMONIALS_DATA_EN;
 
   const prevTestimonial = () => {
-    setCurrentIndex((prev) => (prev === 0 ? TESTIMONIALS_DATA.length - 1 : prev - 1));
+    setCurrentIndex((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1));
   };
 
   const nextTestimonial = () => {
-    setCurrentIndex((prev) => (prev === TESTIMONIALS_DATA.length - 1 ? 0 : prev + 1));
+    setCurrentIndex((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1));
   };
 
-  const current = TESTIMONIALS_DATA[currentIndex];
+  const current = testimonials[currentIndex];
+
+  const PrevIcon = isArabic ? ChevronRight : ChevronLeft;
+  const NextIcon = isArabic ? ChevronLeft : ChevronRight;
 
   return (
     <section className="py-20 lg:py-24 bg-zinc-950 text-white relative overflow-hidden">
@@ -82,17 +132,17 @@ export default function TestimonialSection() {
           <div className="inline-flex items-center justify-center gap-2.5 mb-3">
             <span className="inline-block h-[2px] w-6 sm:w-8 bg-red-600 rounded-full" />
             <span className="text-xs sm:text-sm font-extrabold tracking-[0.18em] uppercase text-red-500">
-              CLIENT TESTIMONIALS
+              {t.home.testimonials.eyebrow}
             </span>
             <span className="inline-block h-[2px] w-6 sm:w-8 bg-red-600 rounded-full" />
           </div>
 
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-[1.15]">
-            <span>Trusted By Drivers Across</span>{" "}
-            <span className="text-red-600">Sharjah &amp; The UAE</span>
+            <span>{t.home.testimonials.titlePart1}</span>{" "}
+            <span className="text-red-600">{t.home.testimonials.titlePart2}</span>
           </h2>
           <p className="mt-3 text-zinc-400 text-sm md:text-base">
-            Read real feedback from vehicle owners who rely on Bab Al Bustan for dependable maintenance.
+            {t.home.testimonials.subtitle}
           </p>
 
           {/* Overall Rating Badge */}
@@ -103,14 +153,14 @@ export default function TestimonialSection() {
               ))}
             </div>
             <span className="text-xs font-bold text-zinc-200">
-              4.9 / 5.0 Rating from 450+ Happy Car Owners
+              {t.home.testimonials.ratingBadge}
             </span>
           </div>
         </div>
 
         {/* Featured Testimonial Card */}
         <div className="max-w-4xl mx-auto bg-zinc-900/90 rounded-3xl border border-zinc-800 p-8 sm:p-12 shadow-2xl relative">
-          <Quote className="w-14 h-14 text-red-600/20 absolute top-6 right-6 pointer-events-none" />
+          <Quote className={`w-14 h-14 text-red-600/20 absolute top-6 pointer-events-none ${isArabic ? "left-6 rotate-180" : "right-6"}`} />
 
           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 mb-6">
             <div className="relative w-20 h-20 rounded-2xl overflow-hidden border-2 border-red-600/50 shadow-md shrink-0 bg-black">
@@ -122,7 +172,7 @@ export default function TestimonialSection() {
               />
             </div>
 
-            <div className="text-center sm:text-left flex-1">
+            <div className="text-center sm:text-start flex-1">
               <div className="flex items-center justify-center sm:justify-start gap-1 text-amber-400 mb-1.5">
                 {[...Array(current.rating)].map((_, i) => (
                   <Star key={i} className="w-4 h-4 fill-amber-400" />
@@ -136,7 +186,7 @@ export default function TestimonialSection() {
               </p>
               <div className="mt-2 inline-flex items-center gap-1.5 bg-red-950/60 border border-red-800/60 text-red-400 text-xs font-bold px-3 py-1 rounded-full">
                 <CheckCircle2 className="w-3.5 h-3.5" />
-                <span>Vehicle: {current.vehicle}</span>
+                <span>{t.home.testimonials.vehicleLabel} {current.vehicle}</span>
               </div>
             </div>
           </div>
@@ -148,7 +198,7 @@ export default function TestimonialSection() {
           {/* Navigation Controls */}
           <div className="flex items-center justify-between pt-6 border-t border-zinc-800">
             <div className="flex items-center gap-2">
-              {TESTIMONIALS_DATA.map((_, idx) => (
+              {testimonials.map((_, idx) => (
                 <button
                   key={idx}
                   onClick={() => setCurrentIndex(idx)}
@@ -167,7 +217,7 @@ export default function TestimonialSection() {
                 className="w-10 h-10 rounded-full bg-zinc-800 hover:bg-red-600 text-zinc-300 hover:text-white flex items-center justify-center transition-colors cursor-pointer border border-zinc-700"
                 aria-label="Previous review"
               >
-                <ChevronLeft className="w-5 h-5" />
+                <PrevIcon className="w-5 h-5" />
               </button>
               <button
                 type="button"
@@ -175,7 +225,7 @@ export default function TestimonialSection() {
                 className="w-10 h-10 rounded-full bg-zinc-800 hover:bg-red-600 text-zinc-300 hover:text-white flex items-center justify-center transition-colors cursor-pointer border border-zinc-700"
                 aria-label="Next review"
               >
-                <ChevronRight className="w-5 h-5" />
+                <NextIcon className="w-5 h-5" />
               </button>
             </div>
           </div>

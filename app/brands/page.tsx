@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import { useLanguage } from "@/context/LanguageContext";
 
 const brands = [
   { name: "Mercedes-Benz", logo: "/images/brands/Mercedes-Logo.png" },
@@ -25,6 +26,8 @@ const brands = [
 ];
 
 export default function BrandsPage() {
+  const { t } = useLanguage();
+
   return (
     <main>
       <div className="bg-black min-h-screen">
@@ -42,17 +45,17 @@ export default function BrandsPage() {
           </div>
           <div className="relative z-20 flex-grow flex flex-col items-center justify-center text-center px-6 mt-10">
             <div data-aos="zoom-out" data-aos-delay="200" className="mb-4">
-              <h1 className="text-3xl md:text-[50px] font-display font-bold tracking-[-0.04em] leading-[0.9] flex items-center justify-center gap-4 max-w-[800px]">
-                <span className="text-white">Brands</span>
-                <span className="text-[#e11d23]">We Service</span>
+              <h1 className="text-3xl md:text-[50px] font-display font-bold tracking-[-0.04em] leading-[0.9] flex items-center justify-center gap-3 max-w-[800px]">
+                <span className="text-white">{t.brands.heroTitle1}</span>
+                <span className="text-[#e11d23]">{t.brands.heroTitle2}</span>
               </h1>
             </div>
             <p
               data-aos="fade-up"
               data-aos-delay="400"
-              className="max-w-xl text-gray-400 text-xs md:text-sm font-medium tracking-wide opacity-80"
+              className="max-w-xl text-gray-300 text-xs md:text-sm font-medium tracking-wide opacity-90"
             >
-              A look at the quality work we deliver — every car, every time.
+              {t.brands.heroSubtitle}
             </p>
           </div>
         </section>

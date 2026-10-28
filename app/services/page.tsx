@@ -13,8 +13,8 @@ import {
   Wrench,
   CircleCheck,
   ChevronDown,
-  ChevronRight,
   ArrowRight,
+  ArrowLeft,
   Clock,
   Shield,
   Disc,
@@ -22,11 +22,15 @@ import {
   Code,
   Check,
 } from "lucide-react";
-import { WORKSHOP_SERVICES } from "@/data/workshopData";
+import { getWorkshopServices } from "@/data/workshopData";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function ServicesPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [selectedFilter, setSelectedFilter] = useState<string>("all");
+  const { isArabic, t } = useLanguage();
+
+  const services = getWorkshopServices(isArabic);
 
   const iconMap: Record<string, React.ReactNode> = {
     diagnostics: <Cpu className="w-5 h-5 text-white" />,
@@ -42,27 +46,27 @@ export default function ServicesPage() {
   const steps = [
     {
       icon: Search,
-      title: "Book Your Service",
-      desc: "Schedule your preferred service online or call us. Our advisors will guide you through options tailored to your car model.",
+      title: t.servicesPage.step1Title,
+      desc: t.servicesPage.step1Desc,
     },
     {
       icon: ClipboardList,
-      title: "Diagnostic Inspection",
-      desc: "We perform digital scans and physical inspections, providing clear, itemized quotes with parts and labor before any work starts.",
+      title: t.servicesPage.step2Title,
+      desc: t.servicesPage.step2Desc,
     },
     {
       icon: Wrench,
-      title: "Expert Repair & Parts",
-      desc: "Certified master mechanics use advanced tools, genuine OEM parts, and factory-standard procedures to service your vehicle.",
+      title: t.servicesPage.step3Title,
+      desc: t.servicesPage.step3Desc,
     },
     {
       icon: CircleCheck,
-      title: "Quality Check & Delivery",
-      desc: "Every repaired car undergoes road testing and multi-point quality inspection backed by our comprehensive service warranty.",
+      title: t.servicesPage.step4Title,
+      desc: t.servicesPage.step4Desc,
     },
   ];
 
-  const faqs = [
+  const faqsEn = [
     {
       q: "How long will my vehicle service take?",
       a: "Express services like oil changes, brake inspections, and battery tests are completed within 45 to 60 minutes. Major repairs like engine overhauls or AC evaporator core replacements take 1 to 2 days.",
@@ -85,7 +89,32 @@ export default function ServicesPage() {
     },
   ];
 
-  const filteredServices = WORKSHOP_SERVICES.filter((service) => {
+  const faqsAr = [
+    {
+      q: "كم يستغرق وقت صيانة سيارتي؟",
+      a: "تكتمل الخدمات السريعة مثل تغيير الزيت، فحص الفرامل، وتبديل البطارية خلال 45 إلى 60 دقيقة. أما الإصلاحات الكبرى مثل توضيب المحرك أو استبدال ثلاجة المكيف فتستغرق من يوم إلى يومين.",
+    },
+    {
+      q: "هل توفرون ضماناً على الإصلاحات وقطع الغيار؟",
+      a: "نعم! جميع أعمال الإصلاح الميكانيكية والكهربائية مشمولة بضمان الورشة المعتمد، وجميع قطع الغيار تحمل ضمان الشركات المصنعة الأصلي.",
+    },
+    {
+      q: "هل يمكنني الحصول على عرض سعر واضح قبل بدء العمل؟",
+      a: "نعم بكل تأكيد. الشفافية 100% هي وعدنا لعملائنا. نقوم بفحص العطل أولاً ونقدم تقريراً وتسعيراً مكتوباً ومفصلاً قبل بدء العمل.",
+    },
+    {
+      q: "هل تستخدمون قطع غيار أصلية ومطابقة لمواصفات الوكالة؟",
+      a: "نستخدم فقط قطع غيار أصلية OEM أو قطعاً معتمدة بأعلى المواصفات المصنعية لضمان طول عمر سيارتك وأدائها الممتاز.",
+    },
+    {
+      q: "هل ورشتكم مؤهلة لصيانة السيارات الألمانية والأوروبية الفاخرة؟",
+      a: "نعم، نحن متخصصون في صيانة مرسيدس بنز، بي إم دبليو، أودي، بورش، رينج روفر، وفولكس فاجن بأحدث أجهزة الفحص بمستوى الوكالة.",
+    },
+  ];
+
+  const faqs = isArabic ? faqsAr : faqsEn;
+
+  const filteredServices = services.filter((service) => {
     if (selectedFilter === "all") return true;
     if (selectedFilter === "engine") return ["diagnostics", "oil-change", "computer-programming"].includes(service.id);
     if (selectedFilter === "cooling") return service.id === "ac-repair";
@@ -93,6 +122,8 @@ export default function ServicesPage() {
     if (selectedFilter === "electrical") return ["battery", "diagnostics", "computer-programming"].includes(service.id);
     return true;
   });
+
+  const ArrowIcon = isArabic ? ArrowLeft : ArrowRight;
 
   return (
     <main className="bg-white">
@@ -114,8 +145,8 @@ export default function ServicesPage() {
         <div className="relative z-20 flex-grow flex flex-col items-center justify-center text-center px-6 mt-10">
           <div data-aos="zoom-out" data-aos-delay="200" className="mb-4">
             <h1 className="text-4xl md:text-[56px] font-display font-bold tracking-tight leading-[0.9] flex items-center justify-center gap-3 max-w-[800px]">
-              <span className="text-white">Our Auto</span>
-              <span className="text-red-600">Services</span>
+              <span className="text-white">{t.servicesPage.heroTitle1}</span>
+              <span className="text-red-600">{t.servicesPage.heroTitle2}</span>
             </h1>
           </div>
           <p
@@ -123,14 +154,18 @@ export default function ServicesPage() {
             data-aos-delay="400"
             className="max-w-xl text-gray-300 text-sm md:text-base font-medium tracking-wide opacity-90"
           >
-            Dealership-grade automotive maintenance and repair in Sharjah Industrial Area 5.
+            {t.servicesPage.heroSubtitle}
           </p>
 
           {/* Breadcrumb pills */}
           <div className="mt-6 flex items-center gap-2 text-xs font-bold text-gray-400">
-            <Link href="/" className="hover:text-white transition-colors">Home</Link>
+            <Link href="/" className="hover:text-white transition-colors">
+              {isArabic ? "الرئيسية" : "Home"}
+            </Link>
             <span>/</span>
-            <span className="text-red-500">Services</span>
+            <span className="text-red-500">
+              {isArabic ? "الخدمات" : "Services"}
+            </span>
           </div>
         </div>
       </section>
@@ -142,24 +177,29 @@ export default function ServicesPage() {
         <div className="max-w-[1300px] mx-auto px-6">
           <div className="text-center mb-12">
             <div className="flex items-center justify-center gap-2 text-red-600 font-bold text-[11px] uppercase tracking-[0.2em] mb-4">
-              <span className="text-[8px]">▲</span>COMPLETE WORKSHOP SOLUTIONS
+              <span className="text-[8px]">▲</span>
+              <span>{isArabic ? "حلول ورشة متكاملة" : "COMPLETE WORKSHOP SOLUTIONS"}</span>
               <span className="text-[8px]">▲</span>
             </div>
             <h2 className="font-display font-bold text-4xl md:text-5xl lg:text-[52px] text-zinc-900 leading-[1.1] max-w-4xl mx-auto">
-              Certified Car Repair & Preventive Maintenance in Sharjah
+              {isArabic
+                ? "إصلاح معتمد وصيانة وقائية لسيارتك في الشارقة"
+                : "Certified Car Repair & Preventive Maintenance in Sharjah"}
             </h2>
             <p className="mt-4 text-zinc-600 max-w-2xl mx-auto text-sm md:text-base">
-              Every service is carried out using cutting-edge computerized tools and genuine spare parts backed by our comprehensive warranty.
+              {isArabic
+                ? "تُنفذ جميع أعمال الصيانة باستخدام أحدث أجهزة الكمبيوتر وقطع الغيار الأصلية المشمولة بضماننا الشامل."
+                : "Every service is carried out using cutting-edge computerized tools and genuine spare parts backed by our comprehensive warranty."}
             </p>
 
             {/* Category Filter Pills */}
             <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
               {[
-                { id: "all", label: "All Services" },
-                { id: "engine", label: "Engine & Diagnostics" },
-                { id: "cooling", label: "A/C & Cooling" },
-                { id: "safety", label: "Brakes & Suspension" },
-                { id: "electrical", label: "Battery & Programming" },
+                { id: "all", label: t.servicesPage.filterAll },
+                { id: "engine", label: t.servicesPage.filterEngine },
+                { id: "cooling", label: t.servicesPage.filterCooling },
+                { id: "safety", label: t.servicesPage.filterSafety },
+                { id: "electrical", label: t.servicesPage.filterElectrical },
               ].map((tab) => (
                 <button
                   key={tab.id}
@@ -195,7 +235,7 @@ export default function ServicesPage() {
                   
                   {/* Duration Tag */}
                   {item.duration && (
-                    <div className="absolute top-3 right-3 bg-black/70 backdrop-blur-md text-white text-[10px] font-bold px-2.5 py-1 rounded-full flex items-center gap-1 border border-white/20">
+                    <div className={`absolute top-3 ${isArabic ? "left-3" : "right-3"} bg-black/70 backdrop-blur-md text-white text-[10px] font-bold px-2.5 py-1 rounded-full flex items-center gap-1 border border-white/20`}>
                       <Clock className="w-3 h-3 text-red-500" />
                       <span>{item.duration}</span>
                     </div>
@@ -233,9 +273,9 @@ export default function ServicesPage() {
 
                   {/* Features Bullet List */}
                   {item.features && (
-                    <div className="text-left bg-zinc-50 rounded-xl p-3 mb-5 border border-zinc-100 flex-grow">
+                    <div className="text-start bg-zinc-50 rounded-xl p-3 mb-5 border border-zinc-100 flex-grow">
                       <p className="text-[10px] font-extrabold uppercase tracking-wider text-zinc-400 mb-2">
-                        Includes:
+                        {t.servicesPage.featuresIncluded}:
                       </p>
                       <ul className="space-y-1.5 text-xs text-zinc-600">
                         {item.features.slice(0, 2).map((feat, fIdx) => (
@@ -262,14 +302,14 @@ export default function ServicesPage() {
                       href={`/services-details?service=${item.id}`}
                       className="text-xs font-bold text-red-600 hover:text-red-700 flex items-center gap-1 group/btn"
                     >
-                      <span>Details</span>
-                      <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform" />
+                      <span>{t.servicesPage.viewDetailsBtn}</span>
+                      <ArrowIcon className="w-3.5 h-3.5 group-hover/btn:translate-x-1 rtl:group-hover/btn:-translate-x-1 transition-transform" />
                     </Link>
                     <Link
                       href={`/booking?service=${item.id}`}
-                      className="px-3.5 py-1.5 rounded-full bg-red-600 hover:bg-red-700 text-white text-xs font-bold transition-all shadow-sm hover:shadow-md"
+                      className="px-3.5 py-1.5 rounded-full bg-red-600 hover:bg-red-700 text-white text-xs font-bold transition-all shadow-sm hover:shadow-md cursor-pointer"
                     >
-                      Book Now
+                      {t.servicesPage.bookServiceBtn}
                     </Link>
                   </div>
                 </div>
@@ -296,10 +336,10 @@ export default function ServicesPage() {
         <div className="relative z-10 max-w-7xl mx-auto w-full">
           <div className="text-center mb-16">
             <span className="text-red-600 font-bold text-xs uppercase tracking-[0.2em] mb-2 block">
-              WORKSHOP PROCESS
+              {t.servicesPage.processEyebrow}
             </span>
             <h2 className="text-4xl md:text-5xl font-display font-bold text-white uppercase tracking-tight">
-              How It Works
+              {t.servicesPage.processTitle}
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 text-center">
@@ -327,23 +367,33 @@ export default function ServicesPage() {
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           <div>
             <div className="flex items-center gap-2 text-red-600 font-bold text-xs uppercase tracking-[0.2em] mb-4">
-              <span>▲</span>COMMON QUESTIONS<span>▲</span>
+              <span>▲</span>
+              <span>{isArabic ? "أسئلة متكررة" : "COMMON QUESTIONS"}</span>
+              <span>▲</span>
             </div>
             <h2 className="text-4xl md:text-5xl font-display font-bold text-zinc-900 uppercase tracking-tight mb-6">
-              Frequently Asked Questions
+              {t.servicesPage.faqTitle}
             </h2>
             <p className="text-zinc-600 text-base leading-relaxed mb-8">
-              Need more information about our workshop services, turnaround times, or pricing in Sharjah? Here are the most common questions our clients ask.
+              {isArabic
+                ? "هل تحتاج لمزيد من المعلومات حول خدمات الصيانة أو أوقات الإنجاز أو الأسعار في الشارقة؟ إليك الإجابات على أبرز الأسئلة."
+                : "Need more information about our workshop services, turnaround times, or pricing in Sharjah? Here are the most common questions our clients ask."}
             </p>
             <div className="p-6 rounded-2xl bg-zinc-50 border border-zinc-200 flex flex-col gap-4">
-              <h4 className="font-bold text-zinc-900 text-base">Have another question?</h4>
-              <p className="text-zinc-500 text-xs">Our certified service advisors are available 6 days a week to assist you.</p>
+              <h4 className="font-bold text-zinc-900 text-base">
+                {isArabic ? "هل لديك سؤال آخر؟" : "Have another question?"}
+              </h4>
+              <p className="text-zinc-500 text-xs">
+                {isArabic
+                  ? "مستشارو الخدمة المعتمدون لدينا متاحون 6 أيام في الأسبوع لمساعدتك."
+                  : "Our certified service advisors are available 6 days a week to assist you."}
+              </p>
               <div className="flex items-center gap-3">
                 <Link
                   href="/contact"
                   className="px-5 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-full text-xs font-bold tracking-wider uppercase transition-colors"
                 >
-                  Contact Advisor
+                  {isArabic ? "تواصل مع المستشار" : "Contact Advisor"}
                 </Link>
                 <a
                   href="https://api.whatsapp.com/send?phone=971564406456"
@@ -351,7 +401,7 @@ export default function ServicesPage() {
                   rel="noopener noreferrer"
                   className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full text-xs font-bold tracking-wider uppercase transition-colors"
                 >
-                  WhatsApp Us
+                  {isArabic ? "واتساب مباشر" : "WhatsApp Us"}
                 </a>
               </div>
             </div>
@@ -368,7 +418,7 @@ export default function ServicesPage() {
                   <button
                     type="button"
                     onClick={() => setOpenFaq(isOpen ? null : idx)}
-                    className="w-full p-5 text-left flex items-center justify-between gap-4 font-bold text-zinc-900 hover:text-red-600 transition-colors cursor-pointer"
+                    className="w-full p-5 text-start flex items-center justify-between gap-4 font-bold text-zinc-900 hover:text-red-600 transition-colors cursor-pointer"
                   >
                     <span className="text-sm md:text-base">{faq.q}</span>
                     <ChevronDown

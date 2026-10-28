@@ -12,8 +12,13 @@ import {
   Info,
 } from "lucide-react";
 import toast from "react-hot-toast";
+import { useLanguage } from "@/context/LanguageContext";
+import { getWorkshopServices } from "@/data/workshopData";
 
 export default function BookingPage() {
+  const { t, isArabic } = useLanguage();
+  const services = getWorkshopServices(isArabic);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -30,7 +35,7 @@ export default function BookingPage() {
     setIsSubmitting(true);
     setTimeout(() => {
       setIsSubmitting(false);
-      toast.success("Your appointment request has been received! We will call you shortly to confirm.");
+      toast.success(t.booking.successToast);
       setFormData({
         name: "",
         email: "",
@@ -61,8 +66,8 @@ export default function BookingPage() {
           <div className="relative z-20 flex-grow flex flex-col items-center justify-center text-center px-6 mt-10">
             <div data-aos="zoom-out" data-aos-delay="200" className="mb-4">
               <h1 className="text-3xl md:text-[50px] font-display font-bold tracking-[-0.04em] leading-[0.9] flex items-center justify-center gap-4 max-w-[800px]">
-                <span className="text-white">Book an </span>
-                <span className="text-[#e11d23]">Appointment</span>
+                <span className="text-white">{t.booking.heroTitle1} </span>
+                <span className="text-[#e11d23]">{t.booking.heroTitle2}</span>
               </h1>
             </div>
             <p
@@ -70,7 +75,7 @@ export default function BookingPage() {
               data-aos-delay="400"
               className="max-w-xl text-gray-400 text-xs md:text-sm font-medium tracking-wide opacity-80"
             >
-              A look at the quality work we deliver — every car, every time.
+              {t.booking.heroSubtitle}
             </p>
           </div>
         </section>
@@ -84,9 +89,9 @@ export default function BookingPage() {
                 </div>
                 <div>
                   <h3 className="font-bold text-gray-900 text-sm uppercase tracking-wide mb-1 leading-tight">
-                    BAB AL BUSTAN AUTO MAINTENANCE WORKSHOP
+                    {t.booking.workshopName}
                   </h3>
-                  <p className="text-zinc-500 text-sm">Industrial Area No 5, Sharjah, UAE</p>
+                  <p className="text-zinc-500 text-sm">{t.booking.address}</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
@@ -95,10 +100,10 @@ export default function BookingPage() {
                 </div>
                 <div>
                   <h3 className="font-bold text-gray-900 text-sm uppercase tracking-wide mb-1">
-                    CALL US
+                    {t.booking.callUs}
                   </h3>
-                  <p className="text-zinc-500 text-sm">+971564406456</p>
-                  <p className="text-zinc-500 text-sm">+971557636994</p>
+                  <p className="text-zinc-500 text-sm" dir="ltr">+971564406456</p>
+                  <p className="text-zinc-500 text-sm" dir="ltr">+971557636994</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
@@ -107,10 +112,10 @@ export default function BookingPage() {
                 </div>
                 <div>
                   <h3 className="font-bold text-gray-900 text-sm uppercase tracking-wide mb-1">
-                    WORKING HOURS
+                    {t.booking.hoursTitle}
                   </h3>
-                  <p className="text-zinc-500 text-sm">Saturday - Thursday: 8:00 am - 9:00 pm</p>
-                  <p className="text-zinc-500 text-sm">Friday : Closed</p>
+                  <p className="text-zinc-500 text-sm">{t.footer.hoursWeekdays}</p>
+                  <p className="text-zinc-500 text-sm">{t.footer.hoursFriday}</p>
                 </div>
               </div>
             </div>
@@ -126,16 +131,16 @@ export default function BookingPage() {
               </div>
               <div className="bg-white border border-gray-50 rounded-[32px] shadow-[0_20px_60px_rgba(0,0,0,0.06)] p-8 md:p-14">
                 <span className="text-red-600 font-bold uppercase tracking-[0.2em] text-xs">
-                  Book a Service
+                  {t.booking.formTitle}
                 </span>
                 <h2 className="text-3xl font-display text-gray-900 mt-2 mb-10">
-                  Book Your Appointment
+                  {t.booking.formSubtitle}
                 </h2>
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <input
                     type="text"
                     required
-                    placeholder="Name"
+                    placeholder={t.booking.nameLabel}
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     className="w-full bg-zinc-100 border-none rounded-xl p-4 text-zinc-900 placeholder:text-gray-500 focus:ring-2 focus:ring-red-600/20 outline-none"
@@ -145,7 +150,7 @@ export default function BookingPage() {
                     <input
                       type="email"
                       required
-                      placeholder="Email"
+                      placeholder={t.booking.emailLabel}
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       className="w-full bg-zinc-100 border-none rounded-xl p-4 text-zinc-900 placeholder:text-gray-500 focus:ring-2 focus:ring-red-600/20 outline-none"
@@ -154,7 +159,7 @@ export default function BookingPage() {
                     <input
                       type="tel"
                       required
-                      placeholder="Phone Number"
+                      placeholder={t.booking.phoneLabel}
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       className="w-full bg-zinc-100 border-none rounded-xl p-4 text-zinc-900 placeholder:text-gray-500 focus:ring-2 focus:ring-red-600/20 outline-none"
@@ -177,7 +182,7 @@ export default function BookingPage() {
                       onChange={(e) => setFormData({ ...formData, time: e.target.value })}
                       className="w-full bg-zinc-100 border-none rounded-xl p-4 text-zinc-900 focus:ring-2 focus:ring-red-600/20 outline-none"
                     >
-                      <option value="">Select Time</option>
+                      <option value="">{t.booking.selectTimePlaceholder}</option>
                       <option>08:00 AM</option>
                       <option>10:00 AM</option>
                       <option>01:00 PM</option>
@@ -192,17 +197,16 @@ export default function BookingPage() {
                     onChange={(e) => setFormData({ ...formData, service: e.target.value })}
                     className="w-full bg-zinc-100 border-none rounded-xl p-4 text-zinc-900 focus:ring-2 focus:ring-red-600/20 outline-none"
                   >
-                    <option value="">Select Service</option>
-                    <option>Mechanical Repair</option>
-                    <option>Electrical Diagnostics</option>
-                    <option>AC Service &amp; Gas Refill</option>
-                    <option>Oil &amp; Filter Change</option>
-                    <option>Brake Service</option>
-                    <option>Full Maintenance</option>
+                    <option value="">{t.booking.selectServicePlaceholder}</option>
+                    {services.map((s) => (
+                      <option key={s.id} value={s.title}>
+                        {s.title}
+                      </option>
+                    ))}
                   </select>
                   <textarea
                     name="message"
-                    placeholder="Details about your car (e.g. Toyota Camry 2020)..."
+                    placeholder={t.booking.messagePlaceholder}
                     rows={4}
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
@@ -213,7 +217,7 @@ export default function BookingPage() {
                     disabled={isSubmitting}
                     className="w-full bg-red-600 hover:bg-red-700 disabled:bg-zinc-400 text-white font-bold py-5 rounded-xl transition-all shadow-lg uppercase tracking-widest mt-4 cursor-pointer"
                   >
-                    {isSubmitting ? "Submitting..." : "Book Appointment"}
+                    {isSubmitting ? t.booking.submittingBtn : t.booking.submitBtn}
                   </button>
                 </form>
               </div>
@@ -224,9 +228,13 @@ export default function BookingPage() {
         <div className="w-full bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
           <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-10 xl:px-16 mb-20">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Find Us On Map</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                {isArabic ? "موقعنا على الخريطة" : "Find Us On Map"}
+              </h2>
               <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-                Visit our workshop in Sharjah. Professional auto maintenance services you can trust.
+                {isArabic
+                  ? "تفضل بزيارة ورشتنا في الشارقة. خدمات صيانة سيارات احترافية يمكنك الوثوق بها."
+                  : "Visit our workshop in Sharjah. Professional auto maintenance services you can trust."}
               </p>
             </div>
             <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200 relative group">
@@ -242,23 +250,23 @@ export default function BookingPage() {
                   title="BAB AL BUSTAN AUTO MAINTENANCE WORKSHOP"
                 />
               </div>
-              <div className="absolute top-4 left-4 z-10 bg-white rounded-md shadow-lg border border-gray-200 p-4 w-[320px] hidden md:block">
+              <div className={`absolute top-4 ${isArabic ? "right-4" : "left-4"} z-10 bg-white rounded-md shadow-lg border border-gray-200 p-4 w-[320px] hidden md:block`}>
                 <div className="flex justify-between items-start mb-1">
                   <div className="flex-1">
                     <h3 className="text-[16px] font-semibold text-gray-900 leading-tight">
-                      BAB AL BUSTAN AUTO MAINTENANCE WORKSHOP
+                      {t.booking.workshopName}
                     </h3>
                     <p className="text-[13px] text-gray-600 mt-1 leading-normal">
-                      Industrial Area 5 - Industrial Area - Sharjah
+                      {t.booking.address}
                     </p>
                   </div>
-                  <div className="flex gap-2 ml-2">
+                  <div className="flex gap-2 mx-2">
                     <a
                       href="https://www.google.com/maps/dir/?api=1&destination=25.320666,55.408305"
                       target="_blank"
                       rel="noreferrer"
                       className="p-2 bg-blue-50 rounded-full hover:bg-blue-100 text-blue-600 transition-colors"
-                      title="View on Google Maps"
+                      title={isArabic ? "عرض على خرائط جوجل" : "View on Google Maps"}
                     >
                       <ExternalLink className="w-[18px] h-[18px]" />
                     </a>
@@ -267,7 +275,7 @@ export default function BookingPage() {
                       target="_blank"
                       rel="noreferrer"
                       className="p-2 bg-blue-600 rounded-full hover:bg-blue-700 text-white transition-colors"
-                      title="Get Directions"
+                      title={isArabic ? "الاتجاهات" : "Get Directions"}
                     >
                       <Navigation className="w-[18px] h-[18px] text-white fill-white" />
                     </a>

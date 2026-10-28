@@ -3,18 +3,20 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronRight, MapPin, Phone, Mail, Send, CheckCircle2, Sparkles } from "lucide-react";
+import { ChevronRight, ChevronLeft, MapPin, Phone, Mail, Send, CheckCircle2, Sparkles } from "lucide-react";
 import toast from "react-hot-toast";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Footer() {
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubscribed, setIsSubscribed] = useState(false);
+  const { isArabic, t } = useLanguage();
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !email.includes("@")) {
-      toast.error("Please enter a valid email address.");
+      toast.error(t.footer.newsletterInvalidToast);
       return;
     }
 
@@ -22,10 +24,24 @@ export default function Footer() {
     setTimeout(() => {
       setIsSubmitting(false);
       setIsSubscribed(true);
-      toast.success("Thank you for subscribing! Check your email for car care tips & exclusive offers.");
+      toast.success(t.footer.newsletterSuccessToast);
       setEmail("");
     }, 700);
   };
+
+  const ArrowIcon = isArabic ? ChevronLeft : ChevronRight;
+
+  const quickLinks = [
+    { label: isArabic ? "الرئيسية" : "Home", href: "/" },
+    { label: isArabic ? "عن الورشة" : "About Us", href: "/about-us" },
+    { label: isArabic ? "خدماتنا" : "Services", href: "/services" },
+    { label: isArabic ? "الماركات التي نخدمها" : "Brands We Service", href: "/brands" },
+    { label: isArabic ? "معرض الفيديو" : "Video Gallery", href: "/gallery" },
+    { label: isArabic ? "مدونة الصيانة" : "Maintenance Blogs", href: "/blogs" },
+    { label: isArabic ? "حجز موعد" : "Book Appointment", href: "/booking" },
+    { label: isArabic ? "اتصل بنا" : "Contact Us", href: "/contact" },
+    { label: isArabic ? "خريطة الموقع" : "Sitemap", href: "/sitemap" },
+  ];
 
   return (
     <footer className="bg-[#0a0a0a] text-gray-300 pt-16 pb-8 px-4 font-sans border-t border-zinc-800/80">
@@ -37,16 +53,16 @@ export default function Footer() {
           <div className="absolute top-0 right-0 w-80 h-80 bg-red-600/10 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8">
-            <div className="max-w-xl text-center lg:text-left space-y-2">
+            <div className="max-w-xl text-center lg:text-start space-y-2">
               <div className="inline-flex items-center gap-2 text-xs font-bold text-red-500 uppercase tracking-widest bg-red-950/60 border border-red-800/40 px-3 py-1 rounded-full mb-1">
                 <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-                <span>Stay Ahead On Maintenance</span>
+                <span>{t.footer.newsletterBadge}</span>
               </div>
               <h3 className="text-2xl sm:text-3xl font-extrabold text-white font-display uppercase tracking-tight">
-                Subscribe for Car Care Tips &amp; Special Offers
+                {t.footer.newsletterTitle}
               </h3>
               <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
-                Receive UAE seasonal checklists, synthetic oil interval reminders, and VIP repair discount coupons directly to your inbox.
+                {t.footer.newsletterDesc}
               </p>
             </div>
 
@@ -55,19 +71,19 @@ export default function Footer() {
               {isSubscribed ? (
                 <div className="flex items-center gap-3 bg-emerald-950/60 border border-emerald-800 p-4 rounded-2xl text-emerald-400 text-sm font-bold">
                   <CheckCircle2 className="w-5 h-5 shrink-0" />
-                  <span>You're subscribed! Welcome to the Bab Al Bustan VIP Club.</span>
+                  <span>{t.footer.newsletterSuccessBanner}</span>
                 </div>
               ) : (
                 <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3">
                   <div className="relative flex-1">
-                    <Mail className="w-4 h-4 text-zinc-500 absolute left-4 top-1/2 -translate-y-1/2" />
+                    <Mail className={`w-4 h-4 text-zinc-500 absolute top-1/2 -translate-y-1/2 ${isArabic ? "right-4" : "left-4"}`} />
                     <input
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      placeholder="Enter your email address..."
+                      placeholder={t.footer.newsletterPlaceholder}
                       required
-                      className="w-full bg-zinc-950 border border-zinc-700 focus:border-red-600 focus:ring-2 focus:ring-red-600/20 text-white placeholder-zinc-500 rounded-full pl-11 pr-4 py-3.5 text-xs sm:text-sm outline-none transition-all"
+                      className={`w-full bg-zinc-950 border border-zinc-700 focus:border-red-600 focus:ring-2 focus:ring-red-600/20 text-white placeholder-zinc-500 rounded-full py-3.5 text-xs sm:text-sm outline-none transition-all ${isArabic ? "pr-11 pl-4" : "pl-11 pr-4"}`}
                     />
                   </div>
                   <button
@@ -75,8 +91,8 @@ export default function Footer() {
                     disabled={isSubmitting}
                     className="px-7 py-3.5 rounded-full bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm font-bold uppercase tracking-wider transition-all shadow-md shadow-red-600/30 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70 shrink-0 hover:scale-105 active:scale-95"
                   >
-                    <span>{isSubmitting ? "Subscribing..." : "Subscribe"}</span>
-                    <Send className="w-3.5 h-3.5" />
+                    <span>{isSubmitting ? t.footer.newsletterSubscribing : t.footer.newsletterBtn}</span>
+                    <Send className={`w-3.5 h-3.5 ${isArabic ? "rotate-180" : ""}`} />
                   </button>
                 </form>
               )}
@@ -101,10 +117,10 @@ export default function Footer() {
               </div>
             </Link>
             <p className="text-sm leading-relaxed text-gray-400">
-              Bab Al Bustan Auto Maintenance Workshop in Sharjah Industrial Area 5 stands as a trusted symbol of precision, genuine spare parts, and customer care for all your car repair needs.
+              {t.footer.aboutDesc}
             </p>
             <div className="flex items-center gap-4">
-              <span className="text-sm font-medium text-white">Follow us:</span>
+              <span className="text-sm font-medium text-white">{t.footer.followUs}</span>
               <div className="flex gap-2">
                 <a
                   href="https://www.facebook.com/babalbustan2/"
@@ -168,28 +184,18 @@ export default function Footer() {
           <div>
             <div className="mb-6">
               <h4 className="text-white text-xl uppercase tracking-tight font-display font-bold">
-                Quick Links
+                {t.footer.quickLinksTitle}
               </h4>
               <div className="h-0.5 w-10 bg-red-600 mt-1"></div>
             </div>
             <ul className="space-y-3">
-              {[
-                { label: "Home", href: "/" },
-                { label: "About Us", href: "/about-us" },
-                { label: "Services", href: "/services" },
-                { label: "Brands We Service", href: "/brands" },
-                { label: "Video Gallery", href: "/gallery" },
-                { label: "Maintenance Blogs", href: "/blogs" },
-                { label: "Book Appointment", href: "/booking" },
-                { label: "Contact Us", href: "/contact" },
-                // { label: "Sitemap", href: "/sitemap" },
-              ].map((link) => (
+              {quickLinks.map((link) => (
                 <li key={link.label}>
                   <Link
                     className="flex items-center gap-2 text-sm hover:text-red-500 transition-colors group"
                     href={link.href}
                   >
-                    <ChevronRight className="w-3.5 h-3.5 text-red-600 group-hover:translate-x-1 transition-transform" />
+                    <ArrowIcon className="w-3.5 h-3.5 text-red-600 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform" />
                     {link.label}
                   </Link>
                 </li>
@@ -201,18 +207,18 @@ export default function Footer() {
           <div>
             <div className="mb-6">
               <h4 className="text-white text-xl uppercase tracking-tight font-display font-bold">
-                Opening Hours
+                {t.footer.openingHoursTitle}
               </h4>
               <div className="h-0.5 w-10 bg-red-600 mt-1"></div>
             </div>
             <div className="space-y-2 text-sm text-gray-400 mb-8">
-              <p>Saturday – Thursday: 8:00 AM – 9:00 PM</p>
-              <p>Break: 1:30 PM – 3:30 PM</p>
-              <p className="text-red-500 font-bold">Friday: Closed</p>
+              <p>{t.footer.hoursWeekdays}</p>
+              <p>{t.footer.hoursBreak}</p>
+              <p className="text-red-500 font-bold">{t.footer.hoursFriday}</p>
             </div>
             <div className="mb-6">
               <h4 className="text-white text-xl uppercase tracking-tight font-display font-bold">
-                Support &amp; FAQs
+                {t.footer.supportTitle}
               </h4>
               <div className="h-0.5 w-10 bg-red-600 mt-1"></div>
             </div>
@@ -222,8 +228,8 @@ export default function Footer() {
                   className="flex items-center gap-2 text-sm hover:text-red-500 transition-colors group"
                   href="/faqs"
                 >
-                  <ChevronRight className="w-3.5 h-3.5 text-red-600 group-hover:translate-x-1 transition-transform" />
-                  Frequently Asked Questions
+                  <ArrowIcon className="w-3.5 h-3.5 text-red-600 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform" />
+                  {t.footer.faqLink}
                 </Link>
               </li>
               <li>
@@ -231,8 +237,8 @@ export default function Footer() {
                   className="flex items-center gap-2 text-sm hover:text-red-500 transition-colors group"
                   href="/contact"
                 >
-                  <ChevronRight className="w-3.5 h-3.5 text-red-600 group-hover:translate-x-1 transition-transform" />
-                  Privacy &amp; Terms Policy
+                  <ArrowIcon className="w-3.5 h-3.5 text-red-600 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform" />
+                  {t.footer.privacyLink}
                 </Link>
               </li>
             </ul>
@@ -242,27 +248,27 @@ export default function Footer() {
           <div>
             <div className="mb-6">
               <h4 className="text-white text-xl uppercase tracking-tight font-display font-bold">
-                Contact Info
+                {t.footer.contactTitle}
               </h4>
               <div className="h-0.5 w-10 bg-red-600 mt-1"></div>
             </div>
             <div className="space-y-6">
               <div className="flex gap-4">
                 <MapPin className="text-red-600 shrink-0 w-5 h-5" />
-                <p className="text-sm">
-                  Industrial Area No 5,<br /> Sharjah, United Arab Emirates
+                <p className="text-sm whitespace-pre-line">
+                  {t.footer.address}
                 </p>
               </div>
               <div className="flex gap-4">
                 <Phone className="text-red-600 shrink-0 w-5 h-5" />
                 <div className="text-sm">
                   <p>
-                    <a href="tel:+971564406456" className="hover:text-white transition-colors">
+                    <a href="tel:+971564406456" className="hover:text-white transition-colors" dir="ltr">
                       +971 56 440 6456
                     </a>
                   </p>
                   <p>
-                    <a href="tel:+971557636994" className="hover:text-white transition-colors">
+                    <a href="tel:+971557636994" className="hover:text-white transition-colors" dir="ltr">
                       +971 55 763 6994
                     </a>
                   </p>
@@ -290,21 +296,17 @@ export default function Footer() {
 
       <div className="max-w-7xl mx-auto mt-16 pt-8 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-4 text-[11px] uppercase tracking-widest text-gray-500">
         <p>
-          © Copyright 2026{" "}
-          <span className="text-red-600 font-bold">
-            Bab Al Bustan Auto Maintenance Workshop
-          </span>
-          . All rights reserved.
+          {t.footer.copyright}
         </p>
         <div className="flex items-center gap-6">
           <Link className="hover:text-white transition-colors" href="/sitemap">
-            Sitemap
+            {t.footer.sitemap}
           </Link>
           <Link className="hover:text-white transition-colors" href="/contact">
-            Contact
+            {t.footer.contact}
           </Link>
           <Link className="hover:text-white transition-colors" href="/booking">
-            Appointment
+            {t.footer.appointment}
           </Link>
         </div>
       </div>

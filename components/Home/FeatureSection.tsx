@@ -4,9 +4,11 @@ import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Zap, ShieldCheck, Tag, UserCog } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function FeatureSection() {
   const router = useRouter();
+  const { t } = useLanguage();
 
   return (
     <section className="bg-[#050505] py-20 px-6">
@@ -19,17 +21,17 @@ export default function FeatureSection() {
             className="object-cover"
           />
         </div>
-        <div className="flex flex-col items-start lg:pl-10">
-          <div className="inline-block px-2 py-1.5 rounded-full border border-red-900/40 bg-red-900/10 mb-8">
+        <div className="flex flex-col items-start lg:pl-10 rtl:lg:pl-0 rtl:lg:pr-10">
+          <div className="inline-block px-3 py-1.5 rounded-full border border-red-900/40 bg-red-900/10 mb-8">
             <span className="text-red-600 text-[10px] font-black tracking-[0.2em] uppercase">
-              Bab Al Bustan Auto Maintenance Workshop
+              {t.home.feature.tag}
             </span>
           </div>
           <h2 className="font-display text-2xl md:text-5xl font-bold text-white leading-tight mb-6 tracking-tight">
-            We Go Beyond Just a <br /> Car Maintenance
+            {t.home.feature.titlePart1} <br /> {t.home.feature.titlePart2}
           </h2>
-          <p className="text-zinc-400 text-sm md:text-base leading-relaxed mb-4 max-w-3xl">
-            Bab Al Bustan Auto Maintenance Workshop, we blend speed with precision. Our certified technicians use cutting-edge equipment to deliver results that exceed expectations — every single time.
+          <p className="text-zinc-400 text-sm md:text-base leading-relaxed mb-6 max-w-3xl">
+            {t.home.feature.description}
           </p>
           <div className="space-y-4 w-full mb-12">
             <div className="flex items-start gap-3 group">
@@ -38,10 +40,10 @@ export default function FeatureSection() {
               </div>
               <div>
                 <h4 className="text-white font-bold text-base mb-1 tracking-wide">
-                  Express Service
+                  {t.home.feature.expressTitle}
                 </h4>
                 <p className="text-zinc-500 text-xs md:text-sm leading-snug max-w-lg">
-                  Most services completed in under 60 minutes without sacrificing quality.
+                  {t.home.feature.expressDesc}
                 </p>
               </div>
             </div>
@@ -51,10 +53,10 @@ export default function FeatureSection() {
               </div>
               <div>
                 <h4 className="text-white font-bold text-base mb-1 tracking-wide">
-                  Quality Guarantee
+                  {t.home.feature.qualityTitle}
                 </h4>
                 <p className="text-zinc-500 text-xs md:text-sm leading-snug max-w-lg">
-                  100% satisfaction guarantee on all services. Not happy? We redo it free.
+                  {t.home.feature.qualityDesc}
                 </p>
               </div>
             </div>
@@ -64,10 +66,10 @@ export default function FeatureSection() {
               </div>
               <div>
                 <h4 className="text-white font-bold text-base mb-1 tracking-wide">
-                  Transparent Pricing
+                  {t.home.feature.pricingTitle}
                 </h4>
                 <p className="text-zinc-500 text-xs md:text-sm leading-snug max-w-lg">
-                  No hidden charges. Get a full quote before we begin any work.
+                  {t.home.feature.pricingDesc}
                 </p>
               </div>
             </div>
@@ -77,10 +79,10 @@ export default function FeatureSection() {
               </div>
               <div>
                 <h4 className="text-white font-bold text-base mb-1 tracking-wide">
-                  Certified Technicians
+                  {t.home.feature.techsTitle}
                 </h4>
                 <p className="text-zinc-500 text-xs md:text-sm leading-snug max-w-lg">
-                  Our team holds certifications and undergoes continuous training.
+                  {t.home.feature.techsDesc}
                 </p>
               </div>
             </div>
@@ -89,7 +91,7 @@ export default function FeatureSection() {
             onClick={() => router.push("/about-us")}
             className="bg-red-600 hover:bg-red-700 transition-all duration-300 text-white font-black text-xs md:text-sm px-10 py-5 rounded-lg uppercase tracking-[0.15em] shadow-lg shadow-red-600/20 active:scale-95 cursor-pointer"
           >
-            Learn More About Us
+            {t.home.feature.learnMore}
           </button>
         </div>
       </div>

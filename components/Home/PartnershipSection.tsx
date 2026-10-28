@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import { useLanguage } from "@/context/LanguageContext";
 
 const brands = [
   { name: "Mercedes-Benz", logo: "/images/brands/Mercedes-Logo.png" },
@@ -25,18 +26,20 @@ const brands = [
 ];
 
 export default function PartnershipSection() {
+  const { t } = useLanguage();
+
   return (
     <section className="bg-black py-24 px-6 overflow-hidden">
       <div className="max-w-[1400px] mx-auto">
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-8 mb-16 border-b border-zinc-800 pb-12">
           <div className="flex flex-col items-start">
             <h2 className="font-display text-4xl md:text-6xl font-[900] text-white leading-none uppercase tracking-tight">
-              Our <br /> Partnership
+              {t.home.partnership.title1} <br /> {t.home.partnership.title2}
             </h2>
           </div>
           <div className="max-w-xl">
             <p className="text-zinc-400 text-base md:text-lg leading-relaxed">
-              We work with the world&#x27;s leading automotive brands to bring you certified service and genuine parts. Our workshop in Sharjah is equipped to handle luxury, German, and Japanese vehicles with factory-level precision.
+              {t.home.partnership.desc}
             </p>
           </div>
         </div>

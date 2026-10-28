@@ -3,10 +3,13 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronDown, HelpCircle, Phone, Calendar } from "lucide-react";
-import { WORKSHOP_FAQS, WORKSHOP_INFO } from "@/data/workshopData";
+import { ChevronDown, Phone, Calendar } from "lucide-react";
+import { getWorkshopFaqs, WORKSHOP_INFO } from "@/data/workshopData";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function FAQPage() {
+  const { t, isArabic } = useLanguage();
+  const faqs = getWorkshopFaqs(isArabic);
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const toggle = (idx: number) => {
@@ -30,20 +33,20 @@ export default function FAQPage() {
 
         <div className="relative z-20 text-center px-6 max-w-3xl mx-auto">
           <div className="inline-block px-4 py-1.5 rounded-full bg-red-600/20 border border-red-500/30 text-red-400 text-xs font-bold uppercase tracking-[0.25em] mb-4">
-            Help &amp; Answers
+            {t.faqPage.heroBadge}
           </div>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-black tracking-tight uppercase leading-tight text-white mb-3">
-            Frequently Asked <span className="text-red-500">Questions</span>
+            {t.faqPage.heroTitle1} <span className="text-red-500">{t.faqPage.heroTitle2}</span>
           </h1>
           <p className="max-w-xl mx-auto text-zinc-300 text-sm md:text-base font-normal leading-relaxed">
-            Everything you need to know about our vehicle repairs, pricing, genuine parts, and workshop appointments in Sharjah.
+            {t.faqPage.heroSubtitle}
           </p>
         </div>
       </section>
 
       <div className="max-w-4xl mx-auto px-6 py-20">
         <div className="space-y-4">
-          {WORKSHOP_FAQS.map((faq, idx) => {
+          {faqs.map((faq, idx) => {
             const isOpen = openIndex === idx;
             return (
               <div
@@ -52,10 +55,16 @@ export default function FAQPage() {
               >
                 <button
                   onClick={() => toggle(idx)}
-                  className="w-full flex items-center justify-between text-left group cursor-pointer"
+                  className={`w-full flex items-center justify-between group cursor-pointer ${
+                    isArabic ? "text-right" : "text-left"
+                  }`}
                   aria-expanded={isOpen}
                 >
-                  <span className="text-zinc-900 font-bold text-base sm:text-lg pr-4 group-hover:text-red-600 transition-colors">
+                  <span
+                    className={`text-zinc-900 font-bold text-base sm:text-lg group-hover:text-red-600 transition-colors ${
+                      isArabic ? "pl-4" : "pr-4"
+                    }`}
+                  >
                     {faq.q}
                   </span>
                   <div
@@ -80,10 +89,10 @@ export default function FAQPage() {
         <div className="mt-16 p-8 bg-zinc-900 text-white rounded-3xl border border-zinc-800 text-center relative overflow-hidden">
           <div className="relative z-10 max-w-xl mx-auto">
             <h3 className="font-display font-black text-2xl uppercase tracking-tight mb-2">
-              Still Have Questions?
+              {t.faqPage.stillHaveTitle}
             </h3>
             <p className="text-zinc-400 text-xs sm:text-sm mb-6 leading-relaxed">
-              Our service advisors are available Saturday to Thursday to assist you with customized quotes and vehicle questions.
+              {t.faqPage.stillHaveDesc}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
@@ -91,14 +100,14 @@ export default function FAQPage() {
                 className="btn-primary text-white font-bold text-xs uppercase tracking-widest px-8 py-3.5 rounded-xl shadow-lg shadow-red-600/30 flex items-center justify-center gap-2"
               >
                 <Phone className="w-4 h-4" />
-                <span>Call {WORKSHOP_INFO.phones[0]}</span>
+                <span>{t.faqPage.callBtn}</span>
               </a>
               <Link
                 href="/booking"
                 className="bg-white/10 hover:bg-white/20 text-white font-bold text-xs uppercase tracking-widest px-8 py-3.5 rounded-xl border border-white/20 transition-colors flex items-center justify-center gap-2"
               >
                 <Calendar className="w-4 h-4" />
-                <span>Book Appointment</span>
+                <span>{t.faqPage.bookBtn}</span>
               </Link>
             </div>
           </div>

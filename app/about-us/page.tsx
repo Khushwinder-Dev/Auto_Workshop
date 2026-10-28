@@ -14,38 +14,41 @@ import {
   Star,
   ShieldCheck,
 } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function AboutUsPage() {
+  const { t } = useLanguage();
+
   const reasons = [
     {
       icon: <UserCheck className="w-6 h-6 text-[#e11d23]" strokeWidth={2.5} />,
-      title: "Certified Mechanics",
-      desc: "ASE certified technicians with years of hands-on experience in all vehicle types.",
+      title: t.about.reasons.r1Title,
+      desc: t.about.reasons.r1Desc,
     },
     {
       icon: <Handshake className="w-6 h-6 text-[#e11d23]" strokeWidth={2.5} />,
-      title: "Honest Pricing",
-      desc: "Transparent process with no hidden charges. Full quote provided before we begin.",
+      title: t.about.reasons.r2Title,
+      desc: t.about.reasons.r2Desc,
     },
     {
       icon: <Tag className="w-6 h-6 text-[#e11d23]" strokeWidth={2.5} />,
-      title: "Transparent Pricing",
-      desc: "No hidden fees, no surprises — full cost disclosure before any work begins.",
+      title: t.about.reasons.r3Title,
+      desc: t.about.reasons.r3Desc,
     },
     {
       icon: <Zap className="w-6 h-6 text-[#e11d23]" strokeWidth={2.5} />,
-      title: "Express Service",
-      desc: "Most services completed under 60 minutes without compromising on quality.",
+      title: t.about.reasons.r4Title,
+      desc: t.about.reasons.r4Desc,
     },
     {
       icon: <Star className="w-6 h-6 text-[#e11d23]" strokeWidth={2.5} />,
-      title: "Quality Products",
-      desc: "We use only top-brand lubricants, parts, and materials on every vehicle.",
+      title: t.about.reasons.r5Title,
+      desc: t.about.reasons.r5Desc,
     },
     {
       icon: <ShieldCheck className="w-6 h-6 text-[#e11d23]" strokeWidth={2.5} />,
-      title: "Satisfaction Guarantee",
-      desc: "100% satisfaction guaranteed — not happy with the result? We redo it free.",
+      title: t.about.reasons.r6Title,
+      desc: t.about.reasons.r6Desc,
     },
   ];
 
@@ -66,17 +69,17 @@ export default function AboutUsPage() {
           </div>
           <div className="relative z-20 flex-grow flex flex-col items-center justify-center text-center px-6 mt-10">
             <div data-aos="zoom-out" data-aos-delay="200" className="mb-4">
-              <h1 className="text-3xl md:text-[50px] font-display font-bold tracking-[-0.04em] leading-[0.9] flex items-center justify-center gap-4 max-w-[800px]">
-                <span className="text-white">About</span>
-                <span className="text-[#e11d23]">Us</span>
+              <h1 className="text-3xl md:text-[50px] font-display font-bold tracking-[-0.04em] leading-[0.9] flex items-center justify-center gap-3 max-w-[800px]">
+                <span className="text-white">{t.about.heroTitle1}</span>
+                <span className="text-[#e11d23]">{t.about.heroTitle2}</span>
               </h1>
             </div>
             <p
               data-aos="fade-up"
               data-aos-delay="400"
-              className="max-w-xl text-gray-400 text-xs md:text-sm font-medium tracking-wide opacity-80"
+              className="max-w-xl text-gray-300 text-xs md:text-sm font-medium tracking-wide opacity-90"
             >
-              Learn more about our company and our mission
+              {t.about.heroSubtitle}
             </p>
           </div>
         </section>
@@ -104,68 +107,64 @@ export default function AboutUsPage() {
               </div>
               <div className="grid grid-cols-2 gap-8 border-t border-gray-100 pt-8">
                 <div className="flex items-center gap-4">
-                  <div className="bg-white p-3 rounded-lg">
+                  <div className="bg-white p-3 rounded-lg shadow-sm border border-zinc-100">
                     <ThumbsUp className="w-8 h-8 text-[#e11d23]" strokeWidth={3} />
                   </div>
                   <div>
                     <h3 className="text-2xl font-display font-bold text-slate-900 leading-none">
-                      1,600+
+                      5,000+
                     </h3>
-                    <p className="text-gray-500 text-sm mt-1">Happy Customers</p>
+                    <p className="text-gray-500 text-sm mt-1">{t.about.happyCustomers}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
-                  <div className="bg-white p-3 rounded-lg">
+                  <div className="bg-white p-3 rounded-lg shadow-sm border border-zinc-100">
                     <Award className="w-8 h-8 text-[#e11d23]" strokeWidth={3} />
                   </div>
                   <div>
                     <h3 className="text-2xl font-display font-bold text-slate-900 leading-none">
-                      12+
+                      15+
                     </h3>
-                    <p className="text-gray-500 text-sm mt-1">Years of Experience</p>
+                    <p className="text-gray-500 text-sm mt-1">{t.about.yearsOfExp}</p>
                   </div>
                 </div>
               </div>
             </div>
             <div className="max-w-xl">
               <span className="text-[#e11d23] text-xs font-bold uppercase tracking-[0.2em]">
-                About Us
+                {t.about.eyebrow}
               </span>
               <h2 className="text-4xl md:text-5xl font-display font-bold text-slate-900 mt-4 leading-[1.1] tracking-tight">
-                Keeping Your Drive Smooth
+                {t.about.mainTitle}
               </h2>
               <div className="mt-8 space-y-4 text-gray-600 leading-relaxed text-sm md:text-base">
-                <p>
-                  Provides expert automotive maintenance and repair services including diagnostics, oil change, brakes, suspension, battery, A/C repair, tires, and periodic servicing.
-                </p>
-                <p>
-                  We work on all major car brands with skilled technicians, high-quality parts, and fast turnaround times. Customer satisfaction and honest pricing are our top priorities.
-                </p>
+                <p>{t.about.p1}</p>
+                <p>{t.about.p2}</p>
               </div>
             </div>
           </div>
         </section>
 
         <section className="bg-[#0a0a0a] py-24 px-6 overflow-hidden">
-          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-2 items-center">
+          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             <div className="space-y-8">
               <div className="inline-block">
                 <span className="text-[#e11d23] text-xs font-display uppercase tracking-[0.2em]">
-                  Real Results
+                  {t.about.resultsEyebrow}
                 </span>
                 <div className="h-[2px] w-full bg-[#e11d23] mt-1" />
               </div>
               <h2 className="text-white text-4xl md:text-5xl font-display leading-[1.1] tracking-tight max-w-md">
-                Before &amp; After: Complete Auto Transformations
+                {t.about.resultsTitle}
               </h2>
               <p className="text-zinc-400 text-sm md:text-base leading-relaxed max-w-lg opacity-90">
-                See the dramatic difference professional care makes — restoring clarity, depth, and shine while adding a durable layer of protection. Every detail counts, and the results speak for themselves.
+                {t.about.resultsDesc}
               </p>
               <Link
-                className="inline-block bg-[#e11d23] hover:bg-[#c1181d] text-white font-black uppercase text-xs md:text-sm tracking-widest px-10 py-4 rounded-sm transition-all duration-300"
+                className="inline-block bg-[#e11d23] hover:bg-[#c1181d] text-white font-black uppercase text-xs md:text-sm tracking-widest px-10 py-4 rounded-full transition-all duration-300 shadow-md shadow-red-600/30 hover:scale-105"
                 href="/gallery"
               >
-                View Our Gallery
+                {t.about.viewGalleryBtn}
               </Link>
             </div>
             <div className="relative group">
@@ -187,10 +186,10 @@ export default function AboutUsPage() {
             <div className="text-center mb-16 space-y-4">
               <div className="flex items-center justify-center gap-2 text-[#e11d23] font-bold uppercase tracking-[0.2em] text-[10px] md:text-xs">
                 <X className="w-3.5 h-3.5" strokeWidth={3} />
-                <span>Why Choose Us</span>
+                <span>{t.about.whyEyebrow}</span>
               </div>
               <h2 className="text-3xl md:text-5xl font-display text-slate-900 tracking-tight leading-tight max-w-5xl mx-auto">
-                Reasons to Choose Bab Al Bustan Auto Maintenance Workshop
+                {t.about.whyTitle}
               </h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

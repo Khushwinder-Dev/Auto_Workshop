@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import { ChevronDown, ChevronRight } from "lucide-react";
+import { ChevronDown, ChevronRight, ChevronLeft } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface FaqItem {
   id: number;
@@ -11,7 +12,7 @@ interface FaqItem {
   column: number;
 }
 
-const faqs: FaqItem[] = [
+const faqsEn: FaqItem[] = [
   {
     id: 1,
     question: "What types of vehicles do you service?",
@@ -84,22 +85,99 @@ const faqs: FaqItem[] = [
   },
 ];
 
+const faqsAr: FaqItem[] = [
+  {
+    id: 1,
+    question: "ما هي أنواع السيارات التي تقومون بصيانتها؟",
+    answer:
+      "نحن متخصصون في صيانة وإصلاح مجموعة واسعة من السيارات، بما فيها السيارات الفاخرة والألمانية والأمريكية واليابانية، باستخدام أحدث الأجهزة وبأيدي فنيين محترفين.",
+    column: 1,
+  },
+  {
+    id: 2,
+    question: "كم مرة يجب أن أقوم بصيانة سيارتي؟",
+    answer:
+      "الصيانة الدورية ضرورية لسلامة المحرك. نوصي عادةً بإجراء صيانة صغرى كل 5,000 إلى 10,000 كم، وصيانة كبرى كل 20,000 إلى 40,000 كم حسب موديل السيارة واستخدامها.",
+    column: 1,
+  },
+  {
+    id: 3,
+    question: "هل توفرون خدمة الصيانة في نفس اليوم؟",
+    answer:
+      "نعم، بالنسبة لمعظم الإصلاحات الدورية وتغيير الزيت والفرامل والصيانة السريعة، ننهي العمل ونسلمك السيارة في نفس اليوم.",
+    column: 1,
+  },
+  {
+    id: 4,
+    question: "هل يوجد ضمان على أعمال الإصلاح وقطع الغيار؟",
+    answer:
+      "بالتأكيد. نقدم ضماناً معتمداً على كل من قطع الغيار وجودة العمل المنجز لضمان راحة بالك التامة.",
+    column: 1,
+  },
+  {
+    id: 5,
+    question: "هل توفرون فحص الكمبيوتر الإلكتروني؟",
+    answer:
+      "نعم، نستخدم أحدث أجهزة الفحص الرقمية المبرمجة لتحديد أعطال المحرك، والجيربوكس، والحساسات، والأنظمة الكهربائية بدقة كاملة.",
+    column: 1,
+  },
+  {
+    id: 6,
+    question: "هل توفرون خدمة استلام وتسليم السيارة؟",
+    answer:
+      "نعم، نوفر خدمة استلام وتسليم السيارة في مناطق محددة بالشارقة لراحتك وتوفير وقتك.",
+    column: 2,
+  },
+  {
+    id: 7,
+    question: "هل يمكنني الحصول على تقدير تكلفة مسبق؟",
+    answer:
+      "نعم، نجري فحصاً شاملاً ونقدم عرض سعر مفصل وشفاف قبل بدء أي عمل دون أي تكاليف خفية.",
+    column: 2,
+  },
+  {
+    id: 8,
+    question: "هل تقومون بصيانة وإصلاح مكيفات السيارات؟",
+    answer:
+      "فنيونا خبراء في فحص تسريب الغاز، وإصلاح الكمبروسر، وتنظيف الرديتر، وتعبئة الغاز لضمان برودة ممتازة في الصيف.",
+    column: 2,
+  },
+  {
+    id: 9,
+    question: "كيف يمكنني حجز موعد في الورشة؟",
+    answer:
+      "يمكنك الحجز بسهولة عبر موقعنا، أو الاتصال برقمنا المباشر، أو إرسال رسالة على واتساب للتأكيد الفوري.",
+    column: 2,
+  },
+  {
+    id: 10,
+    question: "أين أجد أفضل خدمة صيانة سيارات موثوقة في الشارقة؟",
+    answer:
+      "ورشة باب البستان لصيانة السيارات في المنطقة الصناعية 5 هي الخيار الأول لصيانة احترافية وموثوقة وأسعار صادقة.",
+    column: 2,
+  },
+];
+
 function FaqAccordionItem({
   faq,
   isOpen,
   toggle,
+  isArabic,
 }: {
   faq: FaqItem;
   isOpen: boolean;
   toggle: () => void;
+  isArabic: boolean;
 }) {
+  const ArrowIcon = isArabic ? ChevronLeft : ChevronRight;
+
   return (
     <div className="border-b border-zinc-100 last:border-0 overflow-hidden">
       <button
         onClick={toggle}
-        className="w-full flex items-center justify-between py-6 text-left group transition-all"
+        className="w-full flex items-center justify-between py-6 text-start group transition-all cursor-pointer"
       >
-        <span className="text-zinc-900 font-bold text-lg pr-4 transition-colors group-hover:text-red-600">
+        <span className="text-zinc-900 font-bold text-lg pr-4 rtl:pr-0 rtl:pl-4 transition-colors group-hover:text-red-600">
           {faq.question}
         </span>
         <div
@@ -110,7 +188,7 @@ function FaqAccordionItem({
           {isOpen ? (
             <ChevronDown className="w-4 h-4 text-white" />
           ) : (
-            <ChevronRight className="w-4 h-4 text-white" />
+            <ArrowIcon className="w-4 h-4 text-white" />
           )}
         </div>
       </button>
@@ -134,6 +212,9 @@ function FaqAccordionItem({
 
 export default function FaqSection() {
   const [openItems, setOpenItems] = useState<number[]>([1, 6]);
+  const { isArabic, t } = useLanguage();
+
+  const faqs = isArabic ? faqsAr : faqsEn;
 
   const toggle = (id: number) => {
     setOpenItems((prev) =>
@@ -146,7 +227,7 @@ export default function FaqSection() {
       <div className="max-w-[1400px] mx-auto px-6">
         <div className="text-center mb-20">
           <h2 className="font-display text-3xl md:text-5xl font-[900] text-zinc-900 leading-tight uppercase tracking-tight">
-            Most Popular Questions About Car Repair in Sharjah
+            {t.home.faq.title}
           </h2>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-0 items-start">
@@ -159,6 +240,7 @@ export default function FaqSection() {
                   faq={faq}
                   isOpen={openItems.includes(faq.id)}
                   toggle={() => toggle(faq.id)}
+                  isArabic={isArabic}
                 />
               ))}
           </div>
@@ -171,6 +253,7 @@ export default function FaqSection() {
                   faq={faq}
                   isOpen={openItems.includes(faq.id)}
                   toggle={() => toggle(faq.id)}
+                  isArabic={isArabic}
                 />
               ))}
           </div>
