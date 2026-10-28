@@ -14,7 +14,7 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
-  const { isArabic, setLanguage, t } = useLanguage();
+  const { isArabic, toggleLanguage, t } = useLanguage();
 
   const navLinks = [
     { label: t.nav.about, href: "/about-us" },
@@ -92,40 +92,17 @@ export default function Navbar() {
             <div className="hidden lg:flex items-center gap-4">
               <ExpandableSearchBar isScrolled={isScrolled} />
 
-              {/* Language Switcher Pill Toggle */}
-              <div
-                className="flex items-center bg-zinc-900/90 border border-white/20 rounded-full p-1 backdrop-blur-md shadow-md"
-                role="group"
-                aria-label="Language selection"
+              {/* Language Switcher Button (Shows only opposite language) */}
+              <button
+                type="button"
+                onClick={toggleLanguage}
+                className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/90 hover:bg-zinc-800 border border-white/20 hover:border-red-500/60 text-white text-xs font-bold transition-all duration-300 backdrop-blur-md shadow-md hover:scale-105 active:scale-95 cursor-pointer group"
+                title={isArabic ? "Switch to English" : "التبديل إلى العربية"}
+                aria-label={isArabic ? "Switch to English" : "التبديل إلى العربية"}
               >
-                <button
-                  type="button"
-                  onClick={() => setLanguage("en")}
-                  className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
-                    !isArabic
-                      ? "bg-red-600 text-white shadow-md shadow-red-600/40"
-                      : "text-zinc-400 hover:text-white"
-                  }`}
-                  aria-pressed={!isArabic}
-                  title="Switch to English"
-                >
-                  <Globe className="w-3.5 h-3.5" />
-                  <span>English</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setLanguage("ar")}
-                  className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
-                    isArabic
-                      ? "bg-red-600 text-white shadow-md shadow-red-600/40"
-                      : "text-zinc-400 hover:text-white"
-                  }`}
-                  aria-pressed={isArabic}
-                  title="التبديل إلى العربية"
-                >
-                  <span>العربية</span>
-                </button>
-              </div>
+                <Globe className="w-3.5 h-3.5 text-red-500 transition-transform duration-300 group-hover:rotate-45" />
+                <span className="tracking-wide">{isArabic ? "English" : "العربية"}</span>
+              </button>
 
               <button
                 onClick={() => router.push("/contact")}
@@ -135,43 +112,21 @@ export default function Navbar() {
               </button>
             </div>
 
-            {/* Mobile Actions: Search + Dual Lang Toggle + Hamburger Menu */}
+            {/* Mobile Actions: Search + Language Switcher + Hamburger Menu */}
             <div className="flex items-center gap-2 lg:hidden">
               <ExpandableSearchBar isScrolled={isScrolled} />
 
-              {/* Mobile Dual Language Switcher (Shows both languages side-by-side) */}
-              <div
-                className="flex items-center bg-zinc-900/90 border border-white/20 rounded-full p-0.5 backdrop-blur-md shadow-sm"
-                role="group"
-                aria-label="Language selection"
+              {/* Mobile Language Switcher (Shows only opposite language) */}
+              <button
+                type="button"
+                onClick={toggleLanguage}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-zinc-900/90 hover:bg-zinc-800 border border-white/20 text-white text-xs font-bold transition-all backdrop-blur-md shadow-sm active:scale-95 cursor-pointer"
+                title={isArabic ? "Switch to English" : "التبديل إلى العربية"}
+                aria-label={isArabic ? "Switch to English" : "التبديل إلى العربية"}
               >
-                <button
-                  type="button"
-                  onClick={() => setLanguage("en")}
-                  className={`px-2.5 py-1 rounded-full text-[11px] font-black transition-all cursor-pointer ${
-                    !isArabic
-                      ? "bg-red-600 text-white shadow-xs"
-                      : "text-zinc-400 hover:text-white"
-                  }`}
-                  aria-pressed={!isArabic}
-                  title="English"
-                >
-                  EN
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setLanguage("ar")}
-                  className={`px-2.5 py-1 rounded-full text-[11px] font-black transition-all cursor-pointer ${
-                    isArabic
-                      ? "bg-red-600 text-white shadow-xs"
-                      : "text-zinc-400 hover:text-white"
-                  }`}
-                  aria-pressed={isArabic}
-                  title="العربية"
-                >
-                  عربي
-                </button>
-              </div>
+                <Globe className="w-3.5 h-3.5 text-red-500" />
+                <span>{isArabic ? "EN" : "عربي"}</span>
+              </button>
 
               <button
                 className="text-white p-1.5 hover:bg-white/10 rounded-full transition-colors cursor-pointer"
@@ -213,31 +168,16 @@ export default function Navbar() {
               </button>
             </div>
 
-            {/* Language Switcher in Drawer */}
-            <div className="flex items-center justify-center bg-zinc-900 border border-white/15 rounded-full p-1.5 mb-6">
-              <button
-                type="button"
-                onClick={() => setLanguage("en")}
-                className={`flex-1 py-2 text-center rounded-full font-bold text-sm transition-all cursor-pointer ${
-                  !isArabic
-                    ? "bg-red-600 text-white shadow-md shadow-red-600/30"
-                    : "text-zinc-400 hover:text-white"
-                }`}
-              >
-                English
-              </button>
-              <button
-                type="button"
-                onClick={() => setLanguage("ar")}
-                className={`flex-1 py-2 text-center rounded-full font-bold text-sm transition-all cursor-pointer ${
-                  isArabic
-                    ? "bg-red-600 text-white shadow-md shadow-red-600/30"
-                    : "text-zinc-400 hover:text-white"
-                }`}
-              >
-                العربية
-              </button>
-            </div>
+            {/* Language Switcher in Drawer (Shows only opposite language) */}
+            <button
+              type="button"
+              onClick={toggleLanguage}
+              className="flex items-center justify-center gap-2.5 w-full py-3 px-4 bg-zinc-900 hover:bg-zinc-800 border border-white/20 rounded-full text-sm font-bold text-white transition-all shadow-md active:scale-95 cursor-pointer mb-6 group"
+              title={isArabic ? "Switch to English" : "التبديل إلى العربية"}
+            >
+              <Globe className="w-4 h-4 text-red-500 transition-transform duration-300 group-hover:rotate-45" />
+              <span>{isArabic ? "English" : "العربية"}</span>
+            </button>
 
             {/* Mobile Drawer Search Bar */}
             <div className="mb-6">

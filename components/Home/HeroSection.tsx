@@ -116,10 +116,10 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
         >
           <Link
             href="/services"
-            className="group btn-primary px-8 py-3.5 rounded-full text-sm font-bold tracking-wider uppercase inline-flex items-center gap-3 shadow-lg shadow-red-600/40 hover:scale-105 active:scale-95 transition-all cursor-pointer"
+            className="group px-8 py-3.5 rounded-full text-sm font-bold tracking-wider uppercase inline-flex items-center gap-3 bg-white hover:bg-zinc-100 text-red-600 shadow-xl shadow-black/40 hover:scale-105 active:scale-95 transition-all cursor-pointer"
           >
             <span>{t.home.hero.exploreMore}</span>
-            <span className="w-7 h-7 rounded-full bg-white text-red-600 flex items-center justify-center transition-transform group-hover:scale-110 shadow-sm">
+            <span className="w-7 h-7 rounded-full bg-red-50 text-red-600 flex items-center justify-center transition-transform group-hover:scale-110 shadow-sm">
               <ArrowIcon className="w-4 h-4 stroke-[2.5]" />
             </span>
           </Link>
@@ -135,7 +135,7 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
           {/* Circular Play / Pause Button with Pulsing Halo */}
           <div className="relative group inline-flex items-center ml-1">
             {!isPlayingVideo && (
-              <span className="absolute inset-0 rounded-full bg-red-600/35 animate-ping duration-1000 pointer-events-none" />
+              <span className="absolute inset-0 rounded-full bg-white/40 animate-ping duration-1000 pointer-events-none" />
             )}
             <button
               type="button"
@@ -150,12 +150,12 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
                   ? t.home.hero.videoPauseHint
                   : t.home.hero.videoPlayHint
               }
-              className="relative w-12 h-12 rounded-full bg-red-600 hover:bg-red-700 border-2 border-white/50 flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 shadow-[0_0_25px_rgba(220,38,38,0.5)] focus:outline-none"
+              className="relative w-12 h-12 rounded-full bg-white hover:bg-zinc-100 border-2 border-white flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 shadow-[0_0_25px_rgba(255,255,255,0.4)] focus:outline-none"
             >
               {isPlayingVideo ? (
-                <Pause className="w-5 h-5 text-white fill-white" />
+                <Pause className="w-5 h-5 text-red-600 fill-red-600" />
               ) : (
-                <Play className="w-5 h-5 text-white fill-white ml-0.5" />
+                <Play className="w-5 h-5 text-red-600 fill-red-600 ml-0.5" />
               )}
             </button>
           </div>
