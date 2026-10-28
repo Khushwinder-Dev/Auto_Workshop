@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -35,20 +35,50 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
     },
   ];
 
+  // Mobile WebKit (iOS Safari) requires muted DOM property to be set explicitly
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.muted = true;
+      videoRef.current.defaultMuted = true;
+    }
+  }, []);
+
   // Play toggles video mode; Pause returns to image mode
-  const handleToggleVideo = () => {
+  const handleToggleVideo = (e?: React.MouseEvent | React.TouchEvent) => {
+    if (e) {
+      e.stopPropagation();
+    }
+    const video = videoRef.current;
+    if (!video) return;
+
     if (!isPlayingVideo) {
-      setIsPlayingVideo(true);
-      if (videoRef.current) {
-        videoRef.current.currentTime = 0;
-        videoRef.current
-          .play()
-          .catch((err) => console.log("Video playback error:", err));
+      // Must be muted for iOS and Android mobile autoplay/inline play policies
+      video.muted = true;
+      video.defaultMuted = true;
+      video.currentTime = 0;
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            setIsPlayingVideo(true);
+          })
+          .catch((err) => {
+            console.warn("Mobile video playback attempt error:", err);
+            // Fallback retry with explicit muted attribute
+            video.muted = true;
+            video
+              .play()
+              .then(() => setIsPlayingVideo(true))
+              .catch((retryErr) => {
+                console.error("Video play retry failed:", retryErr);
+                setIsPlayingVideo(false);
+              });
+          });
+      } else {
+        setIsPlayingVideo(true);
       }
     } else {
-      if (videoRef.current) {
-        videoRef.current.pause();
-      }
+      video.pause();
       setIsPlayingVideo(false);
     }
   };
@@ -56,7 +86,7 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
   const ArrowIcon = isArabic ? ArrowLeft : ArrowRight;
 
   return (
-    <section className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden">
+    <section className="relative min-h-[660px] h-screen h-[100dvh] w-full flex flex-col items-center justify-center overflow-hidden">
       {/* 1. Background Image Banner */}
       <div
         className={`absolute inset-0 transition-opacity duration-700 ease-in-out z-0 ${isPlayingVideo
@@ -84,13 +114,15 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
           ref={videoRef}
           src="/videos/mercedes-engine-rebuild.mp4"
           loop
+          muted
           playsInline
+          preload="auto"
           className="w-full h-full object-cover"
         />
       </div>
 
       {/* 3. Center Hero Typography & CTAs */}
-      <div className="relative z-20 text-center px-4 mb-20 max-w-[1000px]">
+      <div className="relative z-30 text-center px-4 mb-28 md:mb-20 max-w-[1000px]">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -112,11 +144,11 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
-          className="mt-8 flex flex-wrap items-center justify-center gap-4"
+          className="mt-6 md:mt-8 flex flex-wrap items-center justify-center gap-3 md:gap-4 relative z-40"
         >
           <Link
             href="/services"
-            className="group px-8 py-3.5 rounded-full text-sm font-bold tracking-wider uppercase inline-flex items-center gap-3 bg-white hover:bg-zinc-100 text-red-600 shadow-xl shadow-black/40 hover:scale-105 active:scale-95 transition-all cursor-pointer"
+            className="group px-7 md:px-8 py-3.5 rounded-full text-sm font-bold tracking-wider uppercase inline-flex items-center gap-3 bg-white hover:bg-zinc-100 text-red-600 shadow-xl shadow-black/40 hover:scale-105 active:scale-95 transition-all cursor-pointer touch-manipulation"
           >
             <span>{t.home.hero.exploreMore}</span>
             <span className="w-7 h-7 rounded-full bg-red-50 text-red-600 flex items-center justify-center transition-transform group-hover:scale-110 shadow-sm">
@@ -126,14 +158,14 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
 
           <Link
             href="/booking"
-            className="px-8 py-3.5 rounded-full text-sm font-bold tracking-wider uppercase inline-flex items-center gap-2.5 bg-black/50 hover:bg-black/80 text-white border border-white/20 hover:border-white/50 backdrop-blur-md transition-all hover:scale-105 active:scale-95 cursor-pointer"
+            className="px-7 md:px-8 py-3.5 rounded-full text-sm font-bold tracking-wider uppercase inline-flex items-center gap-2.5 bg-black/50 hover:bg-black/80 text-white border border-white/20 hover:border-white/50 backdrop-blur-md transition-all hover:scale-105 active:scale-95 cursor-pointer touch-manipulation"
           >
             <Calendar className="w-4 h-4 text-red-500" />
             <span>{t.home.hero.bookService}</span>
           </Link>
 
           {/* Circular Play / Pause Button with Pulsing Halo */}
-          <div className="relative group inline-flex items-center ml-1">
+          <div className="relative group inline-flex items-center ml-1 z-50">
             {!isPlayingVideo && (
               <span className="absolute inset-0 rounded-full bg-white/40 animate-ping duration-1000 pointer-events-none" />
             )}
@@ -150,7 +182,7 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
                   ? t.home.hero.videoPauseHint
                   : t.home.hero.videoPlayHint
               }
-              className="relative w-12 h-12 rounded-full bg-white hover:bg-zinc-100 border-2 border-white flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 shadow-[0_0_25px_rgba(255,255,255,0.4)] focus:outline-none"
+              className="relative z-10 w-12 h-12 rounded-full bg-white hover:bg-zinc-100 active:scale-95 border-2 border-white flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 shadow-[0_0_25px_rgba(255,255,255,0.4)] focus:outline-none touch-manipulation select-none"
             >
               {isPlayingVideo ? (
                 <Pause className="w-5 h-5 text-red-600 fill-red-600" />
@@ -163,8 +195,8 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
       </div>
 
       {/* 5. Glassmorphic Stats Section */}
-      <div className="absolute bottom-16 left-1/2 -translate-x-1/2 w-full max-w-[1200px] px-6 z-30">
-        <div className="hero-stats-glass rounded-xl md:rounded-2xl grid grid-cols-2 lg:grid-cols-4 overflow-hidden border border-white/10 bg-[#0006]">
+      <div className="absolute bottom-10 md:bottom-16 left-1/2 -translate-x-1/2 w-full max-w-[1200px] px-6 z-20 pointer-events-none">
+        <div className="hero-stats-glass pointer-events-auto rounded-xl md:rounded-2xl grid grid-cols-2 lg:grid-cols-4 overflow-hidden border border-white/10 bg-[#0006]">
           {stats.map((stat, idx) => (
             <div
               key={idx}
