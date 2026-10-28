@@ -101,7 +101,7 @@ export default function Navbar() {
                 <button
                   type="button"
                   onClick={() => setLanguage("en")}
-                  className={`px-3 py-1.5 rounded-full text-xs font-black transition-all cursor-pointer flex items-center gap-1 ${
+                  className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
                     !isArabic
                       ? "bg-red-600 text-white shadow-md shadow-red-600/40"
                       : "text-zinc-400 hover:text-white"
@@ -110,12 +110,12 @@ export default function Navbar() {
                   title="Switch to English"
                 >
                   <Globe className="w-3.5 h-3.5" />
-                  <span>EN</span>
+                  <span>English</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => setLanguage("ar")}
-                  className={`px-3 py-1.5 rounded-full text-xs font-black transition-all cursor-pointer ${
+                  className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
                     isArabic
                       ? "bg-red-600 text-white shadow-md shadow-red-600/40"
                       : "text-zinc-400 hover:text-white"
@@ -123,7 +123,7 @@ export default function Navbar() {
                   aria-pressed={isArabic}
                   title="التبديل إلى العربية"
                 >
-                  <span>عربي</span>
+                  <span>العربية</span>
                 </button>
               </div>
 
@@ -135,28 +135,50 @@ export default function Navbar() {
               </button>
             </div>
 
-            {/* Mobile Actions: Search + Lang Toggle + Hamburger Menu */}
+            {/* Mobile Actions: Search + Dual Lang Toggle + Hamburger Menu */}
             <div className="flex items-center gap-2 lg:hidden">
-              {/* Quick Mobile Language Switcher */}
-              <button
-                type="button"
-                onClick={() => setLanguage(isArabic ? "en" : "ar")}
-                className="px-2.5 py-1.5 rounded-full bg-white/10 border border-white/20 text-white text-xs font-bold hover:bg-red-600 transition-colors flex items-center gap-1"
-                title={isArabic ? "Switch to English" : "التبديل إلى العربية"}
-                aria-label="Toggle language"
-              >
-                <Globe className="w-3.5 h-3.5 text-red-500" />
-                <span>{isArabic ? "EN" : "عربي"}</span>
-              </button>
-
               <ExpandableSearchBar isScrolled={isScrolled} />
+
+              {/* Mobile Dual Language Switcher (Shows both languages side-by-side) */}
+              <div
+                className="flex items-center bg-zinc-900/90 border border-white/20 rounded-full p-0.5 backdrop-blur-md shadow-sm"
+                role="group"
+                aria-label="Language selection"
+              >
+                <button
+                  type="button"
+                  onClick={() => setLanguage("en")}
+                  className={`px-2.5 py-1 rounded-full text-[11px] font-black transition-all cursor-pointer ${
+                    !isArabic
+                      ? "bg-red-600 text-white shadow-xs"
+                      : "text-zinc-400 hover:text-white"
+                  }`}
+                  aria-pressed={!isArabic}
+                  title="English"
+                >
+                  EN
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setLanguage("ar")}
+                  className={`px-2.5 py-1 rounded-full text-[11px] font-black transition-all cursor-pointer ${
+                    isArabic
+                      ? "bg-red-600 text-white shadow-xs"
+                      : "text-zinc-400 hover:text-white"
+                  }`}
+                  aria-pressed={isArabic}
+                  title="العربية"
+                >
+                  عربي
+                </button>
+              </div>
 
               <button
                 className="text-white p-1.5 hover:bg-white/10 rounded-full transition-colors cursor-pointer"
                 onClick={() => setMobileMenuOpen(true)}
                 aria-label="Open Navigation Menu"
               >
-                <Menu size={28} />
+                <Menu size={26} />
               </button>
             </div>
           </div>

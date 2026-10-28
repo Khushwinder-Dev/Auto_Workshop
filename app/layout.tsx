@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Barlow_Condensed } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import NewsletterSection from "@/components/Common/NewsletterSection";
 import Footer from "@/components/Common/Footer";
 import FloatingChatWidget from "@/components/Common/FloatingChatWidget";
 import { Toaster } from "react-hot-toast";
@@ -85,6 +86,7 @@ export default function RootLayout({
           <main className="min-h-screen">
             {children}
           </main>
+          <NewsletterSection />
           <Footer />
 
           <FloatingChatWidget />

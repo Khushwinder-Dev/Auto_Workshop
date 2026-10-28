@@ -779,20 +779,17 @@ export default function ExpandableSearchBar({
                   handleExpand();
                 }
               }}
-              className={`${iconColor} ${hoverIconColor} p-2 transition-all cursor-pointer hover:bg-white/10 rounded-full flex items-center gap-1.5`}
+              className="p-1 transition-all cursor-pointer hover:bg-white/10 rounded-full flex items-center justify-center"
               aria-label={isExpanded ? "Close search" : "Open search"}
               title="Search (Ctrl + K)"
             >
               {isExpanded ? (
-                <X className="h-5 w-5 stroke-2" />
+                <div className="w-9 h-9 rounded-full bg-zinc-800 hover:bg-zinc-700 text-white flex items-center justify-center transition-transform hover:scale-105">
+                  <X className="h-4 w-4 stroke-2" />
+                </div>
               ) : (
-                <div className="flex items-center gap-2">
-                  <div className="w-9 h-9 rounded-full bg-red-600 hover:bg-red-700 text-white flex items-center justify-center transition-transform hover:scale-105 shadow-md shadow-red-600/30">
-                    <Search className="h-4 w-4 stroke-[2.5]" />
-                  </div>
-                  <span className="hidden xl:inline-block text-xs uppercase tracking-wider text-zinc-300 font-bold">
-                    {isAr ? "بحث" : "Search"}
-                  </span>
+                <div className="w-9 h-9 rounded-full bg-red-600 hover:bg-red-700 text-white flex items-center justify-center transition-transform hover:scale-105 shadow-md shadow-red-600/30">
+                  <Search className="h-4 w-4 stroke-[2.5]" />
                 </div>
               )}
             </button>

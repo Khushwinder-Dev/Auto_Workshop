@@ -1,33 +1,15 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronRight, ChevronLeft, MapPin, Phone, Mail, Send, CheckCircle2, Sparkles } from "lucide-react";
-import toast from "react-hot-toast";
+import { ChevronRight, ChevronLeft, MapPin, Phone, Mail } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
+export { default as NewsletterSection } from "./NewsletterSection";
+
 export default function Footer() {
-  const [email, setEmail] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubscribed, setIsSubscribed] = useState(false);
   const { isArabic, t } = useLanguage();
-
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email || !email.includes("@")) {
-      toast.error(t.footer.newsletterInvalidToast);
-      return;
-    }
-
-    setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSubscribed(true);
-      toast.success(t.footer.newsletterSuccessToast);
-      setEmail("");
-    }, 700);
-  };
 
   const ArrowIcon = isArabic ? ChevronLeft : ChevronRight;
 
@@ -46,60 +28,6 @@ export default function Footer() {
   return (
     <footer className="bg-[#0a0a0a] text-gray-300 pt-16 pb-8 px-4 font-sans border-t border-zinc-800/80">
       <div className="max-w-7xl mx-auto">
-        {/* ============================================================
-            NEWSLETTER SUBSCRIPTION FORM BANNER
-            ============================================================ */}
-        <div className="mb-16 p-8 sm:p-10 rounded-3xl bg-gradient-to-r from-zinc-900 via-zinc-900/90 to-zinc-950 border border-zinc-800 shadow-2xl relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-80 h-80 bg-red-600/10 rounded-full blur-3xl pointer-events-none" />
-
-          <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8">
-            <div className="max-w-xl text-center lg:text-start space-y-2">
-              <div className="inline-flex items-center gap-2 text-xs font-bold text-red-500 uppercase tracking-widest bg-red-950/60 border border-red-800/40 px-3 py-1 rounded-full mb-1">
-                <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-                <span>{t.footer.newsletterBadge}</span>
-              </div>
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-white font-display uppercase tracking-tight">
-                {t.footer.newsletterTitle}
-              </h3>
-              <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
-                {t.footer.newsletterDesc}
-              </p>
-            </div>
-
-            {/* Form */}
-            <div className="w-full lg:max-w-md">
-              {isSubscribed ? (
-                <div className="flex items-center gap-3 bg-emerald-950/60 border border-emerald-800 p-4 rounded-2xl text-emerald-400 text-sm font-bold">
-                  <CheckCircle2 className="w-5 h-5 shrink-0" />
-                  <span>{t.footer.newsletterSuccessBanner}</span>
-                </div>
-              ) : (
-                <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3">
-                  <div className="relative flex-1">
-                    <Mail className={`w-4 h-4 text-zinc-500 absolute top-1/2 -translate-y-1/2 ${isArabic ? "right-4" : "left-4"}`} />
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder={t.footer.newsletterPlaceholder}
-                      required
-                      className={`w-full bg-zinc-950 border border-zinc-700 focus:border-red-600 focus:ring-2 focus:ring-red-600/20 text-white placeholder-zinc-500 rounded-full py-3.5 text-xs sm:text-sm outline-none transition-all ${isArabic ? "pr-11 pl-4" : "pl-11 pr-4"}`}
-                    />
-                  </div>
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="px-7 py-3.5 rounded-full bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm font-bold uppercase tracking-wider transition-all shadow-md shadow-red-600/30 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70 shrink-0 hover:scale-105 active:scale-95"
-                  >
-                    <span>{isSubmitting ? t.footer.newsletterSubscribing : t.footer.newsletterBtn}</span>
-                    <Send className={`w-3.5 h-3.5 ${isArabic ? "rotate-180" : ""}`} />
-                  </button>
-                </form>
-              )}
-            </div>
-          </div>
-        </div>
-
         {/* ============================================================
             MAIN 4-COLUMN FOOTER LINKS
             ============================================================ */}
