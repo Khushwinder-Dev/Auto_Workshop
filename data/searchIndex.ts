@@ -1,5 +1,12 @@
 import { WORKSHOP_SERVICES, CAR_BRANDS, WORKSHOP_VIDEOS, WORKSHOP_FAQS } from "./workshopData";
 import { BLOG_POSTS } from "./blogs";
+import {
+  SERVICE_KEYWORDS,
+  BRAND_KEYWORDS,
+  PAGE_SPECIFIC_KEYWORDS,
+  CORE_LOCATION_KEYWORDS,
+  ARABIC_SEO_KEYWORDS,
+} from "./seoKeywords";
 
 export interface SearchResultItem {
   id: string;
@@ -68,38 +75,50 @@ const serviceSearchItems: SearchResultItem[] = WORKSHOP_SERVICES.map((s) => ({
     "auto",
     ...s.features,
     s.warranty || "",
+    ...(SERVICE_KEYWORDS[s.id] || []),
+    ...CORE_LOCATION_KEYWORDS.slice(0, 5),
   ].filter(Boolean),
 }));
 
 /* ─── DYNAMICALLY GENERATED CAR BRANDS ───────────────────────────── */
-const brandSearchItems: SearchResultItem[] = CAR_BRANDS.map((b, idx) => ({
-  id: `brand-${idx}-${b.name.toLowerCase().replace(/[^a-z0-9]/g, "-")}`,
-  name: `${b.name} Specialist Service`,
-  nameAr: `صيانة وإصلاح سيارات ${b.name}`,
-  category: "Brand",
-  categoryAr: "ماركة",
-  href: "/brands",
-  desc: `${b.category} — ${b.specialty}`,
-  descAr: `خدمات مخصصة لسيارات ${b.name}: ${b.specialty}`,
-  keywords: [
-    b.name,
-    b.category,
-    b.specialty,
-    "car brand",
-    "luxury repair",
-    "german car",
-    "japanese car",
-    "american car",
-    "مرسيدس",
-    "بي ام",
-    "تويوتا",
-    "نيسان",
-    "لكزس",
-    "اودي",
-    "بورشه",
-    "سيارات",
-  ],
-}));
+const brandSearchItems: SearchResultItem[] = CAR_BRANDS.map((b, idx) => {
+  const brandKey = b.name.toLowerCase().replace(/[^a-z]/g, "");
+  const matchedBrandKeywords =
+    BRAND_KEYWORDS[brandKey] ||
+    Object.entries(BRAND_KEYWORDS).find(([k]) => brandKey.includes(k))?.[1] ||
+    [];
+
+  return {
+    id: `brand-${idx}-${b.name.toLowerCase().replace(/[^a-z0-9]/g, "-")}`,
+    name: `${b.name} Specialist Service`,
+    nameAr: `صيانة وإصلاح سيارات ${b.name}`,
+    category: "Brand",
+    categoryAr: "ماركة",
+    href: "/brands",
+    desc: `${b.category} — ${b.specialty}`,
+    descAr: `خدمات مخصصة لسيارات ${b.name}: ${b.specialty}`,
+    keywords: [
+      b.name,
+      b.category,
+      b.specialty,
+      "car brand",
+      "luxury repair",
+      "german car",
+      "japanese car",
+      "american car",
+      "مرسيدس",
+      "بي ام",
+      "تويوتا",
+      "نيسان",
+      "لكزس",
+      "اودي",
+      "بورشه",
+      "سيارات",
+      ...matchedBrandKeywords,
+      ...BRAND_KEYWORDS.general,
+    ],
+  };
+});
 
 /* ─── DYNAMICALLY GENERATED BLOG POSTS ───────────────────────────── */
 const blogSearchItems: SearchResultItem[] = BLOG_POSTS.map((p) => ({
@@ -122,6 +141,7 @@ const blogSearchItems: SearchResultItem[] = BLOG_POSTS.map((p) => ({
     "sharjah heat",
     "مقالات",
     "نصائح صيانة",
+    ...PAGE_SPECIFIC_KEYWORDS.blogs,
   ],
 }));
 
@@ -183,7 +203,18 @@ const corePageSearchItems: SearchResultItem[] = [
     href: "/",
     desc: "Leading car repair & maintenance workshop in Sharjah Industrial Area 5. Professional diagnostics, oil change, brakes, and AC repair.",
     descAr: "أفضل ورشة لصيانة وتصليح السيارات في الشارقة المنطقة الصناعية 5. فحص كمبيوتر، غيار زيت، مكيف، وفرامل.",
-    keywords: ["home", "babalbustan", "workshop", "sharjah", "auto garage", "الرئيسية", "كراج", "كراج الشارقة"],
+    keywords: [
+      "home",
+      "babalbustan",
+      "workshop",
+      "sharjah",
+      "auto garage",
+      "الرئيسية",
+      "كراج",
+      "كراج الشارقة",
+      ...CORE_LOCATION_KEYWORDS,
+      ...ARABIC_SEO_KEYWORDS,
+    ],
   },
   {
     id: "page-services",
@@ -194,7 +225,16 @@ const corePageSearchItems: SearchResultItem[] = [
     href: "/services",
     desc: "Comprehensive automotive services: ECU diagnostics, oil change, brake overhaul, AC servicing, suspension repairs, and tires.",
     descAr: "قائمة شاملة بجميع خدمات صيانة السيارات الميكانيكية والكهربائية وفحص الكمبيوتر والتكييف.",
-    keywords: ["services", "all services", "mechanical", "electrical", "car repair", "خدمات صيانة", "تصليح"],
+    keywords: [
+      "services",
+      "all services",
+      "mechanical",
+      "electrical",
+      "car repair",
+      "خدمات صيانة",
+      "تصليح",
+      ...CORE_LOCATION_KEYWORDS.slice(0, 15),
+    ],
   },
   {
     id: "page-booking",
@@ -205,7 +245,15 @@ const corePageSearchItems: SearchResultItem[] = [
     href: "/booking",
     desc: "Schedule your car repair or maintenance appointment online. Priority bay booking, transparent quote, and expert advice.",
     descAr: "احجز موعد صيانة سيارتك أونلاين بسهولة مع أولوية الفحص وتقديم عرض أسعار شفاف.",
-    keywords: ["book appointment", "schedule service", "reservation", "car service booking", "حجز موعد", "موعد صيانة"],
+    keywords: [
+      "book appointment",
+      "schedule service",
+      "reservation",
+      "car service booking",
+      "حجز موعد",
+      "موعد صيانة",
+      ...PAGE_SPECIFIC_KEYWORDS.booking,
+    ],
   },
   {
     id: "page-about",
@@ -216,7 +264,16 @@ const corePageSearchItems: SearchResultItem[] = [
     href: "/about-us",
     desc: "Over 15+ years of automotive excellence in Sharjah. Certified mechanics, genuine spare parts, and computerized testing.",
     descAr: "أكثر من 15 عاماً من الخبرة في صيانة السيارات في الشارقة، فنيون معتمدون وقطع غيار أصلية.",
-    keywords: ["about", "about us", "who we are", "experience", "workshop team", "من نحن", "عن الورشة"],
+    keywords: [
+      "about",
+      "about us",
+      "who we are",
+      "experience",
+      "workshop team",
+      "من نحن",
+      "عن الورشة",
+      ...PAGE_SPECIFIC_KEYWORDS.about,
+    ],
   },
   {
     id: "page-brands",
@@ -227,7 +284,15 @@ const corePageSearchItems: SearchResultItem[] = [
     href: "/brands",
     desc: "Expert service for German & Luxury (Mercedes, BMW, Audi, Porsche), Japanese (Toyota, Lexus, Nissan), and American vehicles.",
     descAr: "صيانة متخصصة للسيارات الألمانية واليابانية والأمريكية مع أحدث أجهزة الفحص المعتمدة.",
-    keywords: ["brands", "car makes", "german cars", "japanese cars", "luxury car repair", "ماركات السيارات"],
+    keywords: [
+      "brands",
+      "car makes",
+      "german cars",
+      "japanese cars",
+      "luxury car repair",
+      "ماركات السيارات",
+      ...BRAND_KEYWORDS.general,
+    ],
   },
   {
     id: "page-gallery",
@@ -238,7 +303,15 @@ const corePageSearchItems: SearchResultItem[] = [
     href: "/gallery",
     desc: "Watch our master technicians rebuild engines, repair AC systems, skim brake rotors, and test hybrid vehicles.",
     descAr: "شاهد أعمال الورشة الحقيقية: توضيب المحركات، تصليح المكيف، خرط الدسكات، وصيانة الهايبرد.",
-    keywords: ["gallery", "videos", "workshop photos", "engine rebuild video", "معرض الصور", "فيديوهات الصيانة"],
+    keywords: [
+      "gallery",
+      "videos",
+      "workshop photos",
+      "engine rebuild video",
+      "معرض الصور",
+      "فيديوهات الصيانة",
+      ...PAGE_SPECIFIC_KEYWORDS.gallery,
+    ],
   },
   {
     id: "page-blogs",
@@ -249,7 +322,15 @@ const corePageSearchItems: SearchResultItem[] = [
     href: "/blogs",
     desc: "Essential advice for driving in UAE heat: AC maintenance, oil selection, brake checks, and battery longevity.",
     descAr: "دليلك الشامل للحفاظ على سيارتك في حرارة الإمارات: صيانة المكيف، اختيار الزيت، والفرامل.",
-    keywords: ["blogs", "articles", "car tips", "heat protection", "مدونة", "نصائح"],
+    keywords: [
+      "blogs",
+      "articles",
+      "car tips",
+      "heat protection",
+      "مدونة",
+      "نصائح",
+      ...PAGE_SPECIFIC_KEYWORDS.blogs,
+    ],
   },
   {
     id: "page-contact",
@@ -260,7 +341,17 @@ const corePageSearchItems: SearchResultItem[] = [
     href: "/contact",
     desc: "Visit our workshop in Industrial Area 5, Sharjah. Call +971 56 440 6456 or WhatsApp us for instant directions.",
     descAr: "تفضل بزيارتنا في المنطقة الصناعية رقم 5، الشارقة. اتصل بنا أو تواصل عبر واتساب للحصول على الموقع.",
-    keywords: ["contact", "location", "phone", "whatsapp", "industrial area 5", "sharjah address", "اتصل بنا", "موقعنا"],
+    keywords: [
+      "contact",
+      "location",
+      "phone",
+      "whatsapp",
+      "industrial area 5",
+      "sharjah address",
+      "اتصل بنا",
+      "موقعنا",
+      ...PAGE_SPECIFIC_KEYWORDS.contact,
+    ],
   },
   {
     id: "page-faqs",
@@ -271,7 +362,15 @@ const corePageSearchItems: SearchResultItem[] = [
     href: "/faqs",
     desc: "Clear answers on repair warranties, diagnostics cost, service durations, and payment methods.",
     descAr: "إجابات واضحة حول الضمان، تكلفة الفحص، وقت الصيانة، وحجز المواعيد.",
-    keywords: ["faq", "questions", "warranty information", "pricing questions", "الأسئلة الشائعة"],
+    keywords: [
+      "faq",
+      "questions",
+      "warranty information",
+      "pricing questions",
+      "الأسئلة الشائعة",
+      "car repair warranty sharjah",
+      "workshop estimate sharjah",
+    ],
   },
 ];
 

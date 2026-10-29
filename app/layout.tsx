@@ -8,6 +8,7 @@ import FloatingChatWidget from "@/components/Common/FloatingChatWidget";
 import { Toaster } from "react-hot-toast";
 import AosInit from "@/components/AosInit";
 import { LanguageProvider } from "@/context/LanguageContext";
+import { ALL_CLIENT_KEYWORDS, WORKSHOP_SCHEMA } from "@/data/seoKeywords";
 
 const inter = Inter({
   variable: "--font-main",
@@ -24,27 +25,62 @@ const barlowCondensed = Barlow_Condensed({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://babalbustan.ae"),
-  title: "Best Car Workshop in Sharjah | Bab Al Bustan Auto Maintenance",
+  title: {
+    default: "Bab Al Bustan Auto Maintenance | Best Car Workshop in Sharjah",
+    template: "%s | Bab Al Bustan Auto Maintenance Sharjah",
+  },
   description:
-    "Professional auto repair & car maintenance in Sharjah Industrial Area 5. We specialize in oil changes, brake repair, AC service, and computer diagnostics.",
-  keywords: [
-    "car maintenance Sharjah",
-    "auto repair Sharjah",
-    "car workshop Sharjah",
-    "car AC repair Sharjah",
-    "oil change Sharjah",
-    "brake repair Sharjah",
-    "Bab Al Bustan auto workshop"
-  ],
+    "Professional car repair, auto maintenance, computerized diagnostics, car AC repair, brake service, and synthetic oil change in Sharjah Industrial Area 5. Multi-brand German, Japanese & American vehicle specialists.",
+  keywords: ALL_CLIENT_KEYWORDS,
+  authors: [{ name: "Bab Al Bustan Auto Maintenance Workshop" }],
+  creator: "Bab Al Bustan Auto Maintenance",
+  publisher: "Bab Al Bustan Auto Maintenance Workshop",
+  formatDetection: {
+    email: false,
+    address: true,
+    telephone: true,
+  },
+  alternates: {
+    canonical: "https://babalbustan.ae",
+  },
   icons: {
     icon: "/images/logo.png",
     apple: "/images/logo.png",
   },
   openGraph: {
-    title: "Best Car Workshop in Sharjah | Bab Al Bustan Auto Maintenance",
+    title: "Bab Al Bustan Auto Maintenance | Best Car Workshop in Sharjah",
     description:
-      "Professional auto repair & car maintenance in Sharjah Industrial Area 5. We specialize in oil changes, brake repair, AC service, and computer diagnostics.",
+      "Premier car repair and maintenance workshop in Sharjah Industrial Area 5. Expert diagnostics, brake service, car AC repair, oil change, and full vehicle inspection.",
+    url: "https://babalbustan.ae",
+    siteName: "Bab Al Bustan Auto Maintenance Workshop",
+    locale: "en_AE",
+    type: "website",
+    images: [
+      {
+        url: "/images/logo.png",
+        width: 800,
+        height: 600,
+        alt: "Bab Al Bustan Auto Maintenance Workshop Sharjah",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Bab Al Bustan Auto Maintenance | Car Repair Sharjah",
+    description:
+      "Leading car workshop in Sharjah Industrial Area 5. Computer diagnostics, AC repair, brake service, and oil changes for German, Japanese & American vehicles.",
     images: ["/images/logo.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 
@@ -58,6 +94,10 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/images/logo.png" sizes="any" />
         <link rel="apple-touch-icon" href="/images/logo.png" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(WORKSHOP_SCHEMA) }}
+        />
       </head>
       <body className="antialiased bg-white text-zinc-900 font-sans selection:bg-red-600 selection:text-white">
         <LanguageProvider>

@@ -1,4 +1,5 @@
 import React from "react";
+import type { Metadata } from "next";
 import HeroSection from "@/components/Home/HeroSection";
 import ServicesSection from "@/components/Home/ServicesSection";
 import FeatureSection from "@/components/Home/FeatureSection";
@@ -12,6 +13,33 @@ import FaqSection from "@/components/Home/FaqSection";
 import StatsSection from "@/components/Home/StatsSection";
 import LatestInsightsSection from "@/components/Home/LatestInsightsSection";
 import FourStepProcessSection from "@/components/Home/FourStepProcessSection";
+
+export const metadata: Metadata = {
+  title: "Car Repair Sharjah | Best Car Garage Sharjah Industrial Area 5 | Bab Al Bustan",
+  description:
+    "Looking for the best car workshop in Sharjah? Bab Al Bustan Auto Maintenance in Industrial Area 5 offers professional auto repair, engine diagnostics, car AC service, brake repair, oil changes, and multi-brand car maintenance.",
+  keywords: [
+    "car repair Sharjah",
+    "car garage Sharjah Industrial Area 5",
+    "car maintenance Sharjah",
+    "auto repair Sharjah",
+    "best car workshop in Sharjah",
+    "car mechanic Sharjah",
+    "car service Sharjah",
+    "full car service Sharjah",
+    "car mechanic near me",
+    "car garage near me",
+    "car workshop near me Sharjah",
+    "auto repair workshop Sharjah UAE",
+    "car service UAE",
+    "صيانة سيارات الشارقة",
+    "كراج سيارات الشارقة",
+    "إصلاح سيارات الشارقة",
+  ],
+  alternates: {
+    canonical: "https://babalbustan.ae",
+  },
+};
 
 export default function Home() {
   return (
