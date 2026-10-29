@@ -112,13 +112,14 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
       >
         <video
           ref={videoRef}
-          src="/videos/mercedes-engine-rebuild.mp4"
+          src="/videos/ToyotaEngine.mp4"
           loop
           muted
           playsInline
           preload="auto"
           className="w-full h-full object-cover"
         />
+        <div className="absolute inset-0 bg-black/40 pointer-events-none" />
       </div>
 
       {/* 3. Center Hero Typography & CTAs */}
