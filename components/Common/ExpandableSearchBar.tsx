@@ -16,22 +16,19 @@ import {
   Car,
   Disc,
   Fan,
+  Code,
   FileText,
   Video,
   HelpCircle,
   Sparkles,
-  Bot,
   Send,
   MessageCircle,
-  Camera,
-  UploadCloud,
+  Calendar,
+  PhoneCall,
   CheckCircle2,
-  AlertCircle,
-  Loader2,
-  RefreshCw,
-  Image as ImageIcon,
 } from "lucide-react";
 import { SITE_SEARCH_INDEX, SearchResultItem } from "@/data/searchIndex";
+import { getWorkshopServices, WORKSHOP_INFO } from "@/data/workshopData";
 import { useLanguage } from "@/context/LanguageContext";
 import toast from "react-hot-toast";
 import { createPortal } from "react-dom";
@@ -83,24 +80,92 @@ interface ExpandableSearchBarProps {
 }
 
 const CATEGORY_COLORS: Record<string, { bg: string; text: string; border: string }> = {
-  Service: { bg: "bg-red-50", text: "text-red-600", border: "border-red-200" },
-  Brand: { bg: "bg-amber-50", text: "text-amber-700", border: "border-amber-200" },
-  Blog: { bg: "bg-blue-50", text: "text-blue-700", border: "border-blue-200" },
-  Video: { bg: "bg-purple-50", text: "text-purple-700", border: "border-purple-200" },
-  FAQ: { bg: "bg-emerald-50", text: "text-emerald-700", border: "border-emerald-200" },
-  Page: { bg: "bg-zinc-100", text: "text-zinc-700", border: "border-zinc-200" },
+  Service: { bg: "bg-red-950/80", text: "text-red-400", border: "border-red-800/60" },
+  Brand: { bg: "bg-amber-950/80", text: "text-amber-400", border: "border-amber-800/60" },
+  Blog: { bg: "bg-blue-950/80", text: "text-blue-400", border: "border-blue-800/60" },
+  Video: { bg: "bg-purple-950/80", text: "text-purple-400", border: "border-purple-800/60" },
+  FAQ: { bg: "bg-emerald-950/80", text: "text-emerald-400", border: "border-emerald-800/60" },
+  Page: { bg: "bg-zinc-800", text: "text-zinc-300", border: "border-zinc-700" },
 };
 
 type FilterCategory = "all" | "services" | "brands" | "blogs" | "videos" | "faqs";
 
 const FILTER_TABS: { key: FilterCategory; labelEn: string; labelAr: string }[] = [
   { key: "all", labelEn: "All", labelAr: "الكل" },
-  { key: "services", labelEn: "Services", labelAr: "الخدمات" },
+  { key: "services", labelEn: "Services (8)", labelAr: "الخدمات (8)" },
   { key: "brands", labelEn: "Brands", labelAr: "الماركات" },
-  { key: "blogs", labelEn: "Blogs & Tips", labelAr: "نصائح ومقالات" },
+  { key: "blogs", labelEn: "Guides & Tips", labelAr: "نصائح وإرشادات" },
   { key: "videos", labelEn: "Videos", labelAr: "الفيديوهات" },
-  { key: "faqs", labelEn: "FAQs", labelAr: "الأسئلة" },
+  { key: "faqs", labelEn: "FAQs", labelAr: "الأسئلة الشائعة" },
 ];
+
+const SERVICE_META: Record<
+  string,
+  {
+    icon: React.ComponentType<{ className?: string }>;
+    tagEn: string;
+    tagAr: string;
+    badgeEn: string;
+    badgeAr: string;
+  }
+> = {
+  diagnostics: {
+    icon: Cpu,
+    tagEn: "ECU & Sensors",
+    tagAr: "فحص وبرمجة",
+    badgeEn: "Accurate Scan",
+    badgeAr: "دقة 100%",
+  },
+  "oil-change": {
+    icon: Droplets,
+    tagEn: "Express Lube",
+    tagAr: "صيانة دورية",
+    badgeEn: "OEM Filter",
+    badgeAr: "فلتر أصلي",
+  },
+  brakes: {
+    icon: Disc,
+    tagEn: "Brakes & Rotors",
+    tagAr: "فرامل ودسكات",
+    badgeEn: "Ceramic Pads",
+    badgeAr: "سفايف سيراميك",
+  },
+  suspension: {
+    icon: Car,
+    tagEn: "Struts & Bushings",
+    tagAr: "مساعدات ومقصات",
+    badgeEn: "Smooth Ride",
+    badgeAr: "ثبات وراحة",
+  },
+  battery: {
+    icon: Wrench,
+    tagEn: "Battery & Alternator",
+    tagAr: "كهرباء وبطاريات",
+    badgeEn: "Warranty Included",
+    badgeAr: "ضمان معتمد",
+  },
+  "ac-repair": {
+    icon: Fan,
+    tagEn: "Cooling & Freon",
+    tagAr: "تكييف وتبريد",
+    badgeEn: "Leak Test",
+    badgeAr: "شحن غاز أصلي",
+  },
+  tires: {
+    icon: ShieldCheck,
+    tagEn: "Tires & Balancing",
+    tagAr: "إطارات وميزان",
+    badgeEn: "Laser Align",
+    badgeAr: "ميزان ليزر",
+  },
+  "computer-programming": {
+    icon: Code,
+    tagEn: "Coding & Keys",
+    tagAr: "برمجة ومفاتيح",
+    badgeEn: "Smart Keys",
+    badgeAr: "مفاتيح ذكية",
+  },
+};
 
 interface MostUsedItem {
   titleEn: string;
@@ -117,107 +182,163 @@ const MOST_USED_BY_TAB: Record<FilterCategory, MostUsedItem[]> = {
       titleEn: "Computer Diagnostics & Scanning",
       titleAr: "فحص كمبيوتر وتشخيص الأعطال",
       categoryEn: "Diagnostics",
-      categoryAr: "فحص كمبيوتر",
+      categoryAr: "فحص وبرمجة",
       href: "/services-details?service=diagnostics",
       icon: Cpu,
-    },
-    {
-      titleEn: "AC Gas Leak & Compressor Repair",
-      titleAr: "تصليح وشحن مكيف السيارة",
-      categoryEn: "Air Conditioning",
-      categoryAr: "تكييف السيارة",
-      href: "/services-details?service=ac-repair",
-      icon: Fan,
-    },
-    {
-      titleEn: "Brake Pad Renewal & Rotor Skimming",
-      titleAr: "صيانة الفرامل وخرط الدسكات",
-      categoryEn: "Brakes",
-      categoryAr: "فرامل ودسكات",
-      href: "/services-details?service=brakes",
-      icon: Disc,
     },
     {
       titleEn: "Premium Synthetic Oil Change",
       titleAr: "تبديل زيت المحرك والفلتر الأصلي",
       categoryEn: "Express Maintenance",
-      categoryAr: "صيانة دورية سريعة",
+      categoryAr: "صيانة سريعة",
       href: "/services-details?service=oil-change",
       icon: Droplets,
     },
     {
-      titleEn: "German & Luxury Car Service (Mercedes/BMW)",
-      titleAr: "صيانة السيارات الألمانية والفاخرة",
-      categoryEn: "Brands",
-      categoryAr: "ماركات فاخرة",
-      href: "/brands",
+      titleEn: "Brake Pad Renewal & Rotor Skimming",
+      titleAr: "صيانة الفرامل وخرط الدسكات",
+      categoryEn: "Brakes & Safety",
+      categoryAr: "فرامل ودسكات",
+      href: "/services-details?service=brakes",
+      icon: Disc,
+    },
+    {
+      titleEn: "AC Gas Leak & Compressor Repair",
+      titleAr: "تصليح وشحن مكيف السيارة",
+      categoryEn: "Air Conditioning",
+      categoryAr: "تكييف وتبريد",
+      href: "/services-details?service=ac-repair",
+      icon: Fan,
+    },
+    {
+      titleEn: "Suspension, Bushings & Struts",
+      titleAr: "صيانة نظام التعليق والمساعدات",
+      categoryEn: "Chassis & Ride",
+      categoryAr: "مساعدات ومقصات",
+      href: "/services-details?service=suspension",
       icon: Car,
+    },
+    {
+      titleEn: "Battery Load Testing & Replacement",
+      titleAr: "فحص وتبديل بطارية السيارة",
+      categoryEn: "Electrical Systems",
+      categoryAr: "كهرباء وبطاريات",
+      href: "/services-details?service=battery",
+      icon: Wrench,
+    },
+    {
+      titleEn: "Tire Fitting & Laser Alignment",
+      titleAr: "تبديل وميزان الإطارات بالليزر",
+      categoryEn: "Tires & Balancing",
+      categoryAr: "إطارات وميزان",
+      href: "/services-details?service=tires",
+      icon: ShieldCheck,
+    },
+    {
+      titleEn: "ECU Programming & Smart Key Coding",
+      titleAr: "برمجة كمبيوتر ومفاتيح السيارات",
+      categoryEn: "Software & Coding",
+      categoryAr: "برمجة ومفاتيح",
+      href: "/services-details?service=computer-programming",
+      icon: Code,
     },
   ],
   services: [
     {
-      titleEn: "Diagnostics & ECU Scans",
-      titleAr: "فحص كمبيوتر وحساسات المحرك",
-      categoryEn: "Services",
-      categoryAr: "خدمات",
+      titleEn: "Computer Diagnostics & Scanning",
+      titleAr: "فحص كمبيوتر وتشخيص الأعطال",
+      categoryEn: "Diagnostics",
+      categoryAr: "فحص وبرمجة",
       href: "/services-details?service=diagnostics",
       icon: Cpu,
     },
     {
-      titleEn: "Brake System & Ceramic Pads",
-      titleAr: "فحمات وسفايف فرامل سيراميك",
-      categoryEn: "Services",
-      categoryAr: "خدمات",
+      titleEn: "Premium Synthetic Oil Change",
+      titleAr: "تبديل زيت المحرك والفلتر الأصلي",
+      categoryEn: "Express Maintenance",
+      categoryAr: "صيانة سريعة",
+      href: "/services-details?service=oil-change",
+      icon: Droplets,
+    },
+    {
+      titleEn: "Brake Pad Renewal & Rotor Skimming",
+      titleAr: "صيانة الفرامل وخرط الدسكات",
+      categoryEn: "Brakes & Safety",
+      categoryAr: "فرامل ودسكات",
       href: "/services-details?service=brakes",
       icon: Disc,
     },
     {
       titleEn: "Suspension, Bushings & Struts",
-      titleAr: "مساعدات ومقصات وميزان رودات",
-      categoryEn: "Services",
-      categoryAr: "خدمات",
+      titleAr: "صيانة نظام التعليق والمساعدات",
+      categoryEn: "Chassis & Ride",
+      categoryAr: "مساعدات ومقصات",
       href: "/services-details?service=suspension",
-      icon: ShieldCheck,
+      icon: Car,
     },
     {
       titleEn: "Battery Load Testing & Replacement",
       titleAr: "فحص وتبديل بطارية السيارة",
-      categoryEn: "Services",
-      categoryAr: "خدمات",
+      categoryEn: "Electrical Systems",
+      categoryAr: "كهرباء وبطاريات",
       href: "/services-details?service=battery",
       icon: Wrench,
+    },
+    {
+      titleEn: "AC Gas Leak & Compressor Repair",
+      titleAr: "تصليح وشحن مكيف السيارة",
+      categoryEn: "Air Conditioning",
+      categoryAr: "تكييف وتبريد",
+      href: "/services-details?service=ac-repair",
+      icon: Fan,
+    },
+    {
+      titleEn: "Tire Fitting & Laser Alignment",
+      titleAr: "تبديل وميزان الإطارات بالليزر",
+      categoryEn: "Tires & Balancing",
+      categoryAr: "إطارات وميزان",
+      href: "/services-details?service=tires",
+      icon: ShieldCheck,
+    },
+    {
+      titleEn: "ECU Programming & Smart Key Coding",
+      titleAr: "برمجة كمبيوتر ومفاتيح السيارات",
+      categoryEn: "Software & Coding",
+      categoryAr: "برمجة ومفاتيح",
+      href: "/services-details?service=computer-programming",
+      icon: Code,
     },
   ],
   brands: [
     {
-      titleEn: "Mercedes-Benz & AMG Maintenance",
+      titleEn: "Mercedes-Benz & AMG Specialist Service",
       titleAr: "صيانة مرسيدس بنز و AMG",
       categoryEn: "German Cars",
-      categoryAr: "ألماني",
+      categoryAr: "سيارات ألمانية",
       href: "/brands",
       icon: Car,
     },
     {
-      titleEn: "BMW iDrive & TwinPower Turbo",
-      titleAr: "صيانة بي ام دبليو",
+      titleEn: "BMW TwinPower Turbo & iDrive Service",
+      titleAr: "صيانة بي ام دبليو ونظام iDrive",
       categoryEn: "German Cars",
-      categoryAr: "ألماني",
+      categoryAr: "سيارات ألمانية",
       href: "/brands",
       icon: Car,
     },
     {
-      titleEn: "Toyota & Lexus Hybrid Systems",
-      titleAr: "صيانة تويوتا ولكزس وهايبرد",
+      titleEn: "Toyota & Lexus Hybrid Diagnostic Service",
+      titleAr: "صيانة تويوتا ولكزس وأنظمة الهايبرد",
       categoryEn: "Japanese Cars",
-      categoryAr: "ياباني",
+      categoryAr: "سيارات يابانية",
       href: "/brands",
       icon: Car,
     },
     {
-      titleEn: "Nissan Patrol V8 & CVT Service",
-      titleAr: "صيانة نيسان باترول وجير CVT",
+      titleEn: "Nissan Patrol V8 & CVT Transmission Repair",
+      titleAr: "صيانة نيسان باترول V8 وجير CVT",
       categoryEn: "Japanese Cars",
-      categoryAr: "ياباني",
+      categoryAr: "سيارات يابانية",
       href: "/brands",
       icon: Car,
     },
@@ -365,27 +486,7 @@ export default function ExpandableSearchBar({
   const [aiQuestion, setAiQuestion] = useState("");
   const [aiResponse, setAiResponse] = useState<string | null>(null);
 
-  // Image Search State
-  const [isImageSearchOpen, setIsImageSearchOpen] = useState(false);
-  const [isDragging, setIsDragging] = useState(false);
-  const [selectedImageFile, setSelectedImageFile] = useState<File | null>(null);
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
-  const [isAnalyzingImage, setIsAnalyzingImage] = useState(false);
-  const [imageSearchData, setImageSearchData] = useState<{
-    detectedEn: string;
-    detectedAr: string;
-    category: "Service" | "Brand" | "Blog" | "Video" | "Page";
-    confidence: "high" | "medium" | "low";
-    descriptionEn: string;
-    descriptionAr: string;
-    matchedItems: SearchResultItem[];
-    suggestedKeywords: string[];
-    aiSource: "gemini" | "catalog-matcher";
-  } | null>(null);
-  const [imageSearchError, setImageSearchError] = useState<string | null>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
   const recognitionRef = useRef<SpeechRecognitionInstance | null>(null);
-
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -448,7 +549,6 @@ export default function ExpandableSearchBar({
 
   const handleCollapse = () => {
     setIsExpanded(false);
-    setIsImageSearchOpen(false);
     if (!isDrawer) {
       setSearchQuery("");
     }
@@ -461,84 +561,10 @@ export default function ExpandableSearchBar({
     inputRef.current?.focus();
   };
 
-  const processImageFile = async (file: File) => {
-    if (!file) return;
-
-    if (!file.type.startsWith("image/")) {
-      setImageSearchError(
-        isAr
-          ? "يرجى اختيار ملف صورة صالح (PNG, JPG, WEBP)"
-          : "Please select a valid image file (PNG, JPG, WEBP)"
-      );
-      setIsImageSearchOpen(true);
-      return;
-    }
-
-    if (file.size > 10 * 1024 * 1024) {
-      setImageSearchError(
-        isAr
-          ? "حجم الصورة كبير جداً (الحد الأقصى 10 ميغابايت)"
-          : "Image is too large (maximum 10MB)"
-      );
-      setIsImageSearchOpen(true);
-      return;
-    }
-
-    setSelectedImageFile(file);
-    setImageSearchError(null);
-    setImageSearchData(null);
-    setIsAnalyzingImage(true);
-    setIsImageSearchOpen(true);
-    setIsExpanded(true);
-
-    const previewUrl = URL.createObjectURL(file);
-    setImagePreview(previewUrl);
-
-    try {
-      const formData = new FormData();
-      formData.append("image", file);
-      formData.append("hint", searchQuery || "");
-
-      const res = await fetch("/api/image-search", {
-        method: "POST",
-        body: formData,
-      });
-
-      const data = await res.json();
-      if (!res.ok || !data.success) {
-        throw new Error(data.error || "Failed to analyze image");
-      }
-
-      setImageSearchData(data);
-    } catch (err: any) {
-      console.error("Image search error:", err);
-      setImageSearchError(
-        isAr
-          ? "تعذر تحليل الصورة. يرجى تجربة صورة أخرى أو التحقق من الاتصال."
-          : err.message || "Failed to analyze image. Please try another image."
-      );
-    } finally {
-      setIsAnalyzingImage(false);
-    }
-  };
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      processImageFile(file);
-    }
-    e.target.value = "";
-  };
-
-  const handleDrop = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDragging(false);
-    const file = e.dataTransfer.files?.[0];
-    if (file) {
-      processImageFile(file);
-    }
-  };
+  // Dynamically get services from workshopData
+  const workshopServices = useMemo(() => {
+    return getWorkshopServices(isAr);
+  }, [isAr]);
 
   // Filter search results dynamically
   const filteredResults = useMemo(() => {
@@ -570,6 +596,11 @@ export default function ExpandableSearchBar({
         score += 15;
       }
 
+      // Prioritize Services in search suggestions
+      if (item.category === "Service" && score > 0) {
+        score += 25;
+      }
+
       if (score > 0) {
         scored.push({ item, score });
       }
@@ -588,7 +619,7 @@ export default function ExpandableSearchBar({
       return true;
     });
 
-    return filtered.slice(0, 8);
+    return filtered.slice(0, 10);
   }, [searchQuery, activeTab]);
 
   const handleSelectResult = (item: SearchResultItem) => {
@@ -664,7 +695,6 @@ export default function ExpandableSearchBar({
         const transcript = event.results[0][0].transcript;
         if (transcript) {
           setSearchQuery(transcript);
-          setIsImageSearchOpen(false);
           setIsListening(false);
           handleExecuteSearch(transcript);
         }
@@ -686,7 +716,7 @@ export default function ExpandableSearchBar({
       <>
         {parts.map((part, i) =>
           part.toLowerCase() === query.toLowerCase() ? (
-            <mark key={i} className="bg-red-500/20 text-red-600 font-bold rounded-sm px-0.5">
+            <mark key={i} className="bg-red-500/25 text-red-500 font-bold rounded-sm px-0.5">
               {part}
             </mark>
           ) : (
@@ -698,20 +728,13 @@ export default function ExpandableSearchBar({
   };
 
   const handleAskAiSubmit = (q: string) => {
-    const questionText = q.trim();
-    if (!questionText) return;
+    const question = q.trim();
+    if (!question) return;
 
-    const lower = questionText.toLowerCase();
-    const matched = AI_PRESET_QUESTIONS.find((item) =>
-      lower.includes("ac") || lower.includes("air") || lower.includes("مكيف")
-        ? item.en.includes("AC")
-        : lower.includes("oil") || lower.includes("زيت")
-        ? item.en.includes("oil")
-        : lower.includes("brake") || lower.includes("squeak") || lower.includes("فرامل")
-        ? item.en.includes("brakes")
-        : lower.includes("mercedes") || lower.includes("bmw") || lower.includes("diagnos") || lower.includes("كمبيوتر")
-        ? item.en.includes("German")
-        : false
+    const matched = AI_PRESET_QUESTIONS.find(
+      (p) =>
+        p.en.toLowerCase().includes(question.toLowerCase()) ||
+        p.ar.includes(question)
     );
 
     if (matched) {
@@ -719,20 +742,24 @@ export default function ExpandableSearchBar({
     } else {
       setAiResponse(
         isAr
-          ? `بناءً على سؤالك حول "${questionText}"، يوصي كراج باب البستان في الشارقة بإجراء فحص كمبيوتر وتدقيق ميكانيكي مباشر في ورشتنا لضمان سلامة المركبة وتقديم حل فني مضمون.`
-          : `For "${questionText}", Bab Al Bustan Auto Maintenance in Sharjah recommends bringing your vehicle for a quick computer scan & physical inspection to pinpoint the issue with genuine replacement parts and workmanship warranty.`
+          ? "شكراً لسؤالك! ينصح فنيو كراج باب البستان بفحص المركبة في مركزنا بالشارقة (المنطقة الصناعية 5). نقدم فحص كمبيوتر مجاني مع كشف أسعار مسبق. يمكنك حجز موعد فحص فوري أو مراسلتنا عبر واتساب."
+          : "Thank you for your question! Our certified master technicians at Bab Al Bustan recommend bringing your vehicle to our Sharjah workshop (Industrial Area 5) for a free computerized health scan and written estimate. Book an inspection or chat with our service advisors on WhatsApp."
       );
     }
   };
 
-  const defaultPlaceholder = isAr
-    ? "ابحث عن خدمات، ماركات، مشاكل سيارتك..."
-    : "Search services, brands, car issues...";
   const mostUsedItems = MOST_USED_BY_TAB[activeTab] || MOST_USED_BY_TAB.all;
+  const defaultPlaceholder = isAr
+    ? "ابحث عن خدمة، فرامل، فحص كمبيوتر، زيت، ماركة..."
+    : "Search service, brakes, diagnostics, oil, brand...";
 
   return (
-    <div className={`relative ${className}`} ref={containerRef}>
-      {/* ─── DESKTOP & DRAWER TRIGGER BUTTON ─── */}
+    <div
+      ref={containerRef}
+      className={`relative z-40 ${className}`}
+      dir={isAr ? "rtl" : "ltr"}
+    >
+      {/* ─── TRIGGER BUTTONS ──────────────────────────────────── */}
       {!isDrawer ? (
         <div className="flex items-center">
           {dashedButton ? (
@@ -745,29 +772,16 @@ export default function ExpandableSearchBar({
                   handleExpand();
                 }
               }}
-              className={`relative p-0.5 rounded-full border border-dashed transition-all cursor-pointer hover:scale-105 ${
-                isExpanded
-                  ? "border-red-600 bg-red-600/15"
-                  : isScrolled
-                  ? "border-red-600/50 hover:border-red-600"
-                  : "border-white/60 hover:border-white"
-              }`}
-              aria-label={isExpanded ? "Close search" : "Open search"}
+              className="flex items-center gap-2 border border-dashed border-red-500/40 hover:border-red-500 bg-zinc-900/60 hover:bg-zinc-800/80 text-white rounded-full px-4 py-2 text-xs font-semibold tracking-wide transition-all duration-300 shadow-sm cursor-pointer group"
               title="Search (Ctrl + K)"
             >
-              <div
-                className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors shadow-sm ${
-                  isScrolled
-                    ? "bg-red-600 hover:bg-red-700 text-white"
-                    : "bg-red-600 hover:bg-red-700 text-white"
-                }`}
-              >
-                {isExpanded ? (
-                  <X className="h-4 w-4 stroke-[2.5]" />
-                ) : (
-                  <Search className="h-4 w-4 stroke-[2.5]" />
-                )}
-              </div>
+              <Search className="w-3.5 h-3.5 text-red-500 group-hover:scale-110 transition-transform" />
+              <span className="text-zinc-300 group-hover:text-white transition-colors">
+                {placeholder || defaultPlaceholder}
+              </span>
+              <kbd className="hidden md:inline-block ml-1 text-[10px] text-zinc-400 bg-zinc-800 px-1.5 py-0.5 rounded border border-zinc-700 font-mono">
+                Ctrl K
+              </kbd>
             </button>
           ) : (
             <button
@@ -779,18 +793,14 @@ export default function ExpandableSearchBar({
                   handleExpand();
                 }
               }}
-              className="p-1 transition-all cursor-pointer hover:bg-white/10 rounded-full flex items-center justify-center"
+              className={`${iconColor} ${hoverIconColor} p-2 transition-all cursor-pointer hover:bg-white/10 rounded-full`}
               aria-label={isExpanded ? "Close search" : "Open search"}
               title="Search (Ctrl + K)"
             >
               {isExpanded ? (
-                <div className="w-9 h-9 rounded-full bg-zinc-800 hover:bg-zinc-700 text-white flex items-center justify-center transition-transform hover:scale-105">
-                  <X className="h-4 w-4 stroke-2" />
-                </div>
+                <X className="h-6 w-6 stroke-2 text-red-500" />
               ) : (
-                <div className="w-9 h-9 rounded-full bg-red-600 hover:bg-red-700 text-white flex items-center justify-center transition-transform hover:scale-105 shadow-md shadow-red-600/30">
-                  <Search className="h-4 w-4 stroke-[2.5]" />
-                </div>
+                <Search className="h-6 w-6 stroke-2" />
               )}
             </button>
           )}
@@ -807,36 +817,34 @@ export default function ExpandableSearchBar({
                 handleExpand();
               }
             }}
-            className="w-full flex items-center justify-between bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 rounded-full px-4 py-3 text-zinc-300 transition-all cursor-pointer text-xs shadow-sm group"
+            className="w-full flex items-center justify-between bg-zinc-900/90 hover:bg-zinc-800 border border-zinc-700/80 rounded-full px-4 py-3 text-zinc-300 transition-all cursor-pointer text-xs shadow-md group"
           >
             <div className="flex items-center gap-2.5">
-              <div className="w-6 h-6 rounded-full bg-red-600/20 text-red-500 flex items-center justify-center">
-                <Search className="w-3.5 h-3.5 group-hover:scale-110 transition-transform" />
-              </div>
+              <Search className="w-4 h-4 text-red-500 group-hover:scale-110 transition-transform" />
               <span className="text-zinc-300 group-hover:text-white transition-colors font-medium">
                 {placeholder || defaultPlaceholder}
               </span>
             </div>
-            <span className="text-[10px] text-red-500 font-bold uppercase tracking-wider bg-red-500/10 px-2.5 py-0.5 rounded-full border border-red-500/20">
-              Ctrl+K
+            <span className="text-[10px] text-red-400 font-bold uppercase tracking-wider bg-red-950/80 border border-red-800/60 px-2 py-0.5 rounded-full">
+              Search
             </span>
           </button>
         </div>
       )}
 
-      {/* ─── UNIFIED SEARCH CARD DROPDOWN ───────────── */}
+      {/* ─── UNIFIED MEGA MENU SEARCH CARD (TAJALRAHMAH STYLE) ─── */}
       {isExpanded && (
         <div
           className={`${
             isDrawer
               ? "relative w-full mt-3"
-              : "absolute top-full mt-3 right-0 rtl:right-auto rtl:left-0 w-[94vw] sm:w-[520px] md:w-[560px] lg:w-[600px] max-w-[600px]"
-          } bg-zinc-950 rounded-3xl shadow-[0_25px_70px_rgba(220,38,38,0.2),0_15px_35px_rgba(0,0,0,0.8)] border border-red-600/30 p-5 sm:p-6 z-[10005] text-left rtl:text-right animate-in fade-in zoom-in-95 duration-200 text-white`}
+              : "absolute top-full mt-3 right-0 rtl:right-auto rtl:left-0 w-[94vw] sm:w-[620px] md:w-[720px] lg:w-[780px] max-w-[800px]"
+          } bg-zinc-950/98 backdrop-blur-2xl rounded-3xl shadow-[0_25px_70px_rgba(220,38,38,0.22),0_15px_35px_rgba(0,0,0,0.85)] border border-red-600/30 p-5 sm:p-6 z-50 text-left rtl:text-right animate-in fade-in zoom-in-95 duration-200`}
           onClick={(e) => e.stopPropagation()}
           dir={isAr ? "rtl" : "ltr"}
         >
-          {/* 1. Integrated Search Input Box */}
-          <div className="relative flex items-center bg-zinc-900 border-2 border-red-600/40 focus-within:border-red-600 focus-within:ring-4 focus-within:ring-red-600/20 rounded-2xl px-4 py-3 transition-all shadow-inner gap-3">
+          {/* 1. Integrated Search Input Box (Floating Pill Style with Voice Mic, NO Camera) */}
+          <div className="relative flex items-center bg-zinc-900/90 border-2 border-red-600/35 focus-within:border-red-600 focus-within:ring-4 focus-within:ring-red-600/20 rounded-2xl px-4 py-3 transition-all shadow-inner gap-3">
             <Search className="w-5 h-5 text-red-500 shrink-0 stroke-[2.2]" />
             <input
               ref={inputRef}
@@ -844,19 +852,10 @@ export default function ExpandableSearchBar({
               value={searchQuery}
               onFocus={() => setIsInputFocused(true)}
               onBlur={() => setIsInputFocused(false)}
-              onChange={(e) => {
-                const val = e.target.value;
-                setSearchQuery(val);
-                if (isImageSearchOpen) {
-                  setIsImageSearchOpen(false);
-                }
-              }}
+              onChange={(e) => setSearchQuery(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
                   e.preventDefault();
-                  if (isImageSearchOpen) {
-                    setIsImageSearchOpen(false);
-                  }
                   handleExecuteSearch(searchQuery);
                 } else if (e.key === "Escape") {
                   handleCollapse();
@@ -879,7 +878,7 @@ export default function ExpandableSearchBar({
               </button>
             )}
 
-            {/* Voice Search with Pulse */}
+            {/* Voice Search with Pulse Animation (No image search) */}
             {mounted && (
               <button
                 type="button"
@@ -909,32 +908,6 @@ export default function ExpandableSearchBar({
               </button>
             )}
 
-            {/* Visual Image Search Camera Button */}
-            <button
-              type="button"
-              onMouseDown={(e) => e.preventDefault()}
-              onClick={(e) => {
-                e.stopPropagation();
-                setIsImageSearchOpen((prev) => !prev);
-              }}
-              className={`p-1.5 rounded-full transition-all shrink-0 cursor-pointer group/cam relative ${
-                isImageSearchOpen
-                  ? "bg-red-600 text-white shadow-md ring-2 ring-red-600/30"
-                  : "text-zinc-400 hover:text-red-500 hover:bg-zinc-800"
-              }`}
-              title={isAr ? "فحص الصورة بالذكاء الاصطناعي" : "Visual AI Diagnosis"}
-              aria-label="Image search"
-            >
-              <Camera className="w-4 h-4 transition-transform group-hover/cam:scale-110" />
-            </button>
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept="image/*"
-              className="hidden"
-              onChange={handleFileChange}
-            />
-
             {/* Close Button */}
             <button
               type="button"
@@ -947,330 +920,120 @@ export default function ExpandableSearchBar({
             </button>
           </div>
 
-          {/* ─── CONDITIONAL: EMBEDDED AI IMAGE SEARCH VIEW ─── */}
-          {isImageSearchOpen ? (
-            <div className="mt-4 flex flex-col animate-in fade-in zoom-in-95 duration-200">
-              <div className="flex items-center justify-between pb-3 border-b border-zinc-800">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-red-600 to-rose-600 flex items-center justify-center text-white shadow-sm shadow-red-600/30 shrink-0">
-                    <Camera className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <h3 className="font-extrabold text-xs sm:text-sm text-white leading-tight">
-                      {isAr ? "فحص وتشخيص عطل السيارة بالصورة" : "Visual Car Issue Diagnosis"}
-                    </h3>
-                    <p className="text-[11px] text-zinc-400 mt-0.5">
-                      {isAr
-                        ? "ارفع صورة للمشكلة (فحمات، تسريب زيت، لمبة المحرك، كمبريسور) لتشخيص العطل"
-                        : "Upload a photo of your car part or defect to match repairs"}
-                    </p>
-                  </div>
-                </div>
+          {/* 2. Filter Category Tabs */}
+          <div className="mt-4 flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
+            {FILTER_TABS.map((tab) => {
+              const isSelected = activeTab === tab.key;
+              return (
                 <button
+                  key={tab.key}
                   type="button"
-                  onClick={() => setIsImageSearchOpen(false)}
-                  className="p-1.5 rounded-full text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors cursor-pointer"
-                  title={isAr ? "العودة للبحث العادي" : "Back to normal search"}
+                  onClick={() => setActiveTab(tab.key)}
+                  className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer whitespace-nowrap shrink-0 ${
+                    isSelected
+                      ? "bg-red-600 text-white shadow-md shadow-red-600/30"
+                      : "bg-zinc-900/90 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-zinc-800 hover:border-zinc-700"
+                  }`}
                 >
-                  <X className="w-4 h-4" />
+                  {isAr ? tab.labelAr : tab.labelEn}
                 </button>
-              </div>
+              );
+            })}
+          </div>
 
-              {/* Scrollable Body */}
-              <div className="mt-3 max-h-[340px] sm:max-h-[380px] overflow-y-auto pr-1.5 space-y-3">
-                {/* 1. Dropzone */}
-                {!imagePreview && (
-                  <div
-                    onDragOver={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      setIsDragging(true);
-                    }}
-                    onDragEnter={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      setIsDragging(true);
-                    }}
-                    onDragLeave={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      setIsDragging(false);
-                    }}
-                    onDrop={handleDrop}
-                    onClick={() => fileInputRef.current?.click()}
-                    className={`border-2 border-dashed rounded-2xl p-6 text-center cursor-pointer transition-all duration-200 group flex flex-col items-center justify-center gap-3 ${
-                      isDragging
-                        ? "border-red-500 bg-red-600/10 scale-[1.01] shadow-md shadow-red-600/20"
-                        : "border-zinc-700 hover:border-red-600 hover:bg-zinc-900/60 bg-zinc-900/40"
-                    }`}
-                  >
-                    <div
-                      className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-200 shadow-inner ${
-                        isDragging
-                          ? "bg-red-600 text-white scale-110 shadow-md shadow-red-600/30"
-                          : "bg-zinc-800 group-hover:bg-red-600/20 text-red-500 group-hover:scale-105"
-                      }`}
-                    >
-                      <UploadCloud className="w-7 h-7" />
-                    </div>
+          {/* 3. Section Header */}
+          <div className="mt-4 mb-3 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-red-600 inline-block animate-ping" />
+              <p className="text-xs font-extrabold tracking-wider uppercase text-zinc-300">
+                {searchQuery.trim() === ""
+                  ? activeTab === "services"
+                    ? isAr
+                      ? "جميع خدمات ورشة باب البستان (8)"
+                      : "All Workshop Services (8)"
+                    : isAr
+                    ? "قائمة خدمات الورشة الأكثر طلباً"
+                    : "Popular Workshop Services"
+                  : isAr
+                  ? "نتائج البحث والمطابقة"
+                  : "Search Suggestions & Results"}
+              </p>
+            </div>
+            {searchQuery.trim() !== "" ? (
+              <span className="text-xs text-red-500 font-bold">
+                {filteredResults.length} {isAr ? "نتيجة" : "results"}
+              </span>
+            ) : (
+              <button
+                type="button"
+                onClick={() => {
+                  router.push("/services");
+                  handleCollapse();
+                  onCloseMenu?.();
+                }}
+                className="text-[11px] font-bold text-red-400 hover:text-red-300 transition-colors flex items-center gap-1 cursor-pointer"
+              >
+                <span>{isAr ? "عرض صفحة الخدمات" : "View Services Page"}</span>
+                <ArrowRight className="w-3 h-3 rtl:rotate-180" />
+              </button>
+            )}
+          </div>
 
-                    <div className="space-y-1">
-                      <p className="font-bold text-white text-xs sm:text-sm">
-                        {isDragging
-                          ? isAr
-                            ? "أفلت الصورة هنا للبدء بالفحص"
-                            : "Drop image here to analyze"
-                          : isAr
-                          ? "اسحب وأفلت صورة القطعة أو العطل هنا"
-                          : "Drag & drop car part photo here"}
-                      </p>
-                      <p className="text-[11px] text-zinc-400 font-medium">
-                        {isAr
-                          ? "أو اضغط لاختيار صورة من جهازك"
-                          : "or click below to choose a file from your device"}
-                      </p>
-                    </div>
+          {/* 4. Results List / Services Mega Menu Grid */}
+          <div className="flex-1 overflow-y-auto slim-scrollbar min-h-0 max-h-[340px] sm:max-h-[380px] pr-1.5 space-y-2">
+            {searchQuery.trim() === "" ? (
+              /* When query is empty: SHOW FULL SERVICES MEGA MENU */
+              activeTab === "all" || activeTab === "services" ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                  {workshopServices.map((service) => {
+                    const meta = SERVICE_META[service.id] || {
+                      icon: Wrench,
+                      tagEn: "Specialized Service",
+                      tagAr: "خدمة سيارات معتمدة",
+                      badgeEn: "Guaranteed",
+                      badgeAr: "مضمونة",
+                    };
+                    const Icon = meta.icon;
+                    const targetHref = `/services-details?service=${service.id}`;
 
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        fileInputRef.current?.click();
-                      }}
-                      className="mt-0.5 px-4 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-xs sm:text-sm inline-flex items-center gap-2 shadow-md shadow-red-600/30 transition-all hover:scale-105 active:scale-95 cursor-pointer"
-                    >
-                      <ImageIcon className="w-4 h-4" />
-                      <span>{isAr ? "رفع صورة" : "Upload Image"}</span>
-                    </button>
-
-                    <p className="text-[11px] text-zinc-500">
-                      {isAr
-                        ? "يدعم PNG, JPG, WEBP (حتى 10 ميغابايت)"
-                        : "Supports PNG, JPG, WEBP (up to 10MB)"}
-                    </p>
-                  </div>
-                )}
-
-                {/* 2. Analyzing State */}
-                {isAnalyzingImage && (
-                  <div className="flex flex-col items-center justify-center p-6 bg-zinc-900/60 rounded-2xl border border-red-600/20 text-center gap-3">
-                    {imagePreview && (
-                      <div className="relative w-36 h-28 rounded-xl overflow-hidden shadow-md border-2 border-red-600/50 bg-black">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                          src={imagePreview}
-                          alt="Uploaded preview"
-                          className="w-full h-full object-cover opacity-80"
-                        />
-                        <div className="absolute inset-x-0 h-1 bg-gradient-to-r from-transparent via-red-500 to-transparent shadow-[0_0_15px_#dc2626] animate-[bounce_1.5s_infinite]" />
-                      </div>
-                    )}
-                    <div className="flex items-center gap-2 text-red-500 font-bold text-xs sm:text-sm">
-                      <Loader2 className="w-4 h-4 animate-spin" />
-                      <span>
-                        {isAr
-                          ? "جارٍ فحص الصورة ومطابقة الأعطال الميكانيكية..."
-                          : "Analyzing auto defect & matching workshop repair..."}
-                      </span>
-                    </div>
-                    <p className="text-[11px] text-zinc-400 max-w-xs">
-                      {isAr
-                        ? "يتم تشخيص العطل ومطابقته مع خدمات كراج باب البستان وضمان الصيانة"
-                        : "Matching diagnosis with genuine parts, ECU scanners, and workshop bays in Sharjah"}
-                    </p>
-                  </div>
-                )}
-
-                {/* 3. Error State */}
-                {imageSearchError && !isAnalyzingImage && (
-                  <div className="p-3.5 rounded-2xl bg-rose-950/50 border border-rose-800 text-rose-200 flex items-start gap-2.5">
-                    <AlertCircle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
-                    <div className="flex-1 text-xs">
-                      <p className="font-bold">{isAr ? "تنبيه الفحص" : "Diagnosis Notice"}</p>
-                      <p className="mt-0.5 text-rose-300">{imageSearchError}</p>
-                      <button
-                        type="button"
+                    return (
+                      <div
+                        key={service.id}
                         onClick={() => {
-                          setImagePreview(null);
-                          setImageSearchError(null);
-                          fileInputRef.current?.click();
-                        }}
-                        className="mt-2 inline-flex items-center gap-1 font-bold text-rose-300 hover:underline cursor-pointer"
-                      >
-                        <RefreshCw className="w-3 h-3" />
-                        <span>{isAr ? "محاولة بصورة أخرى" : "Try another image"}</span>
-                      </button>
-                    </div>
-                  </div>
-                )}
-
-                {/* 4. Results Display */}
-                {imageSearchData && !isAnalyzingImage && (
-                  <div className="space-y-3">
-                    <div className="bg-zinc-900 border border-red-600/30 rounded-2xl p-3.5 shadow-md">
-                      <div className="flex items-start gap-3">
-                        {imagePreview && (
-                          <div className="w-16 h-16 rounded-xl overflow-hidden border border-zinc-700 shadow-xs shrink-0 bg-black">
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img
-                              src={imagePreview}
-                              alt="Scanned item"
-                              className="w-full h-full object-cover"
-                            />
-                          </div>
-                        )}
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-1.5 flex-wrap mb-1">
-                            <span className="px-2 py-0.5 rounded-full text-[9.5px] font-extrabold uppercase tracking-wider bg-red-600 text-white">
-                              {imageSearchData.category}
-                            </span>
-                            <span className="px-2 py-0.5 rounded-full text-[9.5px] font-bold bg-emerald-950 text-emerald-400 border border-emerald-700 flex items-center gap-1">
-                              <CheckCircle2 className="w-2.5 h-2.5" />
-                              {isAr ? "مطابقة دقيقة" : "Diagnostic Match"}
-                            </span>
-                          </div>
-                          <h4 className="font-extrabold text-xs sm:text-sm text-white leading-snug truncate">
-                            {isAr ? imageSearchData.detectedAr : imageSearchData.detectedEn}
-                          </h4>
-                          <p className="text-[11px] text-zinc-300 mt-0.5 line-clamp-2 leading-relaxed">
-                            {isAr ? imageSearchData.descriptionAr : imageSearchData.descriptionEn}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Matched Items */}
-                    <div>
-                      <div className="flex items-center justify-between mb-1.5">
-                        <p className="font-extrabold text-[11px] uppercase tracking-wider text-zinc-300 flex items-center gap-1.5">
-                          <Sparkles className="w-3 h-3 text-red-500" />
-                          <span>
-                            {isAr
-                              ? "خدمات الصيانة الموصى بها في الورشة:"
-                              : "Recommended Workshop Services:"}
-                          </span>
-                        </p>
-                        <span className="text-[10px] font-bold text-zinc-400">
-                          {imageSearchData.matchedItems.length} {isAr ? "خدمات" : "matches"}
-                        </span>
-                      </div>
-
-                      <div className="space-y-1.5 max-h-44 overflow-y-auto pr-1.5">
-                        {imageSearchData.matchedItems.map((item, idx) => (
-                          <div
-                            key={idx}
-                            onClick={() => handleSelectResult(item)}
-                            className="flex items-center justify-between p-2.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-red-600 transition-all cursor-pointer group"
-                          >
-                            <div className="flex items-center gap-2.5 min-w-0 flex-1">
-                              <div className="w-8 h-8 rounded-lg bg-zinc-800 group-hover:bg-red-600 text-red-500 group-hover:text-white flex items-center justify-center shrink-0 transition-colors">
-                                <Wrench className="w-3.5 h-3.5 stroke-[2]" />
-                              </div>
-                              <div className="min-w-0 flex-1">
-                                <div className="flex items-center gap-1.5 mb-0.5">
-                                  <span className="text-[8.5px] font-extrabold uppercase px-1.5 py-0.2 rounded-full border bg-red-950 text-red-400 border-red-800">
-                                    {isAr && item.categoryAr ? item.categoryAr : item.category}
-                                  </span>
-                                  <h5 className="font-bold text-xs text-white group-hover:text-red-500 transition-colors truncate">
-                                    {isAr && item.nameAr ? item.nameAr : item.name}
-                                  </h5>
-                                </div>
-                                <p className="text-[10.5px] text-zinc-400 truncate">
-                                  {isAr && item.descAr ? item.descAr : item.desc}
-                                </p>
-                              </div>
-                            </div>
-                            <div className="flex items-center gap-1 text-red-500 shrink-0 text-[11px] font-bold group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform ml-1 rtl:ml-0 rtl:mr-1">
-                              <span>{isAr ? "عرض" : "View"}</span>
-                              <ArrowRight className="w-3 h-3 rtl:rotate-180" />
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Actions */}
-                    <div className="flex items-center justify-between pt-2 border-t border-zinc-800 gap-2 flex-wrap">
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setImagePreview(null);
-                          setImageSearchData(null);
-                          setImageSearchError(null);
-                          fileInputRef.current?.click();
-                        }}
-                        className="px-2.5 py-1.5 rounded-xl border border-zinc-700 hover:border-red-500 text-zinc-300 hover:text-white text-[11px] font-bold flex items-center gap-1.5 cursor-pointer transition-colors"
-                      >
-                        <Camera className="w-3 h-3" />
-                        <span>{isAr ? "فحص صورة أخرى" : "Scan Another Photo"}</span>
-                      </button>
-
-                      <button
-                        type="button"
-                        onClick={() => {
+                          if (onSearch) {
+                            onSearch(service.title, targetHref);
+                          }
+                          router.push(targetHref);
                           handleCollapse();
-                          router.push("/booking");
                           onCloseMenu?.();
                         }}
-                        className="px-3 py-1.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-[11px] font-bold flex items-center gap-1.5 cursor-pointer transition-colors shadow-sm"
+                        className="group flex items-start gap-3 p-3 rounded-2xl bg-zinc-900/60 hover:bg-zinc-800/90 border border-zinc-800/80 hover:border-red-600/60 transition-all duration-200 cursor-pointer shadow-sm hover:shadow-red-950/30"
                       >
-                        <span>{isAr ? "حجز موعد فحص بالورشة" : "Book Workshop Slot"}</span>
-                        <ArrowRight className="w-3 h-3 rtl:rotate-180" />
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-          ) : (
-            /* REGULAR SEARCH VIEW: Filter Category Pills, Most Used / Results, Bottom Bar */
-            <>
-              {/* Filter Category Pills */}
-              <div className="mt-4 flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
-                {FILTER_TABS.map((tab) => {
-                  const isSelected = activeTab === tab.key;
-                  return (
-                    <button
-                      key={tab.key}
-                      type="button"
-                      onClick={() => {
-                        setActiveTab(tab.key);
-                        setIsImageSearchOpen(false);
-                      }}
-                      className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer whitespace-nowrap shrink-0 ${
-                        isSelected
-                          ? "bg-red-600 text-white shadow-md shadow-red-600/30"
-                          : "bg-zinc-900 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-zinc-800 hover:border-zinc-700"
-                      }`}
-                    >
-                      {isAr ? tab.labelAr : tab.labelEn}
-                    </button>
-                  );
-                })}
-              </div>
-
-              {/* Section Header */}
-              <div className="mt-5 mb-2.5 flex items-center justify-between">
-                <p className="text-xs font-extrabold tracking-wider uppercase text-zinc-400">
-                  {searchQuery.trim() === ""
-                    ? isAr
-                      ? "الأكثر طلباً وزيارة"
-                      : "Popular Services & Shortcuts"
-                    : isAr
-                    ? "نتائج البحث"
-                    : "Search Results"}
-                </p>
-                {searchQuery.trim() !== "" && (
-                  <span className="text-xs text-red-500 font-bold">
-                    {filteredResults.length} {isAr ? "نتيجة" : "results"}
-                  </span>
-                )}
-              </div>
-
-              {/* Results List / Most Used */}
-              <div className="flex-1 overflow-y-auto min-h-0 max-h-[300px] sm:max-h-[340px] pr-1.5 space-y-1">
-                {searchQuery.trim() === "" ? (
-                  mostUsedItems.map((item, idx) => {
+                        <div className="w-10 h-10 rounded-xl bg-zinc-800 text-red-500 border border-zinc-700/80 group-hover:bg-red-600 group-hover:text-white group-hover:border-red-600 flex items-center justify-center shrink-0 transition-all duration-200 mt-0.5">
+                          <Icon className="w-5 h-5 stroke-[2]" />
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center justify-between gap-1 mb-1">
+                            <h5 className="text-xs sm:text-[13px] font-bold text-white group-hover:text-red-500 transition-colors truncate">
+                              {service.title}
+                            </h5>
+                            <span className="text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded-full bg-red-950/80 text-red-400 border border-red-800/50 shrink-0">
+                              {isAr ? meta.badgeAr : meta.badgeEn}
+                            </span>
+                          </div>
+                          <p className="text-[11px] text-zinc-400 line-clamp-1 leading-snug">
+                            {service.shortDesc}
+                          </p>
+                        </div>
+                        <ChevronRight className="w-4 h-4 text-zinc-600 group-hover:text-red-500 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180 transition-all shrink-0 self-center" />
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                /* Tab view for brands, blogs, videos, faqs */
+                <div className="space-y-1.5">
+                  {mostUsedItems.map((item, idx) => {
                     const Icon = item.icon;
                     return (
                       <div
@@ -1301,251 +1064,251 @@ export default function ExpandableSearchBar({
                         <ChevronRight className="w-5 h-5 text-zinc-600 group-hover:text-red-500 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180 transition-all shrink-0 ml-2 rtl:ml-0 rtl:mr-2 stroke-[2.2]" />
                       </div>
                     );
-                  })
-                ) : filteredResults.length > 0 ? (
-                  filteredResults.map((item) => {
-                    const displayName = isAr && item.nameAr ? item.nameAr : item.name;
-                    const displayDesc = isAr && item.descAr ? item.descAr : item.desc;
-                    const displayCategory = isAr && item.categoryAr ? item.categoryAr : item.category;
+                  })}
+                </div>
+              )
+            ) : filteredResults.length > 0 ? (
+              /* When searching: DISPLAY MATCHED SERVICE SUGGESTIONS & RESULTS */
+              <div className="space-y-1.5">
+                {filteredResults.map((item) => {
+                  const displayName = isAr && item.nameAr ? item.nameAr : item.name;
+                  const displayDesc = isAr && item.descAr ? item.descAr : item.desc;
+                  const displayCategory = isAr && item.categoryAr ? item.categoryAr : item.category;
 
-                    return (
-                      <div
-                        key={item.id}
-                        onClick={() => handleSelectResult(item)}
-                        className="p-3 rounded-2xl bg-zinc-900/50 hover:bg-zinc-800/80 border border-zinc-800/60 hover:border-red-600/50 cursor-pointer transition-colors flex items-center justify-between gap-3 group"
-                      >
-                        <div className="flex items-center gap-3.5 min-w-0 flex-1">
-                          <div className="w-10 h-10 rounded-2xl bg-zinc-800 text-red-500 border border-zinc-700 group-hover:bg-red-600 group-hover:text-white group-hover:border-red-600 flex items-center justify-center shrink-0 transition-all duration-200">
-                            {item.category === "Service" && <Wrench className="w-5 h-5 stroke-[2]" />}
-                            {item.category === "Brand" && <Car className="w-5 h-5 stroke-[2]" />}
-                            {item.category === "Blog" && <FileText className="w-5 h-5 stroke-[2]" />}
-                            {item.category === "Video" && <Video className="w-5 h-5 stroke-[2]" />}
-                            {item.category === "FAQ" && <HelpCircle className="w-5 h-5 stroke-[2]" />}
-                            {item.category === "Page" && <ArrowRight className="w-5 h-5 stroke-[2]" />}
-                          </div>
-                          <div className="min-w-0 flex-1">
-                            <div className="flex items-center gap-2 mb-0.5">
-                              <span className="text-[9.5px] font-extrabold uppercase px-2 py-0.5 rounded-full border bg-red-950 text-red-400 border-red-800">
-                                {displayCategory}
-                              </span>
-                              <h4 className="text-sm font-bold text-white group-hover:text-red-500 transition-colors truncate">
-                                {highlightMatch(displayName, searchQuery)}
-                              </h4>
-                            </div>
-                            <p className="text-xs text-zinc-400 line-clamp-1 leading-relaxed">
-                              {displayDesc}
-                            </p>
-                          </div>
+                  const isService = item.category === "Service";
+                  const serviceId = item.id.replace("service-", "");
+                  const meta = SERVICE_META[serviceId];
+                  const Icon = meta ? meta.icon : isService ? Wrench : item.category === "Brand" ? Car : item.category === "Blog" ? FileText : item.category === "Video" ? Video : HelpCircle;
+
+                  return (
+                    <div
+                      key={item.id}
+                      onClick={() => handleSelectResult(item)}
+                      className="p-3 rounded-2xl bg-zinc-900/60 hover:bg-zinc-800/90 border border-zinc-800/80 hover:border-red-600/60 cursor-pointer transition-all duration-200 flex items-center justify-between gap-3 group shadow-sm"
+                    >
+                      <div className="flex items-center gap-3.5 min-w-0 flex-1">
+                        <div className="w-10 h-10 rounded-2xl bg-zinc-800 text-red-500 border border-zinc-700 group-hover:bg-red-600 group-hover:text-white group-hover:border-red-600 flex items-center justify-center shrink-0 transition-all duration-200">
+                          <Icon className="w-5 h-5 stroke-[2]" />
                         </div>
-
-                        <ChevronRight className="w-5 h-5 text-zinc-600 group-hover:text-red-500 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180 transition-all shrink-0 ml-2 rtl:ml-0 rtl:mr-2 stroke-[2.2]" />
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center gap-2 mb-0.5">
+                            <span
+                              className={`text-[9.5px] font-extrabold uppercase px-2 py-0.5 rounded-full border ${
+                                CATEGORY_COLORS[item.category]?.bg || "bg-zinc-800"
+                              } ${
+                                CATEGORY_COLORS[item.category]?.text || "text-zinc-300"
+                              } ${
+                                CATEGORY_COLORS[item.category]?.border || "border-zinc-700"
+                              }`}
+                            >
+                              {displayCategory}
+                            </span>
+                            <h4 className="text-sm font-bold text-white group-hover:text-red-500 transition-colors truncate">
+                              {highlightMatch(displayName, searchQuery)}
+                            </h4>
+                          </div>
+                          <p className="text-xs text-zinc-400 line-clamp-1 leading-relaxed">
+                            {displayDesc}
+                          </p>
+                        </div>
                       </div>
-                    );
-                  })
-                ) : (
-                  <div className="py-8 px-4 text-center">
-                    <p className="text-sm font-bold text-white">
-                      {isAr ? "لم نجد نتائج لـ" : "No results for"} "{searchQuery}"
-                    </p>
-                    <p className="text-xs text-zinc-400 mt-1">
-                      {isAr
-                        ? "جرّب البحث باسم خدمة (فرامل، مكيف، غيار زيت، فحص كمبيوتر) أو ماركة سيارة"
-                        : "Try searching for service names (oil change, brakes, AC repair, diagnostics) or car brand"}
-                    </p>
-                    <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
-                      <button
-                        type="button"
-                        onClick={() => {
-                          router.push("/services");
-                          handleCollapse();
-                          onCloseMenu?.();
-                        }}
-                        className="inline-flex items-center gap-1.5 px-4 py-2 bg-zinc-900 hover:bg-zinc-800 text-red-500 text-xs font-bold rounded-full transition-colors border border-red-600/30 cursor-pointer"
-                      >
-                        <Wrench className="w-3.5 h-3.5" />
-                        <span>{isAr ? "تصفح جميع الخدمات" : "Browse All Services"}</span>
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          router.push("/booking");
-                          handleCollapse();
-                          onCloseMenu?.();
-                        }}
-                        className="inline-flex items-center gap-1.5 px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-xs font-bold rounded-full transition-colors cursor-pointer shadow-md shadow-red-600/30"
-                      >
-                        <span>{isAr ? "حجز موعد صيانة" : "Book Appointment"}</span>
-                      </button>
+
+                      <div className="flex items-center gap-1.5 shrink-0 text-red-500 text-xs font-bold group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform ml-1 rtl:ml-0 rtl:mr-1">
+                        <span className="hidden sm:inline">
+                          {isService
+                            ? isAr
+                              ? "عرض الخدمة"
+                              : "View Service"
+                            : isAr
+                            ? "انتقال"
+                            : "Open"}
+                        </span>
+                        <ChevronRight className="w-4 h-4 rtl:rotate-180" />
+                      </div>
                     </div>
-                  </div>
-                )}
+                  );
+                })}
               </div>
-
-              {/* Bottom Footer Bar */}
-              <div className="mt-5 pt-3.5 border-t border-zinc-800 flex items-center justify-between gap-3 shrink-0">
-                <span className="text-xs sm:text-sm text-zinc-400 font-medium">
-                  {isAr ? "تحتاج مساعدة أو استشارة ميكانيكية؟" : "Need help diagnosing car issue?"}
-                </span>
-
-                <button
-                  type="button"
-                  onClick={() => {
-                    if (searchQuery.trim()) {
-                      setAiQuestion(searchQuery.trim());
-                      handleAskAiSubmit(searchQuery.trim());
-                    }
-                    setShowAiModal(true);
-                  }}
-                  className="px-4 sm:px-5 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-xs sm:text-sm flex items-center gap-2 shadow-md shadow-red-600/30 hover:scale-[1.02] active:scale-95 transition-all cursor-pointer shrink-0"
-                >
-                  <Sparkles className="w-4 h-4 text-amber-300 fill-amber-300/30" />
-                  <span>{isAr ? "المساعد الميكانيكي الذكي" : "Ask Auto AI Advisor"}</span>
-                </button>
+            ) : (
+              /* No matching results */
+              <div className="py-8 px-4 text-center">
+                <p className="text-sm font-bold text-white">
+                  {isAr ? "لم نجد نتائج لـ" : "No results for"} "{searchQuery}"
+                </p>
+                <p className="text-xs text-zinc-400 mt-1 max-w-md mx-auto">
+                  {isAr
+                    ? "جرّب البحث باسم إحدى خدمات الورشة (فرامل، غيار زيت، فحص كمبيوتر، مكيف، بطارية، إطارات) أو ماركة السيارة."
+                    : "Try searching for workshop services (brakes, oil change, diagnostics, AC repair, battery, tires) or car makes."}
+                </p>
+                <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      router.push("/services");
+                      handleCollapse();
+                      onCloseMenu?.();
+                    }}
+                    className="inline-flex items-center gap-1.5 px-4 py-2 bg-zinc-900 hover:bg-zinc-800 text-red-500 text-xs font-bold rounded-full transition-colors border border-red-600/30 cursor-pointer"
+                  >
+                    <Wrench className="w-3.5 h-3.5" />
+                    <span>{isAr ? "تصفح جميع الخدمات (8)" : "Browse All 8 Services"}</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      router.push("/booking");
+                      handleCollapse();
+                      onCloseMenu?.();
+                    }}
+                    className="inline-flex items-center gap-1.5 px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-xs font-bold rounded-full transition-colors cursor-pointer"
+                  >
+                    <Calendar className="w-3.5 h-3.5" />
+                    <span>{isAr ? "حجز موعد فحص فوري" : "Book Fast Slot"}</span>
+                  </button>
+                </div>
               </div>
-            </>
-          )}
+            )}
+          </div>
+
+          {/* 5. Bottom Action Bar (TajAlRahmah Style Quick Shortcuts) */}
+          <div className="mt-4 pt-3 border-t border-zinc-800/80 flex items-center justify-between text-xs gap-3 flex-wrap">
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  setShowAiModal(true);
+                  setAiQuestion("");
+                  setAiResponse(null);
+                }}
+                className="px-3 py-1.5 rounded-full bg-zinc-900 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-zinc-700/80 text-[11px] font-bold flex items-center gap-1.5 cursor-pointer transition-colors"
+              >
+                <Sparkles className="w-3.5 h-3.5 text-red-500" />
+                <span>{isAr ? "مساعد الذكاء الاصطناعي" : "AI Service Advisor"}</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  router.push("/booking");
+                  handleCollapse();
+                  onCloseMenu?.();
+                }}
+                className="px-3 py-1.5 rounded-full bg-red-600 hover:bg-red-700 text-white text-[11px] font-bold flex items-center gap-1.5 cursor-pointer transition-colors shadow-sm"
+              >
+                <Calendar className="w-3.5 h-3.5" />
+                <span>{isAr ? "حجز موعد صيانة" : "Book Service Online"}</span>
+              </button>
+            </div>
+
+            <a
+              href={WORKSHOP_INFO.whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-emerald-400 hover:text-emerald-300 font-bold text-[11px] flex items-center gap-1.5 hover:underline"
+            >
+              <MessageCircle className="w-3.5 h-3.5 text-emerald-400" />
+              <span>{isAr ? "واتساب الفني المباشر" : "WhatsApp Mechanic"}</span>
+            </a>
+          </div>
         </div>
       )}
 
-      {/* ─── INTERACTIVE "ASK AI" ASSISTANT MODAL (PORTAL) ───────────── */}
-      {showAiModal &&
-        mounted &&
-        typeof document !== "undefined" &&
-        createPortal(
+      {/* ─── AI ASSISTANT MODAL (PORTAL) ────────────────────────── */}
+      {showAiModal && mounted && createPortal(
+        <div
+          className="fixed inset-0 z-[99999] bg-black/80 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in"
+          onClick={() => setShowAiModal(false)}
+          dir={isAr ? "rtl" : "ltr"}
+        >
           <div
-            className="fixed inset-0 z-[10006] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200"
-            onClick={() => setShowAiModal(false)}
+            className="bg-zinc-950 border border-red-600/40 rounded-3xl p-5 sm:p-6 w-full max-w-lg shadow-[0_25px_60px_rgba(220,38,38,0.25)] flex flex-col max-h-[85vh] text-white"
+            onClick={(e) => e.stopPropagation()}
           >
-            <div
-              className="bg-zinc-950 text-white rounded-3xl shadow-2xl border border-red-600/40 max-w-lg w-full p-5 sm:p-6 text-left rtl:text-right overflow-hidden relative max-h-[90vh] flex flex-col"
-              onClick={(e) => e.stopPropagation()}
-              dir={isAr ? "rtl" : "ltr"}
-            >
-              {/* Modal Header */}
-              <div className="flex items-center justify-between pb-3.5 border-b border-zinc-800 flex-shrink-0">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-9 h-9 rounded-xl bg-red-600/20 text-red-500 border border-red-600/30 flex items-center justify-center">
-                    <Bot className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-bold text-white">
-                      {isAr
-                        ? "المستشار الميكانيكي الذكي — كراج باب البستان"
-                        : "Bab Al Bustan AI Workshop Advisor"}
-                    </h3>
-                    <p className="text-[11px] text-zinc-400">
-                      {isAr
-                        ? "إرشادات فورية لحرارة صيف الإمارات وتشخيص أعطال السيارات"
-                        : "Instant vehicle guidance & UAE climate maintenance advice"}
-                    </p>
-                  </div>
+            <div className="flex items-center justify-between pb-3 border-b border-zinc-800">
+              <div className="flex items-center gap-2.5">
+                <div className="w-9 h-9 rounded-xl bg-red-600 flex items-center justify-center text-white shadow-md shadow-red-600/40">
+                  <Sparkles className="w-5 h-5" />
                 </div>
-                <button
-                  type="button"
-                  onClick={() => setShowAiModal(false)}
-                  className="w-7 h-7 rounded-full bg-zinc-900 hover:bg-zinc-800 text-zinc-400 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
-                >
-                  <X className="w-4 h-4" />
-                </button>
-              </div>
-
-              {/* Modal Body */}
-              <div className="flex-1 overflow-y-auto min-h-0 py-2 space-y-3">
-                <div className="my-2">
-                  <p className="text-[11px] font-bold text-zinc-400 uppercase tracking-wider mb-2">
-                    {isAr ? "أسئلة شائعة مقترحة:" : "Common Questions:"}
+                <div>
+                  <h4 className="font-extrabold text-sm text-white">
+                    {isAr ? "المستشار الفني الذكي — كراج باب البستان" : "AI Master Mechanic Advisor"}
+                  </h4>
+                  <p className="text-[11px] text-zinc-400">
+                    {isAr
+                      ? "إجابات فورية لأعطال وتوصيات صيانة السيارات بالشارقة"
+                      : "Instant answers to common car repairs in UAE climate"}
                   </p>
-                  <div className="flex flex-col gap-1.5">
-                    {AI_PRESET_QUESTIONS.map((preset, idx) => (
-                      <button
-                        key={idx}
-                        type="button"
-                        onClick={() => {
-                          setAiQuestion(isAr ? preset.ar : preset.en);
-                          setAiResponse(isAr ? preset.ansAr : preset.ansEn);
-                        }}
-                        className="text-left rtl:text-right text-xs text-zinc-200 bg-zinc-900 hover:bg-red-950/40 hover:text-red-400 p-2.5 rounded-xl border border-zinc-800 hover:border-red-600/50 transition-colors cursor-pointer"
-                      >
-                        💬 {isAr ? preset.ar : preset.en}
-                      </button>
-                    ))}
-                  </div>
                 </div>
-
-                {/* Answer Display */}
-                {aiResponse && (
-                  <div className="p-3.5 bg-red-950/30 border border-red-800/60 rounded-2xl my-2 animate-in fade-in">
-                    <div className="flex items-center gap-1.5 text-xs font-bold text-red-400 mb-1">
-                      <Sparkles className="w-3.5 h-3.5" />
-                      <span>
-                        {isAr ? "التوصية الفنية المعتمدة من الورشة:" : "Certified Workshop Recommendation:"}
-                      </span>
-                    </div>
-                    <p className="text-xs text-zinc-200 leading-relaxed font-sans">
-                      {aiResponse}
-                    </p>
-                  </div>
-                )}
               </div>
-
-              {/* Input Bar */}
-              <div className="flex items-center gap-2 pt-2 border-t border-zinc-800 flex-shrink-0">
-                <input
-                  type="text"
-                  value={aiQuestion}
-                  onChange={(e) => setAiQuestion(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      e.preventDefault();
-                      handleAskAiSubmit(aiQuestion);
-                    }
-                  }}
-                  placeholder={
-                    isAr
-                      ? "اكتب مشكلة سيارتك أو سؤالك هنا..."
-                      : "Type your car problem or question..."
-                  }
-                  className="flex-1 bg-zinc-900 border border-zinc-700 rounded-xl px-3 py-2 text-xs text-white outline-none focus:border-red-600 transition-colors"
-                />
-                <button
-                  type="button"
-                  onClick={() => handleAskAiSubmit(aiQuestion)}
-                  className="px-3.5 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold flex items-center gap-1 cursor-pointer transition-colors shadow-sm"
-                >
-                  <Send className="w-3.5 h-3.5 rtl:rotate-180" />
-                  <span>{isAr ? "إرسال" : "Ask"}</span>
-                </button>
-              </div>
-
-              {/* Quick Actions Footer */}
-              <div className="mt-2.5 pt-2 border-t border-zinc-800 flex items-center justify-between text-xs flex-shrink-0">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setShowAiModal(false);
-                    handleCollapse();
-                    router.push("/booking");
-                    onCloseMenu?.();
-                  }}
-                  className="text-red-500 hover:underline font-bold flex items-center gap-1 cursor-pointer"
-                >
-                  <span>{isAr ? "حجز فحص مباشر" : "Book Service Bay"}</span>
-                  <ArrowRight className="w-3 h-3 rtl:rotate-180" />
-                </button>
-                <a
-                  href="https://api.whatsapp.com/send?phone=971564406456"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-emerald-400 hover:underline font-bold flex items-center gap-1"
-                >
-                  <MessageCircle className="w-3.5 h-3.5" />
-                  <span>{isAr ? "محادثة فني عبر واتساب" : "WhatsApp Service Advisor"}</span>
-                </a>
-              </div>
+              <button
+                type="button"
+                onClick={() => setShowAiModal(false)}
+                className="w-7 h-7 rounded-full bg-zinc-900 hover:bg-zinc-800 text-zinc-400 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+              >
+                <X className="w-4 h-4" />
+              </button>
             </div>
-          </div>,
-          document.body
-        )}
+
+            <div className="flex-1 overflow-y-auto min-h-0 py-3 space-y-3 slim-scrollbar">
+              <p className="text-[11px] font-bold text-zinc-400 uppercase tracking-wider">
+                {isAr ? "أسئلة فنية مقترحة:" : "Suggested Inquiries:"}
+              </p>
+              <div className="flex flex-col gap-1.5">
+                {AI_PRESET_QUESTIONS.map((preset, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => {
+                      setAiQuestion(isAr ? preset.ar : preset.en);
+                      setAiResponse(isAr ? preset.ansAr : preset.ansEn);
+                    }}
+                    className="text-left rtl:text-right text-xs text-zinc-200 bg-zinc-900/80 hover:bg-zinc-800 hover:text-red-400 p-2.5 rounded-xl border border-zinc-800 transition-colors cursor-pointer"
+                  >
+                    🔧 {isAr ? preset.ar : preset.en}
+                  </button>
+                ))}
+              </div>
+
+              {aiResponse && (
+                <div className="p-3.5 bg-red-950/40 border border-red-800/60 rounded-2xl animate-in fade-in">
+                  <div className="flex items-center gap-1.5 text-xs font-bold text-red-400 mb-1.5">
+                    <CheckCircle2 className="w-4 h-4 text-red-500" />
+                    <span>{isAr ? "التشخيص الفني الموصى به:" : "Recommended Technical Solution:"}</span>
+                  </div>
+                  <p className="text-xs text-zinc-200 leading-relaxed">
+                    {aiResponse}
+                  </p>
+                </div>
+              )}
+            </div>
+
+            <div className="flex items-center gap-2 pt-3 border-t border-zinc-800">
+              <input
+                type="text"
+                value={aiQuestion}
+                onChange={(e) => setAiQuestion(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    handleAskAiSubmit(aiQuestion);
+                  }
+                }}
+                placeholder={isAr ? "اكتب سؤالك الميكانيكي أو استفسارك هنا..." : "Ask your car repair question here..."}
+                className="flex-1 bg-zinc-900 border border-zinc-700 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-zinc-500 outline-none focus:border-red-600 transition-colors"
+              />
+              <button
+                type="button"
+                onClick={() => handleAskAiSubmit(aiQuestion)}
+                className="px-4 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold flex items-center gap-1.5 cursor-pointer transition-colors shadow-md"
+              >
+                <Send className="w-3.5 h-3.5 rtl:rotate-180" />
+                <span>{isAr ? "إرسال" : "Ask"}</span>
+              </button>
+            </div>
+          </div>
+        </div>,
+        document.body
+      )}
     </div>
   );
 }

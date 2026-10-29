@@ -1,29 +1,167 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Menu, X, Globe } from "lucide-react";
+import {
+  Menu,
+  X,
+  Globe,
+  ChevronDown,
+  ArrowRight,
+  Cpu,
+  Droplets,
+  Disc,
+  Car,
+  Wrench,
+  Fan,
+  ShieldCheck,
+  Code,
+} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import ExpandableSearchBar from "@/components/Common/ExpandableSearchBar";
 import { useLanguage } from "@/context/LanguageContext";
 
+interface MegaServiceItem {
+  id: string;
+  titleEn: string;
+  titleAr: string;
+  subEn: string;
+  subAr: string;
+  badgeEn: string;
+  badgeAr: string;
+  icon: React.ComponentType<{ className?: string }>;
+  href: string;
+}
+
+const SERVICES_MEGA_ITEMS: MegaServiceItem[] = [
+  {
+    id: "diagnostics",
+    titleEn: "Diagnostics & ECU Scans",
+    titleAr: "فحص كمبيوتر وتشخيص الأعطال",
+    subEn: "Pinpoint sensor, engine & gearbox faults with 100% accuracy.",
+    subAr: "كشف وفحص شامل لجميع حساسات وكمبيوتر السيارة بدقة متناهية.",
+    badgeEn: "OEM Scanners",
+    badgeAr: "أجهزة فحص وكالة",
+    icon: Cpu,
+    href: "/services-details?service=diagnostics",
+  },
+  {
+    id: "oil-change",
+    titleEn: "Synthetic Oil & Filter Service",
+    titleAr: "تبديل زيت المحرك والفلتر",
+    subEn: "Top-tier manufacturer-spec synthetic oils for desert heat.",
+    subAr: "زيوت تخليقية كاملة معتمدة لحرارة الصيف وفلتر أصلي مع فحص شامل.",
+    badgeEn: "Express 30m",
+    badgeAr: "صيانة سريعة",
+    icon: Droplets,
+    href: "/services-details?service=oil-change",
+  },
+  {
+    id: "brakes",
+    titleEn: "Brake Repair & Rotor Skimming",
+    titleAr: "صيانة وفحص الفرامل (السفايف)",
+    subEn: "Ceramic pad replacements, computerized disk skimming & fluid.",
+    subAr: "تبديل فحمات سيراميك وخرط الدسكات إلكترونياً مع فحص زيت البريك.",
+    badgeEn: "Warranty Included",
+    badgeAr: "ضمان السلامة",
+    icon: Disc,
+    href: "/services-details?service=brakes",
+  },
+  {
+    id: "suspension",
+    titleEn: "Suspension, Bushings & Struts",
+    titleAr: "صيانة نظام التعليق والمساعدات",
+    subEn: "Shock absorbers, control arms, tie rods & NVH road testing.",
+    subAr: "تجديد المساعدات، المقصات، الجلب، وميزان الستيرنج لثبات وراحة تامة.",
+    badgeEn: "Smooth Ride",
+    badgeAr: "راحة وثبات",
+    icon: Car,
+    href: "/services-details?service=suspension",
+  },
+  {
+    id: "battery",
+    titleEn: "Battery Test & Alternator Service",
+    titleAr: "فحص وتبديل بطارية السيارة",
+    subEn: "Digital cranking health test, charging output & AGM batteries.",
+    subAr: "فحص قوة الشحن والدينمو مع بطاريات أصلية وضمان استبدال معتمد.",
+    badgeEn: "Digital Test",
+    badgeAr: "فحص إلكتروني",
+    icon: Wrench,
+    href: "/services-details?service=battery",
+  },
+  {
+    id: "ac-repair",
+    titleEn: "A/C Repair & Refrigerant Gas",
+    titleAr: "تصليح وشحن مكيف السيارة",
+    subEn: "UV dye leak tests, compressor overhauls & ice-cold cooling.",
+    subAr: "كشف التسريب بالأشعة فوق البنفسجية وشحن فريون أصلي لصيف الشارقة.",
+    badgeEn: "Ice-Cold",
+    badgeAr: "تبريد فائق",
+    icon: Fan,
+    href: "/services-details?service=ac-repair",
+  },
+  {
+    id: "tires",
+    titleEn: "Tire Fitting & Laser Alignment",
+    titleAr: "تبديل وميزان الإطارات بالليزر",
+    subEn: "High-speed wheel balancing, laser alignment & tread checks.",
+    subAr: "ميزان ليزر دقيق وترصيص عالي السرعة وفحص سلامة الإطارات.",
+    badgeEn: "Laser Align",
+    badgeAr: "ميزان ليزر",
+    icon: ShieldCheck,
+    href: "/services-details?service=tires",
+  },
+  {
+    id: "computer-programming",
+    titleEn: "ECU Coding & Smart Keys",
+    titleAr: "برمجة الكمبيوتر والمفاتيح",
+    subEn: "Firmware updates, immobilizer adaptation & key reprogramming.",
+    subAr: "معايرة السوفتوير وبرمجة وحدات التحكم والمفاتيح الذكية لجميع الماركات.",
+    badgeEn: "Key Coding",
+    badgeAr: "مفاتيح ذكية",
+    icon: Code,
+    href: "/services-details?service=computer-programming",
+  },
+];
+
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isServicesMegaOpen, setIsServicesMegaOpen] = useState(false);
+  const [mobileServicesExpanded, setMobileServicesExpanded] = useState(false);
+
+  const navRef = useRef<HTMLDivElement>(null);
+  const hoverTimeout = useRef<NodeJS.Timeout | null>(null);
+
   const pathname = usePathname();
   const router = useRouter();
   const { isArabic, toggleLanguage, t } = useLanguage();
 
   const navLinks = [
     { label: t.nav.about, href: "/about-us" },
-    { label: t.nav.services, href: "/services" },
+    { label: t.nav.services, href: "/services", hasMega: true },
     { label: t.nav.gallery, href: "/gallery" },
     { label: t.nav.brands, href: "/brands" },
     { label: t.nav.contact, href: "/contact" },
     { label: t.nav.blogs, href: "/blogs" },
   ];
+
+  const openMega = () => {
+    if (hoverTimeout.current) clearTimeout(hoverTimeout.current);
+    setIsServicesMegaOpen(true);
+  };
+
+  const closeMega = () => {
+    hoverTimeout.current = setTimeout(() => {
+      setIsServicesMegaOpen(false);
+    }, 180);
+  };
+
+  const cancelClose = () => {
+    if (hoverTimeout.current) clearTimeout(hoverTimeout.current);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -37,13 +175,27 @@ export default function Navbar() {
 
   useEffect(() => {
     setMobileMenuOpen(false);
+    setIsServicesMegaOpen(false);
+    setMobileServicesExpanded(false);
   }, [pathname]);
+
+  // Outside click listener for mega menu
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (navRef.current && !navRef.current.contains(e.target as Node)) {
+        setIsServicesMegaOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
     <>
       <nav
+        ref={navRef}
         className={`fixed top-0 left-0 right-0 z-[9999] transition-all duration-500 ${
-          isScrolled
+          isScrolled || isServicesMegaOpen
             ? "bg-black/95 backdrop-blur-lg border-b border-white/10 shadow-lg"
             : "bg-transparent"
         }`}
@@ -66,9 +218,157 @@ export default function Navbar() {
             </div>
 
             {/* Desktop Navigation Links */}
-            <div className="hidden lg:flex items-center gap-8 xl:gap-12">
+            <div className="hidden lg:flex items-center gap-7 xl:gap-10">
               {navLinks.map((link) => {
                 const isActive = pathname === link.href;
+
+                if (link.hasMega) {
+                  return (
+                    <div
+                      key={link.href}
+                      className="relative py-4"
+                      onMouseEnter={openMega}
+                      onMouseLeave={closeMega}
+                    >
+                      <Link
+                        href={link.href}
+                        onClick={() => setIsServicesMegaOpen(false)}
+                        className={`inline-flex items-center gap-1.5 font-bold text-sm tracking-widest uppercase transition-colors duration-300 group ${
+                          isActive || isServicesMegaOpen ? "text-red-500" : "text-white"
+                        }`}
+                      >
+                        <span>{link.label}</span>
+                        <ChevronDown
+                          className={`w-4 h-4 transition-transform duration-200 ${
+                            isServicesMegaOpen ? "rotate-180 text-red-500" : "text-zinc-400 group-hover:text-white"
+                          }`}
+                        />
+                        <span
+                          className={`absolute bottom-2 left-0 w-full h-[2px] bg-red-600 transition-transform duration-300 ease-out origin-center ${
+                            isActive || isServicesMegaOpen
+                              ? "scale-x-100"
+                              : "scale-x-0 group-hover:scale-x-100"
+                          }`}
+                        />
+                      </Link>
+
+                      {/* ─── DESKTOP SERVICES MEGA MENU DROPDOWN (TAJALRAHMAH STYLE) ─── */}
+                      <AnimatePresence>
+                        {isServicesMegaOpen && (
+                          <motion.div
+                            initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: 8, scale: 0.98 }}
+                            transition={{ duration: 0.2 }}
+                            onMouseEnter={cancelClose}
+                            onMouseLeave={closeMega}
+                            className="absolute top-full -left-48 xl:-left-36 rtl:-left-auto rtl:-right-48 rtl:xl:-right-36 w-[820px] xl:w-[890px] pt-2"
+                            dir={isArabic ? "rtl" : "ltr"}
+                          >
+                            <div className="bg-zinc-950/98 backdrop-blur-2xl rounded-3xl shadow-[0_25px_70px_rgba(220,38,38,0.25),0_15px_35px_rgba(0,0,0,0.9)] border border-red-600/35 overflow-hidden text-left rtl:text-right">
+                              {/* Top Strip */}
+                              <div className="flex items-center justify-between px-6 py-3.5 border-b border-zinc-800 bg-zinc-900/60">
+                                <div className="flex items-center gap-2">
+                                  <span className="w-2.5 h-2.5 rounded-full bg-red-600 animate-pulse" />
+                                  <span className="text-[11px] font-extrabold tracking-widest uppercase text-red-500">
+                                    {isArabic ? "خدمات الورشة المعتمدة" : "OUR WORKSHOP SERVICES"}
+                                  </span>
+                                </div>
+                                <span className="text-xs text-zinc-400 font-medium">
+                                  {isArabic
+                                    ? "صيانة وإصلاح احترافي لجميع السيارات في الشارقة"
+                                    : "Comprehensive Auto Care & Repair in Sharjah (8 Services)"}
+                                </span>
+                              </div>
+
+                              <div className="flex">
+                                {/* Left: 2-Column Grid of all 8 Services */}
+                                <div className="flex-1 p-5 grid grid-cols-2 gap-2.5">
+                                  {SERVICES_MEGA_ITEMS.map((item) => {
+                                    const Icon = item.icon;
+                                    return (
+                                      <Link
+                                        key={item.id}
+                                        href={item.href}
+                                        onClick={() => setIsServicesMegaOpen(false)}
+                                        className="group flex items-start gap-3 p-3 rounded-2xl bg-zinc-900/50 hover:bg-zinc-800/90 border border-zinc-800/80 hover:border-red-600/60 transition-all duration-200"
+                                      >
+                                        <div className="w-10 h-10 rounded-xl bg-zinc-800 text-red-500 border border-zinc-700/80 group-hover:bg-red-600 group-hover:text-white group-hover:border-red-600 flex items-center justify-center shrink-0 transition-all duration-200 mt-0.5">
+                                          <Icon className="w-5 h-5 stroke-[2]" />
+                                        </div>
+                                        <div className="min-w-0 flex-1">
+                                          <div className="flex items-center justify-between gap-1 mb-1">
+                                            <p className="text-[13px] font-bold text-white group-hover:text-red-500 transition-colors truncate">
+                                              {isArabic ? item.titleAr : item.titleEn}
+                                            </p>
+                                            <span className="text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded-full bg-red-950 text-red-400 border border-red-800/60 shrink-0">
+                                              {isArabic ? item.badgeAr : item.badgeEn}
+                                            </span>
+                                          </div>
+                                          <p className="text-[11px] text-zinc-400 line-clamp-1 leading-snug">
+                                            {isArabic ? item.subAr : item.subEn}
+                                          </p>
+                                        </div>
+                                        <ArrowRight className="w-4 h-4 text-zinc-600 group-hover:text-red-500 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180 transition-all shrink-0 self-center" />
+                                      </Link>
+                                    );
+                                  })}
+                                </div>
+
+                                {/* Right: Featured Workshop Card */}
+                                <div className="w-[260px] xl:w-[280px] shrink-0 bg-gradient-to-b from-zinc-900/90 to-zinc-950 border-l rtl:border-l-0 rtl:border-r border-zinc-800 p-5 flex flex-col justify-between">
+                                  <div>
+                                    <div className="relative w-full h-36 rounded-2xl overflow-hidden border border-zinc-700 mb-3.5 group/img">
+                                      <Image
+                                        src="/images/service-1.png"
+                                        alt="Workshop Service"
+                                        fill
+                                        className="object-cover group-hover/img:scale-105 transition-transform duration-300"
+                                      />
+                                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                                      <div className="absolute bottom-2.5 left-2.5 right-2.5 text-white">
+                                        <p className="text-xs font-bold leading-tight">
+                                          {isArabic ? "كراج باب البستان — الشارقة" : "Bab Al Bustan Workshop"}
+                                        </p>
+                                        <p className="text-[10px] text-red-400 font-medium">
+                                          {isArabic ? "المنطقة الصناعية 5" : "Industrial Area 5"}
+                                        </p>
+                                      </div>
+                                    </div>
+                                    <p className="text-xs text-zinc-300 leading-relaxed font-medium">
+                                      {isArabic
+                                        ? "أجهزة فحص متطورة، كشف أسعار مسبق، وضمان كامل على كافة الأعمال الميكانيكية والكهربائية."
+                                        : "Advanced diagnostic scanners, transparent quotes, and full warranty on all mechanical & electrical repairs."}
+                                    </p>
+                                  </div>
+
+                                  <div className="pt-4 border-t border-zinc-800/80 flex flex-col gap-2">
+                                    <Link
+                                      href="/services"
+                                      onClick={() => setIsServicesMegaOpen(false)}
+                                      className="inline-flex items-center justify-center gap-1.5 bg-red-600 hover:bg-red-700 text-white text-xs font-bold py-2.5 px-4 rounded-xl transition-all shadow-md active:scale-95 text-center"
+                                    >
+                                      <span>{isArabic ? "تصفح صفحة الخدمات الكاملة" : "Explore All Services"}</span>
+                                      <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
+                                    </Link>
+                                    <Link
+                                      href="/booking"
+                                      onClick={() => setIsServicesMegaOpen(false)}
+                                      className="inline-flex items-center justify-center gap-1.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-bold py-2 px-3 rounded-xl transition-all text-center border border-zinc-700"
+                                    >
+                                      <span>{isArabic ? "حجز موعد فحص فوري" : "Book Fast Slot"}</span>
+                                    </Link>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  );
+                }
+
                 return (
                   <Link
                     key={link.href}
@@ -116,7 +416,7 @@ export default function Navbar() {
             <div className="flex items-center gap-2 lg:hidden">
               <ExpandableSearchBar isScrolled={isScrolled} />
 
-              {/* Mobile Language Switcher (Shows only opposite language) */}
+              {/* Mobile Language Switcher */}
               <button
                 type="button"
                 onClick={toggleLanguage}
@@ -168,7 +468,7 @@ export default function Navbar() {
               </button>
             </div>
 
-            {/* Language Switcher in Drawer (Shows only opposite language) */}
+            {/* Language Switcher in Drawer */}
             <button
               type="button"
               onClick={toggleLanguage}
@@ -188,26 +488,97 @@ export default function Navbar() {
             </div>
 
             {/* Mobile Links */}
-            <div className="flex flex-col gap-5 overflow-y-auto max-h-[calc(100vh-280px)]">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`text-2xl font-black uppercase tracking-tight hover:text-red-600 transition-colors ${
-                    pathname === link.href ? "text-red-600" : "text-white"
-                  }`}
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {link.label}
-                </Link>
-              ))}
+            <div className="flex flex-col gap-4 overflow-y-auto max-h-[calc(100vh-280px)] slim-scrollbar pr-1">
+              {navLinks.map((link) => {
+                if (link.hasMega) {
+                  return (
+                    <div key={link.href} className="border-b border-zinc-800 pb-3">
+                      <div className="flex items-center justify-between">
+                        <Link
+                          href={link.href}
+                          className={`text-xl font-black uppercase tracking-tight hover:text-red-600 transition-colors ${
+                            pathname === link.href ? "text-red-600" : "text-white"
+                          }`}
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          {link.label}
+                        </Link>
+                        <button
+                          type="button"
+                          onClick={() => setMobileServicesExpanded((prev) => !prev)}
+                          className="p-2 text-zinc-400 hover:text-white transition-colors cursor-pointer"
+                          aria-label="Toggle subservices"
+                        >
+                          <ChevronDown
+                            className={`w-5 h-5 transition-transform duration-200 ${
+                              mobileServicesExpanded ? "rotate-180 text-red-500" : ""
+                            }`}
+                          />
+                        </button>
+                      </div>
+
+                      {/* Mobile Accordion Subservices */}
+                      <AnimatePresence>
+                        {mobileServicesExpanded && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.2 }}
+                            className="overflow-hidden mt-3 pl-3 rtl:pl-0 rtl:pr-3 space-y-2 border-l-2 rtl:border-l-0 rtl:border-r-2 border-red-600/50"
+                          >
+                            {SERVICES_MEGA_ITEMS.map((item) => {
+                              const Icon = item.icon;
+                              return (
+                                <Link
+                                  key={item.id}
+                                  href={item.href}
+                                  onClick={() => setMobileMenuOpen(false)}
+                                  className="flex items-center gap-3 p-2 rounded-xl bg-zinc-900/60 hover:bg-zinc-800 text-zinc-300 hover:text-white transition-colors group"
+                                >
+                                  <div className="w-8 h-8 rounded-lg bg-zinc-800 text-red-500 flex items-center justify-center shrink-0 group-hover:bg-red-600 group-hover:text-white transition-colors">
+                                    <Icon className="w-4 h-4" />
+                                  </div>
+                                  <span className="text-sm font-bold truncate">
+                                    {isArabic ? item.titleAr : item.titleEn}
+                                  </span>
+                                </Link>
+                              );
+                            })}
+                            <Link
+                              href="/services"
+                              onClick={() => setMobileMenuOpen(false)}
+                              className="inline-flex items-center gap-1.5 text-xs font-bold text-red-400 hover:text-red-300 pt-1"
+                            >
+                              <span>{isArabic ? "عرض صفحة جميع الخدمات ->" : "View All Services Page ->"}</span>
+                            </Link>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  );
+                }
+
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={`text-xl font-black uppercase tracking-tight hover:text-red-600 transition-colors ${
+                      pathname === link.href ? "text-red-600" : "text-white"
+                    }`}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
 
               <button
                 onClick={() => {
                   router.push("/contact");
                   setMobileMenuOpen(false);
                 }}
-                className="mt-6 btn-primary py-4 text-white font-bold uppercase tracking-widest rounded-full cursor-pointer"
+                className="mt-4 btn-primary py-4 text-white font-bold uppercase tracking-widest rounded-full cursor-pointer"
               >
                 {t.nav.contactBtn}
               </button>
