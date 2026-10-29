@@ -92,7 +92,7 @@ type FilterCategory = "all" | "services" | "brands" | "blogs" | "videos" | "faqs
 
 const FILTER_TABS: { key: FilterCategory; labelEn: string; labelAr: string }[] = [
   { key: "all", labelEn: "All", labelAr: "الكل" },
-  { key: "services", labelEn: "Services (8)", labelAr: "الخدمات (8)" },
+  { key: "services", labelEn: "Services", labelAr: "الخدمات" },
   { key: "brands", labelEn: "Brands", labelAr: "الماركات" },
   { key: "blogs", labelEn: "Guides & Tips", labelAr: "نصائح وإرشادات" },
   { key: "videos", labelEn: "Videos", labelAr: "الفيديوهات" },
@@ -105,65 +105,47 @@ const SERVICE_META: Record<
     icon: React.ComponentType<{ className?: string }>;
     tagEn: string;
     tagAr: string;
-    badgeEn: string;
-    badgeAr: string;
   }
 > = {
   diagnostics: {
     icon: Cpu,
     tagEn: "ECU & Sensors",
     tagAr: "فحص وبرمجة",
-    badgeEn: "Accurate Scan",
-    badgeAr: "دقة 100%",
   },
   "oil-change": {
     icon: Droplets,
     tagEn: "Express Lube",
     tagAr: "صيانة دورية",
-    badgeEn: "OEM Filter",
-    badgeAr: "فلتر أصلي",
   },
   brakes: {
     icon: Disc,
     tagEn: "Brakes & Rotors",
     tagAr: "فرامل ودسكات",
-    badgeEn: "Ceramic Pads",
-    badgeAr: "سفايف سيراميك",
   },
   suspension: {
     icon: Car,
     tagEn: "Struts & Bushings",
     tagAr: "مساعدات ومقصات",
-    badgeEn: "Smooth Ride",
-    badgeAr: "ثبات وراحة",
   },
   battery: {
     icon: Wrench,
     tagEn: "Battery & Alternator",
     tagAr: "كهرباء وبطاريات",
-    badgeEn: "Warranty Included",
-    badgeAr: "ضمان معتمد",
   },
   "ac-repair": {
     icon: Fan,
     tagEn: "Cooling & Freon",
     tagAr: "تكييف وتبريد",
-    badgeEn: "Leak Test",
-    badgeAr: "شحن غاز أصلي",
   },
   tires: {
     icon: ShieldCheck,
     tagEn: "Tires & Balancing",
     tagAr: "إطارات وميزان",
-    badgeEn: "Laser Align",
-    badgeAr: "ميزان ليزر",
   },
   "computer-programming": {
     icon: Code,
     tagEn: "Coding & Keys",
     tagAr: "برمجة ومفاتيح",
-    badgeEn: "Smart Keys",
-    badgeAr: "مفاتيح ذكية",
   },
 };
 
@@ -949,8 +931,8 @@ export default function ExpandableSearchBar({
                 {searchQuery.trim() === ""
                   ? activeTab === "services"
                     ? isAr
-                      ? "جميع خدمات ورشة باب البستان (8)"
-                      : "All Workshop Services (8)"
+                      ? "جميع خدمات ورشة باب البستان"
+                      : "All Workshop Services"
                     : isAr
                     ? "قائمة خدمات الورشة الأكثر طلباً"
                     : "Popular Workshop Services"
@@ -990,8 +972,6 @@ export default function ExpandableSearchBar({
                       icon: Wrench,
                       tagEn: "Specialized Service",
                       tagAr: "خدمة سيارات معتمدة",
-                      badgeEn: "Guaranteed",
-                      badgeAr: "مضمونة",
                     };
                     const Icon = meta.icon;
                     const targetHref = `/services-details?service=${service.id}`;
@@ -1013,14 +993,9 @@ export default function ExpandableSearchBar({
                           <Icon className="w-5 h-5 stroke-[2]" />
                         </div>
                         <div className="min-w-0 flex-1">
-                          <div className="flex items-center justify-between gap-1 mb-1">
-                            <h5 className="text-xs sm:text-[13px] font-bold text-white group-hover:text-red-500 transition-colors truncate">
-                              {service.title}
-                            </h5>
-                            <span className="text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded-full bg-red-950/80 text-red-400 border border-red-800/50 shrink-0">
-                              {isAr ? meta.badgeAr : meta.badgeEn}
-                            </span>
-                          </div>
+                          <h5 className="text-xs sm:text-[13px] font-bold text-white group-hover:text-red-500 transition-colors truncate mb-0.5">
+                            {service.title}
+                          </h5>
                           <p className="text-[11px] text-zinc-400 line-clamp-1 leading-snug">
                             {service.shortDesc}
                           </p>

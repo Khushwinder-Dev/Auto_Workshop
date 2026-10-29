@@ -29,8 +29,6 @@ interface MegaServiceItem {
   titleAr: string;
   subEn: string;
   subAr: string;
-  badgeEn: string;
-  badgeAr: string;
   icon: React.ComponentType<{ className?: string }>;
   href: string;
 }
@@ -42,8 +40,6 @@ const SERVICES_MEGA_ITEMS: MegaServiceItem[] = [
     titleAr: "فحص كمبيوتر وتشخيص الأعطال",
     subEn: "Pinpoint sensor, engine & gearbox faults with 100% accuracy.",
     subAr: "كشف وفحص شامل لجميع حساسات وكمبيوتر السيارة بدقة متناهية.",
-    badgeEn: "OEM Scanners",
-    badgeAr: "أجهزة فحص وكالة",
     icon: Cpu,
     href: "/services-details?service=diagnostics",
   },
@@ -53,8 +49,6 @@ const SERVICES_MEGA_ITEMS: MegaServiceItem[] = [
     titleAr: "تبديل زيت المحرك والفلتر",
     subEn: "Top-tier manufacturer-spec synthetic oils for desert heat.",
     subAr: "زيوت تخليقية كاملة معتمدة لحرارة الصيف وفلتر أصلي مع فحص شامل.",
-    badgeEn: "Express 30m",
-    badgeAr: "صيانة سريعة",
     icon: Droplets,
     href: "/services-details?service=oil-change",
   },
@@ -64,8 +58,6 @@ const SERVICES_MEGA_ITEMS: MegaServiceItem[] = [
     titleAr: "صيانة وفحص الفرامل (السفايف)",
     subEn: "Ceramic pad replacements, computerized disk skimming & fluid.",
     subAr: "تبديل فحمات سيراميك وخرط الدسكات إلكترونياً مع فحص زيت البريك.",
-    badgeEn: "Warranty Included",
-    badgeAr: "ضمان السلامة",
     icon: Disc,
     href: "/services-details?service=brakes",
   },
@@ -75,8 +67,6 @@ const SERVICES_MEGA_ITEMS: MegaServiceItem[] = [
     titleAr: "صيانة نظام التعليق والمساعدات",
     subEn: "Shock absorbers, control arms, tie rods & NVH road testing.",
     subAr: "تجديد المساعدات، المقصات، الجلب، وميزان الستيرنج لثبات وراحة تامة.",
-    badgeEn: "Smooth Ride",
-    badgeAr: "راحة وثبات",
     icon: Car,
     href: "/services-details?service=suspension",
   },
@@ -86,8 +76,6 @@ const SERVICES_MEGA_ITEMS: MegaServiceItem[] = [
     titleAr: "فحص وتبديل بطارية السيارة",
     subEn: "Digital cranking health test, charging output & AGM batteries.",
     subAr: "فحص قوة الشحن والدينمو مع بطاريات أصلية وضمان استبدال معتمد.",
-    badgeEn: "Digital Test",
-    badgeAr: "فحص إلكتروني",
     icon: Wrench,
     href: "/services-details?service=battery",
   },
@@ -97,8 +85,6 @@ const SERVICES_MEGA_ITEMS: MegaServiceItem[] = [
     titleAr: "تصليح وشحن مكيف السيارة",
     subEn: "UV dye leak tests, compressor overhauls & ice-cold cooling.",
     subAr: "كشف التسريب بالأشعة فوق البنفسجية وشحن فريون أصلي لصيف الشارقة.",
-    badgeEn: "Ice-Cold",
-    badgeAr: "تبريد فائق",
     icon: Fan,
     href: "/services-details?service=ac-repair",
   },
@@ -108,8 +94,6 @@ const SERVICES_MEGA_ITEMS: MegaServiceItem[] = [
     titleAr: "تبديل وميزان الإطارات بالليزر",
     subEn: "High-speed wheel balancing, laser alignment & tread checks.",
     subAr: "ميزان ليزر دقيق وترصيص عالي السرعة وفحص سلامة الإطارات.",
-    badgeEn: "Laser Align",
-    badgeAr: "ميزان ليزر",
     icon: ShieldCheck,
     href: "/services-details?service=tires",
   },
@@ -119,8 +103,6 @@ const SERVICES_MEGA_ITEMS: MegaServiceItem[] = [
     titleAr: "برمجة الكمبيوتر والمفاتيح",
     subEn: "Firmware updates, immobilizer adaptation & key reprogramming.",
     subAr: "معايرة السوفتوير وبرمجة وحدات التحكم والمفاتيح الذكية لجميع الماركات.",
-    badgeEn: "Key Coding",
-    badgeAr: "مفاتيح ذكية",
     icon: Code,
     href: "/services-details?service=computer-programming",
   },
@@ -297,14 +279,9 @@ export default function Navbar() {
                                           <Icon className="w-5 h-5 stroke-[2]" />
                                         </div>
                                         <div className="min-w-0 flex-1">
-                                          <div className="flex items-center justify-between gap-1 mb-1">
-                                            <p className="text-[13px] font-bold text-white group-hover:text-red-500 transition-colors truncate">
-                                              {isArabic ? item.titleAr : item.titleEn}
-                                            </p>
-                                            <span className="text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded-full bg-red-950 text-red-400 border border-red-800/60 shrink-0">
-                                              {isArabic ? item.badgeAr : item.badgeEn}
-                                            </span>
-                                          </div>
+                                          <p className="text-[13px] font-bold text-white group-hover:text-red-500 transition-colors truncate mb-0.5">
+                                            {isArabic ? item.titleAr : item.titleEn}
+                                          </p>
                                           <p className="text-[11px] text-zinc-400 line-clamp-1 leading-snug">
                                             {isArabic ? item.subAr : item.subEn}
                                           </p>
