@@ -112,7 +112,7 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
       >
         <video
           ref={videoRef}
-          src="/videos/ToyotaEngine.mp4"
+          src="/videos/toyota-corolla-red.mp4"
           loop
           muted
           playsInline
