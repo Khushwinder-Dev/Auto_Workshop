@@ -11,9 +11,13 @@ import {
   Navigation,
   Star,
   Info,
+  User,
+  Mail,
+  Wrench,
 } from "lucide-react";
 import toast from "react-hot-toast";
 import { useLanguage } from "@/context/LanguageContext";
+import { FloatInput, FloatTextarea, useVoiceInput } from "@/components/ui/FloatField";
 
 export default function ContactPage() {
   const { t, isArabic } = useLanguage();
@@ -25,6 +29,18 @@ export default function ContactPage() {
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const voice = useVoiceInput({
+    isArabic,
+    onResult: (fieldName: string, text: string) => {
+      setFormData((prev) => {
+        if (fieldName === "message" && prev.message.trim()) {
+          return { ...prev, message: `${prev.message.trim()} ${text}` };
+        }
+        return { ...prev, [fieldName]: text };
+      });
+    },
+  });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -130,57 +146,71 @@ export default function ContactPage() {
                   {t.contact.formTitle}
                 </h2>
                 <form onSubmit={handleSubmit} className="space-y-4">
-                  <input
+                  <FloatInput
                     type="text"
-                    required
-                    placeholder={t.contact.namePlaceholder}
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full bg-gray-50 border-none rounded-lg p-4 text-zinc-900 placeholder:text-gray-400 outline-none focus:ring-2 focus:ring-red-600"
                     name="name"
+                    value={formData.name}
+                    label={t.contact.namePlaceholder}
+                    required
+                    isArabic={isArabic}
+                    icon={<User className="w-4 h-4" />}
+                    isListening={voice.listeningField === "name"}
+                    onVoiceToggle={() => voice.toggleListening("name", "text")}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   />
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <input
+                    <FloatInput
                       type="email"
-                      required
-                      placeholder={t.contact.emailPlaceholder}
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full bg-gray-50 border-none rounded-lg p-4 text-zinc-900 placeholder:text-gray-400 outline-none focus:ring-2 focus:ring-red-600"
                       name="email"
-                    />
-                    <input
-                      type="tel"
+                      value={formData.email}
+                      label={t.contact.emailPlaceholder}
                       required
-                      placeholder={t.contact.phonePlaceholder}
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full bg-gray-50 border-none rounded-lg p-4 text-zinc-900 placeholder:text-gray-400 outline-none focus:ring-2 focus:ring-red-600"
+                      isArabic={isArabic}
+                      icon={<Mail className="w-4 h-4" />}
+                      isListening={voice.listeningField === "email"}
+                      onVoiceToggle={() => voice.toggleListening("email", "email")}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    />
+                    <FloatInput
+                      type="tel"
                       name="phone"
+                      value={formData.phone}
+                      label={t.contact.phonePlaceholder}
+                      required
+                      isArabic={isArabic}
+                      icon={<Phone className="w-4 h-4" />}
+                      isListening={voice.listeningField === "phone"}
+                      onVoiceToggle={() => voice.toggleListening("phone", "phone")}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     />
                   </div>
-                  <input
+                  <FloatInput
                     type="text"
-                    required
-                    placeholder={t.contact.subjectPlaceholder}
-                    value={formData.subject}
-                    onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                    className="w-full bg-gray-50 border-none rounded-lg p-4 text-zinc-900 placeholder:text-gray-400 outline-none focus:ring-2 focus:ring-red-600"
                     name="subject"
-                  />
-                  <textarea
-                    name="message"
+                    value={formData.subject}
+                    label={t.contact.subjectPlaceholder}
                     required
-                    placeholder={t.contact.messagePlaceholder}
-                    rows={4}
+                    isArabic={isArabic}
+                    icon={<Wrench className="w-4 h-4" />}
+                    isListening={voice.listeningField === "subject"}
+                    onVoiceToggle={() => voice.toggleListening("subject", "text")}
+                    onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                  />
+                  <FloatTextarea
+                    name="message"
                     value={formData.message}
+                    label={t.contact.messagePlaceholder}
+                    required
+                    rows={4}
+                    isArabic={isArabic}
+                    isListening={voice.listeningField === "message"}
+                    onVoiceToggle={() => voice.toggleListening("message", "textarea")}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full bg-gray-50 border-none rounded-lg p-4 text-zinc-900 placeholder:text-gray-400 outline-none focus:ring-2 focus:ring-red-600 resize-none"
                   />
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 rounded-lg transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
+                    className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 rounded-full transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-red-600/30 active:scale-95"
                   >
                     <span>{isSubmitting ? t.contact.sendingBtn : t.contact.sendBtn}</span>
                     <Send className={`w-[18px] h-[18px] ${isArabic ? "rotate-180" : ""}`} />

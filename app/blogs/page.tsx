@@ -3,8 +3,10 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { Search } from "lucide-react";
 import { getBlogPosts } from "@/data/blogs";
 import { useLanguage } from "@/context/LanguageContext";
+import { FloatInput, useVoiceInput } from "@/components/ui/FloatField";
 
 export default function BlogsPage() {
   const { t, isArabic } = useLanguage();
@@ -14,6 +16,13 @@ export default function BlogsPage() {
   const allCatLabel = isArabic ? "جميع الأقسام" : "All Categories";
   const [selectedCategory, setSelectedCategory] = useState<string>(allCatLabel);
   const [searchQuery, setSearchQuery] = useState("");
+
+  const voice = useVoiceInput({
+    isArabic,
+    onResult: (_fieldName: string, text: string) => {
+      setSearchQuery(text);
+    },
+  });
 
   const categories = isArabic
     ? ["جميع الأقسام", "صيانة", "إصلاحات", "السلامة", "فحص"]
@@ -78,35 +87,20 @@ export default function BlogsPage() {
               <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
                 <aside className="w-full lg:w-96 flex flex-col gap-6">
                   <div
-                    className="bg-gray-50 border border-gray-200 rounded-2xl p-5 sm:p-7"
+                    className="bg-gray-50 border border-gray-200 rounded-3xl p-5 sm:p-7 shadow-xs"
                     data-aos="fade-right"
                   >
-                    <div className="relative">
-                      <input
-                        type="text"
-                        placeholder={t.blogs.searchPlaceholder}
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        className={`w-full py-3 bg-white rounded-full border border-gray-300 outline-none focus:border-red-600 transition-all text-gray-800 ${
-                          isArabic ? "pr-10 pl-4" : "pl-10 pr-4"
-                        }`}
-                      />
-                      <svg
-                        className={`w-5 h-5 absolute top-1/2 -translate-y-1/2 text-gray-400 ${
-                          isArabic ? "right-4" : "left-4"
-                        }`}
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                        />
-                      </svg>
-                    </div>
+                    <FloatInput
+                      type="text"
+                      name="search"
+                      value={searchQuery}
+                      label={t.blogs.searchPlaceholder}
+                      isArabic={isArabic}
+                      icon={<Search className="w-4 h-4" />}
+                      isListening={voice.listeningField === "search"}
+                      onVoiceToggle={() => voice.toggleListening("search", "text")}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                    />
                   </div>
 
                   <div

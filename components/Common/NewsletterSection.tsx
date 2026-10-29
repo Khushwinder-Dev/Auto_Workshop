@@ -4,12 +4,20 @@ import React, { useState } from "react";
 import { Mail, Send, CheckCircle2, Sparkles, ShieldCheck, Tag, Wrench } from "lucide-react";
 import toast from "react-hot-toast";
 import { useLanguage } from "@/context/LanguageContext";
+import { FloatInput, useVoiceInput } from "@/components/ui/FloatField";
 
 export default function NewsletterSection() {
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubscribed, setIsSubscribed] = useState(false);
   const { isArabic, t } = useLanguage();
+
+  const voice = useVoiceInput({
+    isArabic,
+    onResult: (_fieldName: string, text: string) => {
+      setEmail(text);
+    },
+  });
 
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -145,31 +153,28 @@ export default function NewsletterSection() {
               ) : (
                 <form
                   onSubmit={handleSubscribe}
-                  className="bg-zinc-50/90 p-3 sm:p-4 rounded-2xl border border-zinc-200 shadow-sm space-y-3"
+                  className="bg-zinc-50/90 p-4 sm:p-5 rounded-3xl border border-zinc-200 shadow-sm space-y-3"
                 >
-                  <div className="flex flex-col sm:flex-row gap-2.5">
-                    <div className="relative flex-1">
-                      <Mail
-                        className={`w-4 h-4 text-zinc-400 absolute top-1/2 -translate-y-1/2 pointer-events-none ${
-                          isArabic ? "right-4" : "left-4"
-                        }`}
-                      />
-                      <input
+                  <div className="flex flex-col sm:flex-row items-center gap-3">
+                    <div className="w-full flex-1">
+                      <FloatInput
                         type="email"
+                        name="newsletterEmail"
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder={t.footer.newsletterPlaceholder}
+                        label={t.footer.newsletterPlaceholder}
                         required
                         disabled={isSubmitting}
-                        className={`w-full bg-white border border-zinc-300 focus:border-red-600 focus:ring-4 focus:ring-red-600/10 text-zinc-900 placeholder-zinc-400 rounded-xl py-3.5 text-xs sm:text-sm outline-none transition-all duration-200 disabled:opacity-60 shadow-inner ${
-                          isArabic ? "pr-11 pl-4" : "pl-11 pr-4"
-                        }`}
+                        isArabic={isArabic}
+                        icon={<Mail className="w-4 h-4" />}
+                        isListening={voice.listeningField === "newsletterEmail"}
+                        onVoiceToggle={() => voice.toggleListening("newsletterEmail", "email")}
+                        onChange={(e) => setEmail(e.target.value)}
                       />
                     </div>
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white text-xs sm:text-sm font-bold uppercase tracking-wider transition-all duration-200 shadow-md shadow-red-600/25 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed shrink-0 hover:scale-[1.02] active:scale-[0.98]"
+                      className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white text-xs sm:text-sm font-bold uppercase tracking-wider transition-all duration-200 shadow-md shadow-red-600/25 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed shrink-0 hover:scale-[1.02] active:scale-[0.98]"
                     >
                       <span>
                         {isSubmitting
@@ -183,7 +188,7 @@ export default function NewsletterSection() {
                       />
                     </button>
                   </div>
-                  <p className="text-[11px] text-zinc-500 text-center sm:text-start px-1">
+                  <p className="text-[11px] text-zinc-500 text-center sm:text-start px-2">
                     {isArabic
                       ? "نحترم خصوصيتك بالكامل. يمكنك إلغاء الاشتراك في أي وقت بنقرة واحدة."
                       : "We respect your privacy. Unsubscribe at any time with a single click."}

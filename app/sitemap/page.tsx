@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Search, Mic, MicOff, X } from "lucide-react";
 import toast from "react-hot-toast";
 import { useLanguage } from "@/context/LanguageContext";
+import { FloatInput } from "@/components/ui/FloatField";
 
 interface SitemapItem {
   title: string;
@@ -326,60 +327,29 @@ export default function SitemapPage() {
       <div className="max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-12 py-16 sm:py-20">
         <div className="max-w-2xl mx-auto mb-14 sm:mb-16">
           <div className="relative">
-            <div
-              className={`absolute inset-y-0 ${
-                isArabic ? "right-0 pr-4" : "left-0 pl-4"
-              } flex items-center pointer-events-none text-red-600`}
-            >
-              <Search className="w-5 h-5 stroke-[2.2]" />
-            </div>
-
-            <input
+            <FloatInput
               type="text"
+              name="sitemapSearch"
               value={searchQuery}
+              label={isArabic ? "ابحث في روابط خريطة الموقع..." : "Search sitemap links..."}
+              isArabic={isArabic}
+              icon={<Search className="w-4 h-4" />}
+              isListening={isListening}
+              onVoiceToggle={handleVoiceSearch}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder={
-                isArabic ? "ابحث في روابط خريطة الموقع..." : "Search sitemap links..."
-              }
-              className={`w-full py-3.5 sm:py-4 text-sm sm:text-base rounded-full border border-zinc-300 hover:border-red-500 bg-white text-zinc-900 shadow-sm transition-all outline-none focus:border-red-600 focus:ring-4 focus:ring-red-600/15 placeholder:text-zinc-400 ${
-                isArabic ? "pr-11 pl-20 text-right" : "pl-11 pr-20 text-left"
-              }`}
             />
-
-            <div
-              className={`absolute inset-y-0 ${
-                isArabic ? "left-0 pl-4" : "right-0 pr-4"
-              } flex items-center gap-1.5`}
-            >
+            {searchQuery && (
               <button
                 type="button"
-                onClick={handleVoiceSearch}
-                className={`p-1.5 rounded-full transition-all cursor-pointer ${
-                  isListening
-                    ? "bg-red-600 text-white animate-pulse shadow-md shadow-red-600/40"
-                    : "text-zinc-400 hover:text-red-600 hover:bg-red-50"
+                onClick={() => setSearchQuery("")}
+                className={`absolute top-1/2 -translate-y-1/2 z-20 text-zinc-400 hover:text-zinc-700 transition-colors cursor-pointer p-1 ${
+                  isArabic ? "left-12" : "right-12"
                 }`}
-                title={isArabic ? "البحث الصوتي" : "Voice Search"}
-                aria-label="Voice search"
+                aria-label="Clear search"
               >
-                {isListening ? (
-                  <MicOff className="w-4 h-4" />
-                ) : (
-                  <Mic className="w-4 h-4" />
-                )}
+                <X className="w-4 h-4" />
               </button>
-
-              {searchQuery && (
-                <button
-                  type="button"
-                  onClick={() => setSearchQuery("")}
-                  className="text-zinc-400 hover:text-zinc-700 transition-colors cursor-pointer p-1"
-                  aria-label="Clear search"
-                >
-                  <X className="w-4 h-4" />
-                </button>
-              )}
-            </div>
+            )}
           </div>
 
           {searchQuery.trim() && (

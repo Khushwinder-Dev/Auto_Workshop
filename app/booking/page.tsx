@@ -10,10 +10,19 @@ import {
   Navigation,
   Star,
   Info,
+  User,
+  Mail,
+  Calendar,
 } from "lucide-react";
 import toast from "react-hot-toast";
 import { useLanguage } from "@/context/LanguageContext";
 import { getWorkshopServices } from "@/data/workshopData";
+import {
+  FloatInput,
+  FloatTextarea,
+  SearchableSelect,
+  useVoiceInput,
+} from "@/components/ui/FloatField";
 
 export default function BookingPage() {
   const { t, isArabic } = useLanguage();
@@ -29,6 +38,32 @@ export default function BookingPage() {
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const voice = useVoiceInput({
+    isArabic,
+    onResult: (fieldName: string, text: string) => {
+      setFormData((prev) => {
+        if (fieldName === "message" && prev.message.trim()) {
+          return { ...prev, message: `${prev.message.trim()} ${text}` };
+        }
+        return { ...prev, [fieldName]: text };
+      });
+    },
+  });
+
+  const timeOptions = [
+    { value: "08:00 AM", label: "08:00 AM", labelAr: "08:00 ص" },
+    { value: "10:00 AM", label: "10:00 AM", labelAr: "10:00 ص" },
+    { value: "01:00 PM", label: "01:00 PM", labelAr: "01:00 م" },
+    { value: "04:00 PM", label: "04:00 PM", labelAr: "04:00 م" },
+    { value: "07:00 PM", label: "07:00 PM", labelAr: "07:00 م" },
+  ];
+
+  const serviceOptions = services.map((s) => ({
+    value: s.title,
+    label: s.title,
+    labelAr: s.title,
+  }));
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -137,85 +172,90 @@ export default function BookingPage() {
                   {t.booking.formSubtitle}
                 </h2>
                 <form onSubmit={handleSubmit} className="space-y-4">
-                  <input
+                  <FloatInput
                     type="text"
-                    required
-                    placeholder={t.booking.nameLabel}
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full bg-zinc-100 border-none rounded-xl p-4 text-zinc-900 placeholder:text-gray-500 focus:ring-2 focus:ring-red-600/20 outline-none"
                     name="name"
+                    value={formData.name}
+                    label={t.booking.nameLabel}
+                    required
+                    isArabic={isArabic}
+                    icon={<User className="w-4 h-4" />}
+                    isListening={voice.listeningField === "name"}
+                    onVoiceToggle={() => voice.toggleListening("name", "text")}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   />
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <input
+                    <FloatInput
                       type="email"
-                      required
-                      placeholder={t.booking.emailLabel}
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full bg-zinc-100 border-none rounded-xl p-4 text-zinc-900 placeholder:text-gray-500 focus:ring-2 focus:ring-red-600/20 outline-none"
                       name="email"
-                    />
-                    <input
-                      type="tel"
+                      value={formData.email}
+                      label={t.booking.emailLabel}
                       required
-                      placeholder={t.booking.phoneLabel}
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full bg-zinc-100 border-none rounded-xl p-4 text-zinc-900 placeholder:text-gray-500 focus:ring-2 focus:ring-red-600/20 outline-none"
+                      isArabic={isArabic}
+                      icon={<Mail className="w-4 h-4" />}
+                      isListening={voice.listeningField === "email"}
+                      onVoiceToggle={() => voice.toggleListening("email", "email")}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    />
+                    <FloatInput
+                      type="tel"
                       name="phone"
+                      value={formData.phone}
+                      label={t.booking.phoneLabel}
+                      required
+                      isArabic={isArabic}
+                      icon={<Phone className="w-4 h-4" />}
+                      isListening={voice.listeningField === "phone"}
+                      onVoiceToggle={() => voice.toggleListening("phone", "phone")}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     />
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <input
+                    <FloatInput
                       type="date"
-                      required
-                      value={formData.date}
-                      onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                      className="w-full bg-zinc-100 border-none rounded-xl p-4 text-zinc-900 focus:ring-2 focus:ring-red-600/20 outline-none"
                       name="date"
-                    />
-                    <select
-                      name="time"
+                      value={formData.date}
+                      label={t.booking.dateLabel || "Appointment Date"}
                       required
+                      isArabic={isArabic}
+                      icon={<Calendar className="w-4 h-4" />}
+                      onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                    />
+                    <SearchableSelect
+                      name="time"
                       value={formData.time}
-                      onChange={(e) => setFormData({ ...formData, time: e.target.value })}
-                      className="w-full bg-zinc-100 border-none rounded-xl p-4 text-zinc-900 focus:ring-2 focus:ring-red-600/20 outline-none"
-                    >
-                      <option value="">{t.booking.selectTimePlaceholder}</option>
-                      <option>08:00 AM</option>
-                      <option>10:00 AM</option>
-                      <option>01:00 PM</option>
-                      <option>04:00 PM</option>
-                      <option>07:00 PM</option>
-                    </select>
+                      options={timeOptions}
+                      label={t.booking.timeLabel || "Appointment Time"}
+                      placeholder={t.booking.selectTimePlaceholder}
+                      required
+                      isArabic={isArabic}
+                      onChange={(val) => setFormData({ ...formData, time: val })}
+                    />
                   </div>
-                  <select
+                  <SearchableSelect
                     name="service"
-                    required
                     value={formData.service}
-                    onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                    className="w-full bg-zinc-100 border-none rounded-xl p-4 text-zinc-900 focus:ring-2 focus:ring-red-600/20 outline-none"
-                  >
-                    <option value="">{t.booking.selectServicePlaceholder}</option>
-                    {services.map((s) => (
-                      <option key={s.id} value={s.title}>
-                        {s.title}
-                      </option>
-                    ))}
-                  </select>
-                  <textarea
+                    options={serviceOptions}
+                    label={t.booking.serviceLabel || "Service Required"}
+                    placeholder={t.booking.selectServicePlaceholder}
+                    required
+                    isArabic={isArabic}
+                    onChange={(val) => setFormData({ ...formData, service: val })}
+                  />
+                  <FloatTextarea
                     name="message"
-                    placeholder={t.booking.messagePlaceholder}
-                    rows={4}
                     value={formData.message}
+                    label={t.booking.messagePlaceholder}
+                    rows={4}
+                    isArabic={isArabic}
+                    isListening={voice.listeningField === "message"}
+                    onVoiceToggle={() => voice.toggleListening("message", "textarea")}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full bg-zinc-100 border-none rounded-xl p-4 text-zinc-900 placeholder:text-gray-500 focus:ring-2 focus:ring-red-600/20 outline-none resize-none"
                   />
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-red-600 hover:bg-red-700 disabled:bg-zinc-400 text-white font-bold py-5 rounded-xl transition-all shadow-lg uppercase tracking-widest mt-4 cursor-pointer"
+                    className="w-full bg-red-600 hover:bg-red-700 disabled:bg-zinc-400 text-white font-bold py-5 rounded-full transition-all shadow-lg shadow-red-600/30 uppercase tracking-widest mt-4 cursor-pointer active:scale-95"
                   >
                     {isSubmitting ? t.booking.submittingBtn : t.booking.submitBtn}
                   </button>

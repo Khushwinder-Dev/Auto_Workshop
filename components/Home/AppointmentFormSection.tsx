@@ -2,12 +2,13 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { UserCog, Handshake } from "lucide-react";
+import { UserCog, Handshake, User, Mail, Phone, Car, Wrench } from "lucide-react";
 import toast from "react-hot-toast";
 import { useLanguage } from "@/context/LanguageContext";
+import { FloatInput, FloatTextarea, useVoiceInput } from "@/components/ui/FloatField";
 
 export default function AppointmentFormSection() {
-  const { t } = useLanguage();
+  const { t, isArabic } = useLanguage();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -17,6 +18,18 @@ export default function AppointmentFormSection() {
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const voice = useVoiceInput({
+    isArabic,
+    onResult: (fieldName: string, text: string) => {
+      setFormData((prev) => {
+        if (fieldName === "message" && prev.message.trim()) {
+          return { ...prev, message: `${prev.message.trim()} ${text}` };
+        }
+        return { ...prev, [fieldName]: text };
+      });
+    },
+  });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -57,64 +70,87 @@ export default function AppointmentFormSection() {
             </h2>
           </div>
           <div className="relative flex justify-end">
-            <div className="w-full max-w-lg bg-zinc-900/80 backdrop-blur-xl p-8 md:p-10 rounded-2xl border border-white/10 shadow-2xl">
+            <div className="w-full max-w-lg bg-zinc-900/90 backdrop-blur-xl p-8 md:p-10 rounded-3xl border border-white/10 shadow-2xl">
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <input
+                  <FloatInput
                     type="text"
-                    required
-                    placeholder={t.home.appointment.namePlaceholder}
-                    className="w-full bg-zinc-800/60 border border-white/10 rounded-xl p-3.5 text-white text-sm outline-none focus:border-red-500 transition-colors placeholder-zinc-400"
                     name="name"
                     value={formData.name}
+                    label={t.home.appointment.namePlaceholder}
+                    required
+                    isArabic={isArabic}
+                    variant="dark"
+                    icon={<User className="w-4 h-4" />}
+                    isListening={voice.listeningField === "name"}
+                    onVoiceToggle={() => voice.toggleListening("name", "text")}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   />
-                  <input
+                  <FloatInput
                     type="email"
-                    required
-                    placeholder={t.home.appointment.emailPlaceholder}
-                    className="w-full bg-zinc-800/60 border border-white/10 rounded-xl p-3.5 text-white text-sm outline-none focus:border-red-500 transition-colors placeholder-zinc-400"
                     name="email"
                     value={formData.email}
+                    label={t.home.appointment.emailPlaceholder}
+                    required
+                    isArabic={isArabic}
+                    variant="dark"
+                    icon={<Mail className="w-4 h-4" />}
+                    isListening={voice.listeningField === "email"}
+                    onVoiceToggle={() => voice.toggleListening("email", "email")}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   />
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <input
+                  <FloatInput
                     type="tel"
-                    required
-                    placeholder={t.home.appointment.phonePlaceholder}
-                    className="w-full bg-zinc-800/60 border border-white/10 rounded-xl p-3.5 text-white text-sm outline-none focus:border-red-500 transition-colors placeholder-zinc-400"
                     name="phone"
                     value={formData.phone}
+                    label={t.home.appointment.phonePlaceholder}
+                    required
+                    isArabic={isArabic}
+                    variant="dark"
+                    icon={<Phone className="w-4 h-4" />}
+                    isListening={voice.listeningField === "phone"}
+                    onVoiceToggle={() => voice.toggleListening("phone", "phone")}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   />
-                  <input
+                  <FloatInput
                     type="text"
-                    required
-                    placeholder={t.home.appointment.vehiclePlaceholder}
-                    className="w-full bg-zinc-800/60 border border-white/10 rounded-xl p-3.5 text-white text-sm outline-none focus:border-red-500 transition-colors placeholder-zinc-400"
                     name="vehicle"
                     value={formData.vehicle}
+                    label={t.home.appointment.vehiclePlaceholder}
+                    required
+                    isArabic={isArabic}
+                    variant="dark"
+                    icon={<Car className="w-4 h-4" />}
+                    isListening={voice.listeningField === "vehicle"}
+                    onVoiceToggle={() => voice.toggleListening("vehicle", "text")}
                     onChange={(e) => setFormData({ ...formData, vehicle: e.target.value })}
                   />
                 </div>
-                <input
+                <FloatInput
                   type="text"
-                  required
-                  placeholder={t.home.appointment.subjectPlaceholder}
-                  className="w-full bg-zinc-800/60 border border-white/10 rounded-xl p-3.5 text-white text-sm outline-none focus:border-red-500 transition-colors placeholder-zinc-400"
                   name="subject"
                   value={formData.subject}
+                  label={t.home.appointment.subjectPlaceholder}
+                  required
+                  isArabic={isArabic}
+                  variant="dark"
+                  icon={<Wrench className="w-4 h-4" />}
+                  isListening={voice.listeningField === "subject"}
+                  onVoiceToggle={() => voice.toggleListening("subject", "text")}
                   onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                 />
-                <textarea
+                <FloatTextarea
                   name="message"
-                  required
-                  placeholder={t.home.appointment.messagePlaceholder}
-                  rows={3}
-                  className="w-full bg-zinc-800/60 border border-white/10 rounded-xl p-3.5 text-white text-sm outline-none focus:border-red-500 transition-colors resize-none placeholder-zinc-400"
                   value={formData.message}
+                  label={t.home.appointment.messagePlaceholder}
+                  required
+                  rows={3}
+                  isArabic={isArabic}
+                  variant="dark"
+                  isListening={voice.listeningField === "message"}
+                  onVoiceToggle={() => voice.toggleListening("message", "textarea")}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                 />
                 <button
