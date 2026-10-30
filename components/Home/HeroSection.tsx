@@ -40,55 +40,43 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
   const [slideIndex, setSlideIndex] = useState(0);
   const [direction, setDirection] = useState(1);
 
-  // Slides rotate through Bab Al Bustan's major services while the workshop background image remains static
+  // Slides rotate through Bab Al Bustan's 3 major services while the workshop background image remains static
   const slides: HeroServiceSlide[] = [
     {
       id: "diagnostics",
-      badgeEn: "MAJOR SERVICE 01 • COMPUTER DIAGNOSTICS & ECU",
-      badgeAr: "خدمة رئيسية ٠١ • فحص كمبيوتر وتشخيص الأعطال",
+      badgeEn: "MAJOR SERVICE 01 / 03 • COMPUTER DIAGNOSTICS & ECU",
+      badgeAr: "خدمة رئيسية ٠١ / ٠٣ • فحص كمبيوتر وتشخيص الأعطال",
       serviceNameEn: "Diagnostics & ECU Scans",
       serviceNameAr: "فحص كمبيوتر وبرمجة الأعطال",
       titlePart1: isArabic ? "فحص كمبيوتر متقدم و" : "Advanced Diagnostics &",
-      titlePart2: isArabic ? "برمجة الحساسات والكمبيوتر" : "Precision ECU Tuning",
+      titlePart2: isArabic ? "برمجة الحساسات والكمبيوتر" : "Precision Engine Care",
       description: isArabic
         ? "فحص إلكتروني شامل لكمبيوتر السيارة بأحدث أجهزة الوكالة، كشف وإصلاح لمبة المحرك، فحص الحساسات، وبرمجة الأنظمة في صناعية 5 بالشارقة."
-        : "OEM-level computer scanning, sensor diagnostics, ECU tuning, check engine light diagnosis, and live data analysis in Sharjah Industrial Area 5.",
-    },
-    {
-      id: "oil-change",
-      badgeEn: "MAJOR SERVICE 02 • SYNTHETIC OIL & FILTER",
-      badgeAr: "خدمة رئيسية ٠٢ • تغيير زيت المحرك والفلتر الأصلي",
-      serviceNameEn: "Synthetic Oil & Filter Service",
-      serviceNameAr: "تبديل زيت المحرك والفلتر",
-      titlePart1: isArabic ? "تبديل زيت المحرك والفلتر و" : "Synthetic Oil & Filter Service &",
-      titlePart2: isArabic ? "الصيانة الدورية المعتمدة" : "Desert-Grade Protection",
-      description: isArabic
-        ? "زيوت تخليقية بالكامل مصممة لتحمل حرارة صيف الإمارات القاسية، مع استبدال الفلاتر الأصلية وفحص شامل متعدد النقاط لحماية محرك سيارتك."
-        : "High-grade desert-spec fully synthetic oils, genuine OEM filter replacements, and a comprehensive multi-point inspection to keep your engine running at peak performance.",
+        : "OEM-level computer scanning, sensor diagnostics, ECU tuning, check engine light diagnosis, and complete mechanical care in Sharjah Industrial Area 5.",
     },
     {
       id: "brakes",
-      badgeEn: "MAJOR SERVICE 03 • BRAKE REPAIR & ROTOR SKIMMING",
-      badgeAr: "خدمة رئيسية ٠٣ • صيانة الفرامل وخرط الديسكات",
+      badgeEn: "MAJOR SERVICE 02 / 03 • BRAKE REPAIR & ROTOR SKIMMING",
+      badgeAr: "خدمة رئيسية ٠٢ / ٠٣ • صيانة الفرامل وخرط الديسكات",
       serviceNameEn: "Brake Repair & Rotor Skimming",
       serviceNameAr: "صيانة الفرامل والديسكات",
-      titlePart1: isArabic ? "صيانة وتصليح الفرامل و" : "Precision Brake System Repair &",
-      titlePart2: isArabic ? "خرط الديسكات والمساعدات" : "Computerized Rotor Skimming",
+      titlePart1: isArabic ? "صيانة وتصليح الفرامل و" : "High-Performance Brakes &",
+      titlePart2: isArabic ? "خرط الديسكات والمساعدات" : "Suspension Overhaul",
       description: isArabic
         ? "تبديل سفايف سيراميك أصلية، خرط ديسكات ليزري على السيارة بدون فك، تجديد المساعدات ونظام التعليق، وميزان ليزر لأعلى مستويات الأمان والثبات."
-        : "Genuine ceramic brake pads, on-car laser disk skimming, hydraulic fluid flushes, suspension shock absorbers, and laser alignment for total control and road safety.",
+        : "Ceramic pad replacements, computerized on-car disk skimming, fluid flushes, suspension shock absorbers, and laser alignment for smooth desert driving.",
     },
     {
       id: "ac-repair",
-      badgeEn: "MAJOR SERVICE 04 • DESERT-READY CAR A/C SYSTEM",
-      badgeAr: "خدمة رئيسية ٠٤ • صيانة وتصليح مكيف السيارة",
-      serviceNameEn: "Car A/C Repair & Refrigerant Gas",
-      serviceNameAr: "تصليح وشحن مكيف السيارة",
-      titlePart1: isArabic ? "تصليح مكيفات السيارات و" : "Desert-Ready Car A/C Repair &",
-      titlePart2: isArabic ? "شحن غاز الفريون الأصلي" : "Ice-Cold Freon Recharge",
+      badgeEn: "MAJOR SERVICE 03 / 03 • DESERT-READY CAR A/C & OIL SERVICE",
+      badgeAr: "خدمة رئيسية ٠٣ / ٠٣ • تصليح المكيف وتغيير الزيت",
+      serviceNameEn: "Car A/C Repair & Synthetic Lube",
+      serviceNameAr: "تصليح المكيف والصيانة الدورية",
+      titlePart1: isArabic ? "تصليح مكيفات السيارات و" : "Desert-Ready Car A/C &",
+      titlePart2: isArabic ? "الصيانة الدورية المعتمدة" : "Full Synthetic Lube",
       description: isArabic
-        ? "كشف تسريب غاز المكيف بأشعة UV، صيانة واستبدال الكمبروسر وثلاجة المكيف، تنظيف فلاتر الهواء، وشحن غاز الفريون الأصلي لتبريد فائق الانتعاش."
-        : "Precision UV leak detection, AC compressor and cooling coil overhauls, cabin filter sanitization, and rapid refrigerant gas recharge for ice-cold cooling in summer heat.",
+        ? "كشف تسريب غاز المكيف بأشعة UV، صيانة واستبدال الكمبروسر وثلاجة المكيف، مع تبديل زيوت تخليقية كاملة وفلاتر أصلية لحرارة الصيف."
+        : "UV leak testing, ice-cold freon recharge, compressor overhauls, and top-tier synthetic oil changes for extreme UAE weather.",
     },
   ];
 
