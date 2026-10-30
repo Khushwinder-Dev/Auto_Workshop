@@ -207,13 +207,13 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
 
           {/* Dual TajAlRahmah-Style Action CTA Buttons */}
           <div className="flex flex-wrap items-center gap-4 sm:gap-5">
-            {/* Button 1: BOOK AN APPOINTMENT */}
+            {/* Button 1: GET A QUOTE */}
             <button
               type="button"
               onClick={() => setIsBookingModalOpen(true)}
               className="group pl-5 sm:pl-7 pr-1.5 sm:pr-2.5 py-1.5 sm:py-2.5 rounded-full bg-white hover:bg-zinc-100 text-red-600 font-black text-xs sm:text-sm tracking-wider uppercase inline-flex items-center gap-2.5 sm:gap-3.5 transition-all duration-300 shadow-xl shadow-black/40 hover:scale-105 active:scale-95 cursor-pointer"
             >
-              <span>{isArabic ? "احجز موعد صيانة" : "Book an Appointment"}</span>
+              <span>{isArabic ? "احصل على عرض سعر" : "Get a Quote"}</span>
               <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-red-600 text-white flex items-center justify-center transition-transform group-hover:scale-110">
                 <ArrowIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
               </span>
@@ -243,10 +243,12 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
         </div>
       </div>
 
-      {/* 6. Booking Modal */}
+      {/* 6. Quote Modal */}
       <BookingModal
         isOpen={isBookingModalOpen}
         onClose={() => setIsBookingModalOpen(false)}
+        mode="quote"
+        defaultService={activeSlide.id}
       />
     </section>
   );

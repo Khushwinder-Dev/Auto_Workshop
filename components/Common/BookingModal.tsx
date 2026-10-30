@@ -247,8 +247,10 @@ export default function BookingModal({
           name: formData.name.trim(),
           email: formData.email.trim(),
           phone: formData.phone.trim(),
-          subject: `Service Booking: ${serviceTitle} (${formData.vehicle || "Vehicle not specified"})`,
-          message: `Booking Request Details:
+          subject: isQuote
+            ? `Price Quote Request: ${serviceTitle} (${formData.vehicle || "Vehicle not specified"})`
+            : `Service Booking: ${serviceTitle} (${formData.vehicle || "Vehicle not specified"})`,
+          message: `${isQuote ? "Service Quote Request" : "Booking Request"} Details:
 - Service: ${serviceTitle}
 - Vehicle: ${formData.vehicle || "N/A"}
 - Preferred Date: ${formData.preferredDate || "Earliest available"}
@@ -260,26 +262,38 @@ export default function BookingModal({
       if (response.ok) {
         setIsSubmitted(true);
         toast.success(
-          isAr
-            ? "تم استلام طلب حجز الموعد بنجاح! سيتواصل معك مستشار الصيانة لتأكيد الحجز."
-            : "Booking request received successfully! Our service advisor will call you shortly."
+          isQuote
+            ? isAr
+              ? "تم استلام طلب عرض السعر بنجاح! سيتواصل معك مستشار الخدمة لتزويدك بالتفاصيل."
+              : "Quote request received successfully! Our service advisor will contact you with an estimate."
+            : isAr
+              ? "تم استلام طلب حجز الموعد بنجاح! سيتواصل معك مستشار الصيانة لتأكيد الحجز."
+              : "Booking request received successfully! Our service advisor will call you shortly."
         );
       } else {
         // Fallback simulate success so user is never blocked
         setIsSubmitted(true);
         toast.success(
-          isAr
-            ? "تم استلام طلب حجز الموعد بنجاح!"
-            : "Booking request received! We will contact you soon."
+          isQuote
+            ? isAr
+              ? "تم استلام طلب عرض السعر بنجاح!"
+              : "Quote request received! We will contact you soon."
+            : isAr
+              ? "تم استلام طلب حجز الموعد بنجاح!"
+              : "Booking request received! We will contact you soon."
         );
       }
     } catch {
       // Offline fallback
       setIsSubmitted(true);
       toast.success(
-        isAr
-          ? "تم تسجيل طلبك بنجاح! سيتواصل معك فريق الورشة قريباً."
-          : "Your appointment request has been recorded. Our team will contact you shortly."
+        isQuote
+          ? isAr
+            ? "تم تسجيل طلب عرض السعر بنجاح! سيتواصل معك فريق الورشة قريباً."
+            : "Your quote request has been recorded. Our team will contact you shortly."
+          : isAr
+            ? "تم تسجيل طلبك بنجاح! سيتواصل معك فريق الورشة قريباً."
+            : "Your appointment request has been recorded. Our team will contact you shortly."
       );
     } finally {
       setIsSubmitting(false);
@@ -321,11 +335,23 @@ export default function BookingModal({
                 <span className="w-3.5 h-[2.5px] bg-red-600 rounded-full" />
                 <span className="text-[10px] sm:text-[11px] font-black uppercase tracking-wider text-red-500 inline-flex items-center gap-1">
                   <Sparkles className="w-3 h-3 text-red-500" />
-                  {isAr ? "ورشة باب البستان المعتمدة" : "Bab Al Bustan Auto Workshop"}
+                  {isQuote
+                    ? isAr
+                      ? "عرض سعر فوري • ورشة باب البستان"
+                      : "Instant Free Quote • Bab Al Bustan"
+                    : isAr
+                      ? "ورشة باب البستان المعتمدة"
+                      : "Bab Al Bustan Auto Workshop"}
                 </span>
               </div>
               <h2 className="text-base sm:text-lg font-black text-white tracking-tight leading-tight">
-                {isAr ? "احجز موعد صيانة سيارتك الآن" : "Book Your Workshop Service Bay"}
+                {isQuote
+                  ? isAr
+                    ? "احصل على عرض سعر لصيانة سيارتك"
+                    : "Get an Instant Service Quote"
+                  : isAr
+                    ? "احجز موعد صيانة سيارتك الآن"
+                    : "Book Your Workshop Service Bay"}
               </h2>
             </div>
           </div>
@@ -352,12 +378,22 @@ export default function BookingModal({
 
               <div>
                 <h3 className="font-black text-lg sm:text-xl text-white mb-1.5">
-                  {isAr ? "تم استلام طلب الموعد بنجاح!" : "Appointment Request Confirmed!"}
+                  {isQuote
+                    ? isAr
+                      ? "تم استلام طلب عرض السعر بنجاح!"
+                      : "Quote Request Received!"
+                    : isAr
+                      ? "تم استلام طلب الموعد بنجاح!"
+                      : "Appointment Request Confirmed!"}
                 </h3>
                 <p className="text-xs sm:text-sm text-zinc-300 max-w-sm mx-auto leading-relaxed">
-                  {isAr
-                    ? `شكراً لك ${formData.name}. تم تسجيل طلب صيانة لسيارتك (${formData.vehicle || "المركبة"}). سيتواصل معك مستشار الخدمة لتأكيد وقت الاستقبال في المنطقة الصناعية 5 بالشارقة.`
-                    : `Thank you, ${formData.name}. Your service request for ${formData.vehicle || "your vehicle"} has been registered. Our service team in Sharjah Industrial Area 5 will confirm your bay allocation shortly.`}
+                  {isQuote
+                    ? isAr
+                      ? `شكراً لك ${formData.name}. تم تسجيل طلب عرض السعر لسيارتك (${formData.vehicle || "المركبة"}). سيتواصل معك مستشار الخدمة لتزويدك بتقدير التكلفة والخيارات المتاحة.`
+                      : `Thank you, ${formData.name}. We have received your quote request for ${formData.vehicle || "your vehicle"}. Our service advisor in Sharjah will contact you shortly with an upfront estimate.`
+                    : isAr
+                      ? `شكراً لك ${formData.name}. تم تسجيل طلب صيانة لسيارتك (${formData.vehicle || "المركبة"}). سيتواصل معك مستشار الخدمة لتأكيد وقت الاستقبال في المنطقة الصناعية 5 بالشارقة.`
+                      : `Thank you, ${formData.name}. Your service request for ${formData.vehicle || "your vehicle"} has been registered. Our service team in Sharjah Industrial Area 5 will confirm your bay allocation shortly.`}
                 </p>
               </div>
 
@@ -415,9 +451,13 @@ export default function BookingModal({
             /* Booking Form */
             <form onSubmit={handleSubmit} className="flex flex-col gap-4" noValidate>
               <p className="text-xs sm:text-[13px] text-zinc-400 leading-relaxed">
-                {isAr
-                  ? "أدخل بياناتك ونوع سيارتك لحجز موعد فحص فوري أو صيانة شاملة مع قطع غيار أصلية وضمان معتمد."
-                  : "Fill in your details and vehicle model to book priority workshop bay time with certified technicians and guaranteed parts."}
+                {isQuote
+                  ? isAr
+                    ? "أدخل بياناتك وتفاصيل سيارتك للحصول على عرض سعر فوري وشفاف مع ضمان قطع الغيار الأصلية وأجور اليد المعتمدة."
+                    : "Fill in your vehicle details and required service for an upfront, transparent repair estimate with guaranteed OEM parts."
+                  : isAr
+                    ? "أدخل بياناتك ونوع سيارتك لحجز موعد فحص فوري أو صيانة شاملة مع قطع غيار أصلية وضمان معتمد."
+                    : "Fill in your details and vehicle model to book priority workshop bay time with certified technicians and guaranteed parts."}
               </p>
 
               {/* 2-Column: Name & Email */}
@@ -560,11 +600,27 @@ export default function BookingModal({
                 {isSubmitting ? (
                   <>
                     <Loader2 className="w-4 h-4 animate-spin text-white" />
-                    <span>{isAr ? "جاري تأكيد الحجز..." : "Submitting Booking..."}</span>
+                    <span>
+                      {isQuote
+                        ? isAr
+                          ? "جاري إرسال طلب عرض السعر..."
+                          : "Submitting Quote Request..."
+                        : isAr
+                          ? "جاري تأكيد الحجز..."
+                          : "Submitting Booking..."}
+                    </span>
                   </>
                 ) : (
                   <>
-                    <span>{isAr ? "تأكيد حجز موعد الصيانة" : "Confirm Service Booking"}</span>
+                    <span>
+                      {isQuote
+                        ? isAr
+                          ? "طلب عرض السعر الفوري"
+                          : "Get a Free Quote"
+                        : isAr
+                          ? "تأكيد حجز موعد الصيانة"
+                          : "Confirm Service Booking"}
+                    </span>
                     {isAr ? (
                       <ArrowLeft className="w-4 h-4 stroke-[2.5]" />
                     ) : (
