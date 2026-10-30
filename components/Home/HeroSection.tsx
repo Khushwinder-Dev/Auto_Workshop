@@ -8,9 +8,6 @@ import {
   ArrowLeft,
   Play,
   Pause,
-  Volume2,
-  VolumeX,
-  Image as ImageIcon,
   Sparkles,
 } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -52,7 +49,7 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
         : "OEM-level computer scanning, sensor diagnostics, ECU tuning, and complete mechanical care in Sharjah Industrial Area 5.",
     },
     {
-      image: "/images/hero-slide-2.jpg",
+      image: "/images/hero-slide-2.png",
       titlePart1: isArabic ? "صيانة الفرامل المعتمدة و" : "High-Performance Brakes &",
       titlePart2: isArabic ? "تجديد المساعدات والتعليق" : "Suspension Overhaul",
       description: isArabic
@@ -118,25 +115,6 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
         video.pause();
         setIsVideoPaused(true);
       }
-    }
-  };
-
-  // Switch back to photo slide banner
-  const handleSwitchToImage = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (videoRef.current) {
-      videoRef.current.pause();
-    }
-    setIsPlayingVideo(false);
-    setIsVideoPaused(false);
-  };
-
-  // Toggle audio mute
-  const handleToggleMute = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (videoRef.current) {
-      videoRef.current.muted = !videoRef.current.muted;
-      setIsMuted(videoRef.current.muted);
     }
   };
 
@@ -237,50 +215,7 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
         })}
       </div>
 
-      {/* 5. Video Mode Status Badge & Sound Toggle (Visible when Video is Active) */}
-      {isPlayingVideo && (
-        <div
-          className={`absolute top-24 sm:top-28 z-30 flex items-center gap-2.5 bg-black/60 backdrop-blur-md border border-white/20 px-3.5 py-1.5 rounded-full text-white text-xs font-semibold shadow-2xl transition-all ${
-            isArabic ? "left-5 sm:left-10" : "right-5 sm:right-10"
-          }`}
-        >
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-red-600"></span>
-          </span>
-          <span className="hidden sm:inline text-white/90">
-            {isVideoPaused
-              ? isArabic
-                ? "الفيديو متوقف مؤقتاً"
-                : "Video Paused"
-              : isArabic
-              ? "وضع الفيديو المباشر"
-              : "Live Workshop Video"}
-          </span>
-          <button
-            onClick={handleToggleMute}
-            aria-label={isMuted ? "Unmute audio" : "Mute audio"}
-            className="p-1 hover:text-red-500 transition-colors cursor-pointer"
-            title={isMuted ? "Unmute" : "Mute"}
-          >
-            {isMuted ? (
-              <VolumeX className="w-4 h-4 text-white/80 hover:text-white" />
-            ) : (
-              <Volume2 className="w-4 h-4 text-red-500" />
-            )}
-          </button>
-          <button
-            onClick={handleSwitchToImage}
-            className="pl-2 border-l border-white/20 hover:text-red-500 transition-colors flex items-center gap-1.5 cursor-pointer text-white/80 hover:text-white"
-            title="Return to photo slider"
-          >
-            <ImageIcon className="w-3.5 h-3.5" />
-            <span className="text-[11px] font-medium">{isArabic ? "الصور" : "Photos"}</span>
-          </button>
-        </div>
-      )}
-
-      {/* 6. Main Hero Content Container (TajAlRahmah 12-Column Grid Layout) */}
+      {/* 5. Main Hero Content Container (TajAlRahmah 12-Column Grid Layout) */}
       <div
         className={`relative z-20 w-full max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 pt-28 sm:pt-36 lg:pt-40 flex-1 flex flex-col justify-center ${
           isArabic ? "pr-10 sm:pr-14" : "pl-10 sm:pl-14"
