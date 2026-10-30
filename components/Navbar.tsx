@@ -371,16 +371,15 @@ export default function Navbar() {
             <div className="hidden lg:flex items-center gap-4">
               <ExpandableSearchBar isScrolled={isScrolled} />
 
-              {/* Language Switcher Button (Shows only opposite language) */}
+              {/* Language Switcher (Simple Text, No Background) */}
               <button
                 type="button"
                 onClick={toggleLanguage}
-                className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/90 hover:bg-zinc-800 border border-white/20 hover:border-red-500/60 text-white text-xs font-bold transition-all duration-300 backdrop-blur-md shadow-md hover:scale-105 active:scale-95 cursor-pointer group"
+                className="text-white hover:text-red-500 font-bold text-sm tracking-wider uppercase transition-colors duration-200 cursor-pointer py-1.5 px-2 select-none"
                 title={isArabic ? "Switch to English" : "التبديل إلى العربية"}
                 aria-label={isArabic ? "Switch to English" : "التبديل إلى العربية"}
               >
-                <Globe className="w-3.5 h-3.5 text-red-500 transition-transform duration-300 group-hover:rotate-45" />
-                <span className="tracking-wide">{isArabic ? "English" : "العربية"}</span>
+                {isArabic ? "English" : "العربية"}
               </button>
 
               <button
@@ -396,16 +395,15 @@ export default function Navbar() {
             <div className="flex items-center gap-2 lg:hidden">
               <ExpandableSearchBar isScrolled={isScrolled} />
 
-              {/* Mobile Language Switcher */}
+              {/* Mobile Language Switcher (Simple Text, No Background) */}
               <button
                 type="button"
                 onClick={toggleLanguage}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-zinc-900/90 hover:bg-zinc-800 border border-white/20 text-white text-xs font-bold transition-all backdrop-blur-md shadow-sm active:scale-95 cursor-pointer"
+                className="text-white hover:text-red-500 font-bold text-xs tracking-wider uppercase transition-colors duration-200 cursor-pointer py-1.5 px-1.5 select-none"
                 title={isArabic ? "Switch to English" : "التبديل إلى العربية"}
                 aria-label={isArabic ? "Switch to English" : "التبديل إلى العربية"}
               >
-                <Globe className="w-3.5 h-3.5 text-red-500" />
-                <span>{isArabic ? "EN" : "عربي"}</span>
+                {isArabic ? "EN" : "عربي"}
               </button>
 
               <button
