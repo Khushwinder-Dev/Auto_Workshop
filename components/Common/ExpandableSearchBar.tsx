@@ -731,9 +731,7 @@ export default function ExpandableSearchBar({
   };
 
   const mostUsedItems = MOST_USED_BY_TAB[activeTab] || MOST_USED_BY_TAB.all;
-  const defaultPlaceholder = isAr
-    ? "ابحث عن خدمة، فرامل، فحص كمبيوتر، زيت، ماركة..."
-    : "Search service, brakes, diagnostics, oil, brand...";
+  const defaultPlaceholder = isAr ? "بحث" : "Search";
 
   return (
     <div
@@ -902,39 +900,14 @@ export default function ExpandableSearchBar({
             </button>
           </div>
 
-          {/* 2. Filter Category Tabs */}
-          <div className="mt-4 flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
-            {FILTER_TABS.map((tab) => {
-              const isSelected = activeTab === tab.key;
-              return (
-                <button
-                  key={tab.key}
-                  type="button"
-                  onClick={() => setActiveTab(tab.key)}
-                  className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer whitespace-nowrap shrink-0 ${
-                    isSelected
-                      ? "bg-red-600 text-white shadow-md shadow-red-600/30"
-                      : "bg-zinc-900/90 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-zinc-800 hover:border-zinc-700"
-                  }`}
-                >
-                  {isAr ? tab.labelAr : tab.labelEn}
-                </button>
-              );
-            })}
-          </div>
-
-          {/* 3. Section Header */}
+          {/* 2. Section Header */}
           <div className="mt-4 mb-3 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-red-600 inline-block animate-ping" />
               <p className="text-xs font-extrabold tracking-wider uppercase text-zinc-300">
                 {searchQuery.trim() === ""
-                  ? activeTab === "services"
-                    ? isAr
-                      ? "جميع خدمات ورشة باب البستان"
-                      : "All Workshop Services"
-                    : isAr
-                    ? "قائمة خدمات الورشة الأكثر طلباً"
+                  ? isAr
+                    ? "خدمات ورشة باب البستان المعتمدة"
                     : "Popular Workshop Services"
                   : isAr
                   ? "نتائج البحث والمطابقة"
@@ -1145,45 +1118,27 @@ export default function ExpandableSearchBar({
             )}
           </div>
 
-          {/* 5. Bottom Action Bar (TajAlRahmah Style Quick Shortcuts) */}
-          <div className="mt-4 pt-3 border-t border-zinc-800/80 flex items-center justify-between text-xs gap-3 flex-wrap">
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={() => {
-                  setShowAiModal(true);
-                  setAiQuestion("");
-                  setAiResponse(null);
-                }}
-                className="px-3 py-1.5 rounded-full bg-zinc-900 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-zinc-700/80 text-[11px] font-bold flex items-center gap-1.5 cursor-pointer transition-colors"
-              >
-                <Sparkles className="w-3.5 h-3.5 text-red-500" />
-                <span>{isAr ? "مساعد الذكاء الاصطناعي" : "AI Service Advisor"}</span>
-              </button>
+          {/* 5. Bottom Action Bar with AI Option (TajAlRahmah Style) */}
+          <div className="mt-4 pt-3.5 border-t border-zinc-800/80 flex items-center justify-between text-xs gap-3 flex-wrap">
+            <span className="text-xs text-zinc-400 font-medium">
+              {isAr ? "هل تحتاج مساعدة في تشخيص عطل سيارتك؟" : "Need help diagnosing your vehicle?"}
+            </span>
 
-              <button
-                type="button"
-                onClick={() => {
-                  router.push("/booking");
-                  handleCollapse();
-                  onCloseMenu?.();
-                }}
-                className="px-3 py-1.5 rounded-full bg-red-600 hover:bg-red-700 text-white text-[11px] font-bold flex items-center gap-1.5 cursor-pointer transition-colors shadow-sm"
-              >
-                <Calendar className="w-3.5 h-3.5" />
-                <span>{isAr ? "حجز موعد صيانة" : "Book Service Online"}</span>
-              </button>
-            </div>
-
-            <a
-              href={WORKSHOP_INFO.whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-emerald-400 hover:text-emerald-300 font-bold text-[11px] flex items-center gap-1.5 hover:underline"
+            {/* ASK AI Assistant Button */}
+            <button
+              type="button"
+              onClick={() => {
+                if (searchQuery.trim()) {
+                  setAiQuestion(searchQuery.trim());
+                  handleAskAiSubmit(searchQuery.trim());
+                }
+                setShowAiModal(true);
+              }}
+              className="px-4 sm:px-5 py-2 rounded-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-bold text-xs sm:text-[13px] flex items-center gap-2 shadow-md shadow-red-950/60 hover:shadow-lg hover:shadow-red-600/30 hover:scale-[1.02] active:scale-95 transition-all cursor-pointer shrink-0"
             >
-              <MessageCircle className="w-3.5 h-3.5 text-emerald-400" />
-              <span>{isAr ? "واتساب الفني المباشر" : "WhatsApp Mechanic"}</span>
-            </a>
+              <Sparkles className="w-4 h-4 text-amber-300 fill-amber-300/30" />
+              <span>{isAr ? "اسأل المساعد الذكي لتشخيص الأعطال" : "Ask AI Assistant"}</span>
+            </button>
           </div>
         </div>
       )}
@@ -1279,6 +1234,33 @@ export default function ExpandableSearchBar({
                 <Send className="w-3.5 h-3.5 rtl:rotate-180" />
                 <span>{isAr ? "إرسال" : "Ask"}</span>
               </button>
+            </div>
+
+            {/* Quick Actions Footer */}
+            <div className="mt-3 pt-2.5 border-t border-zinc-800/80 flex items-center justify-between text-xs flex-shrink-0">
+              <button
+                type="button"
+                onClick={() => {
+                  setShowAiModal(false);
+                  handleCollapse();
+                  router.push("/booking");
+                  onCloseMenu?.();
+                }}
+                className="text-red-400 hover:text-red-300 hover:underline font-bold flex items-center gap-1 cursor-pointer"
+              >
+                <Calendar className="w-3.5 h-3.5 text-red-500" />
+                <span>{isAr ? "حجز موعد فحص فوري بالورشة" : "Book Workshop Bay Inspection"}</span>
+              </button>
+
+              <a
+                href={WORKSHOP_INFO.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-emerald-400 hover:text-emerald-300 text-[11px] font-bold flex items-center gap-1 hover:underline"
+              >
+                <MessageCircle className="w-3.5 h-3.5" />
+                <span>{isAr ? "محادثة فني واتساب" : "Chat on WhatsApp"}</span>
+              </a>
             </div>
           </div>
         </div>,

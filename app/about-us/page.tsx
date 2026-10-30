@@ -84,6 +84,51 @@ export default function AboutUsPage() {
           </div>
         </section>
 
+        {/* Workshop Key Statistics (Relocated from Hero Section) */}
+        <section className="relative z-30 -mt-14 sm:-mt-16 max-w-6xl mx-auto px-6">
+          <div className="bg-zinc-950/95 backdrop-blur-xl border border-red-600/30 rounded-2xl sm:rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] p-6 sm:p-8 grid grid-cols-2 lg:grid-cols-4 gap-6 text-center divide-y lg:divide-y-0 lg:divide-x divide-zinc-800/80 rtl:lg:divide-x-reverse">
+            <div className="flex flex-col items-center justify-center pt-2 lg:pt-0">
+              <div className="flex items-baseline" dir="ltr">
+                <span className="font-display text-4xl sm:text-5xl font-black text-white">5,000</span>
+                <span className="font-display text-2xl sm:text-3xl font-black text-red-500 ml-1">+</span>
+              </div>
+              <p className="mt-1 text-xs font-bold text-zinc-300 uppercase tracking-widest">
+                {t.home.hero.happyClients}
+              </p>
+            </div>
+
+            <div className="flex flex-col items-center justify-center pt-2 lg:pt-0">
+              <div className="flex items-center justify-center" dir="ltr">
+                <span className="font-display text-4xl sm:text-5xl font-black text-white">15</span>
+                <span className="font-display text-2xl sm:text-3xl font-black text-red-500 ml-1">+</span>
+              </div>
+              <p className="mt-1 text-xs font-bold text-zinc-300 uppercase tracking-widest">
+                {t.home.hero.yearsExp}
+              </p>
+            </div>
+
+            <div className="flex flex-col items-center justify-center pt-4 lg:pt-0">
+              <div className="flex items-center justify-center" dir="ltr">
+                <span className="font-display text-4xl sm:text-5xl font-black text-white">20</span>
+                <span className="font-display text-2xl sm:text-3xl font-black text-red-500 ml-1">+</span>
+              </div>
+              <p className="mt-1 text-xs font-bold text-zinc-300 uppercase tracking-widest">
+                {t.home.hero.servicesOffered}
+              </p>
+            </div>
+
+            <div className="flex flex-col items-center justify-center pt-4 lg:pt-0">
+              <div className="flex items-center justify-center" dir="ltr">
+                <span className="font-display text-4xl sm:text-5xl font-black text-white">98</span>
+                <span className="font-display text-2xl sm:text-3xl font-black text-red-500 ml-1">%</span>
+              </div>
+              <p className="mt-1 text-xs font-bold text-zinc-300 uppercase tracking-widest">
+                {t.home.hero.satisfactionRate}
+              </p>
+            </div>
+          </div>
+        </section>
+
         <section className="py-20 bg-white px-6">
           <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="space-y-10">

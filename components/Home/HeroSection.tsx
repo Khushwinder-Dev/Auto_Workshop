@@ -3,39 +3,91 @@
 import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { ArrowRight, ArrowLeft, Calendar, Play, Pause } from "lucide-react";
+import {
+  ArrowRight,
+  ArrowLeft,
+  Play,
+  Pause,
+  Volume2,
+  VolumeX,
+  Image as ImageIcon,
+  Sparkles,
+} from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
+import BookingModal from "@/components/Common/BookingModal";
+
+const SLIDE_VARIANTS = {
+  enter: (direction: number) => ({
+    opacity: 0,
+    y: direction > 0 ? 28 : -28,
+  }),
+  center: {
+    opacity: 1,
+    y: 0,
+  },
+  exit: (direction: number) => ({
+    opacity: 0,
+    y: direction > 0 ? -28 : 28,
+  }),
+};
 
 export default function HeroSection({ s }: { s?: Record<string, string> }) {
+  const { t, isArabic } = useLanguage();
   const [isPlayingVideo, setIsPlayingVideo] = useState(false);
+  const [isVideoPaused, setIsVideoPaused] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+  const [slideIndex, setSlideIndex] = useState(0);
+  const [direction, setDirection] = useState(1);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const { isArabic, t } = useLanguage();
 
-  const stats = [
+  const slides = [
     {
-      target: s?.home_stat1_target || "5,000",
-      suffix: s?.home_stat1_suffix || "+",
-      label: s?.home_stat1_label || t.home.hero.happyClients,
+      image: "/images/hero-slide-1.png",
+      titlePart1: isArabic ? "فحص كمبيوتر متقدم و" : "Advanced Diagnostics &",
+      titlePart2: isArabic ? "برمجة السيارات بالشارقة" : "Precision Engine Care",
+      description: isArabic
+        ? "تشخيص إلكتروني شامل لجميع الحساسات، قراءة كمبيوتر الوكالات، وحلول هندسية لأعطال المحرك في المنطقة الصناعية 5 بالشارقة."
+        : "OEM-level computer scanning, sensor diagnostics, ECU tuning, and complete mechanical care in Sharjah Industrial Area 5.",
     },
     {
-      target: s?.home_stat2_target || "15",
-      suffix: s?.home_stat2_suffix || "+",
-      label: s?.home_stat2_label || t.home.hero.yearsExp,
+      image: "/images/hero-slide-2.jpg",
+      titlePart1: isArabic ? "صيانة الفرامل المعتمدة و" : "High-Performance Brakes &",
+      titlePart2: isArabic ? "تجديد المساعدات والتعليق" : "Suspension Overhaul",
+      description: isArabic
+        ? "تبديل فحمات سيراميك، خرط دسكات إلكترونياً، وتجديد المساعدات وميزان ليزر لأعلى مستويات الأمان والثبات على الطرقات."
+        : "Ceramic pad replacements, computerized disk skimming, shock absorbers, and laser alignment for smooth desert driving.",
     },
     {
-      target: s?.home_stat3_target || "20",
-      suffix: s?.home_stat3_suffix || "+",
-      label: s?.home_stat3_label || t.home.hero.servicesOffered,
-    },
-    {
-      target: s?.home_stat4_target || "98",
-      suffix: s?.home_stat4_suffix || "%",
-      label: s?.home_stat4_label || t.home.hero.satisfactionRate,
+      image: "/images/hero-slide-3.png",
+      titlePart1: isArabic ? "تصليح مكيفات السيارات و" : "Desert-Ready Car AC &",
+      titlePart2: isArabic ? "الصيانة الدورية المعتمدة" : "Full Synthetic Lube",
+      description: isArabic
+        ? "كشف تسريب غاز المكيف بالأشعة، تجديد الكمبريسور، وتغيير زيوت تخليقية كاملة مع فلاتر أصلية معتمدة لحرارة الصيف."
+        : "UV leak testing, ice-cold freon recharge, compressor overhauls, and top-tier synthetic oil changes for extreme UAE weather.",
     },
   ];
 
-  // Mobile WebKit (iOS Safari) requires muted DOM property to be set explicitly
+  const activeSlide = slides[slideIndex];
+
+  const goToSlide = (index: number) => {
+    if (index === slideIndex) return;
+    setDirection(index > slideIndex ? 1 : -1);
+    setSlideIndex(index);
+  };
+
+  // Auto-advance slides every 7 seconds when video is not playing
+  useEffect(() => {
+    if (isPlayingVideo && !isVideoPaused) return;
+    const timer = setInterval(() => {
+      setDirection(1);
+      setSlideIndex((current) => (current + 1) % slides.length);
+    }, 7000);
+    return () => clearInterval(timer);
+  }, [isPlayingVideo, isVideoPaused, slides.length, slideIndex]);
+
+  // Mobile WebKit (iOS Safari) setup for muted background playback
   useEffect(() => {
     if (videoRef.current) {
       videoRef.current.muted = true;
@@ -43,189 +95,317 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
     }
   }, []);
 
-  // Play toggles video mode; Pause returns to image mode
-  const handleToggleVideo = (e?: React.MouseEvent | React.TouchEvent) => {
-    if (e) {
-      e.stopPropagation();
-    }
+  // Toggle video playback
+  const handleToggleVideo = (e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
     const video = videoRef.current;
     if (!video) return;
 
     if (!isPlayingVideo) {
-      // Must be muted for iOS and Android mobile autoplay/inline play policies
-      video.muted = true;
-      video.defaultMuted = true;
+      setIsPlayingVideo(true);
+      setIsVideoPaused(false);
+      video.muted = isMuted;
       video.currentTime = 0;
-      const playPromise = video.play();
-      if (playPromise !== undefined) {
-        playPromise
-          .then(() => {
-            setIsPlayingVideo(true);
-          })
-          .catch((err) => {
-            console.warn("Mobile video playback attempt error:", err);
-            // Fallback retry with explicit muted attribute
-            video.muted = true;
-            video
-              .play()
-              .then(() => setIsPlayingVideo(true))
-              .catch((retryErr) => {
-                console.error("Video play retry failed:", retryErr);
-                setIsPlayingVideo(false);
-              });
-          });
-      } else {
-        setIsPlayingVideo(true);
-      }
+      video.play().catch((err) => {
+        console.warn("Video play error:", err);
+        video.muted = true;
+        video.play().catch(() => {});
+      });
     } else {
-      video.pause();
-      setIsPlayingVideo(false);
+      if (video.paused) {
+        video.play().then(() => setIsVideoPaused(false)).catch(() => {});
+      } else {
+        video.pause();
+        setIsVideoPaused(true);
+      }
+    }
+  };
+
+  // Switch back to photo slide banner
+  const handleSwitchToImage = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (videoRef.current) {
+      videoRef.current.pause();
+    }
+    setIsPlayingVideo(false);
+    setIsVideoPaused(false);
+  };
+
+  // Toggle audio mute
+  const handleToggleMute = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (videoRef.current) {
+      videoRef.current.muted = !videoRef.current.muted;
+      setIsMuted(videoRef.current.muted);
     }
   };
 
   const ArrowIcon = isArabic ? ArrowLeft : ArrowRight;
 
   return (
-    <section className="relative min-h-[660px] h-screen h-[100dvh] w-full flex flex-col items-center justify-center overflow-hidden">
-      {/* 1. Background Image Banner */}
+    <section
+      className="relative w-full min-h-screen min-h-[680px] h-[100dvh] flex flex-col justify-between overflow-hidden bg-zinc-950"
+      dir={isArabic ? "rtl" : "ltr"}
+    >
+      {/* 1. Background Image Slider Banners */}
       <div
-        className={`absolute inset-0 transition-opacity duration-700 ease-in-out z-0 ${isPlayingVideo
-          ? "opacity-0 pointer-events-none"
-          : "opacity-100"
-          }`}
+        className={`absolute inset-0 transition-opacity duration-1000 ease-in-out z-0 ${
+          isPlayingVideo && !isVideoPaused
+            ? "opacity-0 pointer-events-none"
+            : "opacity-100"
+        }`}
       >
-        <Image
-          src="/images/home-hero.png"
-          alt="Workshop Hero"
-          fill
-          priority
-          className="object-cover"
-        />
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={slideIndex}
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.9, ease: [0.25, 1, 0.5, 1] }}
+            className="absolute inset-0 w-full h-full"
+          >
+            <Image
+              src={activeSlide.image}
+              alt={activeSlide.titlePart2}
+              fill
+              priority
+              quality={95}
+              className="object-cover object-center"
+              sizes="100vw"
+            />
+          </motion.div>
+        </AnimatePresence>
       </div>
 
-      {/* 2. Background Video Banner */}
+      {/* 2. Background Video Banner (Toyota Corolla Red in Workshop) */}
       <div
-        className={`absolute inset-0 transition-opacity duration-700 ease-in-out z-0 ${isPlayingVideo
-          ? "opacity-100"
-          : "opacity-0 pointer-events-none"
-          }`}
+        className={`absolute inset-0 transition-opacity duration-1000 ease-in-out z-0 ${
+          isPlayingVideo && !isVideoPaused
+            ? "opacity-100"
+            : "opacity-0 pointer-events-none"
+        }`}
       >
         <video
           ref={videoRef}
           src="/videos/toyota-corolla-red.mp4"
           loop
-          muted
           playsInline
-          preload="auto"
-          className="w-full h-full object-cover"
+          muted={isMuted}
+          className="w-full h-full object-cover object-center"
         />
-        <div className="absolute inset-0 bg-black/40 pointer-events-none" />
       </div>
 
-      {/* 3. Center Hero Typography & CTAs */}
-      <div className="relative z-30 text-center px-4 mb-28 md:mb-20 max-w-[1000px]">
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="font-display text-[clamp(2.5rem,6.5vw,5.5rem)] font-extrabold text-white leading-[1.1] tracking-[-0.01em] uppercase mb-[1.25rem] drop-shadow-[0_2px_20px_rgba(0,0,0,0.5)]"
-        >
-          {s?.home_hero_title || t.home.hero.title}
-        </motion.h1>
-        <motion.h3
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.4 }}
-          className="text-white text-lg md:text-2xl font-bold tracking-wider opacity-90 drop-shadow-lg"
-        >
-          {s?.home_hero_subtitle || t.home.hero.subtitle}
-        </motion.h3>
+      {/* 3. Deep Cinematic Gradient Overlays (Auto Workshop Red / Black Tint) */}
+      <div
+        className="absolute inset-0 z-10 pointer-events-none"
+        style={{
+          background: isArabic
+            ? "linear-gradient(270deg, rgba(9, 9, 11, 0.88) 0%, rgba(9, 9, 11, 0.75) 35%, rgba(9, 9, 11, 0.45) 65%, rgba(0, 0, 0, 0.2) 100%)"
+            : "linear-gradient(90deg, rgba(9, 9, 11, 0.88) 0%, rgba(9, 9, 11, 0.75) 35%, rgba(9, 9, 11, 0.45) 65%, rgba(0, 0, 0, 0.2) 100%)",
+        }}
+      />
+      <div
+        className="absolute inset-0 z-10 pointer-events-none"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(0, 0, 0, 0.55) 0%, transparent 22%, transparent 70%, rgba(9, 9, 11, 0.75) 100%)",
+        }}
+      />
 
-        {/* CTA Buttons & Video Play/Pause Circle */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
-          className="mt-6 md:mt-8 flex flex-wrap items-center justify-center gap-3 md:gap-4 relative z-40"
-        >
-          <Link
-            href="/services"
-            className="group px-7 md:px-8 py-3.5 rounded-full text-sm font-bold tracking-wider uppercase inline-flex items-center gap-3 bg-white hover:bg-zinc-100 text-red-600 shadow-xl shadow-black/40 hover:scale-105 active:scale-95 transition-all cursor-pointer touch-manipulation"
-          >
-            <span>{t.home.hero.exploreMore}</span>
-            <span className="w-7 h-7 rounded-full bg-red-50 text-red-600 flex items-center justify-center transition-transform group-hover:scale-110 shadow-sm">
-              <ArrowIcon className="w-4 h-4 stroke-[2.5]" />
-            </span>
-          </Link>
-
-          <Link
-            href="/booking"
-            className="px-7 md:px-8 py-3.5 rounded-full text-sm font-bold tracking-wider uppercase inline-flex items-center gap-2.5 bg-black/50 hover:bg-black/80 text-white border border-white/20 hover:border-white/50 backdrop-blur-md transition-all hover:scale-105 active:scale-95 cursor-pointer touch-manipulation"
-          >
-            <Calendar className="w-4 h-4 text-red-500" />
-            <span>{t.home.hero.bookService}</span>
-          </Link>
-
-          {/* Circular Play / Pause Button with Pulsing Halo */}
-          <div className="relative group inline-flex items-center ml-1 z-50">
-            {!isPlayingVideo && (
-              <span className="absolute inset-0 rounded-full bg-white/40 animate-ping duration-1000 pointer-events-none" />
-            )}
+      {/* 4. Left Vertical Slider / Pill Indicators (TajAlRahmah Style) */}
+      <div
+        className={`flex flex-col items-center gap-2.5 absolute top-1/2 -translate-y-1/2 z-30 ${
+          isArabic ? "right-3 sm:right-5 xl:right-7" : "left-3 sm:left-5 xl:left-7"
+        }`}
+      >
+        {slides.map((_, index) => {
+          const active = index === slideIndex;
+          return (
             <button
+              key={index}
               type="button"
-              onClick={handleToggleVideo}
-              aria-label={
-                isPlayingVideo
-                  ? t.home.hero.videoPauseHint
-                  : t.home.hero.videoPlayHint
-              }
-              title={
-                isPlayingVideo
-                  ? t.home.hero.videoPauseHint
-                  : t.home.hero.videoPlayHint
-              }
-              className="relative z-10 w-12 h-12 rounded-full bg-white hover:bg-zinc-100 active:scale-95 border-2 border-white flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 shadow-[0_0_25px_rgba(255,255,255,0.4)] focus:outline-none touch-manipulation select-none"
-            >
-              {isPlayingVideo ? (
-                <Pause className="w-5 h-5 text-red-600 fill-red-600" />
-              ) : (
-                <Play className="w-5 h-5 text-red-600 fill-red-600 ml-0.5" />
-              )}
-            </button>
-          </div>
-        </motion.div>
+              onClick={() => goToSlide(index)}
+              aria-label={`${isArabic ? "الشريحة" : "Go to slide"} ${index + 1}`}
+              aria-current={active}
+              className={`rounded-full transition-all duration-300 cursor-pointer ${
+                active
+                  ? "w-1.5 h-7 bg-red-600 shadow-[0_0_14px_#dc2626]"
+                  : "w-1.5 h-7 border border-white/40 bg-white/10 hover:border-red-500 hover:bg-red-600/30"
+              }`}
+            />
+          );
+        })}
       </div>
 
-      {/* 5. Glassmorphic Stats Section */}
-      <div className="absolute bottom-10 md:bottom-16 left-1/2 -translate-x-1/2 w-full max-w-[1200px] px-6 z-20 pointer-events-none">
-        <div className="hero-stats-glass pointer-events-auto rounded-xl md:rounded-2xl grid grid-cols-2 lg:grid-cols-4 overflow-hidden border border-white/10 bg-[#0006]">
-          {stats.map((stat, idx) => (
-            <div
-              key={idx}
-              className="flex flex-col items-center justify-center py-8 md:py-10 border-white/10 lg:[&:not(:last-child)]:border-r max-lg:[&:nth-child(odd)]:border-r max-lg:[&:nth-child(-n+2)]:border-b"
-            >
-              <div className="flex items-baseline" dir="ltr">
-                <span className="font-display text-4xl md:text-5xl font-black text-white">
-                  {stat.target}
-                </span>
-                <span className="font-display text-2xl md:text-3xl font-black text-brand ml-1">
-                  {stat.suffix}
-                </span>
-              </div>
-              <p className="mt-1 text-[10px] md:text-xs font-bold text-zinc-300 uppercase tracking-widest text-center">
-                {stat.label}
-              </p>
+      {/* 5. Video Mode Status Badge & Sound Toggle (Visible when Video is Active) */}
+      {isPlayingVideo && (
+        <div
+          className={`absolute top-24 sm:top-28 z-30 flex items-center gap-2.5 bg-black/60 backdrop-blur-md border border-white/20 px-3.5 py-1.5 rounded-full text-white text-xs font-semibold shadow-2xl transition-all ${
+            isArabic ? "left-5 sm:left-10" : "right-5 sm:right-10"
+          }`}
+        >
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-red-600"></span>
+          </span>
+          <span className="hidden sm:inline text-white/90">
+            {isVideoPaused
+              ? isArabic
+                ? "الفيديو متوقف مؤقتاً"
+                : "Video Paused"
+              : isArabic
+              ? "وضع الفيديو المباشر"
+              : "Live Workshop Video"}
+          </span>
+          <button
+            onClick={handleToggleMute}
+            aria-label={isMuted ? "Unmute audio" : "Mute audio"}
+            className="p-1 hover:text-red-500 transition-colors cursor-pointer"
+            title={isMuted ? "Unmute" : "Mute"}
+          >
+            {isMuted ? (
+              <VolumeX className="w-4 h-4 text-white/80 hover:text-white" />
+            ) : (
+              <Volume2 className="w-4 h-4 text-red-500" />
+            )}
+          </button>
+          <button
+            onClick={handleSwitchToImage}
+            className="pl-2 border-l border-white/20 hover:text-red-500 transition-colors flex items-center gap-1.5 cursor-pointer text-white/80 hover:text-white"
+            title="Return to photo slider"
+          >
+            <ImageIcon className="w-3.5 h-3.5" />
+            <span className="text-[11px] font-medium">{isArabic ? "الصور" : "Photos"}</span>
+          </button>
+        </div>
+      )}
+
+      {/* 6. Main Hero Content Container (TajAlRahmah 12-Column Grid Layout) */}
+      <div
+        className={`relative z-20 w-full max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 pt-28 sm:pt-36 lg:pt-40 flex-1 flex flex-col justify-center ${
+          isArabic ? "pr-10 sm:pr-14" : "pl-10 sm:pl-14"
+        }`}
+      >
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-center">
+          {/* Left Text & CTAs (Columns 1-8) */}
+          <div className="lg:col-span-8 flex flex-col items-start text-start min-h-[290px] sm:min-h-[320px] lg:min-h-[350px]">
+            {/* Fixed Eyebrow with Brand Indicator Bar */}
+            <div className="flex items-center gap-2.5 mb-3 sm:mb-4">
+              <span className="w-6 sm:w-8 h-[2.5px] bg-red-600 rounded-full" />
+              <span className="text-red-500 text-xs sm:text-sm font-black tracking-[0.2em] uppercase font-display">
+                {isArabic
+                  ? "كراج باب البستان لصيانة وتصليح السيارات — الشارقة"
+                  : "Bab Al Bustan Auto Maintenance Workshop"}
+              </span>
             </div>
-          ))}
+
+            {/* Direction-Aware Slide Typography Animation */}
+            <div className="relative w-full overflow-hidden min-h-[190px] sm:min-h-[230px] lg:min-h-[260px]">
+              <AnimatePresence mode="wait" custom={direction}>
+                <motion.div
+                  key={slideIndex}
+                  custom={direction}
+                  variants={SLIDE_VARIANTS}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <h1 className="text-white text-3xl sm:text-5xl md:text-6xl lg:text-[64px] xl:text-[70px] font-black leading-[1.08] tracking-tight uppercase font-display drop-shadow-[0_2px_25px_rgba(0,0,0,0.6)]">
+                    {activeSlide.titlePart1} <br />
+                    <span className="text-red-500 drop-shadow-[0_2px_25px_rgba(220,38,38,0.55)]">
+                      {activeSlide.titlePart2}
+                    </span>
+                  </h1>
+
+                  <p className="text-zinc-200 text-sm sm:text-base md:text-lg max-w-xl font-normal leading-relaxed mt-4 sm:mt-5 mb-7 sm:mb-9 drop-shadow-md">
+                    {activeSlide.description}
+                  </p>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {/* Dual TajAlRahmah-Style Action CTA Buttons */}
+            <div className="flex flex-wrap items-center gap-4 sm:gap-5">
+              {/* Button 1: BOOK AN APPOINTMENT (Opens Booking Modal) */}
+              <button
+                type="button"
+                onClick={() => setIsBookingModalOpen(true)}
+                className="group pl-5 sm:pl-7 pr-1.5 sm:pr-2.5 py-1.5 sm:py-2.5 rounded-full bg-white hover:bg-zinc-100 text-red-600 font-black text-xs sm:text-sm tracking-wider uppercase inline-flex items-center gap-2.5 sm:gap-3.5 transition-all duration-300 shadow-xl shadow-black/40 hover:scale-105 active:scale-95 cursor-pointer"
+              >
+                <span>{isArabic ? "احجز موعد صيانة" : "Book an Appointment"}</span>
+                <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-red-600 text-white flex items-center justify-center transition-transform group-hover:scale-110">
+                  <ArrowIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
+                </span>
+              </button>
+
+              {/* Button 2: EXPLORE SERVICES */}
+              <Link
+                href="/services"
+                className="group pl-5 sm:pl-7 pr-1.5 sm:pr-2.5 py-1.5 sm:py-2.5 rounded-full bg-red-600 hover:bg-red-700 text-white font-black text-xs sm:text-sm tracking-wider uppercase inline-flex items-center gap-2.5 sm:gap-3.5 transition-all duration-300 shadow-[0_4px_22px_rgba(220,38,38,0.45)] hover:shadow-[0_6px_28px_rgba(220,38,38,0.65)] hover:scale-105 active:scale-95 cursor-pointer"
+              >
+                <span>{isArabic ? "استكشف الخدمات" : "Explore Services"}</span>
+                <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white text-red-600 flex items-center justify-center transition-transform group-hover:scale-110">
+                  <ArrowIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
+                </span>
+              </Link>
+            </div>
+          </div>
+
+          {/* Right Column: Circular Play / Pause Button with Pulsing Halo (Columns 9-12) */}
+          <div className="lg:col-span-4 flex items-center justify-center lg:justify-start lg:pl-6 pt-4 lg:pt-0">
+            <div className="relative group">
+              {/* Ambient Pulsing Halo */}
+              {(!isPlayingVideo || isVideoPaused) && (
+                <span className="absolute inset-0 rounded-full bg-red-600/35 animate-ping duration-1000 pointer-events-none" />
+              )}
+
+              {/* Circular Button */}
+              <button
+                type="button"
+                onClick={handleToggleVideo}
+                aria-label={
+                  isPlayingVideo
+                    ? isVideoPaused
+                      ? "Resume Video"
+                      : "Pause Video"
+                    : "Play Workshop Video"
+                }
+                title={
+                  isPlayingVideo
+                    ? isVideoPaused
+                      ? "Resume Video"
+                      : "Pause Video"
+                    : "Play Workshop Video"
+                }
+                className="relative w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full bg-red-600 hover:bg-red-700 border-2 border-white/50 flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 shadow-[0_0_35px_rgba(220,38,38,0.5)] hover:shadow-[0_0_55px_rgba(220,38,38,0.85)] focus:outline-none"
+              >
+                {isPlayingVideo && !isVideoPaused ? (
+                  <Pause className="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 text-white fill-white" />
+                ) : (
+                  <Play className="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 text-white fill-white ml-0.5 sm:ml-1" />
+                )}
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* 6. Scroll Indicator */}
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-60 z-30 pointer-events-none">
-        <span className="text-[10px] font-bold text-white uppercase tracking-[0.4em]">
-          {t.home.hero.scrollDown}
-        </span>
-        <div className="w-[1px] h-10 bg-gradient-to-b from-brand to-transparent" />
+      {/* 7. Bottom Spacer / Subtle Scroll Down Indicator */}
+      <div className="relative z-20 pb-6 sm:pb-8 flex justify-center">
+        <div className="flex flex-col items-center gap-1.5 opacity-60">
+          <span className="text-[10px] font-bold text-white uppercase tracking-[0.3em]">
+            {t.home.hero.scrollDown}
+          </span>
+          <div className="w-[1.5px] h-6 bg-gradient-to-b from-red-600 to-transparent" />
+        </div>
       </div>
+
+      {/* 8. Booking Modal */}
+      <BookingModal
+        isOpen={isBookingModalOpen}
+        onClose={() => setIsBookingModalOpen(false)}
+      />
     </section>
   );
 }

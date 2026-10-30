@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import ExpandableSearchBar from "@/components/Common/ExpandableSearchBar";
+import BookingModal from "@/components/Common/BookingModal";
 import { useLanguage } from "@/context/LanguageContext";
 
 interface MegaServiceItem {
@@ -113,6 +114,7 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isServicesMegaOpen, setIsServicesMegaOpen] = useState(false);
   const [mobileServicesExpanded, setMobileServicesExpanded] = useState(false);
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
 
   const navRef = useRef<HTMLDivElement>(null);
   const hoverTimeout = useRef<NodeJS.Timeout | null>(null);
@@ -382,10 +384,11 @@ export default function Navbar() {
               </button>
 
               <button
-                onClick={() => router.push("/contact")}
+                type="button"
+                onClick={() => setIsBookingModalOpen(true)}
                 className="btn-primary hover:bg-red-700 text-white px-8 py-3 rounded-full text-sm font-bold transition-all tracking-widest cursor-pointer shadow-md hover:scale-105 active:scale-95"
               >
-                {t.nav.contactBtn}
+                {isArabic ? "حجز موعد" : "BOOKING"}
               </button>
             </div>
 
@@ -551,18 +554,25 @@ export default function Navbar() {
               })}
 
               <button
+                type="button"
                 onClick={() => {
-                  router.push("/contact");
+                  setIsBookingModalOpen(true);
                   setMobileMenuOpen(false);
                 }}
                 className="mt-4 btn-primary py-4 text-white font-bold uppercase tracking-widest rounded-full cursor-pointer"
               >
-                {t.nav.contactBtn}
+                {isArabic ? "حجز موعد" : "BOOKING"}
               </button>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Booking Appointment Modal */}
+      <BookingModal
+        isOpen={isBookingModalOpen}
+        onClose={() => setIsBookingModalOpen(false)}
+      />
     </>
   );
 }
