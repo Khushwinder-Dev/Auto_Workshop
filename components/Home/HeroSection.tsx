@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, ArrowLeft } from "lucide-react";
+import { ArrowRight, ArrowLeft, Play, Pause } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 import BookingModal from "@/components/Common/BookingModal";
@@ -36,9 +36,13 @@ interface HeroServiceSlide {
 
 export default function HeroSection({ s }: { s?: Record<string, string> }) {
   const { t, isArabic } = useLanguage();
+  const [isPlayingVideo, setIsPlayingVideo] = useState(false);
+  const [isVideoPaused, setIsVideoPaused] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [slideIndex, setSlideIndex] = useState(0);
   const [direction, setDirection] = useState(1);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   // Slides rotate through Bab Al Bustan's 3 major services while the workshop background image remains static
   const slides: HeroServiceSlide[] = [
@@ -52,7 +56,7 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
       titlePart2: isArabic ? "برمجة الحساسات والكمبيوتر" : "Precision Engine Care",
       description: isArabic
         ? "فحص إلكتروني شامل لكمبيوتر السيارة بأحدث أجهزة الوكالة، كشف وإصلاح لمبة المحرك، فحص الحساسات، وبرمجة الأنظمة في صناعية 5 بالشارقة."
-        : "OEM-level computer scanning, sensor diagnostics, ECU tuning, check engine light diagnosis, and complete mechanical care in Sharjah Industrial Area 5.",
+        : "OEM-level computer scanning, sensor diagnostics, ECU tuning, check engine light diagnosis, and live data analysis in Sharjah Industrial Area 5.",
     },
     {
       id: "brakes",
@@ -88,14 +92,49 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
     setSlideIndex(index);
   };
 
-  // Auto-advance slide text every 7 seconds
+  // Auto-advance slide text every 7 seconds when video is not actively playing
   useEffect(() => {
+    if (isPlayingVideo && !isVideoPaused) return;
     const timer = setInterval(() => {
       setDirection(1);
       setSlideIndex((current) => (current + 1) % slides.length);
     }, 7000);
     return () => clearInterval(timer);
-  }, [slides.length]);
+  }, [isPlayingVideo, isVideoPaused, slides.length]);
+
+  // Mobile WebKit (iOS Safari) setup for muted background playback
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.muted = true;
+      videoRef.current.defaultMuted = true;
+    }
+  }, []);
+
+  // Toggle video playback
+  const handleToggleVideo = (e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (!isPlayingVideo) {
+      setIsPlayingVideo(true);
+      setIsVideoPaused(false);
+      video.muted = isMuted;
+      video.currentTime = 0;
+      video.play().catch((err) => {
+        console.warn("Video play error:", err);
+        video.muted = true;
+        video.play().catch(() => {});
+      });
+    } else {
+      if (video.paused) {
+        video.play().then(() => setIsVideoPaused(false)).catch(() => {});
+      } else {
+        video.pause();
+        setIsVideoPaused(true);
+      }
+    }
+  };
 
   const ArrowIcon = isArabic ? ArrowLeft : ArrowRight;
 
@@ -105,7 +144,13 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
       dir={isArabic ? "rtl" : "ltr"}
     >
       {/* 1. Background Image — Remains strictly constant (1st slide workshop image) for all slides */}
-      <div className="absolute inset-0 z-0">
+      <div
+        className={`absolute inset-0 transition-opacity duration-1000 ease-in-out z-0 ${
+          isPlayingVideo && !isVideoPaused
+            ? "opacity-0 pointer-events-none"
+            : "opacity-100"
+        }`}
+      >
         <Image
           src="/images/hero-workshop-new.jpg"
           alt="Bab Al Bustan Auto Maintenance Workshop"
@@ -117,7 +162,25 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
         />
       </div>
 
-      {/* 2. Deep Cinematic Gradient Overlays (Auto Workshop Red / Black Tint) */}
+      {/* 2. Background Video Banner (Toyota Corolla in Workshop Bay) */}
+      <div
+        className={`absolute inset-0 transition-opacity duration-1000 ease-in-out z-0 ${
+          isPlayingVideo && !isVideoPaused
+            ? "opacity-100"
+            : "opacity-0 pointer-events-none"
+        }`}
+      >
+        <video
+          ref={videoRef}
+          src="/videos/toyota-corolla-red.mp4"
+          loop
+          playsInline
+          muted={isMuted}
+          className="w-full h-full object-cover object-center"
+        />
+      </div>
+
+      {/* 3. Deep Cinematic Gradient Overlays (Auto Workshop Red / Black Tint) */}
       <div
         className="absolute inset-0 z-10 pointer-events-none"
         style={{
@@ -134,7 +197,7 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
         }}
       />
 
-      {/* 3. Left Vertical Slider / Pill Indicators (TajAlRahmah Style) */}
+      {/* 4. Left Vertical Slider / Pill Indicators (TajAlRahmah Style) */}
       <div
         className={`flex flex-col items-center gap-2.5 absolute top-1/2 -translate-y-1/2 z-30 ${
           isArabic ? "right-3 sm:right-5 xl:right-7" : "left-3 sm:left-5 xl:left-7"
@@ -162,78 +225,130 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
         })}
       </div>
 
-      {/* 4. Main Hero Content Container (TajAlRahmah Style) */}
+      {/* 5. Main Hero Content Container (TajAlRahmah 12-Column Grid Layout) */}
       <div
         className={`relative z-20 w-full max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 pt-28 sm:pt-36 lg:pt-40 pb-12 flex-1 flex flex-col justify-center ${
           isArabic ? "pr-10 sm:pr-14" : "pl-10 sm:pl-14"
         }`}
       >
-        <div className="max-w-3xl xl:max-w-4xl flex flex-col items-start text-start min-h-[320px] sm:min-h-[360px]">
-          {/* Direction-Aware Slide Typography Animation — Only Content Changes Across Major Services */}
-          <div className="relative w-full overflow-hidden min-h-[220px] sm:min-h-[250px] lg:min-h-[270px]">
-            <AnimatePresence mode="wait" custom={direction}>
-              <motion.div
-                key={slideIndex}
-                custom={direction}
-                variants={SLIDE_VARIANTS}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+          {/* Left Text & CTAs (Columns 1-8) */}
+          <div className="lg:col-span-8 flex flex-col items-start text-start min-h-[300px] sm:min-h-[340px]">
+            {/* Direction-Aware Slide Typography Animation — Only Content Changes Across Major Services */}
+            <div className="relative w-full overflow-hidden min-h-[220px] sm:min-h-[250px] lg:min-h-[270px]">
+              <AnimatePresence mode="wait" custom={direction}>
+                <motion.div
+                  key={slideIndex}
+                  custom={direction}
+                  variants={SLIDE_VARIANTS}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  {/* Slide Eyebrow with Major Service Badge */}
+                  <div className="flex items-center gap-2.5 mb-3 sm:mb-4">
+                    <span className="w-6 sm:w-8 h-[2.5px] bg-red-600 rounded-full" />
+                    <span className="text-red-500 text-xs sm:text-sm font-black tracking-[0.2em] uppercase font-display">
+                      {isArabic ? activeSlide.badgeAr : activeSlide.badgeEn}
+                    </span>
+                  </div>
+
+                  {/* Main Heading for the Active Major Service */}
+                  <h1 className="text-white text-3xl sm:text-5xl md:text-5xl lg:text-[54px] xl:text-[62px] font-black leading-[1.08] tracking-tight uppercase font-display drop-shadow-[0_2px_25px_rgba(0,0,0,0.6)]">
+                    {activeSlide.titlePart1} <br />
+                    <span className="text-red-500 drop-shadow-[0_2px_25px_rgba(220,38,38,0.55)]">
+                      {activeSlide.titlePart2}
+                    </span>
+                  </h1>
+
+                  {/* Major Service Description */}
+                  <p className="text-zinc-200 text-sm sm:text-base md:text-lg max-w-2xl font-normal leading-relaxed mt-4 sm:mt-5 mb-7 sm:mb-8 drop-shadow-md">
+                    {activeSlide.description}
+                  </p>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {/* Dual TajAlRahmah-Style Action CTA Buttons */}
+            <div className="flex flex-wrap items-center gap-4 sm:gap-5">
+              {/* Button 1: GET A QUOTE */}
+              <button
+                type="button"
+                onClick={() => setIsBookingModalOpen(true)}
+                className="group pl-5 sm:pl-7 pr-1.5 sm:pr-2.5 py-1.5 sm:py-2.5 rounded-full bg-white hover:bg-zinc-100 text-red-600 font-black text-xs sm:text-sm tracking-wider uppercase inline-flex items-center gap-2.5 sm:gap-3.5 transition-all duration-300 shadow-xl shadow-black/40 hover:scale-105 active:scale-95 cursor-pointer"
               >
-                {/* Slide Eyebrow with Major Service Badge */}
-                <div className="flex items-center gap-2.5 mb-3 sm:mb-4">
-                  <span className="w-6 sm:w-8 h-[2.5px] bg-red-600 rounded-full" />
-                  <span className="text-red-500 text-xs sm:text-sm font-black tracking-[0.2em] uppercase font-display">
-                    {isArabic ? activeSlide.badgeAr : activeSlide.badgeEn}
-                  </span>
-                </div>
+                <span>{isArabic ? "احصل على عرض سعر" : "Get a Quote"}</span>
+                <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-red-600 text-white flex items-center justify-center transition-transform group-hover:scale-110">
+                  <ArrowIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
+                </span>
+              </button>
 
-                {/* Main Heading for the Active Major Service */}
-                <h1 className="text-white text-3xl sm:text-5xl md:text-5xl lg:text-[54px] xl:text-[62px] font-black leading-[1.08] tracking-tight uppercase font-display drop-shadow-[0_2px_25px_rgba(0,0,0,0.6)]">
-                  {activeSlide.titlePart1} <br />
-                  <span className="text-red-500 drop-shadow-[0_2px_25px_rgba(220,38,38,0.55)]">
-                    {activeSlide.titlePart2}
-                  </span>
-                </h1>
-
-                {/* Major Service Description */}
-                <p className="text-zinc-200 text-sm sm:text-base md:text-lg max-w-2xl font-normal leading-relaxed mt-4 sm:mt-5 mb-7 sm:mb-8 drop-shadow-md">
-                  {activeSlide.description}
-                </p>
-              </motion.div>
-            </AnimatePresence>
+              {/* Button 2: EXPLORE THIS MAJOR SERVICE */}
+              <Link
+                href={`/services-details?service=${activeSlide.id}`}
+                className="group pl-5 sm:pl-7 pr-1.5 sm:pr-2.5 py-1.5 sm:py-2.5 rounded-full bg-red-600 hover:bg-red-700 text-white font-black text-xs sm:text-sm tracking-wider uppercase inline-flex items-center gap-2.5 sm:gap-3.5 transition-all duration-300 shadow-[0_4px_22px_rgba(220,38,38,0.45)] hover:shadow-[0_6px_28px_rgba(220,38,38,0.65)] hover:scale-105 active:scale-95 cursor-pointer"
+              >
+                <span>{isArabic ? "تفاصيل هذه الخدمة" : "Explore This Service"}</span>
+                <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white text-red-600 flex items-center justify-center transition-transform group-hover:scale-110">
+                  <ArrowIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
+                </span>
+              </Link>
+            </div>
           </div>
 
-          {/* Dual TajAlRahmah-Style Action CTA Buttons */}
-          <div className="flex flex-wrap items-center gap-4 sm:gap-5">
-            {/* Button 1: GET A QUOTE */}
-            <button
-              type="button"
-              onClick={() => setIsBookingModalOpen(true)}
-              className="group pl-5 sm:pl-7 pr-1.5 sm:pr-2.5 py-1.5 sm:py-2.5 rounded-full bg-white hover:bg-zinc-100 text-red-600 font-black text-xs sm:text-sm tracking-wider uppercase inline-flex items-center gap-2.5 sm:gap-3.5 transition-all duration-300 shadow-xl shadow-black/40 hover:scale-105 active:scale-95 cursor-pointer"
-            >
-              <span>{isArabic ? "احصل على عرض سعر" : "Get a Quote"}</span>
-              <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-red-600 text-white flex items-center justify-center transition-transform group-hover:scale-110">
-                <ArrowIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
-              </span>
-            </button>
+          {/* Right Column: Circular Play / Pause Button with Pulsing Halo (Columns 9-12) */}
+          <div className="lg:col-span-4 flex items-center justify-center lg:justify-start lg:pl-6 rtl:lg:pl-0 rtl:lg:pr-6 pt-4 lg:pt-0">
+            <div className="relative group">
+              {/* Ambient Pulsing Halo */}
+              {(!isPlayingVideo || isVideoPaused) && (
+                <span className="absolute inset-0 rounded-full bg-red-600/35 animate-ping duration-1000 pointer-events-none" />
+              )}
 
-            {/* Button 2: EXPLORE THIS MAJOR SERVICE */}
-            <Link
-              href={`/services-details?service=${activeSlide.id}`}
-              className="group pl-5 sm:pl-7 pr-1.5 sm:pr-2.5 py-1.5 sm:py-2.5 rounded-full bg-red-600 hover:bg-red-700 text-white font-black text-xs sm:text-sm tracking-wider uppercase inline-flex items-center gap-2.5 sm:gap-3.5 transition-all duration-300 shadow-[0_4px_22px_rgba(220,38,38,0.45)] hover:shadow-[0_6px_28px_rgba(220,38,38,0.65)] hover:scale-105 active:scale-95 cursor-pointer"
-            >
-              <span>{isArabic ? "تفاصيل هذه الخدمة" : "Explore This Service"}</span>
-              <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white text-red-600 flex items-center justify-center transition-transform group-hover:scale-110">
-                <ArrowIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
-              </span>
-            </Link>
+              {/* Circular Play / Pause Button */}
+              <button
+                type="button"
+                onClick={handleToggleVideo}
+                aria-label={
+                  isPlayingVideo
+                    ? isVideoPaused
+                      ? isArabic
+                        ? "استئناف الفيديو"
+                        : "Resume Video"
+                      : isArabic
+                      ? "إيقاف الفيديو مؤقتاً"
+                      : "Pause Video"
+                    : isArabic
+                    ? "تشغيل فيديو الورشة"
+                    : "Play Workshop Video"
+                }
+                title={
+                  isPlayingVideo
+                    ? isVideoPaused
+                      ? isArabic
+                        ? "استئناف الفيديو"
+                        : "Resume Video"
+                      : isArabic
+                      ? "إيقاف الفيديو مؤقتاً"
+                      : "Pause Video"
+                    : isArabic
+                    ? "تشغيل فيديو الورشة"
+                    : "Play Workshop Video"
+                }
+                className="relative w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full bg-red-600 hover:bg-red-700 border-2 border-white/50 flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 shadow-[0_0_35px_rgba(220,38,38,0.5)] hover:shadow-[0_0_55px_rgba(220,38,38,0.85)] focus:outline-none active:scale-95"
+              >
+                {isPlayingVideo && !isVideoPaused ? (
+                  <Pause className="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 text-white fill-white" />
+                ) : (
+                  <Play className="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 text-white fill-white ml-0.5 sm:ml-1 rtl:ml-0 rtl:mr-0.5 rtl:sm:mr-1" />
+                )}
+              </button>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* 5. Bottom Spacer / Subtle Scroll Down Indicator */}
+      {/* 6. Bottom Spacer / Subtle Scroll Down Indicator */}
       <div className="relative z-20 pb-5 sm:pb-7 flex justify-center">
         <div className="flex flex-col items-center gap-1.5 opacity-60">
           <span className="text-[10px] font-bold text-white uppercase tracking-[0.3em]">
@@ -243,7 +358,7 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
         </div>
       </div>
 
-      {/* 6. Quote Modal */}
+      {/* 7. Quote Modal */}
       <BookingModal
         isOpen={isBookingModalOpen}
         onClose={() => setIsBookingModalOpen(false)}
