@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronRight, ChevronLeft, MapPin, Phone, Mail } from "lucide-react";
+import { ChevronRight, ChevronLeft, MapPin, Phone, Mail, Clock } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
 export { default as NewsletterSection } from "./NewsletterSection";
@@ -13,16 +13,45 @@ export default function Footer() {
 
   const ArrowIcon = isArabic ? ChevronLeft : ChevronRight;
 
-  const quickLinks = [
-    { label: isArabic ? "الرئيسية" : "Home", href: "/" },
+  const serviceLinks = [
+    {
+      label: isArabic ? "فحص كمبيوتر وبرمجة الأعطال" : "Computer Diagnostics & ECU",
+      href: "/services-details?service=diagnostics",
+    },
+    {
+      label: isArabic ? "تبديل زيت المحرك والفلتر" : "Synthetic Oil & Filter Service",
+      href: "/services-details?service=oil-change",
+    },
+    {
+      label: isArabic ? "صيانة الفرامل وخرط الديسكات" : "Brake Repair & Rotor Skimming",
+      href: "/services-details?service=brakes",
+    },
+    {
+      label: isArabic ? "تصليح وشحن مكيف السيارة" : "Car A/C Repair & Refrigerant Gas",
+      href: "/services-details?service=ac-repair",
+    },
+    {
+      label: isArabic ? "صيانة المساعدات ونظام التعليق" : "Suspension & Struts Repair",
+      href: "/services-details?service=suspension",
+    },
+    {
+      label: isArabic ? "فحص وتبديل بطارية السيارة" : "Battery Testing & Alternator",
+      href: "/services-details?service=battery",
+    },
+    {
+      label: isArabic ? "جميع خدمات الورشة (8+)" : "View All Services (8+)",
+      href: "/services",
+    },
+  ];
+
+  const companyLinks = [
     { label: isArabic ? "عن الورشة" : "About Us", href: "/about-us" },
-    { label: isArabic ? "خدماتنا" : "Services", href: "/services" },
     { label: isArabic ? "الماركات التي نخدمها" : "Brands We Service", href: "/brands" },
     { label: isArabic ? "معرض الفيديو" : "Video Gallery", href: "/gallery" },
     { label: isArabic ? "مدونة الصيانة" : "Maintenance Blogs", href: "/blogs" },
-    { label: isArabic ? "حجز موعد" : "Book Appointment", href: "/booking" },
-    { label: isArabic ? "اتصل بنا" : "Contact Us", href: "/contact" },
-    { label: isArabic ? "خريطة الموقع" : "Sitemap", href: "/sitemap" },
+    { label: isArabic ? "الأسئلة الشائعة" : "Customer FAQs", href: "/faqs" },
+    { label: isArabic ? "احجز موعد صيانة" : "Book an Appointment", href: "/booking" },
+    { label: isArabic ? "سياسة الخصوصية والشروط" : "Privacy & Terms Policy", href: "/contact" },
   ];
 
   return (
@@ -108,71 +137,53 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Col 2: Quick Links */}
+          {/* Col 2: Services */}
           <div>
             <div className="mb-6">
               <h4 className="text-white text-xl uppercase tracking-tight font-display font-bold">
-                {t.footer.quickLinksTitle}
+                {t.footer.servicesTitle}
               </h4>
               <div className="h-0.5 w-10 bg-red-600 mt-1"></div>
             </div>
             <ul className="space-y-3">
-              {quickLinks.map((link) => (
+              {serviceLinks.map((link) => (
                 <li key={link.label}>
                   <Link
                     className="flex items-center gap-2 text-sm hover:text-red-500 transition-colors group"
                     href={link.href}
                   >
-                    <ArrowIcon className="w-3.5 h-3.5 text-red-600 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform" />
-                    {link.label}
+                    <ArrowIcon className="w-3.5 h-3.5 text-red-600 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform shrink-0" />
+                    <span>{link.label}</span>
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Col 3: Hours & Policies */}
+          {/* Col 3: Company */}
           <div>
             <div className="mb-6">
               <h4 className="text-white text-xl uppercase tracking-tight font-display font-bold">
-                {t.footer.openingHoursTitle}
-              </h4>
-              <div className="h-0.5 w-10 bg-red-600 mt-1"></div>
-            </div>
-            <div className="space-y-2 text-sm text-gray-400 mb-8">
-              <p>{t.footer.hoursWeekdays}</p>
-              <p>{t.footer.hoursBreak}</p>
-              <p className="text-red-500 font-bold">{t.footer.hoursFriday}</p>
-            </div>
-            <div className="mb-6">
-              <h4 className="text-white text-xl uppercase tracking-tight font-display font-bold">
-                {t.footer.supportTitle}
+                {t.footer.companyTitle}
               </h4>
               <div className="h-0.5 w-10 bg-red-600 mt-1"></div>
             </div>
             <ul className="space-y-3">
-              <li>
-                <Link
-                  className="flex items-center gap-2 text-sm hover:text-red-500 transition-colors group"
-                  href="/faqs"
-                >
-                  <ArrowIcon className="w-3.5 h-3.5 text-red-600 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform" />
-                  {t.footer.faqLink}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className="flex items-center gap-2 text-sm hover:text-red-500 transition-colors group"
-                  href="/contact"
-                >
-                  <ArrowIcon className="w-3.5 h-3.5 text-red-600 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform" />
-                  {t.footer.privacyLink}
-                </Link>
-              </li>
+              {companyLinks.map((link) => (
+                <li key={link.label}>
+                  <Link
+                    className="flex items-center gap-2 text-sm hover:text-red-500 transition-colors group"
+                    href={link.href}
+                  >
+                    <ArrowIcon className="w-3.5 h-3.5 text-red-600 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform shrink-0" />
+                    <span>{link.label}</span>
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Col 4: Contact Info */}
+          {/* Col 4: Contact */}
           <div>
             <div className="mb-6">
               <h4 className="text-white text-xl uppercase tracking-tight font-display font-bold">
@@ -180,16 +191,16 @@ export default function Footer() {
               </h4>
               <div className="h-0.5 w-10 bg-red-600 mt-1"></div>
             </div>
-            <div className="space-y-6">
+            <div className="space-y-5">
               <div className="flex gap-4">
-                <MapPin className="text-red-600 shrink-0 w-5 h-5" />
-                <p className="text-sm whitespace-pre-line">
+                <MapPin className="text-red-600 shrink-0 w-5 h-5 mt-0.5" />
+                <p className="text-sm whitespace-pre-line leading-relaxed">
                   {t.footer.address}
                 </p>
               </div>
               <div className="flex gap-4">
-                <Phone className="text-red-600 shrink-0 w-5 h-5" />
-                <div className="text-sm">
+                <Phone className="text-red-600 shrink-0 w-5 h-5 mt-0.5" />
+                <div className="text-sm space-y-0.5">
                   <p>
                     <a href="tel:+971564406456" className="hover:text-white transition-colors" dir="ltr">
                       +971 56 440 6456
@@ -203,8 +214,8 @@ export default function Footer() {
                 </div>
               </div>
               <div className="flex gap-4">
-                <Mail className="text-red-600 shrink-0 w-5 h-5" />
-                <div className="text-sm">
+                <Mail className="text-red-600 shrink-0 w-5 h-5 mt-0.5" />
+                <div className="text-sm space-y-0.5">
                   <p>
                     <a href="mailto:info@babalbustanuae.com" className="hover:text-white transition-colors">
                       info@babalbustanuae.com
@@ -215,6 +226,14 @@ export default function Footer() {
                       babalbustan1@gmail.com
                     </a>
                   </p>
+                </div>
+              </div>
+              <div className="flex gap-4 pt-1 border-t border-zinc-900">
+                <Clock className="text-red-600 shrink-0 w-5 h-5 mt-0.5" />
+                <div className="text-xs space-y-1">
+                  <p className="text-gray-300 font-semibold">{t.footer.hoursWeekdays}</p>
+                  <p className="text-gray-400">{t.footer.hoursBreak}</p>
+                  <p className="text-red-500 font-bold">{t.footer.hoursFriday}</p>
                 </div>
               </div>
             </div>

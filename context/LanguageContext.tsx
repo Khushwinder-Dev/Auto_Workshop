@@ -196,6 +196,8 @@ export interface Translations {
     aboutDesc: string;
     followUs: string;
     quickLinksTitle: string;
+    servicesTitle: string;
+    companyTitle: string;
     openingHoursTitle: string;
     hoursWeekdays: string;
     hoursBreak: string;
@@ -592,6 +594,8 @@ export const translations: Record<Language, Translations> = {
         "Bab Al Bustan Auto Maintenance Workshop in Sharjah Industrial Area 5 stands as a trusted symbol of precision, genuine spare parts, and customer care for all your car repair needs.",
       followUs: "Follow us:",
       quickLinksTitle: "Quick Links",
+      servicesTitle: "Services",
+      companyTitle: "Company",
       openingHoursTitle: "Opening Hours",
       hoursWeekdays: "Saturday – Thursday: 8:00 AM – 9:00 PM",
       hoursBreak: "Break: 1:30 PM – 3:30 PM",
@@ -599,7 +603,7 @@ export const translations: Record<Language, Translations> = {
       supportTitle: "Support & FAQs",
       faqLink: "Frequently Asked Questions",
       privacyLink: "Privacy & Terms Policy",
-      contactTitle: "Contact Info",
+      contactTitle: "Contact",
       address: "Industrial Area No 5,\nSharjah, United Arab Emirates",
       copyright:
         "© Copyright 2026 Bab Al Bustan Auto Maintenance Workshop. All rights reserved.",
@@ -1014,6 +1018,8 @@ export const translations: Record<Language, Translations> = {
         "تقف ورشة باب البستان لصيانة السيارات في المنطقة الصناعية 5 بالشارقة كرمز موثوق للدقة، وقطع الغيار الأصلية، وخدمة العملاء الرفيعة لجميع متطلبات إصلاح سيارتك.",
       followUs: "تابعنا على:",
       quickLinksTitle: "روابط سريعة",
+      servicesTitle: "خدماتنا",
+      companyTitle: "الشركة",
       openingHoursTitle: "ساعات العمل",
       hoursWeekdays: "السبت – الخميس: 8:00 صباحاً – 9:00 مساءً",
       hoursBreak: "استراحة: 1:30 ظهراً – 3:30 عصراً",
@@ -1021,7 +1027,7 @@ export const translations: Record<Language, Translations> = {
       supportTitle: "الدعم والأسئلة",
       faqLink: "الأسئلة الشائعة",
       privacyLink: "سياسة الخصوصية والشروط",
-      contactTitle: "معلومات التواصل",
+      contactTitle: "اتصل بنا",
       address: "المنطقة الصناعية رقم 5،\nالشارقة، الإمارات العربية المتحدة",
       copyright:
         "© حقوق النشر 2026 ورشة باب البستان لصيانة السيارات. جميع الحقوق محفوظة.",
