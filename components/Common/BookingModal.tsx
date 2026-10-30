@@ -31,6 +31,7 @@ export interface BookingModalProps {
   isOpen: boolean;
   onClose: () => void;
   defaultService?: string;
+  mode?: "booking" | "quote";
 }
 
 const WORKSHOP_SERVICE_OPTIONS = [
@@ -108,9 +109,11 @@ export default function BookingModal({
   isOpen,
   onClose,
   defaultService,
+  mode = "booking",
 }: BookingModalProps) {
   const { isArabic } = useLanguage();
   const isAr = isArabic;
+  const isQuote = mode === "quote";
 
   const [formData, setFormData] = useState({
     name: "",

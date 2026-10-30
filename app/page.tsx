@@ -49,8 +49,16 @@ export default function Home() {
           <HeroSection />
         </div>
 
+        <div data-aos="fade-up" data-aos-delay="200">
+          <FourStepProcessSection />
+        </div>
+
         <div data-aos="fade-up" data-aos-delay="100">
           <ServicesSection />
+        </div>
+
+        <div data-aos="fade-up" data-aos-delay="100">
+          <PartnershipSection />
         </div>
 
         <div data-aos="fade-up" data-aos-delay="200">
@@ -73,9 +81,7 @@ export default function Home() {
           <RecentWorkSection />
         </div>
 
-        <div data-aos="fade-up" data-aos-delay="100">
-          <PartnershipSection />
-        </div>
+
 
         <div data-aos="fade-up" data-aos-delay="150">
           <TestimonialSection />
@@ -93,9 +99,6 @@ export default function Home() {
           <LatestInsightsSection />
         </div>
 
-        <div data-aos="fade-up" data-aos-delay="200">
-          <FourStepProcessSection />
-        </div>
       </main>
     </div>
   );
