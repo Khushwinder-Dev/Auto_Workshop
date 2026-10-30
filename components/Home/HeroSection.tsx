@@ -41,7 +41,7 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
 
   const slides = [
     {
-      image: "/images/hero-slide-1.png",
+      image: "/images/hero-workshop-new.jpg",
       titlePart1: isArabic ? "فحص كمبيوتر متقدم و" : "Advanced Diagnostics &",
       titlePart2: isArabic ? "برمجة السيارات بالشارقة" : "Precision Engine Care",
       description: isArabic
@@ -49,7 +49,7 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
         : "OEM-level computer scanning, sensor diagnostics, ECU tuning, and complete mechanical care in Sharjah Industrial Area 5.",
     },
     {
-      image: "/images/hero-slide-2.png",
+      image: "/images/hero-brakes-new.jpg",
       titlePart1: isArabic ? "صيانة الفرامل المعتمدة و" : "High-Performance Brakes &",
       titlePart2: isArabic ? "تجديد المساعدات والتعليق" : "Suspension Overhaul",
       description: isArabic
@@ -57,7 +57,7 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
         : "Ceramic pad replacements, computerized disk skimming, shock absorbers, and laser alignment for smooth desert driving.",
     },
     {
-      image: "/images/hero-slide-3.png",
+      image: "/images/hero-supercar-new.jpg",
       titlePart1: isArabic ? "تصليح مكيفات السيارات و" : "Desert-Ready Car AC &",
       titlePart2: isArabic ? "الصيانة الدورية المعتمدة" : "Full Synthetic Lube",
       description: isArabic
