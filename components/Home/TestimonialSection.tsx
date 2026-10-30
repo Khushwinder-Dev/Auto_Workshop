@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { Star, Quote, CheckCircle2 } from "lucide-react";
+import { Star, Quote } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -163,101 +163,94 @@ export default function TestimonialSection() {
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             {/* Left: Quote & Details (Columns 1-7) */}
             <div className="lg:col-span-7 flex flex-col justify-center min-h-[230px] sm:min-h-[250px] text-start">
-              <div className="flex items-center justify-between mb-6">
-                {/* Circular Quote Icon Badge */}
-                <div className="w-14 h-14 rounded-full bg-red-600 text-white flex items-center justify-center shadow-lg shadow-red-600/30 border-2 border-dashed border-red-300 shrink-0">
-                  <Quote className="w-6 h-6 fill-current" />
+                <div className="mb-6">
+                  {/* Circular Quote Icon Badge */}
+                  <div className="w-14 h-14 rounded-full bg-red-600 text-white flex items-center justify-center shadow-lg shadow-red-600/30 border-2 border-dashed border-red-300 shrink-0">
+                    <Quote className="w-6 h-6 fill-current" />
+                  </div>
                 </div>
 
-                {/* Verified Customer & Vehicle Pill */}
-                <div className="inline-flex items-center gap-1.5 bg-red-950/70 border border-red-800/60 text-red-400 text-xs font-bold px-3.5 py-1.5 rounded-full shadow-sm">
-                  <CheckCircle2 className="w-3.5 h-3.5" />
-                  <span>{current.vehicle}</span>
-                </div>
-              </div>
-
-              <div className="relative overflow-hidden">
-                <AnimatePresence mode="wait" custom={direction}>
-                  <motion.div
-                    key={currentIndex}
-                    custom={direction}
-                    variants={SLIDE_VARIANTS}
-                    initial="enter"
-                    animate="center"
-                    exit="exit"
-                    transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                  >
-                    {/* 5-Star Rating inside the review */}
-                    <div className="flex items-center gap-1 text-amber-400 mb-3">
-                      {[...Array(current.rating)].map((_, i) => (
-                        <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
-                      ))}
-                    </div>
-
-                    <p className="text-base sm:text-lg lg:text-[18px] text-zinc-200 font-normal leading-[1.8] italic font-serif">
-                      &ldquo;{current.comment}&rdquo;
-                    </p>
-
-                    <div className="mt-8 pt-2 border-t border-zinc-800/80">
-                      <p className="text-lg sm:text-xl lg:text-[20px] font-bold text-white tracking-wide">
-                        — {current.name}
-                      </p>
-                      <p className="text-xs sm:text-sm font-bold text-red-500 mt-1">
-                        {current.role} • {current.date}
-                      </p>
-                    </div>
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-            </div>
-
-            {/* Right: TajAlRahmah Signature Circular Avatar with Layered Gradient Rings (Columns 8-12) */}
-            <div className="lg:col-span-5 flex items-center justify-center lg:justify-end">
-              <div className="relative w-56 h-56 sm:w-64 sm:h-64 lg:w-72 lg:h-72 rounded-full bg-gradient-to-br from-red-600/25 to-red-600/50 p-3 sm:p-3.5 shadow-2xl flex-shrink-0 border-4 border-zinc-800 ring-8 ring-red-600/15">
-                <div className="relative w-full h-full rounded-full bg-zinc-900 overflow-hidden shadow-inner border border-white/10">
-                  <AnimatePresence mode="wait">
+                <div className="relative overflow-hidden">
+                  <AnimatePresence mode="wait" custom={direction}>
                     <motion.div
                       key={currentIndex}
-                      initial={{ opacity: 0, scale: 0.94 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 1.04 }}
-                      transition={{ duration: 0.4 }}
-                      className="relative w-full h-full"
+                      custom={direction}
+                      variants={SLIDE_VARIANTS}
+                      initial="enter"
+                      animate="center"
+                      exit="exit"
+                      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                     >
-                      <Image
-                        src={current.avatar}
-                        alt={current.name}
-                        fill
-                        unoptimized
-                        className="object-cover object-top scale-105"
-                        priority
-                      />
+                      {/* 5-Star Rating inside the review */}
+                      <div className="flex items-center gap-1 text-amber-400 mb-3">
+                        {[...Array(current.rating)].map((_, i) => (
+                          <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                        ))}
+                      </div>
+
+                      <p className="text-base sm:text-lg lg:text-[18px] text-zinc-200 font-normal leading-[1.8] italic font-serif">
+                        &ldquo;{current.comment}&rdquo;
+                      </p>
+
+                      <div className="mt-8 pt-2 border-t border-zinc-800/80">
+                        <p className="text-lg sm:text-xl lg:text-[20px] font-bold text-white tracking-wide">
+                          — {current.name}
+                        </p>
+                        <p className="text-xs sm:text-sm font-bold text-red-500 mt-1">
+                          {current.role} • {current.date}
+                        </p>
+                      </div>
                     </motion.div>
                   </AnimatePresence>
                 </div>
               </div>
+
+              {/* Right: TajAlRahmah Signature Circular Avatar with Layered Gradient Rings (Columns 8-12) */}
+              <div className="lg:col-span-5 flex items-center justify-center lg:justify-end">
+                <div className="relative w-56 h-56 sm:w-64 sm:h-64 lg:w-72 lg:h-72 rounded-full bg-gradient-to-br from-red-600/25 to-red-600/50 p-3 sm:p-3.5 shadow-2xl flex-shrink-0 border-4 border-zinc-800 ring-8 ring-red-600/15">
+                  <div className="relative w-full h-full rounded-full bg-zinc-900 overflow-hidden shadow-inner border border-white/10">
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={currentIndex}
+                        initial={{ opacity: 0, scale: 0.94 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 1.04 }}
+                        transition={{ duration: 0.4 }}
+                        className="relative w-full h-full"
+                      >
+                        <Image
+                          src={current.avatar}
+                          alt={current.name}
+                          fill
+                          unoptimized
+                          className="object-cover object-top scale-105"
+                          priority
+                        />
+                      </motion.div>
+                    </AnimatePresence>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* ── Slider Navigation Dots (TajAlRahmah Style) ── */}
-        <div className="flex items-center justify-center gap-2.5 mt-8 sm:mt-10">
-          {testimonials.map((_, idx) => (
-            <button
-              key={idx}
-              type="button"
-              onClick={() => goToSlide(idx)}
-              aria-label={`${isArabic ? "الشهادة" : "Go to testimonial"} ${idx + 1}`}
-              aria-current={currentIndex === idx}
-              className={`transition-all duration-300 rounded-full cursor-pointer ${
-                currentIndex === idx
-                  ? "w-8 h-2.5 bg-red-600 shadow-[0_2px_8px_rgba(220,38,38,0.5)]"
-                  : "w-2.5 h-2.5 bg-zinc-700 hover:bg-red-600/50"
-              }`}
-            />
-          ))}
+          {/* ── Slider Navigation Dots (TajAlRahmah Style) ── */}
+          <div className="flex items-center justify-center gap-2.5 mt-8 sm:mt-10">
+            {testimonials.map((_, idx) => (
+              <button
+                key={idx}
+                type="button"
+                onClick={() => goToSlide(idx)}
+                aria-label={`${isArabic ? "الشهادة" : "Go to testimonial"} ${idx + 1}`}
+                aria-current={currentIndex === idx}
+                className={`transition-all duration-300 rounded-full cursor-pointer ${currentIndex === idx
+                    ? "w-8 h-2.5 bg-red-600 shadow-[0_2px_8px_rgba(220,38,38,0.5)]"
+                    : "w-2.5 h-2.5 bg-zinc-700 hover:bg-red-600/50"
+                  }`}
+              />
+            ))}
+          </div>
         </div>
-      </div>
     </section>
   );
 }
