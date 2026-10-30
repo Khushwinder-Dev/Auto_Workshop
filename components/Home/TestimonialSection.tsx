@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { Star, Quote, ChevronLeft, ChevronRight, CheckCircle2 } from "lucide-react";
+import { Star, Quote, CheckCircle2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -127,20 +127,7 @@ export default function TestimonialSection() {
     setCurrentIndex(idx);
   };
 
-  const prevTestimonial = () => {
-    setDirection(-1);
-    setCurrentIndex((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1));
-  };
-
-  const nextTestimonial = () => {
-    setDirection(1);
-    setCurrentIndex((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1));
-  };
-
   const current = testimonials[currentIndex];
-
-  const PrevIcon = isArabic ? ChevronRight : ChevronLeft;
-  const NextIcon = isArabic ? ChevronLeft : ChevronRight;
 
   return (
     <section
@@ -153,7 +140,7 @@ export default function TestimonialSection() {
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* ── Section Header (TajAlRahmah Style) ───────────────────────── */}
-        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
           <div className="inline-flex items-center justify-center gap-3 mb-3.5">
             <span className="inline-block h-[2px] w-6 sm:w-8 bg-red-600 rounded-full" />
             <span className="text-xs sm:text-sm font-extrabold tracking-[0.18em] uppercase text-red-500">
@@ -166,22 +153,6 @@ export default function TestimonialSection() {
             <span>{t.home.testimonials.titlePart1}</span>{" "}
             <span className="text-red-600">{t.home.testimonials.titlePart2}</span>
           </h2>
-
-          <p className="mt-3.5 text-zinc-400 text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
-            {t.home.testimonials.subtitle}
-          </p>
-
-          {/* 5-Star Rating Pill */}
-          <div className="mt-6 inline-flex items-center gap-2.5 bg-zinc-900/90 border border-zinc-800 rounded-full px-5 py-2 shadow-lg shadow-black/40">
-            <div className="flex items-center gap-1 text-amber-400">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
-              ))}
-            </div>
-            <span className="text-xs font-bold text-zinc-200">
-              {t.home.testimonials.ratingBadge}
-            </span>
-          </div>
         </div>
 
         {/* ── Testimonial Card (TajAlRahmah 12-Column Grid with Dot Matrix) ── */}
@@ -269,45 +240,22 @@ export default function TestimonialSection() {
           </div>
         </div>
 
-        {/* ── Slider Navigation Controls & Dots (TajAlRahmah Style) ── */}
-        <div className="flex items-center justify-between max-w-7xl mx-auto mt-8 sm:mt-10 px-2">
-          {/* Previous Button */}
-          <button
-            type="button"
-            onClick={prevTestimonial}
-            className="w-11 h-11 rounded-full bg-zinc-900 hover:bg-red-600 text-zinc-300 hover:text-white flex items-center justify-center transition-all duration-200 cursor-pointer border border-zinc-800 shadow-md active:scale-95"
-            aria-label="Previous testimonial"
-          >
-            <PrevIcon className="w-5 h-5" />
-          </button>
-
-          {/* Center Navigation Dots */}
-          <div className="flex items-center justify-center gap-2.5">
-            {testimonials.map((_, idx) => (
-              <button
-                key={idx}
-                type="button"
-                onClick={() => goToSlide(idx)}
-                aria-label={`${isArabic ? "الشهادة" : "Go to testimonial"} ${idx + 1}`}
-                aria-current={currentIndex === idx}
-                className={`transition-all duration-300 rounded-full cursor-pointer ${
-                  currentIndex === idx
-                    ? "w-8 h-2.5 bg-red-600 shadow-[0_2px_8px_rgba(220,38,38,0.5)]"
-                    : "w-2.5 h-2.5 bg-zinc-700 hover:bg-red-600/50"
-                }`}
-              />
-            ))}
-          </div>
-
-          {/* Next Button */}
-          <button
-            type="button"
-            onClick={nextTestimonial}
-            className="w-11 h-11 rounded-full bg-zinc-900 hover:bg-red-600 text-zinc-300 hover:text-white flex items-center justify-center transition-all duration-200 cursor-pointer border border-zinc-800 shadow-md active:scale-95"
-            aria-label="Next testimonial"
-          >
-            <NextIcon className="w-5 h-5" />
-          </button>
+        {/* ── Slider Navigation Dots (TajAlRahmah Style) ── */}
+        <div className="flex items-center justify-center gap-2.5 mt-8 sm:mt-10">
+          {testimonials.map((_, idx) => (
+            <button
+              key={idx}
+              type="button"
+              onClick={() => goToSlide(idx)}
+              aria-label={`${isArabic ? "الشهادة" : "Go to testimonial"} ${idx + 1}`}
+              aria-current={currentIndex === idx}
+              className={`transition-all duration-300 rounded-full cursor-pointer ${
+                currentIndex === idx
+                  ? "w-8 h-2.5 bg-red-600 shadow-[0_2px_8px_rgba(220,38,38,0.5)]"
+                  : "w-2.5 h-2.5 bg-zinc-700 hover:bg-red-600/50"
+              }`}
+            />
+          ))}
         </div>
       </div>
     </section>
