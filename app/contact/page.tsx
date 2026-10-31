@@ -73,7 +73,7 @@ export default function ContactPage() {
             <div className="absolute inset-0 bg-[#1a0a05]/70" />
             <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/20" />
           </div>
-          <div className="relative z-20 flex-grow flex flex-col items-center justify-center text-center px-6 mt-10">
+          <div className="relative z-20 flex-grow flex flex-col items-center justify-center text-center w-full max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14 mt-10">
             <div data-aos="zoom-out" data-aos-delay="200" className="mb-4">
               <h1 className="text-3xl md:text-[50px] font-display font-bold tracking-[-0.04em] leading-[0.9] flex items-center justify-center gap-4 max-w-[800px]">
                 <span className="text-white">{t.contact.heroTitle1} </span>
@@ -90,8 +90,8 @@ export default function ContactPage() {
           </div>
         </section>
 
-        <div className="bg-white py-16 px-6 lg:px-24">
-          <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-white py-16">
+          <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 pb-12">
               <div className="flex items-start gap-4">
                 <div className="bg-red-600 p-3 rounded-lg text-white shrink-0">
@@ -222,7 +222,7 @@ export default function ContactPage() {
         </div>
 
         <div className="w-full bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-10 xl:px-16 mb-20">
+          <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14 mb-20">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                 {isArabic ? "موقعنا على الخريطة" : "Find Us On Map"}

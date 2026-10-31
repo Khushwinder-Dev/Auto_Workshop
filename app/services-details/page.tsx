@@ -58,7 +58,7 @@ function ServiceDetailsContent() {
           <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/30" />
         </div>
 
-        <div className="relative z-20 text-center px-6 max-w-3xl mx-auto">
+        <div className="relative z-20 text-center w-full max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14">
           <div className="inline-block px-4 py-1.5 rounded-full bg-red-600/20 border border-red-500/30 text-red-400 text-xs font-bold uppercase tracking-[0.25em] mb-4">
             {t.serviceDetails.heroBadge}
           </div>
@@ -71,7 +71,7 @@ function ServiceDetailsContent() {
         </div>
       </section>
 
-      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14 py-20">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           <div className="lg:col-span-4 space-y-8">
             <div className="bg-zinc-50 border border-zinc-200/90 rounded-2xl p-6 shadow-sm">

@@ -475,7 +475,7 @@ export default function GetAQuoteContent() {
           2. MAIN SECTION: INFO COLUMN + FLOATING FORM CARD
       ══════════════════════════════════════════════════════════════ */}
       <section className="relative w-full py-12 md:py-16 lg:py-24 bg-[#fafafa] overflow-hidden">
-        <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-10 xl:px-16 w-full">
+        <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
             {/* ── LEFT COLUMN: Text + 3 Badges + Workshop Access Card ── */}
             <div className="lg:col-span-5 flex flex-col pt-2 lg:pt-4">
@@ -1003,7 +1003,7 @@ export default function GetAQuoteContent() {
           4. TALK TO OUR SENIOR ADVISORS CALLOUT BANNER
       ══════════════════════════════════════════════════════════════ */}
       <section className="relative w-full py-12 md:py-16 lg:py-20 bg-[#fafafa]">
-        <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-10 xl:px-16">
+        <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14">
           <div className="relative w-full rounded-[28px] lg:rounded-[36px] overflow-hidden shadow-2xl border border-zinc-800 bg-[#0c0c0c] p-8 sm:p-12 lg:p-14 text-white">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               {/* Left Column: Heading + Subtitle + Action Button */}

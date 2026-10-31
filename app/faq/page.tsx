@@ -34,7 +34,7 @@ export default function FAQPage() {
           <div className="absolute inset-0 bg-gradient-to-t from-[#fafafa] via-transparent to-black/40" />
         </div>
 
-        <div className="relative z-20 text-center px-6 max-w-3xl mx-auto">
+        <div className="relative z-20 text-center w-full max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14">
           {/* Eyebrow: — FAQ — */}
           <div className="flex items-center justify-center gap-3 mb-3">
             <span className="w-8 sm:w-10 h-[2px] bg-red-500 rounded-full" />
@@ -64,7 +64,7 @@ export default function FAQPage() {
       {/* ========================================================= */}
       {/* FAQ SECTION (Taj Al Rahmah Reference Layout)              */}
       {/* ========================================================= */}
-      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
+      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14 py-16 sm:py-20 lg:py-24">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-14">
           <div className="flex items-center justify-center gap-3 mb-3">

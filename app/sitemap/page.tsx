@@ -297,7 +297,7 @@ export default function SitemapPage() {
           <div className="absolute inset-0 bg-[#1a0a05]/75" />
           <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/30" />
         </div>
-        <div className="relative z-20 flex-grow flex flex-col items-center justify-center text-center px-6 mt-10">
+        <div className="relative z-20 flex-grow flex flex-col items-center justify-center text-center w-full max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14 mt-10">
           <div data-aos="zoom-out" data-aos-delay="200" className="mb-4">
             <h1 className="text-4xl md:text-[56px] font-display font-bold tracking-tight leading-[0.9] flex items-center justify-center gap-3 max-w-[800px]">
               <span className="text-white">{isArabic ? "خريطة" : "HTML"} </span>
@@ -324,7 +324,7 @@ export default function SitemapPage() {
         </div>
       </section>
 
-      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14 py-16 sm:py-20">
         <div className="max-w-2xl mx-auto mb-14 sm:mb-16">
           <div className="relative">
             <FloatInput

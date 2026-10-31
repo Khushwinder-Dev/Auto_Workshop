@@ -11,8 +11,8 @@ export default function FeatureSection() {
   const { t } = useLanguage();
 
   return (
-    <section className="bg-[#050505] py-20 px-6">
-      <div className="max-w-8xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    <section className="bg-[#050505] py-20">
+      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <div className="relative h-[300px] md:h-[500px] w-full rounded-[40px] overflow-hidden border border-white/5 shadow-2xl">
           <Image
             src="/images/service-5.png"

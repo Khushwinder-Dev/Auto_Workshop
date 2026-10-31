@@ -77,7 +77,7 @@ export default function NewsletterSection() {
     <section
       id="newsletter"
       aria-labelledby="newsletter-heading"
-      className="relative bg-zinc-50/80 border-t border-zinc-200/90 py-14 sm:py-16 px-4 font-sans overflow-hidden"
+      className="relative bg-zinc-50/80 border-t border-zinc-200/90 py-14 sm:py-16 font-sans overflow-hidden"
     >
       {/* Soft ambient lighting */}
       <div className="absolute top-1/2 -left-20 -translate-y-1/2 w-96 h-96 bg-red-500/5 rounded-full blur-3xl pointer-events-none" />
@@ -87,7 +87,7 @@ export default function NewsletterSection() {
         aria-hidden="true"
       />
 
-      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14 relative z-10">
         <div className="relative rounded-3xl bg-white border border-zinc-200/90 p-8 sm:p-12 lg:p-14 shadow-xl shadow-zinc-200/60 overflow-hidden">
           {/* Subtle top accent gradient */}
           <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-red-600 via-red-500 to-amber-500" />

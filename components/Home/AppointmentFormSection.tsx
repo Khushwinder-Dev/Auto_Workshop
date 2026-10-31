@@ -60,7 +60,7 @@ export default function AppointmentFormSection() {
           />
           <div className="absolute inset-0 bg-black/40 md:bg-linear-to-r md:from-black/50 md:via-black/50 md:to-black/70" />
         </div>
-        <div className="relative z-10 max-w-8xl mx-auto px-6 lg:px-12 w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-20">
+        <div className="relative z-10 max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14 w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-20">
           <div className="max-w-2xl">
             <h2 className="text-3xl md:text-5xl lg:text-6xl font-black text-white leading-[1.15] uppercase tracking-tight drop-shadow-lg">
               {t.home.appointment.titlePrefix}{" "}
@@ -166,7 +166,7 @@ export default function AppointmentFormSection() {
         </div>
       </div>
       <div className="bg-red-600 py-8">
-        <div className="max-w-8xl mx-auto px-6 lg:px-12 flex flex-col md:flex-row gap-10 md:gap-24">
+        <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14 flex flex-col md:flex-row gap-10 md:gap-24">
           <div className="flex items-center gap-5">
             <div className="w-14 h-14 bg-white/15 rounded-full flex items-center justify-center shrink-0">
               <UserCog className="text-white w-7 h-7" />

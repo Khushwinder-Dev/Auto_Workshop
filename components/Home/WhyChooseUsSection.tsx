@@ -50,9 +50,9 @@ export default function WhyChooseUsSection() {
   return (
     <section
       id="why-choose-us"
-      className="relative w-full py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-white overflow-hidden scroll-mt-20"
+      className="relative w-full py-16 sm:py-20 lg:py-24 bg-white overflow-hidden scroll-mt-20"
     >
-      <div className="max-w-8xl mx-auto">
+      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14">
         {/* ============================================================
             SECTION HEADER
             ============================================================ */}

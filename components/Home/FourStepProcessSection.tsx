@@ -37,8 +37,8 @@ export default function FourStepProcessSection() {
   const ArrowIcon = isArabic ? ArrowLeft : ArrowRight;
 
   return (
-    <section className="bg-white py-24 px-6 overflow-hidden" dir={isArabic ? "rtl" : "ltr"}>
-      <div className="max-w-8xl mx-auto flex flex-col items-center">
+    <section className="bg-white py-24 overflow-hidden" dir={isArabic ? "rtl" : "ltr"}>
+      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14 flex flex-col items-center">
         <div className="inline-block px-5 py-1.5 rounded-full border border-red-500/30 bg-red-500/10 mb-8">
           <span className="text-red-600 text-[10px] font-black tracking-[0.25em] uppercase">
             {t.home.fourStep.eyebrow}

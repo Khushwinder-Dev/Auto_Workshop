@@ -43,7 +43,7 @@ export default function BrandsPage() {
             <div className="absolute inset-0 bg-[#1a0a05]/70" />
             <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/20" />
           </div>
-          <div className="relative z-20 flex-grow flex flex-col items-center justify-center text-center px-6 mt-10">
+          <div className="relative z-20 flex-grow flex flex-col items-center justify-center text-center w-full max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14 mt-10">
             <div data-aos="zoom-out" data-aos-delay="200" className="mb-4">
               <h1 className="text-3xl md:text-[50px] font-display font-bold tracking-[-0.04em] leading-[0.9] flex items-center justify-center gap-3 max-w-[800px]">
                 <span className="text-white">{t.brands.heroTitle1}</span>
@@ -60,8 +60,8 @@ export default function BrandsPage() {
           </div>
         </section>
 
-        <section className="py-16 px-6 md:px-12">
-          <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="py-16">
+          <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14">
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 lg:gap-5">
               {brands.map((brand) => (
                 <div

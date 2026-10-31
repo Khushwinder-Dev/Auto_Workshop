@@ -104,7 +104,7 @@ export default function FaqSection() {
       className="py-16 sm:py-20 lg:py-24 bg-[#fafafa]"
       dir={isArabic ? "rtl" : "ltr"}
     >
-      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14">
         {/* ========================================================= */}
         {/* SECTION HEADER (Taj Al Rahmah Reference Layout)          */}
         {/* ========================================================= */}

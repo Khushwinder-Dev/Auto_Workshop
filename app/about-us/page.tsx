@@ -67,7 +67,7 @@ export default function AboutUsPage() {
             <div className="absolute inset-0 bg-[#1a0a05]/70" />
             <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/20" />
           </div>
-          <div className="relative z-20 flex-grow flex flex-col items-center justify-center text-center px-6 mt-10">
+          <div className="relative z-20 flex-grow flex flex-col items-center justify-center text-center w-full max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14 mt-10">
             <div data-aos="zoom-out" data-aos-delay="200" className="mb-4">
               <h1 className="text-3xl md:text-[50px] font-display font-bold tracking-[-0.04em] leading-[0.9] flex items-center justify-center gap-3 max-w-[800px]">
                 <span className="text-white">{t.about.heroTitle1}</span>
@@ -85,7 +85,7 @@ export default function AboutUsPage() {
         </section>
 
         {/* Workshop Key Statistics (Relocated from Hero Section) */}
-        <section className="relative z-30 -mt-14 sm:-mt-16 max-w-6xl mx-auto px-6">
+        <section className="relative z-30 -mt-14 sm:-mt-16 max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14">
           <div className="bg-zinc-950/95 backdrop-blur-xl border border-red-600/30 rounded-2xl sm:rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] p-6 sm:p-8 grid grid-cols-2 lg:grid-cols-4 gap-6 text-center divide-y lg:divide-y-0 lg:divide-x divide-zinc-800/80 rtl:lg:divide-x-reverse">
             <div className="flex flex-col items-center justify-center pt-2 lg:pt-0">
               <div className="flex items-baseline" dir="ltr">
@@ -129,8 +129,8 @@ export default function AboutUsPage() {
           </div>
         </section>
 
-        <section className="py-20 bg-white px-6">
-          <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <section className="py-20 bg-white">
+          <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="space-y-10">
               <div className="flex gap-4 h-[400px]">
                 <div className="relative flex-1 rounded-xl overflow-hidden shadow-lg">
@@ -190,8 +190,8 @@ export default function AboutUsPage() {
           </div>
         </section>
 
-        <section className="bg-[#0a0a0a] py-24 px-6 overflow-hidden">
-          <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+        <section className="bg-[#0a0a0a] py-24 overflow-hidden">
+          <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             <div className="space-y-8">
               <div className="inline-block">
                 <span className="text-[#e11d23] text-xs font-display uppercase tracking-[0.2em]">
@@ -226,8 +226,8 @@ export default function AboutUsPage() {
           </div>
         </section>
 
-        <section className="py-20 bg-[#fcfcfc] px-6">
-          <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="py-20 bg-[#fcfcfc]">
+          <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14">
             <div className="text-center mb-16 space-y-4">
               <div className="flex items-center justify-center gap-2 text-[#e11d23] font-bold uppercase tracking-[0.2em] text-[10px] md:text-xs">
                 <X className="w-3.5 h-3.5" strokeWidth={3} />

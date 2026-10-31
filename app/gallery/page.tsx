@@ -38,7 +38,7 @@ export default function GalleryPage() {
             <div className="absolute inset-0 bg-[#1a0a05]/70" />
             <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/20" />
           </div>
-          <div className="relative z-20 flex-grow flex flex-col items-center justify-center text-center px-6 mt-10">
+          <div className="relative z-20 flex-grow flex flex-col items-center justify-center text-center w-full max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14 mt-10">
             <div data-aos="zoom-out" data-aos-delay="200" className="mb-4">
               <h1 className="text-3xl md:text-[50px] font-display font-bold tracking-[-0.04em] leading-[0.9] flex items-center justify-center gap-4 max-w-[800px]">
                 <span className="text-white">{t.gallery.heroTitle}</span>
@@ -54,8 +54,8 @@ export default function GalleryPage() {
           </div>
         </section>
 
-        <div className="bg-[#0a0a0a] min-h-screen py-16 px-4 sm:px-6 lg:px-8 text-white">
-          <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-[#0a0a0a] min-h-screen py-16 text-white">
+          <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {videos.map((videoSrc, idx) => (
                 <div
@@ -78,7 +78,8 @@ export default function GalleryPage() {
             </div>
           </div>
 
-          <section className="relative bg-[#1a0b0b] py-20 px-6 overflow-hidden mt-20 rounded-3xl border border-red-950/40 max-w-8xl mx-auto">
+          <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14 mt-20">
+          <section className="relative bg-[#1a0b0b] py-20 px-6 sm:px-10 overflow-hidden rounded-3xl border border-red-950/40 w-full">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-red-900/10 blur-[120px] rounded-full pointer-events-none" />
             <div className="max-w-4xl mx-auto text-center relative z-10">
               <h2 className="text-2xl md:text-4xl font-display text-white uppercase tracking-tighter mb-6 leading-tight">
@@ -98,6 +99,7 @@ export default function GalleryPage() {
             </div>
           </section>
         </div>
+      </div>
       </div>
     </main>
   );

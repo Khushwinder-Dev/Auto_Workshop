@@ -131,14 +131,14 @@ export default function TestimonialSection() {
 
   return (
     <section
-      className="relative w-full py-[48px] md:py-[64px] lg:py-[80px] px-4 sm:px-6 lg:px-8 bg-white text-zinc-900 overflow-hidden"
+      className="relative w-full py-[48px] md:py-[64px] lg:py-[80px] bg-white text-zinc-900 overflow-hidden"
       dir={isArabic ? "rtl" : "ltr"}
     >
       {/* Decorative ambient background glows */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-red-600/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-red-600/5 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="max-w-8xl mx-auto relative z-10">
+      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14 relative z-10">
         {/* ── Section Header (TajAlRahmah Style) ───────────────────────── */}
         <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
           <div className="inline-flex items-center justify-center gap-3 mb-3.5">
@@ -156,7 +156,7 @@ export default function TestimonialSection() {
         </div>
 
         {/* ── Testimonial Card (TajAlRahmah 12-Column Grid with Dot Matrix) ── */}
-        <div className="relative max-w-7xl mx-auto bg-white border border-zinc-200/90 rounded-[32px] p-8 sm:p-12 lg:p-14 shadow-[0_20px_50px_rgba(0,0,0,0.06)] overflow-hidden">
+        <div className="relative max-w-8xl mx-auto bg-white border border-zinc-200/90 rounded-[32px] p-8 sm:p-12 lg:p-14 shadow-[0_20px_50px_rgba(0,0,0,0.06)] overflow-hidden">
           {/* Radial Dot Pattern */}
           <div className="absolute inset-0 bg-[radial-gradient(#dc2626_1px,transparent_1px)] [background-size:24px_24px] opacity-[0.07] pointer-events-none" />
 
