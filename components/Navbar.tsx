@@ -242,101 +242,86 @@ export default function Navbar() {
                             transition={{ duration: 0.2 }}
                             onMouseEnter={cancelClose}
                             onMouseLeave={closeMega}
-                            className="absolute top-full -left-48 xl:-left-36 rtl:-left-auto rtl:-right-48 rtl:xl:-right-36 w-[820px] xl:w-[890px] pt-2"
+                            className="absolute top-full -left-48 xl:-left-36 rtl:-left-auto rtl:-right-48 rtl:xl:-right-36 w-[860px] xl:w-[930px] pt-2"
                             dir={isArabic ? "rtl" : "ltr"}
                           >
-                              <div className="bg-white rounded-3xl shadow-[0_25px_70px_rgba(0,0,0,0.18),0_15px_35px_rgba(220,38,38,0.06)] border border-zinc-200/90 overflow-hidden text-left rtl:text-right">
-                                {/* Top Strip */}
-                                  <div className="flex items-center justify-between px-6 py-3.5 border-b border-zinc-100 bg-zinc-50/80">
-                                    <div className="flex items-center gap-2">
-                                      <span className="w-2.5 h-2.5 rounded-full bg-red-600 animate-pulse" />
-                                        <span className="text-[11px] font-extrabold tracking-widest uppercase text-red-600">
-                                          {isArabic ? "خدمات الورشة المعتمدة" : "OUR WORKSHOP SERVICES"}
-                                        </span>
+                            <div className="bg-white rounded-3xl shadow-[0_25px_60px_rgba(0,0,0,0.14),0_6px_20px_rgba(0,0,0,0.06)] border border-zinc-200/90 overflow-hidden text-left rtl:text-right p-6 sm:p-7">
+                              {/* Top Bar (Clean & Seamless - TajAlRahmah Reference Style) */}
+                              <div className="flex items-center justify-between pb-4 border-b border-zinc-100 mb-5">
+                                <div className="flex items-center gap-2">
+                                  <span className="w-2.5 h-2.5 rounded-full bg-red-600 animate-pulse" />
+                                  <span className="text-[12px] font-extrabold tracking-widest uppercase text-red-600">
+                                    {isArabic ? "خدمات الورشة المعتمدة" : "SERVICES WE OFFER"}
+                                  </span>
+                                </div>
+                                <span className="text-xs sm:text-[13px] text-zinc-400 font-normal">
+                                  {isArabic
+                                    ? "صيانة وإصلاح شامل ومعتمد لجميع أنواع السيارات في الشارقة"
+                                    : "Engineering & Technical Automotive Services Across Core Areas"}
+                                </span>
+                              </div>
+
+                              <div className="flex items-stretch gap-6 xl:gap-8">
+                                {/* Left: 2-Column Grid of 8 Services (Clean, open layout without bulky cards) */}
+                                <div className="flex-1 grid grid-cols-2 gap-x-6 xl:gap-x-8 gap-y-3.5">
+                                  {SERVICES_MEGA_ITEMS.map((item) => {
+                                    const Icon = item.icon;
+                                    return (
+                                      <Link
+                                        key={item.id}
+                                        href={item.href}
+                                        onClick={() => setIsServicesMegaOpen(false)}
+                                        className="group flex items-start gap-3.5 p-2 rounded-2xl hover:bg-zinc-50/90 transition-all duration-200"
+                                      >
+                                        <div className="w-11 h-11 rounded-xl bg-red-50/70 text-red-600 border border-red-200/70 group-hover:bg-red-600 group-hover:text-white group-hover:border-red-600 flex items-center justify-center shrink-0 transition-all duration-200 mt-0.5 shadow-2xs">
+                                          <Icon className="w-5 h-5 stroke-[2]" />
+                                        </div>
+                                        <div className="min-w-0 flex-1">
+                                          <p className="text-[13.5px] font-bold text-red-600 group-hover:text-red-700 transition-colors leading-tight mb-1 truncate">
+                                            {isArabic ? item.titleAr : item.titleEn}
+                                          </p>
+                                          <p className="text-xs text-zinc-500 line-clamp-1 leading-normal">
+                                            {isArabic ? item.subAr : item.subEn}
+                                          </p>
+                                        </div>
+                                      </Link>
+                                    );
+                                  })}
+                                </div>
+
+                                {/* Right: Featured Workshop Photo & Explore More Pill Button */}
+                                <div className="w-[270px] xl:w-[290px] shrink-0 border-l rtl:border-l-0 rtl:border-r border-zinc-100 pl-6 xl:pl-7 rtl:pl-0 rtl:pr-6 rtl:xl:pr-7 flex flex-col justify-between">
+                                  <div className="relative w-full h-40 xl:h-44 rounded-2xl overflow-hidden border border-zinc-200/80 shadow-2xs group/img">
+                                    <Image
+                                      src="/images/service-1.png"
+                                      alt="Bab Al Bustan Workshop"
+                                      fill
+                                      className="object-cover group-hover/img:scale-105 transition-transform duration-300"
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
+                                    <div className="absolute bottom-3 left-3 right-3 text-white">
+                                      <p className="text-xs font-bold leading-tight">
+                                        {isArabic ? "كراج باب البستان — الشارقة" : "Bab Al Bustan Workshop"}
+                                      </p>
+                                      <p className="text-[10px] text-zinc-300 font-medium mt-0.5">
+                                        {isArabic ? "المنطقة الصناعية 5" : "Sharjah Industrial Area 5"}
+                                      </p>
                                     </div>
-                                      <span className="text-xs text-zinc-500 font-medium">
-                                        {isArabic
-                                          ? "صيانة وإصلاح احترافي لجميع السيارات في الشارقة"
-                                          : "Comprehensive Auto Care & Repair in Sharjah (8 Services)"}
-                                      </span>
                                   </div>
 
-                                  <div className="flex">
-                                    {/* Left: 2-Column Grid of all 8 Services */}
-                                      <div className="flex-1 p-5 grid grid-cols-2 gap-2.5 bg-white">
-                                        {SERVICES_MEGA_ITEMS.map((item) => {
-                                          const Icon = item.icon;
-                                          return (
-                                            <Link
-                                              key={item.id}
-                                              href={item.href}
-                                              onClick={() => setIsServicesMegaOpen(false)}
-                                              className="group flex items-start gap-3 p-3 rounded-2xl bg-zinc-50/70 hover:bg-white border border-zinc-200/80 hover:border-red-600/50 hover:shadow-md transition-all duration-200 shadow-2xs"
-                                            >
-                                                <div className="w-10 h-10 rounded-xl bg-red-50 text-red-600 border border-red-100 group-hover:bg-red-600 group-hover:text-white group-hover:border-red-600 flex items-center justify-center shrink-0 transition-all duration-200 mt-0.5 shadow-2xs">
-                                                  <Icon className="w-5 h-5 stroke-[2]" />
-                                                </div>
-                                                <div className="min-w-0 flex-1">
-                                                    <p className="text-[13px] font-bold text-zinc-900 group-hover:text-red-600 transition-colors truncate mb-0.5">
-                                                      {isArabic ? item.titleAr : item.titleEn}
-                                                    </p>
-                                                      <p className="text-[11px] text-zinc-500 line-clamp-1 leading-snug">
-                                                        {isArabic ? item.subAr : item.subEn}
-                                                      </p>
-                                                    </div>
-                                                    <ArrowRight className="w-4 h-4 text-zinc-400 group-hover:text-red-600 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180 transition-all shrink-0 self-center" />
-                                                  </Link>
-                                                  );
-                                  })}
-                                                </div>
-
-                                                {/* Right: Featured Workshop Card */}
-                                                  <div className="w-[260px] xl:w-[280px] shrink-0 bg-gradient-to-b from-zinc-50 to-zinc-100/70 border-l rtl:border-l-0 rtl:border-r border-zinc-200/80 p-5 flex flex-col justify-between">
-                                                    <div>
-                                                        <div className="relative w-full h-36 rounded-2xl overflow-hidden border border-zinc-200 mb-3.5 group/img shadow-2xs">
-                                                          <Image
-                                                            src="/images/service-1.png"
-                                                            alt="Workshop Service"
-                                                            fill
-                                                            className="object-cover group-hover/img:scale-105 transition-transform duration-300"
-                                                          />
-                                                          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
-                                                          <div className="absolute bottom-2.5 left-2.5 right-2.5 text-white">
-                                                            <p className="text-xs font-bold leading-tight">
-                                                              {isArabic ? "كراج باب البستان — الشارقة" : "Bab Al Bustan Workshop"}
-                                                            </p>
-                                                            <p className="text-[10px] text-red-400 font-medium">
-                                                              {isArabic ? "المنطقة الصناعية 5" : "Industrial Area 5"}
-                                                            </p>
-                                                          </div>
-                                                        </div>
-                                                          <p className="text-xs text-zinc-600 leading-relaxed font-normal">
-                                                            {isArabic
-                                                              ? "أجهزة فحص متطورة، كشف أسعار مسبق، وضمان كامل على كافة الأعمال الميكانيكية والكهربائية."
-                                                              : "Advanced diagnostic scanners, transparent quotes, and full warranty on all mechanical & electrical repairs."}
-                                                          </p>
-                                                      </div>
-
-                                                        <div className="pt-4 border-t border-zinc-200/80 flex flex-col gap-2">
-                                                          <Link
-                                                            href="/services"
-                                                            onClick={() => setIsServicesMegaOpen(false)}
-                                                            className="inline-flex items-center justify-center gap-1.5 bg-red-600 hover:bg-red-700 text-white text-xs font-bold py-2.5 px-4 rounded-xl transition-all shadow-md active:scale-95 text-center"
-                                                          >
-                                                            <span>{isArabic ? "تصفح صفحة الخدمات الكاملة" : "Explore All Services"}</span>
-                                                            <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
-                                                          </Link>
-                                                          <Link
-                                                            href="/booking"
-                                                            onClick={() => setIsServicesMegaOpen(false)}
-                                                            className="inline-flex items-center justify-center gap-1.5 bg-white hover:bg-zinc-50 text-zinc-800 text-xs font-bold py-2 px-3 rounded-xl transition-all text-center border border-zinc-300 shadow-2xs"
-                                                          >
-                                                            <span>{isArabic ? "حجز موعد فحص فوري" : "Book Fast Slot"}</span>
-                                                          </Link>
-                                                        </div>
-                                                      </div>
-                                                    </div>
-                                                  </div>
+                                  <div className="pt-4">
+                                    <Link
+                                      href="/services"
+                                      onClick={() => setIsServicesMegaOpen(false)}
+                                      className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-bold text-sm px-7 py-3 rounded-full shadow-md hover:shadow-red-600/30 transition-all active:scale-95 group/btn"
+                                    >
+                                      <span>{isArabic ? "استكشف المزيد" : "Explore More"}</span>
+                                      <ArrowRight className="w-4 h-4 rtl:rotate-180 group-hover/btn:translate-x-1 rtl:group-hover/btn:-translate-x-1 transition-transform" />
+                                    </Link>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                                                 </motion.div>
                         )}
                                               </AnimatePresence>

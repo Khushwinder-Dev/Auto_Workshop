@@ -1039,15 +1039,16 @@ export default function ExpandableSearchBar({
                                                         <div className="min-w-0 flex-1">
                                                           <div className="flex items-center gap-2 mb-0.5">
                                                             <span
-                                CATEGORY_COLORS[item.category]?.bg || "bg-zinc-100"
-                              } ${
-                                CATEGORY_COLORS[item.category]?.text || "text-zinc-700"
-                              } ${
-                                CATEGORY_COLORS[item.category]?.border || "border-zinc-200"
-                              }`}
-                            >
-                                                            {displayCategory}
-                                                          </span>
+                                                              className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider border ${
+                                                                CATEGORY_COLORS[item.category]?.bg || "bg-zinc-100"
+                                                              } ${
+                                                                CATEGORY_COLORS[item.category]?.text || "text-zinc-700"
+                                                              } ${
+                                                                CATEGORY_COLORS[item.category]?.border || "border-zinc-200"
+                                                              }`}
+                                                            >
+                                                              {displayCategory}
+                                                            </span>
                                                             <h4 className="text-sm font-bold text-zinc-900 group-hover:text-red-600 transition-colors truncate">
                                                               {highlightMatch(displayName, searchQuery)}
                                                             </h4>
