@@ -449,8 +449,8 @@ export default function BookingModal({
             </div>
           ) : (
             /* Booking Form - Reference Layout */
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4" noValidate>
-              <p className="text-sm text-zinc-600 leading-relaxed font-normal">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-3 sm:gap-3.5" noValidate>
+              <p className="text-xs sm:text-[13.5px] text-zinc-600 leading-relaxed font-normal">
                 {isQuote
                   ? isAr
                     ? "يرجى تقديم بيانات الاتصال واختيار الخدمة المطلوبة. سيقوم مستشار الخدمة بالورشة بتزويدك بتقدير التكلفة والخيارات المتاحة."
@@ -461,7 +461,7 @@ export default function BookingModal({
               </p>
 
               {/* Row 1: 2-Column (Full Name * | Email Address *) */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3">
                 <FloatInput
                   name="name"
                   value={formData.name}
@@ -469,7 +469,7 @@ export default function BookingModal({
                   required
                   isArabic={isAr}
                   variant="light"
-                  // icon={<User className="w-4 h-4 text-zinc-400" />}
+                  size="sm"
                   error={errors.name}
                   hasError={Boolean(errors.name)}
                   isListening={voice.listeningField === "name"}
@@ -488,7 +488,7 @@ export default function BookingModal({
                   required
                   isArabic={isAr}
                   variant="light"
-                  // icon={<Mail className="w-4 h-4 text-zinc-400" />}
+                  size="sm"
                   error={errors.email}
                   hasError={Boolean(errors.email)}
                   isListening={voice.listeningField === "email"}
@@ -509,7 +509,7 @@ export default function BookingModal({
                 required
                 isArabic={isAr}
                 variant="light"
-                // icon={<Phone className="w-4 h-4 text-zinc-400" />}
+                size="sm"
                 error={errors.phone}
                 hasError={Boolean(errors.phone)}
                 isListening={voice.listeningField === "phone"}
@@ -531,6 +531,7 @@ export default function BookingModal({
                   isArabic={isAr}
                   variant="rounded-full"
                   theme="light"
+                  size="sm"
                   error={errors.service}
                   onChange={(val) => {
                     setFormData({ ...formData, service: val });
@@ -540,7 +541,7 @@ export default function BookingModal({
               </div>
 
               {/* Row 4: 2-Column (Preferred Date | Preferred Time) */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3">
                 <FloatInput
                   type="date"
                   name="preferredDate"
@@ -548,7 +549,7 @@ export default function BookingModal({
                   label={isAr ? "التاريخ المفضل (اختياري)" : "Preferred Date (Optional)"}
                   isArabic={isAr}
                   variant="light"
-                  // icon={<Calendar className="w-4 h-4 text-zinc-400" />}
+                  size="sm"
                   onChange={(e) => setFormData({ ...formData, preferredDate: e.target.value })}
                 />
 
@@ -560,6 +561,7 @@ export default function BookingModal({
                   isArabic={isAr}
                   variant="rounded-full"
                   theme="light"
+                  size="sm"
                   onChange={(val) => setFormData({ ...formData, preferredTime: val })}
                 />
               </div>
@@ -573,9 +575,10 @@ export default function BookingModal({
                     ? "تفاصيل الاستفسار / نوع وموديل السيارة (اختياري)"
                     : "Query Details / Vehicle Make & Model (Optional)"
                 }
-                rows={3}
+                rows={2}
                 isArabic={isAr}
                 variant="light"
+                size="sm"
                 isListening={voice.listeningField === "notes"}
                 onVoiceToggle={() => voice.toggleListening("notes", "text")}
                 onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
@@ -585,7 +588,7 @@ export default function BookingModal({
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full mt-1 py-3.5 sm:py-4 px-7 rounded-full bg-linear-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-black text-xs sm:text-sm uppercase tracking-widest flex items-center justify-center gap-2.5 shadow-lg shadow-red-600/30 hover:shadow-red-600/50 hover:scale-[1.01] active:scale-95 transition-all cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+                className="w-full mt-0.5 py-3 sm:py-3.5 px-7 rounded-full bg-linear-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-black text-xs sm:text-sm uppercase tracking-widest flex items-center justify-center gap-2.5 shadow-lg shadow-red-600/30 hover:shadow-red-600/50 hover:scale-[1.01] active:scale-95 transition-all cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? (
                   <>

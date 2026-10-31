@@ -33,6 +33,7 @@ export interface FloatInputProps {
   onFocus?: () => void;
   onBlur?: () => void;
   variant?: "light" | "dark";
+  size?: "default" | "sm";
   className?: string;
   containerClassName?: string;
   autoComplete?: string;
@@ -58,6 +59,7 @@ export function FloatInput({
   onFocus,
   onBlur,
   variant = "light",
+  size = "default",
   className = "",
   containerClassName = "",
   autoComplete,
@@ -66,6 +68,7 @@ export function FloatInput({
 }: FloatInputProps) {
   const [focused, setFocused] = useState(false);
   const isDark = variant === "dark";
+  const isSm = size === "sm";
 
   // Date and time inputs always show native controls, so label must stay lifted
   const lifted = focused || value.length > 0 || type === "date" || type === "time";
@@ -82,11 +85,23 @@ export function FloatInput({
 
   const paddingClasses = onVoiceToggle
     ? isArabic
-      ? "pl-20 text-right"
-      : "pr-20 text-left"
+      ? isSm ? "pl-16 text-right" : "pl-20 text-right"
+      : isSm ? "pr-16 text-left" : "pr-20 text-left"
     : isArabic
-    ? "pl-11 text-right"
-    : "pr-11 text-left";
+    ? isSm ? "pl-8 text-right" : "pl-11 text-right"
+    : isSm ? "pr-8 text-left" : "pr-11 text-left";
+
+  const heightPadding = isSm
+    ? "h-11 px-4.5 pt-3.5 pb-1 text-xs sm:text-[13.5px]"
+    : "px-5 pt-5 pb-2 text-sm sm:text-[15px]";
+
+  const inputBaseClasses = `
+    peer w-full rounded-full border
+    ${heightPadding}
+    focus:outline-none
+    transition-all duration-200
+    disabled:opacity-50 disabled:cursor-not-allowed
+  `;
 
   const colorClasses = isDark
     ? `bg-zinc-800/80 text-white ${
@@ -129,23 +144,23 @@ export function FloatInput({
           }}
           dir={isArabic ? "rtl" : "ltr"}
           placeholder={placeholder}
-          className={`${inputBase} ${paddingClasses} ${colorClasses} ${className}`}
+          className={`${inputBaseClasses} ${paddingClasses} ${colorClasses} ${className}`}
         />
         <label
           className={`
             pointer-events-none absolute px-1.5
-            ${isArabic ? "right-5" : "left-5"}
+            ${isArabic ? (isSm ? "right-4.5" : "right-5") : (isSm ? "left-4.5" : "left-5")}
             transition-all duration-200
             ${
               lifted
-                ? `-top-2 text-[11px] font-semibold ${labelBg} ${
+                ? `-top-2 ${isSm ? "text-[10px]" : "text-[11px]"} font-semibold ${labelBg} ${
                     isInvalid
                       ? "text-red-500"
                       : isDark
                       ? "text-red-400"
                       : "text-red-600"
                   }`
-                : `top-1/2 -translate-y-1/2 text-sm bg-transparent ${
+                : `top-1/2 -translate-y-1/2 ${isSm ? "text-xs sm:text-[13px]" : "text-sm"} bg-transparent ${
                     isInvalid
                       ? "text-red-500 font-medium"
                       : isDark
@@ -217,6 +232,7 @@ export interface FloatTextareaProps {
   onVoiceToggle?: () => void;
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   variant?: "light" | "dark";
+  size?: "default" | "sm";
   className?: string;
   containerClassName?: string;
 }
@@ -235,11 +251,13 @@ export function FloatTextarea({
   onVoiceToggle,
   onChange,
   variant = "light",
+  size = "default",
   className = "",
   containerClassName = "",
 }: FloatTextareaProps) {
   const [focused, setFocused] = useState(false);
   const isDark = variant === "dark";
+  const isSm = size === "sm";
   const lifted = focused || value.length > 0;
   const isInvalid = Boolean(error || hasError);
 
@@ -276,9 +294,7 @@ export function FloatTextarea({
           dir={isArabic ? "rtl" : "ltr"}
           placeholder=" "
           className={`
-            peer w-full rounded-2xl border
-            px-5 pt-6 pb-2
-            text-sm sm:text-[15px]
+            peer w-full ${isSm ? "rounded-xl px-4.5 pt-4 pb-1.5 text-xs sm:text-[13px]" : "rounded-2xl px-5 pt-6 pb-2 text-sm sm:text-[15px]"} border
             focus:outline-none
             transition-all duration-200 resize-none
             disabled:opacity-50 disabled:cursor-not-allowed
@@ -298,18 +314,18 @@ export function FloatTextarea({
         <label
           className={`
             pointer-events-none absolute px-1.5
-            ${isArabic ? "right-5" : "left-5"}
+            ${isArabic ? (isSm ? "right-4" : "right-5") : (isSm ? "left-4" : "left-5")}
             transition-all duration-200
             ${
               lifted
-                ? `-top-2 text-[11px] font-semibold ${labelBg} ${
+                ? `-top-2 ${isSm ? "text-[10px]" : "text-[11px]"} font-semibold ${labelBg} ${
                     isInvalid
                       ? "text-red-500"
                       : isDark
                       ? "text-red-400"
                       : "text-red-600"
                   }`
-                : `top-4 text-sm bg-transparent ${
+                : `${isSm ? "top-3 text-xs sm:text-[13px]" : "top-4 text-sm"} bg-transparent ${
                     isInvalid
                       ? "text-red-500 font-medium"
                       : isDark
