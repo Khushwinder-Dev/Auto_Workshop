@@ -83,7 +83,7 @@ export default function PartnershipSection({
   const nudge = (direction: "prev" | "next") => {
     const el = trackRef.current;
     if (!el) return;
-    const delta = direction === "next" ? 220 : -220;
+    const delta = direction === "next" ? 260 : -260;
     const offset = isArabic ? -delta : delta;
     posRef.current += offset;
     const singleWidth = el.scrollWidth / 3;
@@ -155,8 +155,8 @@ export default function PartnershipSection({
                         ? "تشغيل الشريط"
                         : "Play carousel"
                       : isArabic
-                      ? "إيقاف مؤقت"
-                      : "Pause carousel"
+                        ? "إيقاف مؤقت"
+                        : "Pause carousel"
                   }
                   title={
                     isPaused
@@ -164,14 +164,13 @@ export default function PartnershipSection({
                         ? "تشغيل"
                         : "Play"
                       : isArabic
-                      ? "إيقاف مؤقت"
-                      : "Pause"
+                        ? "إيقاف مؤقت"
+                        : "Pause"
                   }
-                  className={`w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all cursor-pointer active:scale-95 shadow-2xs ${
-                    isPaused
+                  className={`w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all cursor-pointer active:scale-95 shadow-2xs ${isPaused
                       ? "bg-red-600 text-white border border-red-600 shadow-md shadow-red-600/20"
                       : "border border-zinc-300 text-zinc-700 hover:border-red-600 hover:text-red-600 hover:bg-red-50/50"
-                  }`}
+                    }`}
                 >
                   {isPaused ? (
                     <Play className="w-4 h-4 fill-current ml-0.5 rtl:ml-0 rtl:mr-0.5" />
@@ -257,14 +256,14 @@ export default function PartnershipSection({
         <div
           dir="ltr"
           ref={trackRef}
-          className="flex items-center gap-3 sm:gap-4 lg:gap-5 will-change-transform py-3 px-2"
+          className="flex items-center gap-4 sm:gap-5 lg:gap-6 will-change-transform py-4 px-2"
           style={{ width: "max-content" }}
         >
           {trackBrands.map((brand, idx) => (
             <div
               key={`${brand.name}-${idx}`}
               title={brand.name}
-              className="flex-shrink-0 relative h-[84px] sm:h-[90px] lg:h-[96px] w-[148px] sm:w-[160px] lg:w-[172px] bg-white rounded-2xl border border-zinc-200/85 hover:border-red-600/50 shadow-[0_4px_16px_rgba(15,23,42,0.04)] hover:shadow-[0_8px_24px_rgba(220,38,38,0.12)] transition-all duration-300 overflow-hidden group flex items-center justify-center p-3 sm:p-4 cursor-pointer"
+              className="flex-shrink-0 relative w-[116px] h-[116px] sm:w-[136px] sm:h-[136px] lg:w-[152px] lg:h-[152px] xl:w-[160px] xl:h-[160px] bg-white rounded-full border-2 border-zinc-200/90 hover:border-red-600 shadow-[0_6px_20px_rgba(15,23,42,0.06)] hover:shadow-[0_12px_32px_rgba(220,38,38,0.18)] hover:-translate-y-1 transition-all duration-300 overflow-hidden group flex items-center justify-center p-4 sm:p-5 lg:p-6 cursor-pointer"
             >
               <div className="relative w-full h-full">
                 <Image
@@ -272,8 +271,8 @@ export default function PartnershipSection({
                   alt={`${brand.name} repair and service Sharjah Industrial Area 5`}
                   fill
                   unoptimized
-                  sizes="172px"
-                  className="object-contain p-2 group-hover:scale-105 transition-transform duration-300"
+                  sizes="(max-width: 640px) 116px, (max-width: 1024px) 136px, 160px"
+                  className="object-contain p-1 group-hover:scale-110 transition-transform duration-300"
                 />
               </div>
             </div>
