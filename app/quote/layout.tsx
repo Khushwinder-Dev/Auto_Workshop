@@ -22,3 +22,4 @@ export default function QuoteLayout({
 }) {
   return <>{children}</>;
 }
+
