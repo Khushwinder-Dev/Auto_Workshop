@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { ChevronDown, ChevronRight, ChevronLeft } from "lucide-react";
+import { Plus, Minus } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -9,254 +9,205 @@ interface FaqItem {
   id: number;
   question: string;
   answer: string;
-  column: number;
 }
 
 const faqsEn: FaqItem[] = [
   {
     id: 1,
-    question: "What types of vehicles do you service?",
+    question: "What types of vehicles do you specialize in?",
     answer:
-      "We specialize in servicing and repairing a wide range of vehicles, including luxury, German, and premium cars, using advanced tools and expert technicians.",
-    column: 1,
+      "We specialize in servicing and repairing a comprehensive range of vehicles, including luxury, German (Mercedes, BMW, Audi, Porsche, VW), Japanese (Toyota, Lexus, Nissan, Honda), and American brands, utilizing advanced OEM diagnostic scanners and certified technicians.",
   },
   {
     id: 2,
     question: "How often should I service my car?",
     answer:
-      "Regular maintenance is key. We typically recommend a minor service every 5,000–10,000 km and a major service every 20,000–40,000 km, depending on your vehicle's make and model.",
-    column: 1,
+      "Regular maintenance is key to vehicle longevity. We recommend a minor service every 5,000–10,000 km (synthetic oil, OEM filter, 30-point inspection) and a major service every 20,000–40,000 km, calibrated specifically for UAE climate and highway conditions.",
   },
   {
     id: 3,
     question: "Do you offer same-day service?",
     answer:
-      "Yes, for most minor repairs and routine maintenance, we offer same-day service to get you back on the road as quickly as possible.",
-    column: 1,
+      "Yes, for routine maintenance, computerized diagnostics, brake pad replacement, synthetic oil service, and battery replacement, we provide same-day completion to get you back on the road safely without unnecessary downtime.",
   },
   {
     id: 4,
-    question: "Is there a warranty on repairs?",
+    question: "Is there a documented warranty on repairs?",
     answer:
-      "Absolutely. We provide a warranty on both our parts and workmanship to ensure you have total peace of mind after leaving our workshop.",
-    column: 1,
+      "Absolutely. We provide a documented workshop warranty on both genuine replacement parts and workmanship, ensuring complete confidence and peace of mind after leaving our Sharjah facility.",
   },
   {
     id: 5,
-    question: "Do you provide vehicle diagnostics?",
+    question: "Do you provide computerized vehicle diagnostics?",
     answer:
-      "Yes, we use the latest computerized diagnostic tools to accurately identify issues within your vehicle's engine, transmission, and electrical systems.",
-    column: 1,
+      "Yes, we use the latest OEM-level computerized diagnostic equipment to accurately pinpoint sensor, engine, gearbox, transmission, AC, and complex electrical system faults with 100% precision.",
   },
   {
     id: 6,
-    question: "Do you offer free pickup and drop-off?",
+    question: "Do you offer pickup and drop-off in Sharjah?",
     answer:
-      "Yes, we provide free pickup and drop-off services across selected areas in Sharjah for customer convenience.",
-    column: 2,
-  },
-  {
-    id: 7,
-    question: "Can I get a cost estimate before repairs?",
-    answer:
-      "Yes, we provide a detailed inspection and a transparent quote before starting any work, so there are never any hidden costs.",
-    column: 2,
-  },
-  {
-    id: 8,
-    question: "Do you service air conditioning systems?",
-    answer:
-      "Our technicians are experts in AC diagnostics, gas refilling, and component repairs to keep your cabin cool during the hottest months.",
-    column: 2,
-  },
-  {
-    id: 9,
-    question: "How do I book an appointment?",
-    answer:
-      "You can book via our website, call our hotline, or message us on WhatsApp for an immediate booking confirmation.",
-    column: 2,
-  },
-  {
-    id: 10,
-    question: "Where can I get satisfactory car service?",
-    answer:
-      "Bab Al Bustan Auto Maintenance Workshop is the top choice in Sharjah for reliable, expert, and affordable automotive care.",
-    column: 2,
+      "Yes, we provide convenient vehicle pickup and delivery services across selected areas in Sharjah and adjacent zones, saving you valuable time.",
   },
 ];
 
 const faqsAr: FaqItem[] = [
   {
     id: 1,
-    question: "ما هي أنواع السيارات التي تقومون بصيانتها؟",
+    question: "ما هي أنواع السيارات التي تتخصصون في صيانتها؟",
     answer:
-      "نحن متخصصون في صيانة وإصلاح مجموعة واسعة من السيارات، بما فيها السيارات الفاخرة والألمانية والأمريكية واليابانية، باستخدام أحدث الأجهزة وبأيدي فنيين محترفين.",
-    column: 1,
+      "نحن متخصصون في صيانة وإصلاح مجموعة واسعة وشاملة من السيارات، بما فيها السيارات الفاخرة والألمانية (مرسيدس، بي إم دبليو، أودي، بورش، فولكس فاجن)، واليابانية (تويوتا، لكزس، نيسان، هوندا)، والأمريكية، باستخدام أحدث أجهزة الفحص الرقمية وبأيدي فنيين معتمدين.",
   },
   {
     id: 2,
     question: "كم مرة يجب أن أقوم بصيانة سيارتي؟",
     answer:
-      "الصيانة الدورية ضرورية لسلامة المحرك. نوصي عادةً بإجراء صيانة صغرى كل 5,000 إلى 10,000 كم، وصيانة كبرى كل 20,000 إلى 40,000 كم حسب موديل السيارة واستخدامها.",
-    column: 1,
+      "الصيانة الدورية ضرورية لسلامة وأداء المحرك. نوصي عادةً بإجراء صيانة صغرى كل 5,000 إلى 10,000 كم (تغيير زيت تخليقي، فلتر أصلي، فحص 30 نقطة)، وصيانة كبرى كل 20,000 إلى 40,000 كم لتناسب ظروف القيادة وحرارة الجو في الإمارات.",
   },
   {
     id: 3,
     question: "هل توفرون خدمة الصيانة في نفس اليوم؟",
     answer:
-      "نعم، بالنسبة لمعظم الإصلاحات الدورية وتغيير الزيت والفرامل والصيانة السريعة، ننهي العمل ونسلمك السيارة في نفس اليوم.",
-    column: 1,
+      "نعم، بالنسبة للصيانة الدورية، وفحص الكمبيوتر، وتبديل السفايف (الفرامل)، وتبديل الزيوت، والبطاريات، نوفر خدمة الاستلام والتسليم في نفس اليوم لتوفير وقتك وجهدك.",
   },
   {
     id: 4,
-    question: "هل يوجد ضمان على أعمال الإصلاح وقطع الغيار؟",
+    question: "هل يوجد ضمان موثق على أعمال الإصلاح وقطع الغيار؟",
     answer:
-      "بالتأكيد. نقدم ضماناً معتمداً على كل من قطع الغيار وجودة العمل المنجز لضمان راحة بالك التامة.",
-    column: 1,
+      "بالتأكيد. نقدم ضماناً معتمداً وموثقاً على كل من قطع الغيار الأصلية وجودة العمل المنجز لضمان راحة بالك التامة بعد مغادرة ورشتنا بالشارقة.",
   },
   {
     id: 5,
-    question: "هل توفرون فحص الكمبيوتر الإلكتروني؟",
+    question: "هل توفرون فحص الكمبيوتر الإلكتروني الدقيق؟",
     answer:
-      "نعم، نستخدم أحدث أجهزة الفحص الرقمية المبرمجة لتحديد أعطال المحرك، والجيربوكس، والحساسات، والأنظمة الكهربائية بدقة كاملة.",
-    column: 1,
+      "نعم، نستخدم أحدث أجهزة الفحص الرقمية المبرمجة لتحديد أعطال المحرك، والجيربوكس، والحساسات، والأنظمة الكهربائية بدقة 100%.",
   },
   {
     id: 6,
-    question: "هل توفرون خدمة استلام وتسليم السيارة؟",
+    question: "هل توفرون خدمة استلام وتسليم السيارة بالشارقة؟",
     answer:
-      "نعم، نوفر خدمة استلام وتسليم السيارة في مناطق محددة بالشارقة لراحتك وتوفير وقتك.",
-    column: 2,
-  },
-  {
-    id: 7,
-    question: "هل يمكنني الحصول على تقدير تكلفة مسبق؟",
-    answer:
-      "نعم، نجري فحصاً شاملاً ونقدم عرض سعر مفصل وشفاف قبل بدء أي عمل دون أي تكاليف خفية.",
-    column: 2,
-  },
-  {
-    id: 8,
-    question: "هل تقومون بصيانة وإصلاح مكيفات السيارات؟",
-    answer:
-      "فنيونا خبراء في فحص تسريب الغاز، وإصلاح الكمبروسر، وتنظيف الرديتر، وتعبئة الغاز لضمان برودة ممتازة في الصيف.",
-    column: 2,
-  },
-  {
-    id: 9,
-    question: "كيف يمكنني حجز موعد في الورشة؟",
-    answer:
-      "يمكنك الحجز بسهولة عبر موقعنا، أو الاتصال برقمنا المباشر، أو إرسال رسالة على واتساب للتأكيد الفوري.",
-    column: 2,
-  },
-  {
-    id: 10,
-    question: "أين أجد أفضل خدمة صيانة سيارات موثوقة في الشارقة؟",
-    answer:
-      "ورشة باب البستان لصيانة السيارات في المنطقة الصناعية 5 هي الخيار الأول لصيانة احترافية وموثوقة وأسعار صادقة.",
-    column: 2,
+      "نعم، نوفر خدمة استلام وتسليم السيارة في مناطق محددة بالشارقة لتوفير أقصى درجات الراحة والمرونة لعملائنا الكرام.",
   },
 ];
 
-function FaqAccordionItem({
-  faq,
-  isOpen,
-  toggle,
-  isArabic,
-}: {
-  faq: FaqItem;
-  isOpen: boolean;
-  toggle: () => void;
-  isArabic: boolean;
-}) {
-  const ArrowIcon = isArabic ? ChevronLeft : ChevronRight;
-
-  return (
-    <div className="border-b border-zinc-100 last:border-0 overflow-hidden">
-      <button
-        onClick={toggle}
-        className="w-full flex items-center justify-between py-6 text-start group transition-all cursor-pointer"
-      >
-        <span className="text-zinc-900 font-bold text-lg pr-4 rtl:pr-0 rtl:pl-4 transition-colors group-hover:text-red-600">
-          {faq.question}
-        </span>
-        <div
-          className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${
-            isOpen ? "bg-zinc-900 shadow-lg" : "bg-red-600"
-          }`}
-        >
-          {isOpen ? (
-            <ChevronDown className="w-4 h-4 text-white" />
-          ) : (
-            <ArrowIcon className="w-4 h-4 text-white" />
-          )}
-        </div>
-      </button>
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-          >
-            <div className="pb-8 text-zinc-500 text-base leading-relaxed max-w-xl">
-              {faq.answer}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-}
-
 export default function FaqSection() {
-  const [openItems, setOpenItems] = useState<number[]>([1, 6]);
-  const { isArabic, t } = useLanguage();
+  const [openId, setOpenId] = useState<number | null>(1);
+  const { isArabic } = useLanguage();
 
   const faqs = isArabic ? faqsAr : faqsEn;
 
   const toggle = (id: number) => {
-    setOpenItems((prev) =>
-      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
-    );
+    setOpenId((prev) => (prev === id ? null : id));
   };
 
   return (
-    <section className="py-24 bg-white">
-      <div className="max-w-[1400px] mx-auto px-6">
-        <div className="text-center mb-20">
-          <h2 className="font-display text-3xl md:text-5xl font-[900] text-zinc-900 leading-tight uppercase tracking-tight">
-            {t.home.faq.title}
+    <section
+      className="py-16 sm:py-20 lg:py-24 bg-[#fafafa]"
+      dir={isArabic ? "rtl" : "ltr"}
+    >
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+        {/* ========================================================= */}
+        {/* SECTION HEADER (Taj Al Rahmah Reference Layout)          */}
+        {/* ========================================================= */}
+        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-14">
+          {/* Eyebrow: — FAQ — */}
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <span className="w-8 sm:w-10 h-[2px] bg-red-600 rounded-full" />
+            <span className="text-xs sm:text-[13px] font-extrabold tracking-[0.2em] uppercase text-red-600">
+              {isArabic ? "الأسئلة الشائعة" : "FAQ"}
+            </span>
+            <span className="w-8 sm:w-10 h-[2px] bg-red-600 rounded-full" />
+          </div>
+
+          {/* Main Title: Frequently Asked Questions */}
+          <h2 className="text-3xl sm:text-4xl md:text-[42px] font-extrabold tracking-tight text-zinc-950 mb-3 leading-tight">
+            {isArabic ? (
+              <>
+                الأسئلة <span className="text-red-600">الشائعة</span>
+              </>
+            ) : (
+              <>
+                Frequently Asked <span className="text-red-600">Questions</span>
+              </>
+            )}
           </h2>
+
+          {/* Subtitle */}
+          <p className="text-xs sm:text-sm md:text-base text-zinc-500 max-w-lg mx-auto leading-relaxed">
+            {isArabic
+              ? "إجابات واضحة ومباشرة حول خدمات صيانة السيارات، الضمان، قطع الغيار، والأسعار في ورشة باب البستان بالشارقة."
+              : "Find clear answers to common questions about our vehicle maintenance, repair procedures, warranties, and pricing."}
+          </p>
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-0 items-start">
-          <div className="flex flex-col">
-            {faqs
-              .filter((faq) => faq.column === 1)
-              .map((faq) => (
-                <FaqAccordionItem
-                  key={faq.id}
-                  faq={faq}
-                  isOpen={openItems.includes(faq.id)}
-                  toggle={() => toggle(faq.id)}
-                  isArabic={isArabic}
-                />
-              ))}
-          </div>
-          <div className="flex flex-col">
-            {faqs
-              .filter((faq) => faq.column === 2)
-              .map((faq) => (
-                <FaqAccordionItem
-                  key={faq.id}
-                  faq={faq}
-                  isOpen={openItems.includes(faq.id)}
-                  toggle={() => toggle(faq.id)}
-                  isArabic={isArabic}
-                />
-              ))}
-          </div>
+
+        {/* ========================================================= */}
+        {/* STACKED ACCORDION CARDS (Taj Al Rahmah Reference Style)   */}
+        {/* ========================================================= */}
+        <div className="max-w-4xl mx-auto space-y-3.5 sm:space-y-4">
+          {faqs.map((faq, idx) => {
+            const isOpen = openId === faq.id;
+            return (
+              <div
+                key={faq.id}
+                className={`rounded-2xl sm:rounded-[22px] bg-white border transition-all duration-200 overflow-hidden ${
+                  isOpen
+                    ? "border-red-600/40 shadow-[0_8px_30px_rgba(220,38,38,0.06)]"
+                    : "border-zinc-200/80 hover:border-zinc-300 shadow-[0_4px_20px_rgba(0,0,0,0.02)]"
+                }`}
+              >
+                <button
+                  type="button"
+                  onClick={() => toggle(faq.id)}
+                  className="w-full flex items-center justify-between p-5 sm:p-6 text-start cursor-pointer group gap-4"
+                  aria-expanded={isOpen}
+                >
+                  <div className="flex items-center gap-3.5 sm:gap-4 min-w-0">
+                    <span className="text-zinc-400 font-bold text-xs sm:text-sm tracking-wide select-none shrink-0">
+                      {String(idx + 1).padStart(2, "0")}
+                    </span>
+                    <span
+                      className={`font-bold text-sm sm:text-[15.5px] transition-colors leading-snug ${
+                        isOpen
+                          ? "text-red-600"
+                          : "text-zinc-900 group-hover:text-red-600"
+                      }`}
+                    >
+                      {faq.question}
+                    </span>
+                  </div>
+
+                  {/* Plus / Minus Circle Icon */}
+                  <div
+                    className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center shrink-0 transition-all duration-200 ${
+                      isOpen
+                        ? "bg-red-600 text-white shadow-sm shadow-red-600/30"
+                        : "bg-white border border-red-500/50 text-red-600 group-hover:border-red-600 group-hover:bg-red-50"
+                    }`}
+                  >
+                    {isOpen ? (
+                      <Minus className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
+                    ) : (
+                      <Plus className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
+                    )}
+                  </div>
+                </button>
+
+                <AnimatePresence>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.22, ease: "easeInOut" }}
+                    >
+                      <div className="px-5 sm:px-6 pb-6 pt-0 text-xs sm:text-[13.5px] text-zinc-600 leading-relaxed pl-11 sm:pl-12 rtl:pl-5 sm:rtl:pl-6 rtl:pr-11 sm:rtl:pr-12">
+                        {faq.answer}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

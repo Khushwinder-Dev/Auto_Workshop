@@ -252,28 +252,28 @@ export const WORKSHOP_VIDEOS: VideoGalleryItem[] = [
 
 export const WORKSHOP_FAQS = [
   {
-    q: "What types of vehicles do you service?",
-    a: "We specialize in servicing and repairing a wide range of vehicles, including luxury, German (Mercedes-Benz, BMW, Audi, Porsche, VW), Japanese (Toyota, Lexus, Nissan, Honda), and American cars, using advanced computerized diagnostic tools and factory-trained technicians."
+    q: "What types of vehicles do you specialize in?",
+    a: "We specialize in servicing and repairing a comprehensive range of vehicles, including luxury, German (Mercedes-Benz, BMW, Audi, Porsche, VW), Japanese (Toyota, Lexus, Nissan, Honda), and American brands, utilizing advanced OEM diagnostic scanners and certified technicians."
+  },
+  {
+    q: "How often should I service my car?",
+    a: "Regular maintenance is key to vehicle longevity. We recommend a minor service every 5,000–10,000 km (synthetic oil, OEM filter, 30-point inspection) and a major service every 20,000–40,000 km, calibrated specifically for UAE climate and highway conditions."
+  },
+  {
+    q: "Do you offer same-day service?",
+    a: "Yes, for routine maintenance, computerized diagnostics, brake pad replacement, synthetic oil service, and battery replacement, we provide same-day completion to get you back on the road safely without unnecessary downtime."
+  },
+  {
+    q: "Is there a documented warranty on repairs?",
+    a: "Absolutely. We provide a documented workshop warranty on both genuine replacement parts and workmanship, ensuring complete confidence and peace of mind after leaving our Sharjah facility."
+  },
+  {
+    q: "Do you provide computerized vehicle diagnostics?",
+    a: "Yes, we use the latest OEM-level computerized diagnostic equipment to accurately pinpoint sensor, engine, gearbox, transmission, AC, and complex electrical system faults with 100% precision."
   },
   {
     q: "Where is your auto workshop located in Sharjah?",
     a: "We are located at Industrial Area No 5, Sharjah, UAE. Our workshop is easily accessible from Dubai, Ajman, and all parts of Sharjah, with dedicated customer reception and ample parking."
-  },
-  {
-    q: "Do you offer upfront estimates before starting any work?",
-    a: "Yes! 100% transparency is our core promise. We perform an initial inspection, pinpoint the issue, and provide a clear, itemized quote detailing parts and labor before turning a single wrench."
-  },
-  {
-    q: "How long does a standard oil change or minor service take?",
-    a: "Our express maintenance services—such as synthetic oil changes, filter renewals, brake inspections, and battery swaps—are typically completed in under 45 to 60 minutes in our dedicated express bays."
-  },
-  {
-    q: "Do you provide warranty on your repair work and parts?",
-    a: "Absolutely. All our replacement parts and labor are backed by our workshop guarantee. We use genuine OEM or high-grade certified aftermarket parts that carry full manufacturer warranties."
-  },
-  {
-    q: "Can I book an appointment online or through WhatsApp?",
-    a: "Yes! You can easily book an appointment using our online booking form or message our service advisors directly on WhatsApp at +971 56 440 6456 for instant response and priority slot reservation."
   }
 ];
 
@@ -410,28 +410,28 @@ export const WORKSHOP_SERVICES_AR: ServiceItem[] = [
 
 export const WORKSHOP_FAQS_AR = [
   {
-    q: "ما هي أنواع السيارات التي تقومون بصيانتها؟",
-    a: "نحن متخصصون في خدمة وإصلاح مجموعة واسعة من السيارات، بما في ذلك السيارات الفاخرة والألمانية (مرسيدس بنز، بي إم دبليو، أودي، بورش، فولكس فاجن)، واليابانية (تويوتا، لكزس، نيسان، هوندا)، والأمريكية، باستخدام أحدث أجهزة الفحص المبرمجة وفنيين مدربين."
+    q: "ما هي أنواع السيارات التي تتخصصون في صيانتها؟",
+    a: "نحن متخصصون في صيانة وإصلاح مجموعة واسعة وشاملة من السيارات، بما فيها السيارات الفاخرة والألمانية (مرسيدس، بي إم دبليو، أودي، بورش، فولكس فاجن)، واليابانية (تويوتا، لكزس، نيسان، هوندا)، والأمريكية، باستخدام أحدث أجهزة الفحص الرقمية وبأيدي فنيين معتمدين."
+  },
+  {
+    q: "كم مرة يجب أن أقوم بصيانة سيارتي؟",
+    a: "الصيانة الدورية ضرورية لسلامة وأداء المحرك. نوصي عادةً بإجراء صيانة صغرى كل 5,000 إلى 10,000 كم (تغيير زيت تخليقي، فلتر أصلي، فحص 30 نقطة)، وصيانة كبرى كل 20,000 إلى 40,000 كم لتناسب ظروف القيادة وحرارة الجو في الإمارات."
+  },
+  {
+    q: "هل توفرون خدمة الصيانة في نفس اليوم؟",
+    a: "نعم، بالنسبة للصيانة الدورية، وفحص الكمبيوتر، وتبديل السفايف (الفرامل)، وتبديل الزيوت، والبطاريات، نوفر خدمة الاستلام والتسليم في نفس اليوم لتوفير وقتك وجهدك."
+  },
+  {
+    q: "هل يوجد ضمان موثق على أعمال الإصلاح وقطع الغيار؟",
+    a: "بالتأكيد. نقدم ضماناً معتمداً وموثقاً على كل من قطع الغيار الأصلية وجودة العمل المنجز لضمان راحة بالك التامة بعد مغادرة ورشتنا بالشارقة."
+  },
+  {
+    q: "هل توفرون فحص الكمبيوتر الإلكتروني الدقيق؟",
+    a: "نعم، نستخدم أحدث أجهزة الفحص الرقمية المبرمجة لتحديد أعطال المحرك، والجيربوكس، والحساسات، والأنظمة الكهربائية بدقة 100%."
   },
   {
     q: "أين تقع ورشتكم في الشارقة؟",
     a: "نحن نقع في المنطقة الصناعية رقم 5، الشارقة، الإمارات العربية المتحدة. يسهل الوصول إلى ورشتنا من دبي وعجمان وجميع أنحاء الشارقة، مع صالة استقبال مريحة للعملاء ومواقف واسعة."
-  },
-  {
-    q: "هل تقدمون عرض سعر مفصل قبل بدء العمل؟",
-    a: "نعم بكل تأكيد! الشفافية بنسبة 100% هي وعدنا الأساسي. نقوم بفحص أولي لتحديد العطل بدقة، ونقدم عرض سعر مفصل ومكتوب يوضح قطع الغيار وأجور اليد قبل فك أي مسمار."
-  },
-  {
-    q: "كم يستغرق تغيير الزيت أو الصيانة السريعة؟",
-    a: "تكتمل خدمات الصيانة السريعة لدينا - مثل تغيير الزيت التخليقي والفلتر، وفحص الفرامل، واستبدال البطارية - عادةً في غضون 45 إلى 60 دقيقة في مسارات الصيانة السريعة المخصصة."
-  },
-  {
-    q: "هل توفرون ضماناً على أعمال الصيانة وقطع الغيار؟",
-    a: "نعم بالتأكيد. جميع قطع الغيار وأجور العمل مشمولة بضمان الورشة. نستخدم فقط قطع غيار أصلية OEM أو قطع معتمدة عالية الجودة تحمل ضمان الشركة المصنعة الكامل."
-  },
-  {
-    q: "هل يمكنني حجز موعد عبر الإنترنت أو عبر واتساب؟",
-    a: "نعم! يمكنك حجز موعد بسهولة عبر نموذج الحجز في موقعنا أو مراسلة مستشاري الخدمة مباشرة عبر واتساب على الرقم 6456 440 56 971+ للرد الفوري وتأكيد حجزك."
   }
 ];
 

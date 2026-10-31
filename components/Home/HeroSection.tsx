@@ -124,11 +124,11 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
       video.play().catch((err) => {
         console.warn("Video play error:", err);
         video.muted = true;
-        video.play().catch(() => {});
+        video.play().catch(() => { });
       });
     } else {
       if (video.paused) {
-        video.play().then(() => setIsVideoPaused(false)).catch(() => {});
+        video.play().then(() => setIsVideoPaused(false)).catch(() => { });
       } else {
         video.pause();
         setIsVideoPaused(true);
@@ -145,11 +145,10 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
     >
       {/* 1. Background Image — Remains strictly constant (1st slide workshop image) for all slides */}
       <div
-        className={`absolute inset-0 transition-opacity duration-1000 ease-in-out z-0 ${
-          isPlayingVideo && !isVideoPaused
-            ? "opacity-0 pointer-events-none"
-            : "opacity-100"
-        }`}
+        className={`absolute inset-0 transition-opacity duration-1000 ease-in-out z-0 ${isPlayingVideo && !isVideoPaused
+          ? "opacity-0 pointer-events-none"
+          : "opacity-100"
+          }`}
       >
         <Image
           src="/images/hero-workshop-new.jpg"
@@ -164,11 +163,10 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
 
       {/* 2. Background Video Banner (Toyota Corolla in Workshop Bay) */}
       <div
-        className={`absolute inset-0 transition-opacity duration-1000 ease-in-out z-0 ${
-          isPlayingVideo && !isVideoPaused
-            ? "opacity-100"
-            : "opacity-0 pointer-events-none"
-        }`}
+        className={`absolute inset-0 transition-opacity duration-1000 ease-in-out z-0 ${isPlayingVideo && !isVideoPaused
+          ? "opacity-100"
+          : "opacity-0 pointer-events-none"
+          }`}
       >
         <video
           ref={videoRef}
@@ -199,9 +197,8 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
 
       {/* 4. Left Vertical Slider / Pill Indicators (TajAlRahmah Style) */}
       <div
-        className={`flex flex-col items-center gap-2.5 absolute top-1/2 -translate-y-1/2 z-30 ${
-          isArabic ? "right-3 sm:right-5 xl:right-7" : "left-3 sm:left-5 xl:left-7"
-        }`}
+        className={`flex flex-col items-center gap-2.5 absolute top-1/2 -translate-y-1/2 z-30 ${isArabic ? "right-3 sm:right-5 xl:right-7" : "left-3 sm:left-5 xl:left-7"
+          }`}
       >
         {slides.map((slide, index) => {
           const active = index === slideIndex;
@@ -210,16 +207,14 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
               key={slide.id}
               type="button"
               onClick={() => goToSlide(index)}
-              aria-label={`${isArabic ? "خدمة" : "Service"} ${index + 1}: ${
-                isArabic ? slide.serviceNameAr : slide.serviceNameEn
-              }`}
+              aria-label={`${isArabic ? "خدمة" : "Service"} ${index + 1}: ${isArabic ? slide.serviceNameAr : slide.serviceNameEn
+                }`}
               title={isArabic ? slide.serviceNameAr : slide.serviceNameEn}
               aria-current={active}
-              className={`rounded-full transition-all duration-300 cursor-pointer ${
-                active
-                  ? "w-1.5 h-8 bg-red-600 shadow-[0_0_14px_#dc2626]"
-                  : "w-1.5 h-8 border border-white/40 bg-white/10 hover:border-red-500 hover:bg-red-600/30"
-              }`}
+              className={`rounded-full transition-all duration-300 cursor-pointer ${active
+                ? "w-1.5 h-8 bg-red-600 shadow-[0_0_14px_#dc2626]"
+                : "w-1.5 h-8 border border-white/40 bg-white/10 hover:border-red-500 hover:bg-red-600/30"
+                }`}
             />
           );
         })}
@@ -227,9 +222,8 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
 
       {/* 5. Main Hero Content Container (TajAlRahmah 12-Column Grid Layout) */}
       <div
-        className={`relative z-20 w-full max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 pt-28 sm:pt-36 lg:pt-40 pb-12 flex-1 flex flex-col justify-center ${
-          isArabic ? "pr-10 sm:pr-14" : "pl-10 sm:pl-14"
-        }`}
+        className={`relative z-20 w-full max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 pt-28 sm:pt-36 lg:pt-40 pb-12 flex-1 flex flex-col justify-center ${isArabic ? "pr-10 sm:pr-14" : "pl-10 sm:pl-14"
+          }`}
       >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
           {/* Left Text & CTAs (Columns 1-8) */}
@@ -289,7 +283,7 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
                 href={`/services-details?service=${activeSlide.id}`}
                 className="group pl-5 sm:pl-7 pr-1.5 sm:pr-2.5 py-1.5 sm:py-2.5 rounded-full bg-red-600 hover:bg-red-700 text-white font-black text-xs sm:text-sm tracking-wider uppercase inline-flex items-center gap-2.5 sm:gap-3.5 transition-all duration-300 shadow-[0_4px_22px_rgba(220,38,38,0.45)] hover:shadow-[0_6px_28px_rgba(220,38,38,0.65)] hover:scale-105 active:scale-95 cursor-pointer"
               >
-                <span>{isArabic ? "تفاصيل هذه الخدمة" : "Explore This Service"}</span>
+                <span>{isArabic ? "تفاصيل الخدمة" : "Explore Service"}</span>
                 <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white text-red-600 flex items-center justify-center transition-transform group-hover:scale-110">
                   <ArrowIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
                 </span>
@@ -316,11 +310,11 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
                         ? "استئناف الفيديو"
                         : "Resume Video"
                       : isArabic
-                      ? "إيقاف الفيديو مؤقتاً"
-                      : "Pause Video"
+                        ? "إيقاف الفيديو مؤقتاً"
+                        : "Pause Video"
                     : isArabic
-                    ? "تشغيل فيديو الورشة"
-                    : "Play Workshop Video"
+                      ? "تشغيل فيديو الورشة"
+                      : "Play Workshop Video"
                 }
                 title={
                   isPlayingVideo
@@ -329,11 +323,11 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
                         ? "استئناف الفيديو"
                         : "Resume Video"
                       : isArabic
-                      ? "إيقاف الفيديو مؤقتاً"
-                      : "Pause Video"
+                        ? "إيقاف الفيديو مؤقتاً"
+                        : "Pause Video"
                     : isArabic
-                    ? "تشغيل فيديو الورشة"
-                    : "Play Workshop Video"
+                      ? "تشغيل فيديو الورشة"
+                      : "Play Workshop Video"
                 }
                 className="relative w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full bg-red-600 hover:bg-red-700 border-2 border-white/50 flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 shadow-[0_0_35px_rgba(220,38,38,0.5)] hover:shadow-[0_0_55px_rgba(220,38,38,0.85)] focus:outline-none active:scale-95"
               >

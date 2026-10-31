@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Cpu,
   Droplets,
@@ -21,6 +22,8 @@ import {
   Fan,
   Code,
   Check,
+  Plus,
+  Minus,
 } from "lucide-react";
 import { getWorkshopServices } from "@/data/workshopData";
 import { useLanguage } from "@/context/LanguageContext";
@@ -87,6 +90,10 @@ export default function ServicesPage() {
       q: "Can your workshop service luxury German and European cars?",
       a: "Yes. We specialize in Mercedes-Benz, BMW, Audi, Porsche, Land Rover, and Volkswagen with dealership-level diagnostic scanners and specialized tools.",
     },
+    {
+      q: "Do you offer vehicle pickup and delivery in Sharjah?",
+      a: "Yes, we provide convenient vehicle pickup and drop-off service across Sharjah and adjacent areas for all scheduled workshop repairs.",
+    },
   ];
 
   const faqsAr = [
@@ -109,6 +116,10 @@ export default function ServicesPage() {
     {
       q: "هل ورشتكم مؤهلة لصيانة السيارات الألمانية والأوروبية الفاخرة؟",
       a: "نعم، نحن متخصصون في صيانة مرسيدس بنز، بي إم دبليو، أودي، بورش، رينج روفر، وفولكس فاجن بأحدث أجهزة الفحص بمستوى الوكالة.",
+    },
+    {
+      q: "هل توفرون خدمة استلام وتسليم السيارة في الشارقة؟",
+      a: "نعم، نوفر خدمة استلام وتسليم السيارة من وإلى موقعك في الشارقة والمناطق المجاورة لجميع أعمال الصيانة المجدولة.",
     },
   ];
 
@@ -360,83 +371,113 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* ============================================================
-          FAQ SECTION
+            {/* ============================================================
+          FAQ SECTION (Taj Al Rahmah Reference Layout)
           ============================================================ */}
-      <section className="py-24 bg-white px-6">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-          <div>
-            <div className="flex items-center gap-2 text-red-600 font-bold text-xs uppercase tracking-[0.2em] mb-4">
-              <span>▲</span>
-              <span>{isArabic ? "أسئلة متكررة" : "COMMON QUESTIONS"}</span>
-              <span>▲</span>
-            </div>
-            <h2 className="text-4xl md:text-5xl font-display font-bold text-zinc-900 uppercase tracking-tight mb-6">
-              {t.servicesPage.faqTitle}
-            </h2>
-            <p className="text-zinc-600 text-base leading-relaxed mb-8">
-              {isArabic
-                ? "هل تحتاج لمزيد من المعلومات حول خدمات الصيانة أو أوقات الإنجاز أو الأسعار في الشارقة؟ إليك الإجابات على أبرز الأسئلة."
-                : "Need more information about our workshop services, turnaround times, or pricing in Sharjah? Here are the most common questions our clients ask."}
-            </p>
-            <div className="p-6 rounded-2xl bg-zinc-50 border border-zinc-200 flex flex-col gap-4">
-              <h4 className="font-bold text-zinc-900 text-base">
-                {isArabic ? "هل لديك سؤال آخر؟" : "Have another question?"}
-              </h4>
-              <p className="text-zinc-500 text-xs">
-                {isArabic
-                  ? "مستشارو الخدمة المعتمدون لدينا متاحون 6 أيام في الأسبوع لمساعدتك."
-                  : "Our certified service advisors are available 6 days a week to assist you."}
-              </p>
-              <div className="flex items-center gap-3">
-                <Link
-                  href="/contact"
-                  className="px-5 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-full text-xs font-bold tracking-wider uppercase transition-colors"
-                >
-                  {isArabic ? "تواصل مع المستشار" : "Contact Advisor"}
-                </Link>
-                <a
-                  href="https://api.whatsapp.com/send?phone=971564406456"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full text-xs font-bold tracking-wider uppercase transition-colors"
-                >
-                  {isArabic ? "واتساب مباشر" : "WhatsApp Us"}
-                </a>
-              </div>
-            </div>
+      <section
+        className="py-16 sm:py-20 lg:py-24 bg-[#fafafa]"
+        dir={isArabic ? "rtl" : "ltr"}
+      >
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Eyebrow: — FAQ — */}
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <span className="w-8 sm:w-10 h-[2px] bg-red-600 rounded-full" />
+            <span className="text-xs sm:text-[13px] font-extrabold tracking-[0.2em] uppercase text-red-600">
+              {isArabic ? "الأسئلة الشائعة" : "FAQ"}
+            </span>
+            <span className="w-8 sm:w-10 h-[2px] bg-red-600 rounded-full" />
           </div>
 
-          <div className="space-y-4">
+          {/* Main Title: Frequently Asked Questions */}
+          <h2 className="text-3xl sm:text-4xl md:text-[42px] font-extrabold tracking-tight text-zinc-950 mb-3 text-center leading-tight">
+            {isArabic ? (
+              <>
+                الأسئلة <span className="text-red-600">الشائعة حول الخدمات</span>
+              </>
+            ) : (
+              <>
+                Frequently Asked <span className="text-red-600">Questions</span>
+              </>
+            )}
+          </h2>
+
+          {/* Subtitle */}
+          <p className="text-xs sm:text-sm md:text-base text-zinc-500 max-w-lg mx-auto text-center leading-relaxed mb-10 sm:mb-14">
+            {isArabic
+              ? "إجابات واضحة ومباشرة حول خدمات الصيانة، مدة الإنجاز، الضمان، وقطع الغيار في ورشة باب البستان بالشارقة."
+              : "Find clear answers to common questions about our workshop services, turnaround times, warranties, and pricing in Sharjah."}
+          </p>
+
+          {/* Stacked Accordion Cards (Taj Al Rahmah Reference Style) */}
+          <div className="max-w-4xl mx-auto space-y-3.5 sm:space-y-4">
             {faqs.map((faq, idx) => {
               const isOpen = openFaq === idx;
               return (
                 <div
                   key={idx}
-                  className="border border-zinc-200 rounded-xl overflow-hidden transition-all duration-200"
+                  className={`rounded-2xl sm:rounded-[22px] bg-white border transition-all duration-200 overflow-hidden ${
+                    isOpen
+                      ? "border-red-600/40 shadow-[0_8px_30px_rgba(220,38,38,0.06)]"
+                      : "border-zinc-200/80 hover:border-zinc-300 shadow-[0_4px_20px_rgba(0,0,0,0.02)]"
+                  }`}
                 >
                   <button
                     type="button"
                     onClick={() => setOpenFaq(isOpen ? null : idx)}
-                    className="w-full p-5 text-start flex items-center justify-between gap-4 font-bold text-zinc-900 hover:text-red-600 transition-colors cursor-pointer"
+                    className="w-full flex items-center justify-between p-5 sm:p-6 text-start cursor-pointer group gap-4"
+                    aria-expanded={isOpen}
                   >
-                    <span className="text-sm md:text-base">{faq.q}</span>
-                    <ChevronDown
-                      className={`w-5 h-5 shrink-0 transition-transform duration-300 ${
-                        isOpen ? "rotate-180 text-red-600" : "text-zinc-400"
-                      }`}
-                    />
-                  </button>
-                  {isOpen && (
-                    <div className="px-5 pb-5 text-xs sm:text-sm text-zinc-600 leading-relaxed border-t border-zinc-100 pt-3">
-                      {faq.a}
+                    <div className="flex items-center gap-3.5 sm:gap-4 min-w-0">
+                      <span className="text-zinc-400 font-bold text-xs sm:text-sm tracking-wide select-none shrink-0">
+                        {String(idx + 1).padStart(2, "0")}
+                      </span>
+                      <span
+                        className={`font-bold text-sm sm:text-[15.5px] transition-colors leading-snug ${
+                          isOpen
+                            ? "text-red-600"
+                            : "text-zinc-900 group-hover:text-red-600"
+                        }`}
+                      >
+                        {faq.q}
+                      </span>
                     </div>
-                  )}
+
+                    {/* Plus / Minus Circle Icon */}
+                    <div
+                      className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center shrink-0 transition-all duration-200 ${
+                        isOpen
+                          ? "bg-red-600 text-white shadow-sm shadow-red-600/30"
+                          : "bg-white border border-red-500/50 text-red-600 group-hover:border-red-600 group-hover:bg-red-50"
+                      }`}
+                    >
+                      {isOpen ? (
+                        <Minus className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
+                      ) : (
+                        <Plus className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
+                      )}
+                    </div>
+                  </button>
+
+                  <AnimatePresence>
+                    {isOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.22, ease: "easeInOut" }}
+                      >
+                        <div className="px-5 sm:px-6 pb-6 pt-0 text-xs sm:text-[13.5px] text-zinc-600 leading-relaxed pl-11 sm:pl-12 rtl:pl-5 sm:rtl:pl-6 rtl:pr-11 sm:rtl:pr-12">
+                          {faq.a}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
               );
             })}
           </div>
-        </div>
+
+          </div>
       </section>
     </main>
   );

@@ -220,10 +220,6 @@ export default function Navbar() {
                           }`}
                       >
                         <span>{link.label}</span>
-                        <ChevronDown
-                          className={`w-4 h-4 transition-transform duration-200 ${isServicesMegaOpen ? "rotate-180 text-red-500" : "text-zinc-400 group-hover:text-white"
-                            }`}
-                        />
                         <span
                           className={`absolute bottom-2 left-0 w-full h-[2px] bg-red-600 transition-transform duration-300 ease-out origin-center ${isActive || isServicesMegaOpen
                               ? "scale-x-100"

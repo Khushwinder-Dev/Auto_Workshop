@@ -2,9 +2,9 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import { ChevronDown, Phone, Calendar } from "lucide-react";
-import { getWorkshopFaqs, WORKSHOP_INFO } from "@/data/workshopData";
+import { Plus, Minus } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { getWorkshopFaqs } from "@/data/workshopData";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function FAQPage() {
@@ -17,8 +17,11 @@ export default function FAQPage() {
   };
 
   return (
-    <div className="bg-white">
-      <section className="relative w-full h-[50vh] min-h-[380px] overflow-hidden flex flex-col justify-center items-center bg-black pt-20">
+    <div className="bg-[#fafafa]" dir={isArabic ? "rtl" : "ltr"}>
+      {/* ========================================================= */}
+      {/* HERO BANNER                                               */}
+      {/* ========================================================= */}
+      <section className="relative w-full h-[46vh] min-h-[380px] overflow-hidden flex flex-col justify-center items-center bg-black pt-20">
         <div className="absolute inset-0 z-0">
           <Image
             src="/images/services-hero.png"
@@ -27,16 +30,30 @@ export default function FAQPage() {
             priority
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-[#120505]/75 backdrop-brightness-75" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/30" />
+          <div className="absolute inset-0 bg-[#120505]/80 backdrop-brightness-75" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#fafafa] via-transparent to-black/40" />
         </div>
 
         <div className="relative z-20 text-center px-6 max-w-3xl mx-auto">
-          <div className="inline-block px-4 py-1.5 rounded-full bg-red-600/20 border border-red-500/30 text-red-400 text-xs font-bold uppercase tracking-[0.25em] mb-4">
-            {t.faqPage.heroBadge}
+          {/* Eyebrow: — FAQ — */}
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <span className="w-8 sm:w-10 h-[2px] bg-red-500 rounded-full" />
+            <span className="text-xs sm:text-[13px] font-extrabold tracking-[0.2em] uppercase text-red-400">
+              {isArabic ? "الأسئلة الشائعة" : "FAQ"}
+            </span>
+            <span className="w-8 sm:w-10 h-[2px] bg-red-500 rounded-full" />
           </div>
+
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-black tracking-tight uppercase leading-tight text-white mb-3">
-            {t.faqPage.heroTitle1} <span className="text-red-500">{t.faqPage.heroTitle2}</span>
+            {isArabic ? (
+              <>
+                الأسئلة <span className="text-red-500">الشائعة</span>
+              </>
+            ) : (
+              <>
+                Frequently Asked <span className="text-red-500">Questions</span>
+              </>
+            )}
           </h1>
           <p className="max-w-xl mx-auto text-zinc-300 text-sm md:text-base font-normal leading-relaxed">
             {t.faqPage.heroSubtitle}
@@ -44,74 +61,106 @@ export default function FAQPage() {
         </div>
       </section>
 
-      <div className="max-w-4xl mx-auto px-6 py-20">
-        <div className="space-y-4">
+      {/* ========================================================= */}
+      {/* FAQ SECTION (Taj Al Rahmah Reference Layout)              */}
+      {/* ========================================================= */}
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
+        {/* Section Header */}
+        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-14">
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <span className="w-8 sm:w-10 h-[2px] bg-red-600 rounded-full" />
+            <span className="text-xs sm:text-[13px] font-extrabold tracking-[0.2em] uppercase text-red-600">
+              {isArabic ? "الأسئلة الشائعة" : "FAQ"}
+            </span>
+            <span className="w-8 sm:w-10 h-[2px] bg-red-600 rounded-full" />
+          </div>
+
+          <h2 className="text-3xl sm:text-4xl md:text-[42px] font-extrabold tracking-tight text-zinc-950 mb-3 leading-tight">
+            {isArabic ? (
+              <>
+                الأسئلة <span className="text-red-600">الشائعة</span>
+              </>
+            ) : (
+              <>
+                Frequently Asked <span className="text-red-600">Questions</span>
+              </>
+            )}
+          </h2>
+
+          <p className="text-xs sm:text-sm md:text-base text-zinc-500 max-w-lg mx-auto leading-relaxed">
+            {isArabic
+              ? "إجابات واضحة ومباشرة حول خدمات صيانة السيارات، الضمان، قطع الغيار، والأسعار في ورشة باب البستان بالشارقة."
+              : "Find clear answers to common questions about our vehicle maintenance, repair procedures, warranties, and pricing."}
+          </p>
+        </div>
+
+        {/* Stacked Accordion Cards (Taj Al Rahmah Reference Style) */}
+        <div className="max-w-4xl mx-auto space-y-3.5 sm:space-y-4">
           {faqs.map((faq, idx) => {
             const isOpen = openIndex === idx;
             return (
               <div
                 key={faq.q}
-                className="border border-zinc-200 rounded-2xl p-6 bg-zinc-50/60 transition-all duration-300 hover:border-zinc-300"
+                className={`rounded-2xl sm:rounded-[22px] bg-white border transition-all duration-200 overflow-hidden ${
+                  isOpen
+                    ? "border-red-600/40 shadow-[0_8px_30px_rgba(220,38,38,0.06)]"
+                    : "border-zinc-200/80 hover:border-zinc-300 shadow-[0_4px_20px_rgba(0,0,0,0.02)]"
+                }`}
               >
                 <button
+                  type="button"
                   onClick={() => toggle(idx)}
-                  className={`w-full flex items-center justify-between group cursor-pointer ${
-                    isArabic ? "text-right" : "text-left"
-                  }`}
+                  className="w-full flex items-center justify-between p-5 sm:p-6 text-start cursor-pointer group gap-4"
                   aria-expanded={isOpen}
                 >
-                  <span
-                    className={`text-zinc-900 font-bold text-base sm:text-lg group-hover:text-red-600 transition-colors ${
-                      isArabic ? "pl-4" : "pr-4"
-                    }`}
-                  >
-                    {faq.q}
-                  </span>
+                  <div className="flex items-center gap-3.5 sm:gap-4 min-w-0">
+                    <span className="text-zinc-400 font-bold text-xs sm:text-sm tracking-wide select-none shrink-0">
+                      {String(idx + 1).padStart(2, "0")}
+                    </span>
+                    <span
+                      className={`font-bold text-sm sm:text-[15.5px] transition-colors leading-snug ${
+                        isOpen
+                          ? "text-red-600"
+                          : "text-zinc-900 group-hover:text-red-600"
+                      }`}
+                    >
+                      {faq.q}
+                    </span>
+                  </div>
+
+                  {/* Plus / Minus Circle Icon */}
                   <div
-                    className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${
-                      isOpen ? "bg-red-600 text-white rotate-180" : "bg-zinc-200 text-zinc-700"
+                    className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center shrink-0 transition-all duration-200 ${
+                      isOpen
+                        ? "bg-red-600 text-white shadow-sm shadow-red-600/30"
+                        : "bg-white border border-red-500/50 text-red-600 group-hover:border-red-600 group-hover:bg-red-50"
                     }`}
                   >
-                    <ChevronDown className="w-4 h-4" />
+                    {isOpen ? (
+                      <Minus className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
+                    ) : (
+                      <Plus className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
+                    )}
                   </div>
                 </button>
 
-                {isOpen && (
-                  <div className="mt-4 pt-4 border-t border-zinc-200 text-zinc-600 text-sm sm:text-base leading-relaxed animate-in fade-in duration-200">
-                    {faq.a}
-                  </div>
-                )}
+                <AnimatePresence>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.22, ease: "easeInOut" }}
+                    >
+                      <div className="px-5 sm:px-6 pb-6 pt-0 text-xs sm:text-[13.5px] text-zinc-600 leading-relaxed pl-11 sm:pl-12 rtl:pl-5 sm:rtl:pl-6 rtl:pr-11 sm:rtl:pr-12">
+                        {faq.a}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             );
           })}
-        </div>
-
-        <div className="mt-16 p-8 bg-zinc-900 text-white rounded-3xl border border-zinc-800 text-center relative overflow-hidden">
-          <div className="relative z-10 max-w-xl mx-auto">
-            <h3 className="font-display font-black text-2xl uppercase tracking-tight mb-2">
-              {t.faqPage.stillHaveTitle}
-            </h3>
-            <p className="text-zinc-400 text-xs sm:text-sm mb-6 leading-relaxed">
-              {t.faqPage.stillHaveDesc}
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href={`tel:${WORKSHOP_INFO.phones[0]}`}
-                className="btn-primary text-white font-bold text-xs uppercase tracking-widest px-8 py-3.5 rounded-xl shadow-lg shadow-red-600/30 flex items-center justify-center gap-2"
-              >
-                <Phone className="w-4 h-4" />
-                <span>{t.faqPage.callBtn}</span>
-              </a>
-              <Link
-                href="/booking"
-                className="bg-white/10 hover:bg-white/20 text-white font-bold text-xs uppercase tracking-widest px-8 py-3.5 rounded-xl border border-white/20 transition-colors flex items-center justify-center gap-2"
-              >
-                <Calendar className="w-4 h-4" />
-                <span>{t.faqPage.bookBtn}</span>
-              </Link>
-            </div>
-          </div>
-          <div className="absolute -top-10 -left-10 w-32 h-32 bg-red-600/20 rounded-full blur-2xl pointer-events-none" />
         </div>
       </div>
     </div>
