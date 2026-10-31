@@ -228,8 +228,16 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
           {/* Left Text & CTAs (Columns 1-8) */}
           <div className="lg:col-span-8 flex flex-col items-start text-start min-h-[300px] sm:min-h-[340px]">
+            {/* Fixed Eyebrow Badge (TajAlRahmah Style: Fixed in position, does not slide up/down) */}
+            <div className="flex items-center gap-2.5 mb-3 sm:mb-4">
+              <span className="w-6 sm:w-8 h-[2.5px] bg-red-600 rounded-full shrink-0" />
+              <span className="text-red-500 text-xs sm:text-sm font-black tracking-[0.2em] uppercase font-display">
+                {isArabic ? activeSlide.badgeAr : activeSlide.badgeEn}
+              </span>
+            </div>
+
             {/* Direction-Aware Slide Typography Animation — Only Content Changes Across Major Services */}
-            <div className="relative w-full overflow-hidden min-h-[220px] sm:min-h-[250px] lg:min-h-[270px]">
+            <div className="relative w-full overflow-hidden min-h-[190px] sm:min-h-[220px] lg:min-h-[240px]">
               <AnimatePresence mode="wait" custom={direction}>
                 <motion.div
                   key={slideIndex}
@@ -240,14 +248,6 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
                   exit="exit"
                   transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
                 >
-                  {/* Slide Eyebrow with Major Service Badge */}
-                  <div className="flex items-center gap-2.5 mb-3 sm:mb-4">
-                    <span className="w-6 sm:w-8 h-[2.5px] bg-red-600 rounded-full" />
-                    <span className="text-red-500 text-xs sm:text-sm font-black tracking-[0.2em] uppercase font-display">
-                      {isArabic ? activeSlide.badgeAr : activeSlide.badgeEn}
-                    </span>
-                  </div>
-
                   {/* Main Heading for the Active Major Service */}
                   <h1 className="text-white text-3xl sm:text-5xl md:text-5xl lg:text-[54px] xl:text-[62px] font-black leading-[1.08] tracking-tight uppercase font-display drop-shadow-[0_2px_25px_rgba(0,0,0,0.6)]">
                     {activeSlide.titlePart1} <br />
