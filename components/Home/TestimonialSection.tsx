@@ -131,126 +131,127 @@ export default function TestimonialSection() {
 
   return (
     <section
-      className="relative w-full py-[48px] md:py-[64px] lg:py-[80px] px-4 sm:px-6 lg:px-8 bg-zinc-950 text-white overflow-hidden"
+      className="relative w-full py-[48px] md:py-[64px] lg:py-[80px] px-4 sm:px-6 lg:px-8 bg-white text-zinc-900 overflow-hidden"
       dir={isArabic ? "rtl" : "ltr"}
     >
       {/* Decorative ambient background glows */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-red-600/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-red-600/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-0 right-0 w-96 h-96 bg-red-600/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-red-600/5 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* ── Section Header (TajAlRahmah Style) ───────────────────────── */}
         <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
           <div className="inline-flex items-center justify-center gap-3 mb-3.5">
             <span className="inline-block h-[2px] w-6 sm:w-8 bg-red-600 rounded-full" />
-            <span className="text-xs sm:text-sm font-extrabold tracking-[0.18em] uppercase text-red-500">
+            <span className="text-xs sm:text-sm font-extrabold tracking-[0.18em] uppercase text-red-600">
               {t.home.testimonials.eyebrow}
             </span>
             <span className="inline-block h-[2px] w-6 sm:w-8 bg-red-600 rounded-full" />
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-extrabold text-white tracking-tight leading-[1.15] font-display uppercase">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-extrabold text-zinc-950 tracking-tight leading-[1.15] font-display uppercase">
             <span>{t.home.testimonials.titlePart1}</span>{" "}
             <span className="text-red-600">{t.home.testimonials.titlePart2}</span>
           </h2>
         </div>
 
         {/* ── Testimonial Card (TajAlRahmah 12-Column Grid with Dot Matrix) ── */}
-        <div className="relative max-w-7xl mx-auto bg-gradient-to-br from-zinc-900 via-zinc-950 to-black border border-red-600/30 rounded-[32px] p-8 sm:p-12 lg:p-14 shadow-[0_20px_50px_rgba(220,38,38,0.12)] overflow-hidden">
+        <div className="relative max-w-7xl mx-auto bg-white border border-zinc-200/90 rounded-[32px] p-8 sm:p-12 lg:p-14 shadow-[0_20px_50px_rgba(0,0,0,0.06)] overflow-hidden">
           {/* Radial Dot Pattern */}
-          <div className="absolute inset-0 bg-[radial-gradient(#dc2626_1px,transparent_1px)] [background-size:24px_24px] opacity-15 pointer-events-none" />
+          <div className="absolute inset-0 bg-[radial-gradient(#dc2626_1px,transparent_1px)] [background-size:24px_24px] opacity-[0.07] pointer-events-none" />
 
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             {/* Left: Quote & Details (Columns 1-7) */}
             <div className="lg:col-span-7 flex flex-col justify-center min-h-[230px] sm:min-h-[250px] text-start">
-                <div className="mb-6">
-                  {/* Circular Quote Icon Badge */}
-                  <div className="w-14 h-14 rounded-full bg-red-600 text-white flex items-center justify-center shadow-lg shadow-red-600/30 border-2 border-dashed border-red-300 shrink-0">
-                    <Quote className="w-6 h-6 fill-current" />
-                  </div>
+              <div className="mb-6">
+                {/* Circular Quote Icon Badge */}
+                <div className="w-14 h-14 rounded-full bg-red-600 text-white flex items-center justify-center shadow-lg shadow-red-600/25 border-2 border-dashed border-red-200 shrink-0">
+                  <Quote className="w-6 h-6 fill-current" />
                 </div>
+              </div>
 
-                <div className="relative overflow-hidden">
-                  <AnimatePresence mode="wait" custom={direction}>
+              <div className="relative overflow-hidden">
+                <AnimatePresence mode="wait" custom={direction}>
+                  <motion.div
+                    key={currentIndex}
+                    custom={direction}
+                    variants={SLIDE_VARIANTS}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                    transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                  >
+                    {/* 5-Star Rating inside the review */}
+                    <div className="flex items-center gap-1 text-amber-400 mb-3">
+                      {[...Array(current.rating)].map((_, i) => (
+                        <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                      ))}
+                    </div>
+
+                    <p className="text-base sm:text-lg lg:text-[18px] text-zinc-700 font-normal leading-[1.8] italic font-serif">
+                      &ldquo;{current.comment}&rdquo;
+                    </p>
+
+                    <div className="mt-8 pt-2 border-t border-zinc-200">
+                      <p className="text-lg sm:text-xl lg:text-[20px] font-bold text-zinc-950 tracking-wide">
+                        — {current.name}
+                      </p>
+                      <p className="text-xs sm:text-sm font-bold text-red-600 mt-1">
+                        {current.role} • {current.date}
+                      </p>
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+            </div>
+
+            {/* Right: TajAlRahmah Signature Circular Avatar with Layered Gradient Rings (Columns 8-12) */}
+            <div className="lg:col-span-5 flex items-center justify-center lg:justify-end">
+              <div className="relative w-56 h-56 sm:w-64 sm:h-64 lg:w-72 lg:h-72 rounded-full bg-gradient-to-br from-red-600/15 to-red-600/35 p-3 sm:p-3.5 shadow-xl flex-shrink-0 border-4 border-zinc-100 ring-8 ring-red-600/10">
+                <div className="relative w-full h-full rounded-full bg-zinc-100 overflow-hidden shadow-inner border border-zinc-200">
+                  <AnimatePresence mode="wait">
                     <motion.div
                       key={currentIndex}
-                      custom={direction}
-                      variants={SLIDE_VARIANTS}
-                      initial="enter"
-                      animate="center"
-                      exit="exit"
-                      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                      initial={{ opacity: 0, scale: 0.94 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 1.04 }}
+                      transition={{ duration: 0.4 }}
+                      className="relative w-full h-full"
                     >
-                      {/* 5-Star Rating inside the review */}
-                      <div className="flex items-center gap-1 text-amber-400 mb-3">
-                        {[...Array(current.rating)].map((_, i) => (
-                          <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
-                        ))}
-                      </div>
-
-                      <p className="text-base sm:text-lg lg:text-[18px] text-zinc-200 font-normal leading-[1.8] italic font-serif">
-                        &ldquo;{current.comment}&rdquo;
-                      </p>
-
-                      <div className="mt-8 pt-2 border-t border-zinc-800/80">
-                        <p className="text-lg sm:text-xl lg:text-[20px] font-bold text-white tracking-wide">
-                          — {current.name}
-                        </p>
-                        <p className="text-xs sm:text-sm font-bold text-red-500 mt-1">
-                          {current.role} • {current.date}
-                        </p>
-                      </div>
+                      <Image
+                        src={current.avatar}
+                        alt={current.name}
+                        fill
+                        unoptimized
+                        className="object-cover object-top scale-105"
+                        priority
+                      />
                     </motion.div>
                   </AnimatePresence>
                 </div>
               </div>
-
-              {/* Right: TajAlRahmah Signature Circular Avatar with Layered Gradient Rings (Columns 8-12) */}
-              <div className="lg:col-span-5 flex items-center justify-center lg:justify-end">
-                <div className="relative w-56 h-56 sm:w-64 sm:h-64 lg:w-72 lg:h-72 rounded-full bg-gradient-to-br from-red-600/25 to-red-600/50 p-3 sm:p-3.5 shadow-2xl flex-shrink-0 border-4 border-zinc-800 ring-8 ring-red-600/15">
-                  <div className="relative w-full h-full rounded-full bg-zinc-900 overflow-hidden shadow-inner border border-white/10">
-                    <AnimatePresence mode="wait">
-                      <motion.div
-                        key={currentIndex}
-                        initial={{ opacity: 0, scale: 0.94 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 1.04 }}
-                        transition={{ duration: 0.4 }}
-                        className="relative w-full h-full"
-                      >
-                        <Image
-                          src={current.avatar}
-                          alt={current.name}
-                          fill
-                          unoptimized
-                          className="object-cover object-top scale-105"
-                          priority
-                        />
-                      </motion.div>
-                    </AnimatePresence>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
-
-          {/* ── Slider Navigation Dots (TajAlRahmah Style) ── */}
-          <div className="flex items-center justify-center gap-2.5 mt-8 sm:mt-10">
-            {testimonials.map((_, idx) => (
-              <button
-                key={idx}
-                type="button"
-                onClick={() => goToSlide(idx)}
-                aria-label={`${isArabic ? "الشهادة" : "Go to testimonial"} ${idx + 1}`}
-                aria-current={currentIndex === idx}
-                className={`transition-all duration-300 rounded-full cursor-pointer ${currentIndex === idx
-                    ? "w-8 h-2.5 bg-red-600 shadow-[0_2px_8px_rgba(220,38,38,0.5)]"
-                    : "w-2.5 h-2.5 bg-zinc-700 hover:bg-red-600/50"
-                  }`}
-              />
-            ))}
-          </div>
         </div>
+
+        {/* ── Slider Navigation Dots (TajAlRahmah Style) ── */}
+        <div className="flex items-center justify-center gap-2.5 mt-8 sm:mt-10">
+          {testimonials.map((_, idx) => (
+            <button
+              key={idx}
+              type="button"
+              onClick={() => goToSlide(idx)}
+              aria-label={`${isArabic ? "الشهادة" : "Go to testimonial"} ${idx + 1}`}
+              aria-current={currentIndex === idx}
+              className={`transition-all duration-300 rounded-full cursor-pointer ${
+                currentIndex === idx
+                  ? "w-8 h-2.5 bg-red-600 shadow-[0_2px_8px_rgba(220,38,38,0.4)]"
+                  : "w-2.5 h-2.5 bg-zinc-300 hover:bg-red-600/50"
+              }`}
+            />
+          ))}
+        </div>
+      </div>
     </section>
   );
 }
