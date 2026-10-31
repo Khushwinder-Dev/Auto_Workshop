@@ -71,7 +71,7 @@ function ServiceDetailsContent() {
         </div>
       </section>
 
-      <div className="max-w-7xl mx-auto px-6 py-20">
+      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           <div className="lg:col-span-4 space-y-8">
             <div className="bg-zinc-50 border border-zinc-200/90 rounded-2xl p-6 shadow-sm">

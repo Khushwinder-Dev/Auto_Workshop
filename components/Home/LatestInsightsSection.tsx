@@ -48,7 +48,7 @@ export default function LatestInsightsSection() {
 
   return (
     <section className="py-24 bg-white">
-      <div className="max-w-[1400px] mx-auto px-6">
+      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="font-display text-4xl md:text-5xl font-[900] text-zinc-900 leading-tight uppercase tracking-tight mb-4">
             {t.home.latestInsights.title}

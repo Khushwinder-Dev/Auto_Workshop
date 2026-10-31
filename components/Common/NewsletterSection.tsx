@@ -87,7 +87,7 @@ export default function NewsletterSection() {
         aria-hidden="true"
       />
 
-      <div className="max-w-7xl mx-auto relative z-10">
+      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="relative rounded-3xl bg-white border border-zinc-200/90 p-8 sm:p-12 lg:p-14 shadow-xl shadow-zinc-200/60 overflow-hidden">
           {/* Subtle top accent gradient */}
           <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-red-600 via-red-500 to-amber-500" />

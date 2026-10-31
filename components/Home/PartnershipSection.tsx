@@ -102,7 +102,7 @@ export default function PartnershipSection({
       className="relative w-full py-14 sm:py-16 lg:py-20 bg-gradient-to-b from-zinc-50 via-white to-zinc-50 border-y border-zinc-200/70 overflow-hidden"
       dir={isArabic ? "rtl" : "ltr"}
     >
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* ========================================================= */}
         {/* SECTION HEADER (Taj Al Rahmah Reference Layout)          */}
         {/* ========================================================= */}

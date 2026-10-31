@@ -138,7 +138,7 @@ export default function TestimonialSection() {
       <div className="absolute top-0 right-0 w-96 h-96 bg-red-600/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-red-600/5 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto relative z-10">
+      <div className="max-w-8xl mx-auto relative z-10">
         {/* ── Section Header (TajAlRahmah Style) ───────────────────────── */}
         <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
           <div className="inline-flex items-center justify-center gap-3 mb-3.5">
@@ -243,11 +243,10 @@ export default function TestimonialSection() {
               onClick={() => goToSlide(idx)}
               aria-label={`${isArabic ? "الشهادة" : "Go to testimonial"} ${idx + 1}`}
               aria-current={currentIndex === idx}
-              className={`transition-all duration-300 rounded-full cursor-pointer ${
-                currentIndex === idx
+              className={`transition-all duration-300 rounded-full cursor-pointer ${currentIndex === idx
                   ? "w-8 h-2.5 bg-red-600 shadow-[0_2px_8px_rgba(220,38,38,0.4)]"
                   : "w-2.5 h-2.5 bg-zinc-300 hover:bg-red-600/50"
-              }`}
+                }`}
             />
           ))}
         </div>

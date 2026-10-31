@@ -220,7 +220,7 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
 
       {/* 5. Main Hero Content Container (TajAlRahmah 12-Column Grid Layout) */}
       <div
-        className={`relative z-20 w-full max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 pt-28 sm:pt-36 lg:pt-40 pb-12 flex-1 flex flex-col justify-center ${isArabic ? "pr-10 sm:pr-14" : "pl-10 sm:pl-14"
+        className={`relative z-20 w-full max-w-8xl mx-auto px-5 sm:px-8 lg:px-12 pt-28 sm:pt-36 lg:pt-40 pb-12 flex-1 flex flex-col justify-center ${isArabic ? "pr-10 sm:pr-14" : "pl-10 sm:pl-14"
           }`}
       >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">

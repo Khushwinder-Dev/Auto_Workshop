@@ -61,7 +61,7 @@ export default function BrandsPage() {
         </section>
 
         <section className="py-16 px-6 md:px-12">
-          <div className="max-w-[1400px] mx-auto">
+          <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 lg:gap-5">
               {brands.map((brand) => (
                 <div

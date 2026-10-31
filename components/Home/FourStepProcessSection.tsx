@@ -38,7 +38,7 @@ export default function FourStepProcessSection() {
 
   return (
     <section className="bg-white py-24 px-6 overflow-hidden" dir={isArabic ? "rtl" : "ltr"}>
-      <div className="max-w-[1400px] mx-auto flex flex-col items-center">
+      <div className="max-w-8xl mx-auto flex flex-col items-center">
         <div className="inline-block px-5 py-1.5 rounded-full border border-red-500/30 bg-red-500/10 mb-8">
           <span className="text-red-600 text-[10px] font-black tracking-[0.25em] uppercase">
             {t.home.fourStep.eyebrow}

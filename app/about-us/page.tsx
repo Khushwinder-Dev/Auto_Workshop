@@ -130,7 +130,7 @@ export default function AboutUsPage() {
         </section>
 
         <section className="py-20 bg-white px-6">
-          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="space-y-10">
               <div className="flex gap-4 h-[400px]">
                 <div className="relative flex-1 rounded-xl overflow-hidden shadow-lg">
@@ -191,7 +191,7 @@ export default function AboutUsPage() {
         </section>
 
         <section className="bg-[#0a0a0a] py-24 px-6 overflow-hidden">
-          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+          <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             <div className="space-y-8">
               <div className="inline-block">
                 <span className="text-[#e11d23] text-xs font-display uppercase tracking-[0.2em]">
@@ -227,7 +227,7 @@ export default function AboutUsPage() {
         </section>
 
         <section className="py-20 bg-[#fcfcfc] px-6">
-          <div className="max-w-7xl mx-auto">
+          <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16 space-y-4">
               <div className="flex items-center justify-center gap-2 text-[#e11d23] font-bold uppercase tracking-[0.2em] text-[10px] md:text-xs">
                 <X className="w-3.5 h-3.5" strokeWidth={3} />

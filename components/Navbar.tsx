@@ -183,7 +183,7 @@ export default function Navbar() {
             : "bg-transparent"
           }`}
       >
-        <div className="max-w-[1400px] mx-auto px-6">
+        <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14">
           <div className="flex items-center justify-between h-20 lg:h-24">
             {/* Logo */}
             <div className="flex-shrink-0">
@@ -273,7 +273,7 @@ export default function Navbar() {
                                           <Icon className="w-5 h-5 stroke-[2]" />
                                         </div>
                                         <div className="min-w-0 flex-1">
-                                          <p className="text-[13.5px] font-bold text-red-600 group-hover:text-red-700 transition-colors leading-tight mb-1 truncate">
+                                          <p className="text-[13.5px] font-bold text-black group-hover:text-red-600 transition-colors leading-tight mb-1 truncate">
                                             {isArabic ? item.titleAr : item.titleEn}
                                           </p>
                                           <p className="text-xs text-zinc-500 line-clamp-1 leading-normal">

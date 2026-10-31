@@ -185,7 +185,7 @@ export default function ServicesPage() {
           ALL SERVICES SECTION
           ============================================================ */}
       <section className="py-20 bg-zinc-50">
-        <div className="max-w-[1300px] mx-auto px-6">
+        <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <div className="flex items-center justify-center gap-2 text-red-600 font-bold text-[11px] uppercase tracking-[0.2em] mb-4">
               <span className="text-[8px]">▲</span>
@@ -344,7 +344,7 @@ export default function ServicesPage() {
           <div className="absolute inset-0 bg-black/80" />
           <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black opacity-90" />
         </div>
-        <div className="relative z-10 max-w-7xl mx-auto w-full">
+        <div className="relative z-10 max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <div className="text-center mb-16">
             <span className="text-red-600 font-bold text-xs uppercase tracking-[0.2em] mb-2 block">
               {t.servicesPage.processEyebrow}
@@ -378,7 +378,7 @@ export default function ServicesPage() {
         className="py-16 sm:py-20 lg:py-24 bg-[#fafafa]"
         dir={isArabic ? "rtl" : "ltr"}
       >
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Eyebrow: — FAQ — */}
           <div className="flex items-center justify-center gap-3 mb-3">
             <span className="w-8 sm:w-10 h-[2px] bg-red-600 rounded-full" />

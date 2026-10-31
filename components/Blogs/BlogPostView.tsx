@@ -32,7 +32,7 @@ export default function BlogPostView({ slug }: Props) {
           priority
         />
         <div className="absolute inset-0 bg-black/60 flex items-end">
-          <div className="max-w-7xl mx-auto px-6 pb-12 w-full">
+          <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 px-6 pb-12 w-full">
             <span className="bg-red-600 text-white text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-[0.2em] mb-6 inline-block">
               {post.category}
             </span>
@@ -43,7 +43,7 @@ export default function BlogPostView({ slug }: Props) {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 py-16 lg:py-24">
+      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 px-6 py-16 lg:py-24">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
           <div className="lg:col-span-8">
             <div className="flex items-center gap-4 mb-10 pb-6 border-b border-zinc-100">

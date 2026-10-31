@@ -116,7 +116,7 @@ export default function BookingPage() {
         </section>
 
         <section className="bg-white py-16 px-6 md:px-12 lg:px-24">
-          <div className="max-w-[1400px] mx-auto">
+          <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10 border-b border-gray-100 pb-12 mb-16">
               <div className="flex items-start gap-4">
                 <div className="bg-red-600 p-3 rounded-lg text-white shrink-0">

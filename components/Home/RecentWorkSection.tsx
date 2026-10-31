@@ -58,7 +58,7 @@ export default function RecentWorkSection() {
 
   return (
     <section className="bg-[#080808] py-24 relative">
-      <div className="max-w-[1400px] mx-auto px-6">
+      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-12 items-start">
           <div className="relative z-30 bg-[#080808] flex flex-col items-start lg:pr-10 rtl:lg:pr-0 rtl:lg:pl-10 lg:sticky lg:top-32">
             <h2 className="font-display text-4xl md:text-5xl font-[900] text-white leading-none uppercase tracking-tight mb-6">

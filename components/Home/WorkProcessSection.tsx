@@ -17,7 +17,7 @@ export default function WorkProcessSection() {
 
   return (
     <section className="py-24 bg-white overflow-hidden">
-      <div className="max-w-[1350px] mx-auto px-6">
+      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-20">
           <div className="flex items-center justify-center gap-2 text-red-600 font-bold text-[11px] uppercase tracking-[0.2em] mb-4">
             {t.home.workProcess.eyebrow}

@@ -52,7 +52,7 @@ export default function WhyChooseUsSection() {
       id="why-choose-us"
       className="relative w-full py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-white overflow-hidden scroll-mt-20"
     >
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-8xl mx-auto">
         {/* ============================================================
             SECTION HEADER
             ============================================================ */}
