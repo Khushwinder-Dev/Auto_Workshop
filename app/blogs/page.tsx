@@ -118,16 +118,14 @@ export default function BlogsPage() {
                           onClick={() => setSelectedCategory(cat)}
                           data-aos="fade-up"
                           data-aos-delay={idx * 50}
-                          className={`w-full px-4 py-3 rounded-lg transition-all duration-300 ${
-                            isArabic ? "text-right" : "text-left"
-                          } ${
-                            selectedCategory === cat ||
-                            (cat === allCatLabel &&
-                              (selectedCategory === "All Categories" ||
-                                selectedCategory === "جميع الأقسام"))
+                          className={`w-full px-4 py-3 rounded-lg transition-all duration-300 ${isArabic ? "text-right" : "text-left"
+                            } ${selectedCategory === cat ||
+                              (cat === allCatLabel &&
+                                (selectedCategory === "All Categories" ||
+                                  selectedCategory === "جميع الأقسام"))
                               ? "bg-red-600 text-white font-bold"
                               : "text-gray-600 hover:bg-gray-100 font-medium"
-                          }`}
+                            }`}
                         >
                           {cat}
                         </button>
@@ -178,9 +176,8 @@ export default function BlogsPage() {
                             <div className="pt-4 border-t border-gray-100 flex items-center text-red-600 font-bold text-sm">
                               <span>{t.blogs.readMoreBtn}</span>
                               <svg
-                                className={`w-4 h-4 mx-2 group-hover:translate-x-1 transition-transform ${
-                                  isArabic ? "rotate-180 group-hover:-translate-x-1" : ""
-                                }`}
+                                className={`w-4 h-4 mx-2 group-hover:translate-x-1 transition-transform ${isArabic ? "rotate-180 group-hover:-translate-x-1" : ""
+                                  }`}
                                 fill="none"
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"
@@ -201,7 +198,7 @@ export default function BlogsPage() {
                 </main>
               </div>
 
-              <section className="mt-20" data-aos="fade-up">
+              <section className="mt-20 hidden" data-aos="fade-up">
                 <div className="bg-red-600 rounded-[40px] p-8 lg:p-16 relative overflow-hidden">
                   <div className="absolute top-0 right-0 w-64 h-64 bg-red-500 rounded-full -mr-20 -mt-20 opacity-50" />
                   <div className="relative z-10 flex flex-col lg:flex-row items-center gap-12">
@@ -222,9 +219,8 @@ export default function BlogsPage() {
                       >
                         <span>{t.common.bookAppointment}</span>
                         <svg
-                          className={`w-6 h-6 group-hover:translate-x-1 transition-transform ${
-                            isArabic ? "rotate-180 group-hover:-translate-x-1" : ""
-                          }`}
+                          className={`w-6 h-6 group-hover:translate-x-1 transition-transform ${isArabic ? "rotate-180 group-hover:-translate-x-1" : ""
+                            }`}
                           fill="currentColor"
                           viewBox="0 0 20 20"
                         >
