@@ -178,11 +178,10 @@ export default function Navbar() {
     <>
       <nav
         ref={navRef}
-        className={`fixed top-0 left-0 right-0 z-[9999] transition-all duration-500 ${
-          isScrolled || isServicesMegaOpen
+        className={`fixed top-0 left-0 right-0 z-[9999] transition-all duration-500 ${isScrolled || isServicesMegaOpen
             ? "bg-black/95 backdrop-blur-lg border-b border-white/10 shadow-lg"
             : "bg-transparent"
-        }`}
+          }`}
       >
         <div className="max-w-[1400px] mx-auto px-6">
           <div className="flex items-center justify-between h-20 lg:h-24">
@@ -217,26 +216,23 @@ export default function Navbar() {
                       <Link
                         href={link.href}
                         onClick={() => setIsServicesMegaOpen(false)}
-                        className={`inline-flex items-center gap-1.5 font-bold text-sm tracking-widest uppercase transition-colors duration-300 group ${
-                          isActive || isServicesMegaOpen ? "text-red-500" : "text-white"
-                        }`}
+                        className={`inline-flex items-center gap-1.5 font-bold text-sm tracking-widest uppercase transition-colors duration-300 group ${isActive || isServicesMegaOpen ? "text-red-500" : "text-white"
+                          }`}
                       >
                         <span>{link.label}</span>
                         <ChevronDown
-                          className={`w-4 h-4 transition-transform duration-200 ${
-                            isServicesMegaOpen ? "rotate-180 text-red-500" : "text-zinc-400 group-hover:text-white"
-                          }`}
+                          className={`w-4 h-4 transition-transform duration-200 ${isServicesMegaOpen ? "rotate-180 text-red-500" : "text-zinc-400 group-hover:text-white"
+                            }`}
                         />
                         <span
-                          className={`absolute bottom-2 left-0 w-full h-[2px] bg-red-600 transition-transform duration-300 ease-out origin-center ${
-                            isActive || isServicesMegaOpen
+                          className={`absolute bottom-2 left-0 w-full h-[2px] bg-red-600 transition-transform duration-300 ease-out origin-center ${isActive || isServicesMegaOpen
                               ? "scale-x-100"
                               : "scale-x-0 group-hover:scale-x-100"
-                          }`}
+                            }`}
                         />
                       </Link>
 
-                      {/* ─── DESKTOP SERVICES MEGA MENU DROPDOWN (TAJALRAHMAH STYLE) ─── */}
+                      {/* ─── DESKTOP SERVICES MEGA MENU DROPDOWN (TAJALRAHMAH WHITE THEME) ─── */}
                       <AnimatePresence>
                         {isServicesMegaOpen && (
                           <motion.div
@@ -249,328 +245,324 @@ export default function Navbar() {
                             className="absolute top-full -left-48 xl:-left-36 rtl:-left-auto rtl:-right-48 rtl:xl:-right-36 w-[820px] xl:w-[890px] pt-2"
                             dir={isArabic ? "rtl" : "ltr"}
                           >
-                            <div className="bg-zinc-950/98 backdrop-blur-2xl rounded-3xl shadow-[0_25px_70px_rgba(220,38,38,0.25),0_15px_35px_rgba(0,0,0,0.9)] border border-red-600/35 overflow-hidden text-left rtl:text-right">
-                              {/* Top Strip */}
-                              <div className="flex items-center justify-between px-6 py-3.5 border-b border-zinc-800 bg-zinc-900/60">
-                                <div className="flex items-center gap-2">
-                                  <span className="w-2.5 h-2.5 rounded-full bg-red-600 animate-pulse" />
-                                  <span className="text-[11px] font-extrabold tracking-widest uppercase text-red-500">
-                                    {isArabic ? "خدمات الورشة المعتمدة" : "OUR WORKSHOP SERVICES"}
-                                  </span>
-                                </div>
-                                <span className="text-xs text-zinc-400 font-medium">
-                                  {isArabic
-                                    ? "صيانة وإصلاح احترافي لجميع السيارات في الشارقة"
-                                    : "Comprehensive Auto Care & Repair in Sharjah (8 Services)"}
-                                </span>
-                              </div>
+                              <div className="bg-white rounded-3xl shadow-[0_25px_70px_rgba(0,0,0,0.18),0_15px_35px_rgba(220,38,38,0.06)] border border-zinc-200/90 overflow-hidden text-left rtl:text-right">
+                                {/* Top Strip */}
+                                  <div className="flex items-center justify-between px-6 py-3.5 border-b border-zinc-100 bg-zinc-50/80">
+                                    <div className="flex items-center gap-2">
+                                      <span className="w-2.5 h-2.5 rounded-full bg-red-600 animate-pulse" />
+                                        <span className="text-[11px] font-extrabold tracking-widest uppercase text-red-600">
+                                          {isArabic ? "خدمات الورشة المعتمدة" : "OUR WORKSHOP SERVICES"}
+                                        </span>
+                                    </div>
+                                      <span className="text-xs text-zinc-500 font-medium">
+                                        {isArabic
+                                          ? "صيانة وإصلاح احترافي لجميع السيارات في الشارقة"
+                                          : "Comprehensive Auto Care & Repair in Sharjah (8 Services)"}
+                                      </span>
+                                  </div>
 
-                              <div className="flex">
-                                {/* Left: 2-Column Grid of all 8 Services */}
-                                <div className="flex-1 p-5 grid grid-cols-2 gap-2.5">
-                                  {SERVICES_MEGA_ITEMS.map((item) => {
-                                    const Icon = item.icon;
-                                    return (
-                                      <Link
-                                        key={item.id}
-                                        href={item.href}
-                                        onClick={() => setIsServicesMegaOpen(false)}
-                                        className="group flex items-start gap-3 p-3 rounded-2xl bg-zinc-900/50 hover:bg-zinc-800/90 border border-zinc-800/80 hover:border-red-600/60 transition-all duration-200"
-                                      >
-                                        <div className="w-10 h-10 rounded-xl bg-zinc-800 text-red-500 border border-zinc-700/80 group-hover:bg-red-600 group-hover:text-white group-hover:border-red-600 flex items-center justify-center shrink-0 transition-all duration-200 mt-0.5">
-                                          <Icon className="w-5 h-5 stroke-[2]" />
-                                        </div>
-                                        <div className="min-w-0 flex-1">
-                                          <p className="text-[13px] font-bold text-white group-hover:text-red-500 transition-colors truncate mb-0.5">
-                                            {isArabic ? item.titleAr : item.titleEn}
-                                          </p>
-                                          <p className="text-[11px] text-zinc-400 line-clamp-1 leading-snug">
-                                            {isArabic ? item.subAr : item.subEn}
-                                          </p>
-                                        </div>
-                                        <ArrowRight className="w-4 h-4 text-zinc-600 group-hover:text-red-500 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180 transition-all shrink-0 self-center" />
-                                      </Link>
-                                    );
+                                  <div className="flex">
+                                    {/* Left: 2-Column Grid of all 8 Services */}
+                                      <div className="flex-1 p-5 grid grid-cols-2 gap-2.5 bg-white">
+                                        {SERVICES_MEGA_ITEMS.map((item) => {
+                                          const Icon = item.icon;
+                                          return (
+                                            <Link
+                                              key={item.id}
+                                              href={item.href}
+                                              onClick={() => setIsServicesMegaOpen(false)}
+                                              className="group flex items-start gap-3 p-3 rounded-2xl bg-zinc-50/70 hover:bg-white border border-zinc-200/80 hover:border-red-600/50 hover:shadow-md transition-all duration-200 shadow-2xs"
+                                            >
+                                                <div className="w-10 h-10 rounded-xl bg-red-50 text-red-600 border border-red-100 group-hover:bg-red-600 group-hover:text-white group-hover:border-red-600 flex items-center justify-center shrink-0 transition-all duration-200 mt-0.5 shadow-2xs">
+                                                  <Icon className="w-5 h-5 stroke-[2]" />
+                                                </div>
+                                                <div className="min-w-0 flex-1">
+                                                    <p className="text-[13px] font-bold text-zinc-900 group-hover:text-red-600 transition-colors truncate mb-0.5">
+                                                      {isArabic ? item.titleAr : item.titleEn}
+                                                    </p>
+                                                      <p className="text-[11px] text-zinc-500 line-clamp-1 leading-snug">
+                                                        {isArabic ? item.subAr : item.subEn}
+                                                      </p>
+                                                    </div>
+                                                    <ArrowRight className="w-4 h-4 text-zinc-400 group-hover:text-red-600 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180 transition-all shrink-0 self-center" />
+                                                  </Link>
+                                                  );
                                   })}
-                                </div>
+                                                </div>
 
-                                {/* Right: Featured Workshop Card */}
-                                <div className="w-[260px] xl:w-[280px] shrink-0 bg-gradient-to-b from-zinc-900/90 to-zinc-950 border-l rtl:border-l-0 rtl:border-r border-zinc-800 p-5 flex flex-col justify-between">
-                                  <div>
-                                    <div className="relative w-full h-36 rounded-2xl overflow-hidden border border-zinc-700 mb-3.5 group/img">
-                                      <Image
-                                        src="/images/service-1.png"
-                                        alt="Workshop Service"
-                                        fill
-                                        className="object-cover group-hover/img:scale-105 transition-transform duration-300"
-                                      />
-                                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                                      <div className="absolute bottom-2.5 left-2.5 right-2.5 text-white">
-                                        <p className="text-xs font-bold leading-tight">
-                                          {isArabic ? "كراج باب البستان — الشارقة" : "Bab Al Bustan Workshop"}
-                                        </p>
-                                        <p className="text-[10px] text-red-400 font-medium">
-                                          {isArabic ? "المنطقة الصناعية 5" : "Industrial Area 5"}
-                                        </p>
+                                                {/* Right: Featured Workshop Card */}
+                                                  <div className="w-[260px] xl:w-[280px] shrink-0 bg-gradient-to-b from-zinc-50 to-zinc-100/70 border-l rtl:border-l-0 rtl:border-r border-zinc-200/80 p-5 flex flex-col justify-between">
+                                                    <div>
+                                                        <div className="relative w-full h-36 rounded-2xl overflow-hidden border border-zinc-200 mb-3.5 group/img shadow-2xs">
+                                                          <Image
+                                                            src="/images/service-1.png"
+                                                            alt="Workshop Service"
+                                                            fill
+                                                            className="object-cover group-hover/img:scale-105 transition-transform duration-300"
+                                                          />
+                                                          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
+                                                          <div className="absolute bottom-2.5 left-2.5 right-2.5 text-white">
+                                                            <p className="text-xs font-bold leading-tight">
+                                                              {isArabic ? "كراج باب البستان — الشارقة" : "Bab Al Bustan Workshop"}
+                                                            </p>
+                                                            <p className="text-[10px] text-red-400 font-medium">
+                                                              {isArabic ? "المنطقة الصناعية 5" : "Industrial Area 5"}
+                                                            </p>
+                                                          </div>
+                                                        </div>
+                                                          <p className="text-xs text-zinc-600 leading-relaxed font-normal">
+                                                            {isArabic
+                                                              ? "أجهزة فحص متطورة، كشف أسعار مسبق، وضمان كامل على كافة الأعمال الميكانيكية والكهربائية."
+                                                              : "Advanced diagnostic scanners, transparent quotes, and full warranty on all mechanical & electrical repairs."}
+                                                          </p>
+                                                      </div>
+
+                                                        <div className="pt-4 border-t border-zinc-200/80 flex flex-col gap-2">
+                                                          <Link
+                                                            href="/services"
+                                                            onClick={() => setIsServicesMegaOpen(false)}
+                                                            className="inline-flex items-center justify-center gap-1.5 bg-red-600 hover:bg-red-700 text-white text-xs font-bold py-2.5 px-4 rounded-xl transition-all shadow-md active:scale-95 text-center"
+                                                          >
+                                                            <span>{isArabic ? "تصفح صفحة الخدمات الكاملة" : "Explore All Services"}</span>
+                                                            <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
+                                                          </Link>
+                                                          <Link
+                                                            href="/booking"
+                                                            onClick={() => setIsServicesMegaOpen(false)}
+                                                            className="inline-flex items-center justify-center gap-1.5 bg-white hover:bg-zinc-50 text-zinc-800 text-xs font-bold py-2 px-3 rounded-xl transition-all text-center border border-zinc-300 shadow-2xs"
+                                                          >
+                                                            <span>{isArabic ? "حجز موعد فحص فوري" : "Book Fast Slot"}</span>
+                                                          </Link>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </motion.div>
+                        )}
+                                              </AnimatePresence>
+                                            </div>
+                                          );
+                                        }
+
+                return (
+                                        <Link
+                                          key={link.href}
+                                          href={link.href}
+                                          className="relative py-2 font-bold text-sm tracking-widest uppercase transition-colors duration-300 group text-white"
+                                        >
+                                          {link.label}
+                                          <span
+                                            className={`absolute bottom-0 left-0 w-full h-[2px] bg-red-600 transition-transform duration-300 ease-out origin-center ${isActive
+                                                ? "scale-x-100"
+                                                : "scale-x-0 group-hover:scale-x-100"
+                                              }`}
+                                          />
+                                        </Link>
+                                        );
+              })}
+                                      </div>
+
+                                      {/* Desktop Right Actions: Search + Language Switcher + Contact Button */}
+                                      <div className="hidden lg:flex items-center gap-4">
+                                        <ExpandableSearchBar isScrolled={isScrolled} />
+
+                                        {/* Language Switcher (Simple Text, No Background) */}
+                                        <button
+                                          type="button"
+                                          onClick={toggleLanguage}
+                                          className="text-white hover:text-red-500 font-bold text-sm tracking-wider uppercase transition-colors duration-200 cursor-pointer py-1.5 px-2 select-none"
+                                          title={isArabic ? "Switch to English" : "التبديل إلى العربية"}
+                                          aria-label={isArabic ? "Switch to English" : "التبديل إلى العربية"}
+                                        >
+                                          {isArabic ? "English" : "العربية"}
+                                        </button>
+
+                                        <button
+                                          type="button"
+                                          onClick={() => setIsBookingModalOpen(true)}
+                                          className="btn-primary hover:bg-red-700 text-white px-8 py-3 rounded-full text-sm font-bold transition-all tracking-widest cursor-pointer shadow-md hover:scale-105 active:scale-95"
+                                        >
+                                          {isArabic ? "حجز موعد" : "BOOKING"}
+                                        </button>
+                                      </div>
+
+                                      {/* Mobile Actions: Search + Language Switcher + Hamburger Menu */}
+                                      <div className="flex items-center gap-2 lg:hidden">
+                                        <ExpandableSearchBar isScrolled={isScrolled} />
+
+                                        {/* Mobile Language Switcher (Simple Text, No Background) */}
+                                        <button
+                                          type="button"
+                                          onClick={toggleLanguage}
+                                          className="text-white hover:text-red-500 font-bold text-xs tracking-wider uppercase transition-colors duration-200 cursor-pointer py-1.5 px-1.5 select-none"
+                                          title={isArabic ? "Switch to English" : "التبديل إلى العربية"}
+                                          aria-label={isArabic ? "Switch to English" : "التبديل إلى العربية"}
+                                        >
+                                          {isArabic ? "EN" : "عربي"}
+                                        </button>
+
+                                        <button
+                                          className="text-white p-1.5 hover:bg-white/10 rounded-full transition-colors cursor-pointer"
+                                          onClick={() => setMobileMenuOpen(true)}
+                                          aria-label="Open Navigation Menu"
+                                        >
+                                          <Menu size={26} />
+                                        </button>
                                       </div>
                                     </div>
-                                    <p className="text-xs text-zinc-300 leading-relaxed font-medium">
-                                      {isArabic
-                                        ? "أجهزة فحص متطورة، كشف أسعار مسبق، وضمان كامل على كافة الأعمال الميكانيكية والكهربائية."
-                                        : "Advanced diagnostic scanners, transparent quotes, and full warranty on all mechanical & electrical repairs."}
-                                    </p>
                                   </div>
+                                </nav>
 
-                                  <div className="pt-4 border-t border-zinc-800/80 flex flex-col gap-2">
-                                    <Link
-                                      href="/services"
-                                      onClick={() => setIsServicesMegaOpen(false)}
-                                      className="inline-flex items-center justify-center gap-1.5 bg-red-600 hover:bg-red-700 text-white text-xs font-bold py-2.5 px-4 rounded-xl transition-all shadow-md active:scale-95 text-center"
+                                {/* Mobile Menu Drawer */}
+                                <AnimatePresence>
+                                  {mobileMenuOpen && (
+                                    <motion.div
+                                      initial={{ x: isArabic ? "-100%" : "100%" }}
+                                      animate={{ x: 0 }}
+                                      exit={{ x: isArabic ? "-100%" : "100%" }}
+                                      transition={{ type: "tween", duration: 0.35 }}
+                                      className="fixed inset-0 bg-black z-[10002] p-8 flex flex-col"
                                     >
-                                      <span>{isArabic ? "تصفح صفحة الخدمات الكاملة" : "Explore All Services"}</span>
-                                      <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
-                                    </Link>
-                                    <Link
-                                      href="/booking"
-                                      onClick={() => setIsServicesMegaOpen(false)}
-                                      className="inline-flex items-center justify-center gap-1.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-bold py-2 px-3 rounded-xl transition-all text-center border border-zinc-700"
-                                    >
-                                      <span>{isArabic ? "حجز موعد فحص فوري" : "Book Fast Slot"}</span>
-                                    </Link>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </div>
-                  );
-                }
+                                      <div className="flex justify-between items-center mb-8">
+                                        <div className="h-10 w-28 relative">
+                                          <Image
+                                            src="/images/logo.png"
+                                            alt="Logo"
+                                            fill
+                                            className="object-contain"
+                                          />
+                                        </div>
+                                        <button
+                                          onClick={() => setMobileMenuOpen(false)}
+                                          className="text-white p-2 hover:bg-white/10 rounded-full cursor-pointer"
+                                          aria-label="Close Navigation Menu"
+                                        >
+                                          <X size={30} />
+                                        </button>
+                                      </div>
 
-                return (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className="relative py-2 font-bold text-sm tracking-widest uppercase transition-colors duration-300 group text-white"
-                  >
-                    {link.label}
-                    <span
-                      className={`absolute bottom-0 left-0 w-full h-[2px] bg-red-600 transition-transform duration-300 ease-out origin-center ${
-                        isActive
-                          ? "scale-x-100"
-                          : "scale-x-0 group-hover:scale-x-100"
-                      }`}
-                    />
-                  </Link>
-                );
-              })}
-            </div>
+                                      {/* Language Switcher in Drawer */}
+                                      <button
+                                        type="button"
+                                        onClick={toggleLanguage}
+                                        className="flex items-center justify-center gap-2.5 w-full py-3 px-4 bg-zinc-900 hover:bg-zinc-800 border border-white/20 rounded-full text-sm font-bold text-white transition-all shadow-md active:scale-95 cursor-pointer mb-6 group"
+                                        title={isArabic ? "Switch to English" : "التبديل إلى العربية"}
+                                      >
+                                        <Globe className="w-4 h-4 text-red-500 transition-transform duration-300 group-hover:rotate-45" />
+                                        <span>{isArabic ? "English" : "العربية"}</span>
+                                      </button>
 
-            {/* Desktop Right Actions: Search + Language Switcher + Contact Button */}
-            <div className="hidden lg:flex items-center gap-4">
-              <ExpandableSearchBar isScrolled={isScrolled} />
+                                      {/* Mobile Drawer Search Bar */}
+                                      <div className="mb-6">
+                                        <ExpandableSearchBar
+                                          isDrawer={true}
+                                          onCloseMenu={() => setMobileMenuOpen(false)}
+                                        />
+                                      </div>
 
-              {/* Language Switcher (Simple Text, No Background) */}
-              <button
-                type="button"
-                onClick={toggleLanguage}
-                className="text-white hover:text-red-500 font-bold text-sm tracking-wider uppercase transition-colors duration-200 cursor-pointer py-1.5 px-2 select-none"
-                title={isArabic ? "Switch to English" : "التبديل إلى العربية"}
-                aria-label={isArabic ? "Switch to English" : "التبديل إلى العربية"}
-              >
-                {isArabic ? "English" : "العربية"}
-              </button>
+                                      {/* Mobile Links */}
+                                      <div className="flex flex-col gap-4 overflow-y-auto max-h-[calc(100vh-280px)] slim-scrollbar pr-1">
+                                        {navLinks.map((link) => {
+                                          if (link.hasMega) {
+                                            return (
+                                              <div key={link.href} className="border-b border-zinc-800 pb-3">
+                                                <div className="flex items-center justify-between">
+                                                  <Link
+                                                    href={link.href}
+                                                    className={`text-xl font-black uppercase tracking-tight hover:text-red-600 transition-colors ${pathname === link.href ? "text-red-600" : "text-white"
+                                                      }`}
+                                                    onClick={() => setMobileMenuOpen(false)}
+                                                  >
+                                                    {link.label}
+                                                  </Link>
+                                                  <button
+                                                    type="button"
+                                                    onClick={() => setMobileServicesExpanded((prev) => !prev)}
+                                                    className="p-2 text-zinc-400 hover:text-white transition-colors cursor-pointer"
+                                                    aria-label="Toggle subservices"
+                                                  >
+                                                    <ChevronDown
+                                                      className={`w-5 h-5 transition-transform duration-200 ${mobileServicesExpanded ? "rotate-180 text-red-500" : ""
+                                                        }`}
+                                                    />
+                                                  </button>
+                                                </div>
 
-              <button
-                type="button"
-                onClick={() => setIsBookingModalOpen(true)}
-                className="btn-primary hover:bg-red-700 text-white px-8 py-3 rounded-full text-sm font-bold transition-all tracking-widest cursor-pointer shadow-md hover:scale-105 active:scale-95"
-              >
-                {isArabic ? "حجز موعد" : "BOOKING"}
-              </button>
-            </div>
+                                                {/* Mobile Accordion Subservices */}
+                                                <AnimatePresence>
+                                                  {mobileServicesExpanded && (
+                                                    <motion.div
+                                                      initial={{ height: 0, opacity: 0 }}
+                                                      animate={{ height: "auto", opacity: 1 }}
+                                                      exit={{ height: 0, opacity: 0 }}
+                                                      transition={{ duration: 0.2 }}
+                                                      className="overflow-hidden mt-3 pl-3 rtl:pl-0 rtl:pr-3 space-y-2 border-l-2 rtl:border-l-0 rtl:border-r-2 border-red-600/50"
+                                                    >
+                                                      {SERVICES_MEGA_ITEMS.map((item) => {
+                                                        const Icon = item.icon;
+                                                        return (
+                                                          <Link
+                                                            key={item.id}
+                                                            href={item.href}
+                                                            onClick={() => setMobileMenuOpen(false)}
+                                                            className="flex items-center gap-3 p-2 rounded-xl bg-zinc-900/60 hover:bg-zinc-800 text-zinc-300 hover:text-white transition-colors group"
+                                                          >
+                                                            <div className="w-8 h-8 rounded-lg bg-zinc-800 text-red-500 flex items-center justify-center shrink-0 group-hover:bg-red-600 group-hover:text-white transition-colors">
+                                                              <Icon className="w-4 h-4" />
+                                                            </div>
+                                                            <span className="text-sm font-bold truncate">
+                                                              {isArabic ? item.titleAr : item.titleEn}
+                                                            </span>
+                                                          </Link>
+                                                        );
+                                                      })}
+                                                      <Link
+                                                        href="/services"
+                                                        onClick={() => setMobileMenuOpen(false)}
+                                                        className="inline-flex items-center gap-1.5 text-xs font-bold text-red-400 hover:text-red-300 pt-1"
+                                                      >
+                                                        <span>{isArabic ? "عرض صفحة جميع الخدمات ->" : "View All Services Page ->"}</span>
+                                                      </Link>
+                                                    </motion.div>
+                                                  )}
+                                                </AnimatePresence>
+                                              </div>
+                                            );
+                                          }
 
-            {/* Mobile Actions: Search + Language Switcher + Hamburger Menu */}
-            <div className="flex items-center gap-2 lg:hidden">
-              <ExpandableSearchBar isScrolled={isScrolled} />
+                                          return (
+                                            <Link
+                                              key={link.href}
+                                              href={link.href}
+                                              className={`text-xl font-black uppercase tracking-tight hover:text-red-600 transition-colors ${pathname === link.href ? "text-red-600" : "text-white"
+                                                }`}
+                                              onClick={() => setMobileMenuOpen(false)}
+                                            >
+                                              {link.label}
+                                            </Link>
+                                          );
+                                        })}
 
-              {/* Mobile Language Switcher (Simple Text, No Background) */}
-              <button
-                type="button"
-                onClick={toggleLanguage}
-                className="text-white hover:text-red-500 font-bold text-xs tracking-wider uppercase transition-colors duration-200 cursor-pointer py-1.5 px-1.5 select-none"
-                title={isArabic ? "Switch to English" : "التبديل إلى العربية"}
-                aria-label={isArabic ? "Switch to English" : "التبديل إلى العربية"}
-              >
-                {isArabic ? "EN" : "عربي"}
-              </button>
+                                        <button
+                                          type="button"
+                                          onClick={() => {
+                                            setIsBookingModalOpen(true);
+                                            setMobileMenuOpen(false);
+                                          }}
+                                          className="mt-4 btn-primary py-4 text-white font-bold uppercase tracking-widest rounded-full cursor-pointer"
+                                        >
+                                          {isArabic ? "حجز موعد" : "BOOKING"}
+                                        </button>
+                                      </div>
+                                    </motion.div>
+                                  )}
+                                </AnimatePresence>
 
-              <button
-                className="text-white p-1.5 hover:bg-white/10 rounded-full transition-colors cursor-pointer"
-                onClick={() => setMobileMenuOpen(true)}
-                aria-label="Open Navigation Menu"
-              >
-                <Menu size={26} />
-              </button>
-            </div>
-          </div>
-        </div>
-      </nav>
-
-      {/* Mobile Menu Drawer */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ x: isArabic ? "-100%" : "100%" }}
-            animate={{ x: 0 }}
-            exit={{ x: isArabic ? "-100%" : "100%" }}
-            transition={{ type: "tween", duration: 0.35 }}
-            className="fixed inset-0 bg-black z-[10002] p-8 flex flex-col"
-          >
-            <div className="flex justify-between items-center mb-8">
-              <div className="h-10 w-28 relative">
-                <Image
-                  src="/images/logo.png"
-                  alt="Logo"
-                  fill
-                  className="object-contain"
-                />
-              </div>
-              <button
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-white p-2 hover:bg-white/10 rounded-full cursor-pointer"
-                aria-label="Close Navigation Menu"
-              >
-                <X size={30} />
-              </button>
-            </div>
-
-            {/* Language Switcher in Drawer */}
-            <button
-              type="button"
-              onClick={toggleLanguage}
-              className="flex items-center justify-center gap-2.5 w-full py-3 px-4 bg-zinc-900 hover:bg-zinc-800 border border-white/20 rounded-full text-sm font-bold text-white transition-all shadow-md active:scale-95 cursor-pointer mb-6 group"
-              title={isArabic ? "Switch to English" : "التبديل إلى العربية"}
-            >
-              <Globe className="w-4 h-4 text-red-500 transition-transform duration-300 group-hover:rotate-45" />
-              <span>{isArabic ? "English" : "العربية"}</span>
-            </button>
-
-            {/* Mobile Drawer Search Bar */}
-            <div className="mb-6">
-              <ExpandableSearchBar
-                isDrawer={true}
-                onCloseMenu={() => setMobileMenuOpen(false)}
-              />
-            </div>
-
-            {/* Mobile Links */}
-            <div className="flex flex-col gap-4 overflow-y-auto max-h-[calc(100vh-280px)] slim-scrollbar pr-1">
-              {navLinks.map((link) => {
-                if (link.hasMega) {
-                  return (
-                    <div key={link.href} className="border-b border-zinc-800 pb-3">
-                      <div className="flex items-center justify-between">
-                        <Link
-                          href={link.href}
-                          className={`text-xl font-black uppercase tracking-tight hover:text-red-600 transition-colors ${
-                            pathname === link.href ? "text-red-600" : "text-white"
-                          }`}
-                          onClick={() => setMobileMenuOpen(false)}
-                        >
-                          {link.label}
-                        </Link>
-                        <button
-                          type="button"
-                          onClick={() => setMobileServicesExpanded((prev) => !prev)}
-                          className="p-2 text-zinc-400 hover:text-white transition-colors cursor-pointer"
-                          aria-label="Toggle subservices"
-                        >
-                          <ChevronDown
-                            className={`w-5 h-5 transition-transform duration-200 ${
-                              mobileServicesExpanded ? "rotate-180 text-red-500" : ""
-                            }`}
-                          />
-                        </button>
-                      </div>
-
-                      {/* Mobile Accordion Subservices */}
-                      <AnimatePresence>
-                        {mobileServicesExpanded && (
-                          <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: "auto", opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.2 }}
-                            className="overflow-hidden mt-3 pl-3 rtl:pl-0 rtl:pr-3 space-y-2 border-l-2 rtl:border-l-0 rtl:border-r-2 border-red-600/50"
-                          >
-                            {SERVICES_MEGA_ITEMS.map((item) => {
-                              const Icon = item.icon;
-                              return (
-                                <Link
-                                  key={item.id}
-                                  href={item.href}
-                                  onClick={() => setMobileMenuOpen(false)}
-                                  className="flex items-center gap-3 p-2 rounded-xl bg-zinc-900/60 hover:bg-zinc-800 text-zinc-300 hover:text-white transition-colors group"
-                                >
-                                  <div className="w-8 h-8 rounded-lg bg-zinc-800 text-red-500 flex items-center justify-center shrink-0 group-hover:bg-red-600 group-hover:text-white transition-colors">
-                                    <Icon className="w-4 h-4" />
-                                  </div>
-                                  <span className="text-sm font-bold truncate">
-                                    {isArabic ? item.titleAr : item.titleEn}
-                                  </span>
-                                </Link>
+                                {/* Booking Appointment Modal */}
+                                <BookingModal
+                                  isOpen={isBookingModalOpen}
+                                  onClose={() => setIsBookingModalOpen(false)}
+                                />
+                              </>
                               );
-                            })}
-                            <Link
-                              href="/services"
-                              onClick={() => setMobileMenuOpen(false)}
-                              className="inline-flex items-center gap-1.5 text-xs font-bold text-red-400 hover:text-red-300 pt-1"
-                            >
-                              <span>{isArabic ? "عرض صفحة جميع الخدمات ->" : "View All Services Page ->"}</span>
-                            </Link>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </div>
-                  );
-                }
-
-                return (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className={`text-xl font-black uppercase tracking-tight hover:text-red-600 transition-colors ${
-                      pathname === link.href ? "text-red-600" : "text-white"
-                    }`}
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {link.label}
-                  </Link>
-                );
-              })}
-
-              <button
-                type="button"
-                onClick={() => {
-                  setIsBookingModalOpen(true);
-                  setMobileMenuOpen(false);
-                }}
-                className="mt-4 btn-primary py-4 text-white font-bold uppercase tracking-widest rounded-full cursor-pointer"
-              >
-                {isArabic ? "حجز موعد" : "BOOKING"}
-              </button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Booking Appointment Modal */}
-      <BookingModal
-        isOpen={isBookingModalOpen}
-        onClose={() => setIsBookingModalOpen(false)}
-      />
-    </>
-  );
 }
