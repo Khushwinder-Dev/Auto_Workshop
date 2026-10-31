@@ -3,7 +3,15 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronRight, ChevronLeft, MapPin, Phone, Mail, Clock } from "lucide-react";
+import {
+  ChevronRight,
+  ChevronLeft,
+  ChevronUp,
+  MapPin,
+  Phone,
+  Mail,
+  Clock,
+} from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
 export { default as NewsletterSection } from "./NewsletterSection";
@@ -12,6 +20,23 @@ export default function Footer() {
   const { isArabic, t } = useLanguage();
 
   const ArrowIcon = isArabic ? ChevronLeft : ChevronRight;
+
+  const scrollToTop = () => {
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
+  const handleSubscribeClick = () => {
+    if (typeof document !== "undefined") {
+      const el = document.getElementById("newsletter");
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+        const input = el.querySelector("input");
+        input?.focus();
+      }
+    }
+  };
 
   const serviceLinks = [
     {
@@ -51,7 +76,7 @@ export default function Footer() {
     { label: isArabic ? "مدونة الصيانة" : "Maintenance Blogs", href: "/blogs" },
     { label: isArabic ? "الأسئلة الشائعة" : "Customer FAQs", href: "/faqs" },
     { label: isArabic ? "احجز موعد صيانة" : "Book an Appointment", href: "/booking" },
-    { label: isArabic ? "سياسة الخصوصية والشروط" : "Privacy & Terms Policy", href: "/contact" },
+    { label: isArabic ? "سياسة الخصوصية والشروط" : "Privacy & Terms Policy", href: "/privacy" },
   ];
 
   return (
@@ -241,20 +266,97 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto mt-16 pt-8 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-4 text-[11px] uppercase tracking-widest text-gray-500">
-        <p>
-          {t.footer.copyright}
-        </p>
-        <div className="flex items-center gap-6">
-          <Link className="hover:text-white transition-colors" href="/sitemap">
-            {t.footer.sitemap}
-          </Link>
-          <Link className="hover:text-white transition-colors" href="/contact">
-            {t.footer.contact}
-          </Link>
-          <Link className="hover:text-white transition-colors" href="/booking">
-            {t.footer.appointment}
-          </Link>
+      {/* ── Bottom Bar (Taj Al Rahmah Reference Layout) ── */}
+      <div className="relative max-w-7xl mx-auto mt-16 pt-7 pb-4 border-t border-zinc-800/80">
+        {/* Scroll-to-top — sits centered ON the divider line with hover tooltip */}
+        <div className="absolute -top-5 left-1/2 -translate-x-1/2 z-20">
+          <div className="group relative flex flex-col items-center">
+            {/* Tooltip */}
+            <div
+              role="tooltip"
+              className="absolute bottom-full mb-2 opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0 transition-all duration-200 pointer-events-none z-30"
+            >
+              <div className="relative bg-zinc-900 border border-zinc-700/80 text-white text-[11px] sm:text-xs font-medium px-2.5 py-1 rounded-md shadow-lg whitespace-nowrap">
+                <span>{isArabic ? "العودة إلى الأعلى" : "Back to top"}</span>
+                {/* Tooltip arrow pointing down */}
+                <div className="absolute left-1/2 -bottom-1 -translate-x-1/2 w-0 h-0 border-x-4 border-x-transparent border-t-4 border-t-zinc-900" />
+              </div>
+            </div>
+
+            {/* Button Outer Ring */}
+            <div className="w-11 h-11 rounded-full bg-[#0a0a0a] ring-4 ring-[#0a0a0a] border border-zinc-800 flex items-center justify-center shadow-lg">
+              <button
+                type="button"
+                onClick={scrollToTop}
+                aria-label={isArabic ? "العودة إلى الأعلى" : "Back to top"}
+                className="w-9 h-9 rounded-full bg-red-600 hover:bg-red-500 text-white flex items-center justify-center hover:-translate-y-0.5 active:scale-95 transition-all duration-300 cursor-pointer shadow-md shadow-red-950/40"
+              >
+                <ChevronUp className="w-4 h-4 stroke-[2.5]" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 lg:gap-6">
+          {/* Copyright Text (matching Taj Al Rahmah casing & clean font) */}
+          <div className="text-center sm:text-start px-2 shrink-0">
+            <p className="text-xs sm:text-sm text-zinc-400 font-normal leading-normal">
+              {isArabic
+                ? "© 2026 ورشة باب البستان لصيانة السيارات. جميع الحقوق محفوظة."
+                : "© 2026 Bab Al Bustan Auto Maintenance Workshop. All rights reserved."}
+            </p>
+          </div>
+
+          {/* Refund & Legal Policy Links (separated by bullet dots, matching reference) */}
+          <div className="w-full sm:w-auto flex flex-row flex-wrap justify-center sm:justify-end items-center gap-y-2 gap-x-2 sm:gap-x-3 text-xs sm:text-sm text-zinc-400">
+            <Link
+              href="/sitemap"
+              className="hover:text-red-500 transition-colors whitespace-nowrap"
+            >
+              {isArabic ? "خريطة الموقع" : "Site Map"}
+            </Link>
+            <span className="text-zinc-600 select-none">•</span>
+
+            <Link
+              href="/refund-policy"
+              className="hover:text-red-500 transition-colors whitespace-nowrap"
+            >
+              {isArabic ? "سياسة الاسترداد والإلغاء" : "Refund & Cancellation Policy"}
+            </Link>
+            <span className="text-zinc-600 select-none">•</span>
+
+            <Link
+              href="/privacy"
+              className="hover:text-red-500 transition-colors whitespace-nowrap"
+            >
+              {isArabic ? "سياسة الخصوصية" : "Privacy Policy"}
+            </Link>
+            <span className="text-zinc-600 select-none">•</span>
+
+            <Link
+              href="/terms"
+              className="hover:text-red-500 transition-colors whitespace-nowrap"
+            >
+              {isArabic ? "شروط الاستخدام" : "Terms of Use"}
+            </Link>
+            <span className="text-zinc-600 select-none">•</span>
+
+            <Link
+              href="/cookies"
+              className="hover:text-red-500 transition-colors whitespace-nowrap"
+            >
+              {isArabic ? "سياسة الكوكيز" : "Cookie Policy"}
+            </Link>
+            <span className="text-zinc-600 select-none">•</span>
+
+            <button
+              type="button"
+              onClick={handleSubscribeClick}
+              className="hover:text-red-500 transition-colors whitespace-nowrap cursor-pointer text-start"
+            >
+              {isArabic ? "الاشتراك بالبريد" : "Subscribe to email"}
+            </button>
+          </div>
         </div>
       </div>
     </footer>

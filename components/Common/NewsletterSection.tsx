@@ -75,6 +75,7 @@ export default function NewsletterSection() {
 
   return (
     <section
+      id="newsletter"
       aria-labelledby="newsletter-heading"
       className="relative bg-zinc-50/80 border-t border-zinc-200/90 py-14 sm:py-16 px-4 font-sans overflow-hidden"
     >
