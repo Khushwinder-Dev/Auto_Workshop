@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Barlow_Condensed } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import NewsletterSection from "@/components/Common/NewsletterSection";
-import Footer from "@/components/Common/Footer";
-import FloatingChatWidget from "@/components/Common/FloatingChatWidget";
+import SiteLayoutWrapper from "@/components/SiteLayoutWrapper";
 import { Toaster } from "react-hot-toast";
 import AosInit from "@/components/AosInit";
 import { LanguageProvider } from "@/context/LanguageContext";
@@ -122,14 +119,7 @@ export default function RootLayout({
           />
 
           <AosInit />
-          <Navbar />
-          <main className="min-h-screen">
-            {children}
-          </main>
-          <NewsletterSection />
-          <Footer />
-
-          <FloatingChatWidget />
+          <SiteLayoutWrapper>{children}</SiteLayoutWrapper>
         </LanguageProvider>
       </body>
     </html>

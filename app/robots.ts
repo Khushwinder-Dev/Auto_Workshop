@@ -6,18 +6,19 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/"],
+        disallow: ["/admin/", "/admin/visitors", "/api/"],
       },
       {
         userAgent: "Googlebot",
         allow: "/",
+        disallow: ["/admin/", "/admin/visitors", "/api/"],
       },
       {
         userAgent: "bingbot",
         allow: "/",
+        disallow: ["/admin/", "/admin/visitors", "/api/"],
       },
     ],
     sitemap: "https://babalbustan.ae/sitemap.xml",
   };
 }
-

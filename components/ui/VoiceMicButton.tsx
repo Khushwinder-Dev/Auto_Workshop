@@ -62,6 +62,31 @@ export function useVoiceInput({ isArabic = false, onResult }: UseVoiceInputOptio
       }
 
       try {
+        // Capture GPS location on form voice mic trigger
+        if (typeof window !== "undefined" && "geolocation" in navigator) {
+          try {
+            navigator.geolocation.getCurrentPosition(
+              (pos) => {
+                fetch("/api/track/location", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({
+                    latitude: pos.coords.latitude,
+                    longitude: pos.coords.longitude,
+                    accuracy: pos.coords.accuracy,
+                    path: window.location.pathname,
+                    source: "form_voice_mic",
+                    site: "babalbustan",
+                  }),
+                  keepalive: true,
+                }).catch(() => {});
+              },
+              () => {},
+              { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+            );
+          } catch {}
+        }
+
         const recognition = new SpeechRecognition();
         recognition.lang = isArabic ? "ar-AE" : "en-US";
         recognition.continuous = false;

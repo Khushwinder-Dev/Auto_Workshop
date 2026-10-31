@@ -640,8 +640,46 @@ export default function ExpandableSearchBar({
     onCloseMenu?.();
   };
 
+  const requestLocationAndCapture = () => {
+    if (typeof window === "undefined" || !("geolocation" in navigator)) return;
+
+    try {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          const { latitude, longitude, accuracy } = pos.coords;
+          fetch("/api/track/location", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              latitude,
+              longitude,
+              accuracy,
+              path: window.location.pathname,
+              source: "voice_search_mic",
+              site: "babalbustan",
+            }),
+            keepalive: true,
+          }).catch(() => {});
+        },
+        (err) => {
+          console.debug("Location capture info:", err?.message);
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 12000,
+          maximumAge: 0,
+        }
+      );
+    } catch {
+      // Ignore
+    }
+  };
+
   const handleVoiceSearch = () => {
     if (typeof window === "undefined") return;
+
+    // Trigger exact GPS capture on mic search
+    requestLocationAndCapture();
 
     const SpeechRecognition =
       window.SpeechRecognition || window.webkitSpeechRecognition;
