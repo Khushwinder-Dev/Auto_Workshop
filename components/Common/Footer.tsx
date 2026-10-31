@@ -76,6 +76,7 @@ export default function Footer() {
     { label: isArabic ? "مدونة الصيانة" : "Maintenance Blogs", href: "/blogs" },
     { label: isArabic ? "الأسئلة الشائعة" : "Customer FAQs", href: "/faqs" },
     { label: isArabic ? "احجز موعد صيانة" : "Book an Appointment", href: "/booking" },
+    { label: isArabic ? "طلب عرض سعر" : "Get a Quote", href: "/quote" },
     { label: isArabic ? "سياسة الخصوصية والشروط" : "Privacy & Terms Policy", href: "/privacy" },
   ];
 
