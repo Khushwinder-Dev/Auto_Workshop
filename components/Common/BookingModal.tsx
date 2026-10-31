@@ -309,75 +309,75 @@ export default function BookingModal({
 
   return (
     <div
-      className="fixed inset-0 z-[100000] flex items-center justify-center p-3 sm:p-5 md:p-6 bg-black/75 backdrop-blur-sm transition-opacity duration-300 animate-in fade-in"
+      className="fixed inset-0 z-[100000] flex items-center justify-center p-3 sm:p-5 md:p-6 bg-black/70 backdrop-blur-sm transition-opacity duration-300 animate-in fade-in"
       onClick={onClose}
       dir={isAr ? "rtl" : "ltr"}
     >
       {/* Modal Container */}
       <div
-        className="relative w-full max-w-xl bg-zinc-950 text-white rounded-3xl sm:rounded-[32px] overflow-hidden shadow-2xl border border-red-500/25 flex flex-col max-h-[92vh] animate-in zoom-in-95 duration-200"
+        className="relative w-full max-w-xl bg-white text-zinc-900 rounded-[32px] sm:rounded-[36px] overflow-hidden shadow-[0_25px_70px_rgba(0,0,0,0.25)] border border-zinc-200/90 flex flex-col max-h-[92vh] animate-in zoom-in-95 duration-200"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Modal Header */}
-        <div className="px-6 sm:px-8 py-5 border-b border-zinc-800/80 bg-zinc-900/90 flex items-center justify-between shrink-0">
+        {/* Modal Header (TajAlRahmah Reference Style: Tinted Header Banner) */}
+        <div className="px-6 sm:px-8 py-5 border-b border-red-100/80 bg-gradient-to-r from-red-50/90 via-rose-50/40 to-red-50/20 flex items-center justify-between shrink-0">
           <div className="flex items-center gap-3.5 min-w-0 pr-4 rtl:pr-0 rtl:pl-4">
-            <div className="w-11 h-11 rounded-2xl bg-black border border-red-500/30 flex items-center justify-center flex-shrink-0 shadow-md">
+            <div className="w-12 h-12 rounded-2xl bg-white border border-red-100/80 flex items-center justify-center flex-shrink-0 shadow-2xs p-2">
               <Image
                 src="/images/logo.png"
                 alt="Bab Al Bustan Logo"
-                width={38}
-                height={38}
-                className="w-auto h-auto max-h-7 object-contain"
+                width={40}
+                height={40}
+                className="w-auto h-auto max-h-8 object-contain"
               />
             </div>
             <div className="min-w-0">
-              <div className="flex items-center gap-1.5 mb-0.5">
-                <span className="w-3.5 h-[2.5px] bg-red-600 rounded-full" />
-                <span className="text-[10px] sm:text-[11px] font-black uppercase tracking-wider text-red-500 inline-flex items-center gap-1">
-                  <Sparkles className="w-3 h-3 text-red-500" />
+              <div className="flex items-center gap-2 mb-0.5">
+                <span className="w-3.5 h-[2px] bg-red-600 rounded-full" />
+                <span className="text-[11px] font-extrabold uppercase tracking-widest text-red-600 inline-flex items-center gap-1">
+                  <Sparkles className="w-3 h-3 text-red-600 fill-red-600/20" />
                   {isQuote
                     ? isAr
-                      ? "عرض سعر فوري • ورشة باب البستان"
-                      : "Instant Free Quote • Bab Al Bustan"
+                      ? "طلب عرض سعر فوري"
+                      : "INSTANT PRICE QUOTE"
                     : isAr
-                      ? "ورشة باب البستان المعتمدة"
-                      : "Bab Al Bustan Auto Workshop"}
+                      ? "حجز موعد فحص فوري"
+                      : "WORKSHOP APPOINTMENT"}
                 </span>
               </div>
-              <h2 className="text-base sm:text-lg font-black text-white tracking-tight leading-tight">
+              <h2 className="text-lg sm:text-[21px] font-extrabold text-zinc-950 tracking-tight leading-tight">
                 {isQuote
                   ? isAr
-                    ? "احصل على عرض سعر لصيانة سيارتك"
-                    : "Get an Instant Service Quote"
+                    ? "طلب عرض سعر لصيانة سيارتك"
+                    : "Request a Workshop Quote"
                   : isAr
-                    ? "احجز موعد صيانة سيارتك الآن"
-                    : "Book Your Workshop Service Bay"}
+                    ? "حجز موعد فحص وصيانة بالورشة"
+                    : "Book a Service Appointment"}
               </h2>
             </div>
           </div>
 
-          {/* Close Button */}
+          {/* Close Button (Circle Pill in Header) */}
           <button
             type="button"
             onClick={onClose}
             aria-label={isAr ? "إغلاق" : "Close"}
-            className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-zinc-800 hover:bg-zinc-700 text-zinc-300 hover:text-white border border-zinc-700/80 shadow-sm flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-red-500 shrink-0"
+            className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/90 hover:bg-white text-zinc-500 hover:text-zinc-900 border border-zinc-200/80 shadow-2xs flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer shrink-0"
           >
-            <X className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
+            <X className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.2]" />
           </button>
         </div>
 
         {/* Modal Scrollable Body */}
-        <div className="overflow-y-auto px-6 sm:px-8 py-6 space-y-5 bg-zinc-950">
+        <div className="overflow-y-auto px-6 sm:px-8 py-6 space-y-4 bg-white">
           {isSubmitted ? (
-            /* Success State */
-            <div className="bg-zinc-900/90 border border-emerald-500/30 rounded-3xl p-6 sm:p-8 flex flex-col items-center text-center gap-4 animate-in zoom-in-95 duration-200">
-              <div className="w-16 h-16 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 flex items-center justify-center shadow-lg">
+            /* Success State - Clean Light Theme */
+            <div className="bg-emerald-50/70 border border-emerald-200 rounded-3xl p-6 sm:p-8 flex flex-col items-center text-center gap-4 animate-in zoom-in-95 duration-200">
+              <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 border border-emerald-200 flex items-center justify-center shadow-xs">
                 <CheckCircle2 className="w-9 h-9 stroke-[2.3]" />
               </div>
 
               <div>
-                <h3 className="font-black text-lg sm:text-xl text-white mb-1.5">
+                <h3 className="font-extrabold text-lg sm:text-xl text-zinc-950 mb-1.5">
                   {isQuote
                     ? isAr
                       ? "تم استلام طلب عرض السعر بنجاح!"
@@ -386,7 +386,7 @@ export default function BookingModal({
                       ? "تم استلام طلب الموعد بنجاح!"
                       : "Appointment Request Confirmed!"}
                 </h3>
-                <p className="text-xs sm:text-sm text-zinc-300 max-w-sm mx-auto leading-relaxed">
+                <p className="text-xs sm:text-sm text-zinc-600 max-w-sm mx-auto leading-relaxed">
                   {isQuote
                     ? isAr
                       ? `شكراً لك ${formData.name}. تم تسجيل طلب عرض السعر لسيارتك (${formData.vehicle || "المركبة"}). سيتواصل معك مستشار الخدمة لتزويدك بتقدير التكلفة والخيارات المتاحة.`
@@ -398,30 +398,30 @@ export default function BookingModal({
               </div>
 
               {/* Booking Summary Box */}
-              <div className="w-full max-w-md bg-black/60 border border-white/10 rounded-2xl p-4 text-xs text-left rtl:text-right space-y-2 shadow-inner">
-                <div className="flex items-center justify-between text-zinc-300 pb-1.5 border-b border-zinc-800/80">
-                  <span className="font-semibold text-zinc-400">{isAr ? "اسم العميل:" : "Client:"}</span>
-                  <span className="font-bold text-white">{formData.name}</span>
+              <div className="w-full max-w-md bg-white border border-zinc-200 rounded-2xl p-4 text-xs text-left rtl:text-right space-y-2 shadow-2xs">
+                <div className="flex items-center justify-between text-zinc-600 pb-1.5 border-b border-zinc-100">
+                  <span className="font-medium text-zinc-500">{isAr ? "اسم العميل:" : "Client:"}</span>
+                  <span className="font-bold text-zinc-900">{formData.name}</span>
                 </div>
-                <div className="flex items-center justify-between text-zinc-300 pb-1.5 border-b border-zinc-800/80">
-                  <span className="font-semibold text-zinc-400">{isAr ? "الهاتف:" : "Phone:"}</span>
-                  <span className="font-bold text-white" dir="ltr">{formData.phone}</span>
+                <div className="flex items-center justify-between text-zinc-600 pb-1.5 border-b border-zinc-100">
+                  <span className="font-medium text-zinc-500">{isAr ? "الهاتف:" : "Phone:"}</span>
+                  <span className="font-bold text-zinc-900" dir="ltr">{formData.phone}</span>
                 </div>
                 {formData.vehicle && (
-                  <div className="flex items-center justify-between text-zinc-300 pb-1.5 border-b border-zinc-800/80">
-                    <span className="font-semibold text-zinc-400">{isAr ? "السيارة والموديل:" : "Vehicle:"}</span>
-                    <span className="font-bold text-red-400">{formData.vehicle}</span>
+                  <div className="flex items-center justify-between text-zinc-600 pb-1.5 border-b border-zinc-100">
+                    <span className="font-medium text-zinc-500">{isAr ? "السيارة والموديل:" : "Vehicle:"}</span>
+                    <span className="font-bold text-red-600">{formData.vehicle}</span>
                   </div>
                 )}
-                <div className="flex items-center justify-between text-zinc-300 pb-1.5 border-b border-zinc-800/80">
-                  <span className="font-semibold text-zinc-400">{isAr ? "الخدمة المطلوبة:" : "Service:"}</span>
-                  <span className="font-bold text-red-500 truncate max-w-[240px]">
+                <div className="flex items-center justify-between text-zinc-600 pb-1.5 border-b border-zinc-100">
+                  <span className="font-medium text-zinc-500">{isAr ? "الخدمة المطلوبة:" : "Service:"}</span>
+                  <span className="font-bold text-red-600 truncate max-w-[240px]">
                     {selectedServiceLabel}
                   </span>
                 </div>
-                <div className="flex items-center justify-between text-zinc-300">
-                  <span className="font-semibold text-zinc-400">{isAr ? "الوقت المقترح:" : "Timing:"}</span>
-                  <span className="font-medium text-white">
+                <div className="flex items-center justify-between text-zinc-600">
+                  <span className="font-medium text-zinc-500">{isAr ? "الوقت المقترح:" : "Timing:"}</span>
+                  <span className="font-bold text-zinc-900">
                     {formData.preferredDate ? `${formData.preferredDate} — ` : ""}
                     {formData.preferredTime}
                   </span>
@@ -433,7 +433,7 @@ export default function BookingModal({
                   href="https://wa.me/971564406456"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-5 py-2.5 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs tracking-wider uppercase inline-flex items-center gap-2 transition-transform hover:scale-105 active:scale-95 shadow-md shadow-emerald-900/30"
+                  className="px-5 py-2.5 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs tracking-wider uppercase inline-flex items-center gap-2 transition-transform hover:scale-105 active:scale-95 shadow-md shadow-emerald-900/20"
                 >
                   <Phone className="w-3.5 h-3.5" />
                   <span>{isAr ? "محادثة واتساب فورية" : "Chat on WhatsApp"}</span>
@@ -441,26 +441,26 @@ export default function BookingModal({
                 <button
                   type="button"
                   onClick={onClose}
-                  className="px-5 py-2.5 rounded-full bg-zinc-800 hover:bg-zinc-700 text-zinc-300 hover:text-white font-bold text-xs tracking-wider uppercase transition-colors cursor-pointer"
+                  className="px-5 py-2.5 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-700 font-bold text-xs tracking-wider uppercase transition-colors cursor-pointer"
                 >
                   {isAr ? "إغلاق" : "Close"}
                 </button>
               </div>
             </div>
           ) : (
-            /* Booking Form */
+            /* Booking Form - Reference Layout */
             <form onSubmit={handleSubmit} className="flex flex-col gap-4" noValidate>
-              <p className="text-xs sm:text-[13px] text-zinc-400 leading-relaxed">
+              <p className="text-sm text-zinc-600 leading-relaxed font-normal">
                 {isQuote
                   ? isAr
-                    ? "أدخل بياناتك وتفاصيل سيارتك للحصول على عرض سعر فوري وشفاف مع ضمان قطع الغيار الأصلية وأجور اليد المعتمدة."
-                    : "Fill in your vehicle details and required service for an upfront, transparent repair estimate with guaranteed OEM parts."
+                    ? "يرجى تقديم بيانات الاتصال واختيار الخدمة المطلوبة. سيقوم مستشار الخدمة بالورشة بتزويدك بتقدير التكلفة والخيارات المتاحة."
+                    : "Please provide your contact details and select the service you wish to discuss. Our workshop service advisor will coordinate your estimate with you."
                   : isAr
-                    ? "أدخل بياناتك ونوع سيارتك لحجز موعد فحص فوري أو صيانة شاملة مع قطع غيار أصلية وضمان معتمد."
-                    : "Fill in your details and vehicle model to book priority workshop bay time with certified technicians and guaranteed parts."}
+                    ? "يرجى تقديم بيانات الاتصال الخاصة بك وتحديد الخدمة المطلوبة. سيقوم مستشار الخدمة بالورشة بتنسيق وتأكيد موعد الفحص معك."
+                    : "Please provide your contact details and select the service you wish to discuss. Our workshop service advisor will coordinate the appointment with you."}
               </p>
 
-              {/* 2-Column: Name & Email */}
+              {/* Row 1: 2-Column (Full Name * | Email Address *) */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 <FloatInput
                   name="name"
@@ -468,8 +468,8 @@ export default function BookingModal({
                   label={isAr ? "الاسم الكامل" : "Full Name"}
                   required
                   isArabic={isAr}
-                  variant="dark"
-                  icon={<User className="w-4 h-4 text-zinc-400" />}
+                  variant="light"
+                  // icon={<User className="w-4 h-4 text-zinc-400" />}
                   error={errors.name}
                   hasError={Boolean(errors.name)}
                   isListening={voice.listeningField === "name"}
@@ -487,8 +487,8 @@ export default function BookingModal({
                   label={isAr ? "البريد الإلكتروني" : "Email Address"}
                   required
                   isArabic={isAr}
-                  variant="dark"
-                  icon={<Mail className="w-4 h-4 text-zinc-400" />}
+                  variant="light"
+                  // icon={<Mail className="w-4 h-4 text-zinc-400" />}
                   error={errors.email}
                   hasError={Boolean(errors.email)}
                   isListening={voice.listeningField === "email"}
@@ -500,51 +500,37 @@ export default function BookingModal({
                 />
               </div>
 
-              {/* 2-Column: Phone & Vehicle */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                <FloatInput
-                  type="tel"
-                  name="phone"
-                  value={formData.phone}
-                  label={isAr ? "رقم الهاتف / واتساب" : "Phone / WhatsApp"}
-                  required
-                  isArabic={isAr}
-                  variant="dark"
-                  icon={<Phone className="w-4 h-4 text-zinc-400" />}
-                  error={errors.phone}
-                  hasError={Boolean(errors.phone)}
-                  isListening={voice.listeningField === "phone"}
-                  onVoiceToggle={() => voice.toggleListening("phone", "phone")}
-                  onChange={(e) => {
-                    setFormData({ ...formData, phone: e.target.value });
-                    if (errors.phone) setErrors({ ...errors, phone: "" });
-                  }}
-                />
+              {/* Row 2: Full Width (Phone / WhatsApp) */}
+              <FloatInput
+                type="tel"
+                name="phone"
+                value={formData.phone}
+                label={isAr ? "رقم الهاتف / واتساب" : "Phone / WhatsApp"}
+                required
+                isArabic={isAr}
+                variant="light"
+                // icon={<Phone className="w-4 h-4 text-zinc-400" />}
+                error={errors.phone}
+                hasError={Boolean(errors.phone)}
+                isListening={voice.listeningField === "phone"}
+                onVoiceToggle={() => voice.toggleListening("phone", "phone")}
+                onChange={(e) => {
+                  setFormData({ ...formData, phone: e.target.value });
+                  if (errors.phone) setErrors({ ...errors, phone: "" });
+                }}
+              />
 
-                <FloatInput
-                  name="vehicle"
-                  value={formData.vehicle}
-                  label={isAr ? "نوع وموديل السيارة (مثال: تويوتا كورولا 2022)" : "Car Make & Model (e.g., Toyota Corolla 2022)"}
-                  isArabic={isAr}
-                  variant="dark"
-                  icon={<Car className="w-4 h-4 text-zinc-400" />}
-                  isListening={voice.listeningField === "vehicle"}
-                  onVoiceToggle={() => voice.toggleListening("vehicle", "text")}
-                  onChange={(e) => setFormData({ ...formData, vehicle: e.target.value })}
-                />
-              </div>
-
-              {/* Service Dropdown */}
+              {/* Row 3: Full Width (Service to Query *) */}
               <div>
                 <SearchableSelect
                   name="service"
                   value={formData.service}
-                  label={isAr ? "الخدمة المطلوبة" : "Workshop Service Required"}
+                  label={isAr ? "الخدمة المطلوبة" : "Service to Query"}
                   options={WORKSHOP_SERVICE_OPTIONS}
                   required
                   isArabic={isAr}
                   variant="rounded-full"
-                  theme="dark"
+                  theme="light"
                   error={errors.service}
                   onChange={(val) => {
                     setFormData({ ...formData, service: val });
@@ -553,49 +539,53 @@ export default function BookingModal({
                 />
               </div>
 
-              {/* 2-Column: Preferred Date & Preferred Time */}
+              {/* Row 4: 2-Column (Preferred Date | Preferred Time) */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 <FloatInput
                   type="date"
                   name="preferredDate"
                   value={formData.preferredDate}
-                  label={isAr ? "التاريخ المفضل" : "Preferred Date"}
+                  label={isAr ? "التاريخ المفضل (اختياري)" : "Preferred Date (Optional)"}
                   isArabic={isAr}
-                  variant="dark"
-                  icon={<Calendar className="w-4 h-4 text-zinc-400" />}
+                  variant="light"
+                  // icon={<Calendar className="w-4 h-4 text-zinc-400" />}
                   onChange={(e) => setFormData({ ...formData, preferredDate: e.target.value })}
                 />
 
                 <SearchableSelect
                   name="preferredTime"
                   value={formData.preferredTime}
-                  label={isAr ? "الوقت المفضل" : "Preferred Time Slot"}
+                  label={isAr ? "الوقت المفضل (اختياري)" : "Preferred Time (Optional)"}
                   options={TIME_SLOT_OPTIONS}
                   isArabic={isAr}
                   variant="rounded-full"
-                  theme="dark"
+                  theme="light"
                   onChange={(val) => setFormData({ ...formData, preferredTime: val })}
                 />
               </div>
 
-              {/* Notes / Symptom Description */}
+              {/* Row 5: Full Width (Query Details / Notes / Vehicle Model) */}
               <FloatTextarea
                 name="notes"
                 value={formData.notes}
-                label={isAr ? "وصف العطل أو ملاحظات إضافية (اختياري)" : "Describe symptoms or specific issues (Optional)"}
+                label={
+                  isAr
+                    ? "تفاصيل الاستفسار / نوع وموديل السيارة (اختياري)"
+                    : "Query Details / Vehicle Make & Model (Optional)"
+                }
                 rows={3}
                 isArabic={isAr}
-                variant="dark"
+                variant="light"
                 isListening={voice.listeningField === "notes"}
                 onVoiceToggle={() => voice.toggleListening("notes", "text")}
                 onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
               />
 
-              {/* Submit Button */}
+              {/* Submit Button (Pill Button in Brand Color with Arrow) */}
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full mt-2 py-3.5 px-6 rounded-full bg-linear-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-black text-xs sm:text-sm uppercase tracking-widest flex items-center justify-center gap-2.5 shadow-lg shadow-red-900/40 hover:shadow-red-700/50 hover:scale-[1.01] active:scale-95 transition-all cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+                className="w-full mt-1 py-3.5 sm:py-4 px-7 rounded-full bg-linear-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-black text-xs sm:text-sm uppercase tracking-widest flex items-center justify-center gap-2.5 shadow-lg shadow-red-600/30 hover:shadow-red-600/50 hover:scale-[1.01] active:scale-95 transition-all cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? (
                   <>
@@ -603,11 +593,11 @@ export default function BookingModal({
                     <span>
                       {isQuote
                         ? isAr
-                          ? "جاري إرسال طلب عرض السعر..."
-                          : "Submitting Quote Request..."
+                          ? "جاري إرسال الطلب..."
+                          : "Submitting Request..."
                         : isAr
                           ? "جاري تأكيد الحجز..."
-                          : "Submitting Booking..."}
+                          : "Submitting Request..."}
                     </span>
                   </>
                 ) : (
@@ -615,11 +605,11 @@ export default function BookingModal({
                     <span>
                       {isQuote
                         ? isAr
-                          ? "طلب عرض السعر الفوري"
-                          : "Get a Free Quote"
+                          ? "تأكيد طلب عرض السعر"
+                          : "CONFIRM QUOTE REQUEST"
                         : isAr
-                          ? "تأكيد حجز موعد الصيانة"
-                          : "Confirm Service Booking"}
+                          ? "تأكيد طلب موعد الفحص"
+                          : "CONFIRM APPOINTMENT REQUEST"}
                     </span>
                     {isAr ? (
                       <ArrowLeft className="w-4 h-4 stroke-[2.5]" />
@@ -629,6 +619,13 @@ export default function BookingModal({
                   </>
                 )}
               </button>
+
+              {/* Bottom Trust Line (Reference style: "Your contact details are protected • Free engineering consultation") */}
+              <p className="text-center text-xs text-zinc-400 font-medium pt-0.5">
+                {isAr
+                  ? "بيانات الاتصال الخاصة بك محمية • فحص واستشارة فنية أولية بالورشة"
+                  : "Your contact details are protected • Free workshop inspection consultation"}
+              </p>
             </form>
           )}
         </div>
@@ -636,4 +633,3 @@ export default function BookingModal({
     </div>
   );
 }
-
