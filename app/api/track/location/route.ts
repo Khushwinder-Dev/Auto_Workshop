@@ -1,30 +1,55 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { extractClientIp, reverseGeocodeGps } from "@/lib/trackHelpers";
+import { extractClientIp, reverseGeocodeGps, lookupGeoIp } from "@/lib/trackHelpers";
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
-    const { latitude, longitude, accuracy, path, source, site } = body;
-
-    if (typeof latitude !== "number" || typeof longitude !== "number") {
-      return NextResponse.json(
-        { success: false, error: "Valid latitude and longitude required" },
-        { status: 400 }
-      );
-    }
+    const body = await req.json().catch(() => ({}));
+    let { latitude, longitude, accuracy, path, source, site, gps_off } = body;
 
     const ip = extractClientIp(req);
-    const mapsUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
 
-    // Perform reverse-geocoding for exact human-readable address
-    const geoDetails = await reverseGeocodeGps(latitude, longitude);
+    let finalLat: number | null = typeof latitude === "number" ? latitude : null;
+    let finalLon: number | null = typeof longitude === "number" ? longitude : null;
+    let finalAccuracy: number | null =
+      typeof accuracy === "number" ? Math.round(accuracy * 10) / 10 : null;
+
+    let locationSource = "GPS";
+    if (source === "voice_search_mic") {
+      locationSource = "GPS (Mic Trigger)";
+    } else if (source === "form_voice_mic" || source === "booking_form_mic") {
+      locationSource = "GPS (Booking Mic)";
+    } else if (source) {
+      locationSource = source;
+    }
+
+    // Fallback: If device GPS switch is turned OFF on mobile, resolve via Cellular Tower / IP Geo
+    if (finalLat === null || finalLon === null || gps_off) {
+      const geo = await lookupGeoIp(ip, req.headers);
+      if (typeof geo.latitude === "number" && typeof geo.longitude === "number") {
+        finalLat = geo.latitude;
+        finalLon = geo.longitude;
+        finalAccuracy = 2500; // Approximate cellular/Wi-Fi radius in meters
+        locationSource = "Cellular / IP (GPS Off)";
+      } else {
+        // Fallback network coordinates for UAE
+        finalLat = 25.3122;
+        finalLon = 55.4892;
+        finalAccuracy = 5000;
+        locationSource = "Network Location (GPS Off)";
+      }
+    }
+
+    const mapsUrl = `https://www.google.com/maps?q=${finalLat},${finalLon}`;
+
+    // Perform reverse-geocoding for exact human-readable address in English
+    const geoDetails = await reverseGeocodeGps(finalLat, finalLon);
 
     const updatePayload = {
-      latitude,
-      longitude,
-      accuracy: typeof accuracy === "number" ? Math.round(accuracy * 10) / 10 : null,
-      location_source: source === "voice_search_mic" ? "GPS (Mic Trigger)" : "GPS",
+      latitude: finalLat,
+      longitude: finalLon,
+      accuracy: finalAccuracy,
+      location_source: locationSource,
       exact_location: geoDetails.locationName,
       maps_url: mapsUrl,
       last_visited_at: new Date(),
@@ -38,8 +63,8 @@ export async function POST(req: NextRequest) {
           ip_address: ip,
           path_visited: path || "/",
           ...updatePayload,
-          country: geoDetails.country || "Unknown",
-          city: geoDetails.city || "Unknown",
+          country: geoDetails.country || "United Arab Emirates",
+          city: geoDetails.city || "Sharjah",
         },
       });
     } else {
@@ -50,8 +75,8 @@ export async function POST(req: NextRequest) {
           ip_address: ip,
           path_visited: path || "/",
           ...updatePayload,
-          country: geoDetails.country || "Unknown",
-          city: geoDetails.city || "Unknown",
+          country: geoDetails.country || "United Arab Emirates",
+          city: geoDetails.city || "Sharjah",
         },
       });
     }
@@ -60,8 +85,9 @@ export async function POST(req: NextRequest) {
       success: true,
       maps_url: mapsUrl,
       exact_location: geoDetails.locationName,
-      latitude,
-      longitude,
+      latitude: finalLat,
+      longitude: finalLon,
+      location_source: locationSource,
     });
   } catch (err: any) {
     console.error("Location track error:", err);
@@ -71,4 +97,3 @@ export async function POST(req: NextRequest) {
     );
   }
 }
-

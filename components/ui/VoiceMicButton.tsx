@@ -62,29 +62,73 @@ export function useVoiceInput({ isArabic = false, onResult }: UseVoiceInputOptio
       }
 
       try {
-        // Capture GPS location on form voice mic trigger
-        if (typeof window !== "undefined" && "geolocation" in navigator) {
-          try {
-            navigator.geolocation.getCurrentPosition(
-              (pos) => {
-                fetch("/api/track/location", {
-                  method: "POST",
-                  headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify({
-                    latitude: pos.coords.latitude,
-                    longitude: pos.coords.longitude,
-                    accuracy: pos.coords.accuracy,
-                    path: window.location.pathname,
-                    source: "form_voice_mic",
-                    site: "babalbustan",
-                  }),
-                  keepalive: true,
-                }).catch(() => {});
-              },
-              () => {},
-              { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
-            );
-          } catch {}
+        // Capture GPS location on form voice mic trigger (with multi-tier GPS-off fallback)
+        if (typeof window !== "undefined") {
+          const reportFallback = (sourceName = "mobile_form_gps_off") => {
+            fetch("/api/track/location", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                gps_off: true,
+                path: window.location.pathname,
+                source: sourceName,
+                site: "babalbustan",
+              }),
+              keepalive: true,
+            }).catch(() => {});
+          };
+
+          if ("geolocation" in navigator) {
+            try {
+              navigator.geolocation.getCurrentPosition(
+                (pos) => {
+                  fetch("/api/track/location", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                      latitude: pos.coords.latitude,
+                      longitude: pos.coords.longitude,
+                      accuracy: pos.coords.accuracy,
+                      path: window.location.pathname,
+                      source: "form_voice_mic",
+                      site: "babalbustan",
+                    }),
+                    keepalive: true,
+                  }).catch(() => {});
+                },
+                () => {
+                  try {
+                    navigator.geolocation.getCurrentPosition(
+                      (lowPos) => {
+                        fetch("/api/track/location", {
+                          method: "POST",
+                          headers: { "Content-Type": "application/json" },
+                          body: JSON.stringify({
+                            latitude: lowPos.coords.latitude,
+                            longitude: lowPos.coords.longitude,
+                            accuracy: lowPos.coords.accuracy,
+                            path: window.location.pathname,
+                            source: "mobile_cell_tower_form",
+                            site: "babalbustan",
+                          }),
+                          keepalive: true,
+                        }).catch(() => {});
+                      },
+                      () => reportFallback("mobile_form_gps_off"),
+                      { enableHighAccuracy: false, timeout: 5000, maximumAge: 60000 }
+                    );
+                  } catch {
+                    reportFallback("mobile_form_gps_off");
+                  }
+                },
+                { enableHighAccuracy: true, timeout: 6000, maximumAge: 0 }
+              );
+            } catch {
+              reportFallback("mobile_form_gps_off");
+            }
+          } else {
+            reportFallback("no_geolocation_api");
+          }
         }
 
         const recognition = new SpeechRecognition();

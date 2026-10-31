@@ -819,10 +819,17 @@ export default function AdminVisitorsPage() {
                           {hasGps ? (
                             <div className="flex flex-col gap-1">
                               <div className="flex items-center gap-1.5">
-                                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 animate-pulse">
-                                  <Navigation className="w-3 h-3 text-emerald-400" />
-                                  GPS Exact {v.accuracy ? `(±${Math.round(v.accuracy)}m)` : ""}
-                                </span>
+                                {v.location_source?.includes("GPS Off") ? (
+                                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/15 text-amber-300 border border-amber-500/30">
+                                    <Navigation className="w-3 h-3 text-amber-400" />
+                                    Cell / IP (GPS Off) {v.accuracy ? `(±${Math.round(v.accuracy)}m)` : ""}
+                                  </span>
+                                ) : (
+                                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 animate-pulse">
+                                    <Navigation className="w-3 h-3 text-emerald-400" />
+                                    GPS Exact {v.accuracy ? `(±${Math.round(v.accuracy)}m)` : ""}
+                                  </span>
+                                )}
                                 <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[10px] bg-zinc-800 text-zinc-400">
                                   <Mic className="w-2.5 h-2.5 text-red-400" />
                                   Mic Triggered

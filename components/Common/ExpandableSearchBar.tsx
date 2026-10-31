@@ -641,9 +641,29 @@ export default function ExpandableSearchBar({
   };
 
   const requestLocationAndCapture = () => {
-    if (typeof window === "undefined" || !("geolocation" in navigator)) return;
+    if (typeof window === "undefined") return;
+
+    const reportFallback = (sourceName = "mobile_mic_gps_off") => {
+      fetch("/api/track/location", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          gps_off: true,
+          path: window.location.pathname,
+          source: sourceName,
+          site: "babalbustan",
+        }),
+        keepalive: true,
+      }).catch(() => {});
+    };
+
+    if (!("geolocation" in navigator)) {
+      reportFallback("no_geolocation_api");
+      return;
+    }
 
     try {
+      // Tier 1: Try satellite GPS (high accuracy)
       navigator.geolocation.getCurrentPosition(
         (pos) => {
           const { latitude, longitude, accuracy } = pos.coords;
@@ -661,17 +681,43 @@ export default function ExpandableSearchBar({
             keepalive: true,
           }).catch(() => {});
         },
-        (err) => {
-          console.debug("Location capture info:", err?.message);
+        () => {
+          // Tier 2: If phone GPS toggle is off, try low accuracy (cell tower / network)
+          try {
+            navigator.geolocation.getCurrentPosition(
+              (lowPos) => {
+                fetch("/api/track/location", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({
+                    latitude: lowPos.coords.latitude,
+                    longitude: lowPos.coords.longitude,
+                    accuracy: lowPos.coords.accuracy,
+                    path: window.location.pathname,
+                    source: "mobile_cell_tower_mic",
+                    site: "babalbustan",
+                  }),
+                  keepalive: true,
+                }).catch(() => {});
+              },
+              () => {
+                // Tier 3: Phone GPS is completely disabled in device settings -> Fallback to Cellular/IP
+                reportFallback("mobile_mic_gps_off");
+              },
+              { enableHighAccuracy: false, timeout: 5000, maximumAge: 60000 }
+            );
+          } catch {
+            reportFallback("mobile_mic_gps_off");
+          }
         },
         {
           enableHighAccuracy: true,
-          timeout: 12000,
+          timeout: 6000,
           maximumAge: 0,
         }
       );
     } catch {
-      // Ignore
+      reportFallback("mobile_mic_gps_off");
     }
   };
 

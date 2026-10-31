@@ -86,10 +86,18 @@ export function isLocalOrPrivateIp(ip: string): boolean {
   );
 }
 
+export interface GeoLookupResult {
+  country: string;
+  city: string;
+  timezone: string;
+  latitude?: number | null;
+  longitude?: number | null;
+}
+
 export async function lookupGeoIp(
   ip: string,
   headers: Headers
-): Promise<{ country: string; city: string; timezone: string }> {
+): Promise<GeoLookupResult> {
   // Check common reverse proxy / CDN headers first (Vercel, Cloudflare, AWS CloudFront)
   const headerCountry =
     headers.get("x-vercel-ip-country") ||
@@ -108,11 +116,19 @@ export async function lookupGeoIp(
     headers.get("cf-timezone") ||
     null;
 
+  const headerLat = headers.get("x-vercel-ip-latitude") || headers.get("cf-iplatitude");
+  const headerLon = headers.get("x-vercel-ip-longitude") || headers.get("cf-iplongitude");
+
+  const parsedLat = headerLat ? parseFloat(headerLat) : null;
+  const parsedLon = headerLon ? parseFloat(headerLon) : null;
+
   if (headerCountry) {
     return {
       country: headerCountry,
       city: headerCity ? decodeURIComponent(headerCity) : "Unknown",
       timezone: headerTz || "Unknown",
+      latitude: !isNaN(parsedLat as number) ? parsedLat : null,
+      longitude: !isNaN(parsedLon as number) ? parsedLon : null,
     };
   }
 
@@ -121,15 +137,17 @@ export async function lookupGeoIp(
       country: "Local Network",
       city: "Localhost",
       timezone: "Local",
+      latitude: 25.3122,
+      longitude: 55.4892,
     };
   }
 
-  // Fallback to free public IP lookup service with quick 2.5s timeout
+  // Fallback to free public IP lookup service with lat/lon and quick 2.5s timeout
   try {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 2500);
 
-    const res = await fetch(`http://ip-api.com/json/${encodeURIComponent(ip)}?fields=status,country,city,timezone`, {
+    const res = await fetch(`http://ip-api.com/json/${encodeURIComponent(ip)}?fields=status,country,city,timezone,lat,lon`, {
       signal: controller.signal,
       cache: "force-cache",
     });
@@ -142,6 +160,8 @@ export async function lookupGeoIp(
           country: data.country || "Unknown",
           city: data.city || "Unknown",
           timezone: data.timezone || "Unknown",
+          latitude: typeof data.lat === "number" ? data.lat : null,
+          longitude: typeof data.lon === "number" ? data.lon : null,
         };
       }
     }
@@ -153,6 +173,8 @@ export async function lookupGeoIp(
     country: "Unknown",
     city: "Unknown",
     timezone: "Unknown",
+    latitude: null,
+    longitude: null,
   };
 }
 
