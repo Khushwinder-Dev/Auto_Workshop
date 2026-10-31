@@ -92,7 +92,7 @@ export default function ContactPage() {
 
         <div className="bg-white py-16 px-6 lg:px-24">
           <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 border-b pb-12">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 pb-12">
               <div className="flex items-start gap-4">
                 <div className="bg-red-600 p-3 rounded-lg text-white shrink-0">
                   <MapPin className="w-6 h-6" />
@@ -153,7 +153,7 @@ export default function ContactPage() {
                     label={t.contact.namePlaceholder}
                     required
                     isArabic={isArabic}
-                    icon={<User className="w-4 h-4" />}
+                    // icon={<User className="w-4 h-4" />}
                     isListening={voice.listeningField === "name"}
                     onVoiceToggle={() => voice.toggleListening("name", "text")}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -166,7 +166,7 @@ export default function ContactPage() {
                       label={t.contact.emailPlaceholder}
                       required
                       isArabic={isArabic}
-                      icon={<Mail className="w-4 h-4" />}
+                      // icon={<Mail className="w-4 h-4" />}
                       isListening={voice.listeningField === "email"}
                       onVoiceToggle={() => voice.toggleListening("email", "email")}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -178,7 +178,7 @@ export default function ContactPage() {
                       label={t.contact.phonePlaceholder}
                       required
                       isArabic={isArabic}
-                      icon={<Phone className="w-4 h-4" />}
+                      // icon={<Phone className="w-4 h-4" />}
                       isListening={voice.listeningField === "phone"}
                       onVoiceToggle={() => voice.toggleListening("phone", "phone")}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
@@ -191,7 +191,7 @@ export default function ContactPage() {
                     label={t.contact.subjectPlaceholder}
                     required
                     isArabic={isArabic}
-                    icon={<Wrench className="w-4 h-4" />}
+                    // icon={<Wrench className="w-4 h-4" />}
                     isListening={voice.listeningField === "subject"}
                     onVoiceToggle={() => voice.toggleListening("subject", "text")}
                     onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
