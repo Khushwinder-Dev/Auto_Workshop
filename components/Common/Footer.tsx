@@ -267,7 +267,7 @@ export default function Footer() {
       </div>
 
       {/* ── Bottom Bar (Taj Al Rahmah Reference Layout) ── */}
-      <div className="relative max-w-7xl mx-auto mt-16 pt-7 pb-4 border-t border-zinc-800/80">
+      <div className="relative max-w-[1440px] xl:max-w-8xl mx-auto mt-16 pt-7 pb-4 border-t border-zinc-800/80">
         {/* Scroll-to-top — sits centered ON the divider line with hover tooltip */}
         <div className="absolute -top-5 left-1/2 -translate-x-1/2 z-20">
           <div className="group relative flex flex-col items-center">
@@ -297,18 +297,18 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 lg:gap-6">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-4 lg:gap-6">
           {/* Copyright Text (matching Taj Al Rahmah casing & clean font) */}
-          <div className="text-center sm:text-start px-2 shrink-0">
-            <p className="text-xs sm:text-sm text-zinc-400 font-normal leading-normal">
+          <div className="text-center lg:text-start px-2 shrink-0">
+            <p className="text-xs lg:text-[13px] text-zinc-400 font-normal leading-normal whitespace-nowrap">
               {isArabic
                 ? "© 2026 ورشة باب البستان لصيانة السيارات. جميع الحقوق محفوظة."
                 : "© 2026 Bab Al Bustan Auto Maintenance Workshop. All rights reserved."}
             </p>
           </div>
 
-          {/* Refund & Legal Policy Links (separated by bullet dots, matching reference) */}
-          <div className="w-full sm:w-auto flex flex-row flex-wrap justify-center sm:justify-end items-center gap-y-2 gap-x-2 sm:gap-x-3 text-xs sm:text-sm text-zinc-400">
+          {/* Refund & Legal Policy Links (Strictly on one line on desktop, matching reference) */}
+          <div className="w-full lg:w-auto flex flex-wrap lg:flex-nowrap justify-center lg:justify-end items-center gap-y-2 gap-x-2 lg:gap-x-2.5 xl:gap-x-3 text-[11px] sm:text-xs lg:text-[12.5px] xl:text-[13px] text-zinc-400 whitespace-nowrap shrink-0">
             <Link
               href="/sitemap"
               className="hover:text-red-500 transition-colors whitespace-nowrap"

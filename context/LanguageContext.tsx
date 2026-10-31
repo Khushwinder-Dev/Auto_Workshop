@@ -606,7 +606,7 @@ export const translations: Record<Language, Translations> = {
       contactTitle: "Contact",
       address: "Industrial Area No 5,\nSharjah, United Arab Emirates",
       copyright:
-        "© Copyright 2026 Bab Al Bustan Auto Maintenance Workshop. All rights reserved.",
+        "© 2026 Bab Al Bustan Auto Maintenance Workshop. All rights reserved.",
       sitemap: "Sitemap",
       contact: "Contact",
       appointment: "Appointment",
