@@ -1,8 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useRef, useEffect, useState } from "react";
 import Image from "next/image";
-import { Sparkles } from "lucide-react";
+import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
 const brands = [
@@ -26,64 +26,264 @@ const brands = [
   { name: "Jeep", logo: "/images/brands/jeep.png" },
 ];
 
-export default function PartnershipSection() {
+// Tripled for seamless continuous infinite loop
+const trackBrands = [...brands, ...brands, ...brands];
+
+interface PartnershipSectionProps {
+  showPauseButton?: boolean;
+}
+
+export default function PartnershipSection({
+  showPauseButton = true,
+}: PartnershipSectionProps) {
   const { isArabic, t } = useLanguage();
+  const trackRef = useRef<HTMLDivElement>(null);
+  const animRef = useRef<number | null>(null);
+  const [isPaused, setIsPaused] = useState(false);
+  const isPausedRef = useRef(false);
+  const isHoveredRef = useRef(false);
+  const posRef = useRef(0);
+
+  useEffect(() => {
+    const el = trackRef.current;
+    if (!el) return;
+
+    const speed = 0.55; // px per frame
+
+    const tick = () => {
+      if (!isPausedRef.current && !isHoveredRef.current && el) {
+        posRef.current += speed;
+        const singleWidth = el.scrollWidth / 3;
+        if (singleWidth > 0) {
+          if (posRef.current >= singleWidth) {
+            posRef.current -= singleWidth;
+          } else if (posRef.current < 0) {
+            posRef.current += singleWidth;
+          }
+        }
+        el.style.transform = `translateX(-${posRef.current}px)`;
+      }
+      animRef.current = requestAnimationFrame(tick);
+    };
+
+    animRef.current = requestAnimationFrame(tick);
+    return () => {
+      if (animRef.current) cancelAnimationFrame(animRef.current);
+    };
+  }, []);
+
+  const togglePause = () => {
+    setIsPaused((prev) => {
+      const next = !prev;
+      isPausedRef.current = next;
+      return next;
+    });
+  };
+
+  const nudge = (direction: "prev" | "next") => {
+    const el = trackRef.current;
+    if (!el) return;
+    const delta = direction === "next" ? 220 : -220;
+    const offset = isArabic ? -delta : delta;
+    posRef.current += offset;
+    const singleWidth = el.scrollWidth / 3;
+    if (singleWidth > 0) {
+      if (posRef.current >= singleWidth) {
+        posRef.current -= singleWidth;
+      } else if (posRef.current < 0) {
+        posRef.current += singleWidth;
+      }
+    }
+    el.style.transform = `translateX(-${posRef.current}px)`;
+  };
 
   return (
-    <section className="relative bg-gradient-to-b from-zinc-100/90 via-zinc-50 to-zinc-100/90 py-20 lg:py-24 px-6 overflow-hidden border-y border-zinc-200/90">
-      {/* Subtle ambient lighting */}
-      <div className="absolute top-1/2 -left-20 -translate-y-1/2 w-96 h-96 bg-red-600/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute top-1/2 -right-20 -translate-y-1/2 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
-      <div
-        className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:20px_20px]"
-        aria-hidden="true"
-      />
-
-      <div className="max-w-[1400px] mx-auto relative z-10">
-        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-8 mb-14 lg:mb-16 border-b border-zinc-200/90 pb-10">
-          <div className="flex flex-col items-start space-y-2">
-            <div className="inline-flex items-center gap-2 text-xs font-bold text-red-600 uppercase tracking-widest bg-red-50 border border-red-200 px-3.5 py-1.5 rounded-full shadow-2xs">
-              <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-              <span>{isArabic ? "شركاؤنا والعلامات التجارية" : "Trusted Brand Partnerships"}</span>
+    <section
+      className="relative w-full py-14 sm:py-16 lg:py-20 bg-gradient-to-b from-zinc-50 via-white to-zinc-50 border-y border-zinc-200/70 overflow-hidden"
+      dir={isArabic ? "rtl" : "ltr"}
+    >
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+        {/* ========================================================= */}
+        {/* SECTION HEADER (Taj Al Rahmah Reference Layout)          */}
+        {/* ========================================================= */}
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 lg:gap-10 mb-10 sm:mb-12">
+          {/* Left Column: Eyebrow + Heading */}
+          <div className="max-w-xl">
+            <div className="flex items-center gap-2.5 mb-3">
+              <span className="inline-block h-[2px] w-8 sm:w-10 rounded-full shrink-0 bg-red-600" />
+              <span className="text-[11px] sm:text-xs font-extrabold tracking-[0.18em] uppercase text-red-600">
+                {isArabic ? "موثوقون من قادة الصناعة" : "TRUSTED BY INDUSTRY LEADERS"}
+              </span>
             </div>
-            <h2 className="font-display text-4xl md:text-6xl font-[900] text-zinc-950 leading-none uppercase tracking-tight">
-              {t.home.partnership.title1} <br /> {t.home.partnership.title2}
+            <h2 className="text-3xl sm:text-4xl md:text-[42px] font-extrabold tracking-tight leading-[1.15] text-zinc-950">
+              {isArabic ? "شركاؤنا والعلامات التي نخدمها" : "Our Valuable Partners"}
             </h2>
           </div>
-          <div className="max-w-xl">
-            <p className="text-zinc-600 text-base md:text-lg leading-relaxed">
-              {t.home.partnership.desc}
+
+          {/* Right Column: Existing Description + Action Controls */}
+          <div className="flex flex-col sm:flex-row sm:items-center gap-4 lg:max-w-2xl">
+            <p className="text-sm sm:text-base lg:text-[15px] leading-relaxed flex-1 text-zinc-600">
+              {t.home?.partnership?.desc ||
+                (isArabic
+                  ? "نعمل مع كبرى العلامات العالمية لنقدم لك خدمة معتمدة وقطع غيار أصلية في الشارقة."
+                  : "We work with the world's leading automotive brands to bring you certified service and genuine parts.")}
             </p>
+
+            <div className="flex items-center justify-end sm:justify-start gap-2.5 shrink-0 w-full sm:w-auto self-end sm:self-auto">
+              {/* Prev Button */}
+              <button
+                type="button"
+                onClick={() => nudge("prev")}
+                aria-label={isArabic ? "السابق" : "Previous"}
+                className="w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all cursor-pointer active:scale-95 border border-zinc-300 text-zinc-700 hover:border-red-600 hover:text-red-600 hover:bg-red-50/50 shadow-2xs"
+              >
+                {isArabic ? (
+                  <ChevronRight className="w-5 h-5" />
+                ) : (
+                  <ChevronLeft className="w-5 h-5" />
+                )}
+              </button>
+
+              {/* Pause / Play Button */}
+              {showPauseButton && (
+                <button
+                  type="button"
+                  onClick={togglePause}
+                  aria-label={
+                    isPaused
+                      ? isArabic
+                        ? "تشغيل الشريط"
+                        : "Play carousel"
+                      : isArabic
+                      ? "إيقاف مؤقت"
+                      : "Pause carousel"
+                  }
+                  title={
+                    isPaused
+                      ? isArabic
+                        ? "تشغيل"
+                        : "Play"
+                      : isArabic
+                      ? "إيقاف مؤقت"
+                      : "Pause"
+                  }
+                  className={`w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all cursor-pointer active:scale-95 shadow-2xs ${
+                    isPaused
+                      ? "bg-red-600 text-white border border-red-600 shadow-md shadow-red-600/20"
+                      : "border border-zinc-300 text-zinc-700 hover:border-red-600 hover:text-red-600 hover:bg-red-50/50"
+                  }`}
+                >
+                  {isPaused ? (
+                    <Play className="w-4 h-4 fill-current ml-0.5 rtl:ml-0 rtl:mr-0.5" />
+                  ) : (
+                    <Pause className="w-4 h-4 fill-current" />
+                  )}
+                </button>
+              )}
+
+              {/* Next Button */}
+              <button
+                type="button"
+                onClick={() => nudge("next")}
+                aria-label={isArabic ? "التالي" : "Next"}
+                className="w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all cursor-pointer active:scale-95 border border-zinc-300 text-zinc-700 hover:border-red-600 hover:text-red-600 hover:bg-red-50/50 shadow-2xs"
+              >
+                {isArabic ? (
+                  <ChevronLeft className="w-5 h-5" />
+                ) : (
+                  <ChevronRight className="w-5 h-5" />
+                )}
+              </button>
+            </div>
           </div>
         </div>
+      </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 lg:gap-6">
-          {brands.map((brand) => (
+      {/* ========================================================= */}
+      {/* INFINITE AUTO-SCROLLING LOGOS STRIP (Taj Al Rahmah Design) */}
+      {/* ========================================================= */}
+      <div
+        className="relative w-full overflow-hidden"
+        onMouseEnter={() => {
+          isHoveredRef.current = true;
+        }}
+        onMouseLeave={() => {
+          isHoveredRef.current = false;
+        }}
+        onTouchStart={() => {
+          isHoveredRef.current = true;
+        }}
+        onTouchEnd={() => {
+          isHoveredRef.current = false;
+        }}
+        aria-label={isArabic ? "شريط العلامات التجارية" : "Automotive brand partners"}
+      >
+        {/* Soft edge fade masks */}
+        <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-28 lg:w-36 z-10 pointer-events-none bg-gradient-to-r from-zinc-50 via-zinc-50/90 to-transparent" />
+        <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-28 lg:w-36 z-10 pointer-events-none bg-gradient-to-l from-zinc-50 via-zinc-50/90 to-transparent" />
+
+        {/* Floating Side Nudge Controls (as seen in reference screenshot) */}
+        <div className="pointer-events-none absolute inset-y-0 left-2 sm:left-4 z-20 flex items-center">
+          <button
+            type="button"
+            onClick={() => nudge("prev")}
+            aria-label={isArabic ? "السابق" : "Previous"}
+            className="pointer-events-auto w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-zinc-900/80 hover:bg-zinc-950 text-white flex items-center justify-center shadow-lg backdrop-blur-xs transition-all active:scale-90 cursor-pointer border border-white/10"
+          >
+            {isArabic ? (
+              <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+            ) : (
+              <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+            )}
+          </button>
+        </div>
+
+        <div className="pointer-events-none absolute inset-y-0 right-2 sm:right-4 z-20 flex items-center">
+          <button
+            type="button"
+            onClick={() => nudge("next")}
+            aria-label={isArabic ? "التالي" : "Next"}
+            className="pointer-events-auto w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-zinc-900/80 hover:bg-zinc-950 text-white flex items-center justify-center shadow-lg backdrop-blur-xs transition-all active:scale-90 cursor-pointer border border-white/10"
+          >
+            {isArabic ? (
+              <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+            ) : (
+              <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+            )}
+          </button>
+        </div>
+
+        {/* Scrolling track: dir="ltr" to maintain consistent physical motion */}
+        <div
+          dir="ltr"
+          ref={trackRef}
+          className="flex items-center gap-3 sm:gap-4 lg:gap-5 will-change-transform py-3 px-2"
+          style={{ width: "max-content" }}
+        >
+          {trackBrands.map((brand, idx) => (
             <div
-              key={brand.name}
-              className="bg-white rounded-[24px] aspect-[4/3] flex flex-col items-center justify-center p-4 group transition-all duration-300 border border-zinc-200/90 shadow-sm hover:shadow-xl hover:shadow-zinc-300/40 hover:border-red-500/50 hover:-translate-y-1.5 relative overflow-hidden cursor-pointer"
+              key={`${brand.name}-${idx}`}
+              title={brand.name}
+              className="flex-shrink-0 relative h-[84px] sm:h-[90px] lg:h-[96px] w-[148px] sm:w-[160px] lg:w-[172px] bg-white rounded-2xl border border-zinc-200/85 hover:border-red-600/50 shadow-[0_4px_16px_rgba(15,23,42,0.04)] hover:shadow-[0_8px_24px_rgba(220,38,38,0.12)] transition-all duration-300 overflow-hidden group flex items-center justify-center p-3 sm:p-4 cursor-pointer"
             >
-              {/* Subtle top indicator on hover */}
-              <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-red-600/0 to-transparent group-hover:via-red-600 transition-all duration-300" />
-
-              <div className="relative w-full h-1/2 mb-3">
+              <div className="relative w-full h-full">
                 <Image
                   src={brand.logo}
-                  alt={`${brand.name} repair and service Sharjah Industrial Area`}
+                  alt={`${brand.name} repair and service Sharjah Industrial Area 5`}
                   fill
-                  className="object-contain transition-all duration-300 group-hover:scale-110"
+                  unoptimized
+                  sizes="172px"
+                  className="object-contain p-2 group-hover:scale-105 transition-transform duration-300"
                 />
               </div>
-              <span className="text-zinc-800 group-hover:text-red-600 font-black text-[10px] md:text-[11px] text-center uppercase tracking-tight transition-colors">
-                {brand.name}
-              </span>
             </div>
           ))}
         </div>
+      </div>
 
-        <div className="sr-only">
-          Specializing in Toyota repair Sharjah, BMW service Sharjah, Mercedes maintenance UAE, Nissan repair Industrial Area 5, and all major automotive brands in Sharjah.
-        </div>
+      {/* Hidden SEO Keywords */}
+      <div className="sr-only">
+        Specializing in Mercedes-Benz repair Sharjah, BMW service Sharjah, Volkswagen maintenance, Land Rover repair, Audi service, Porsche specialist, Toyota repair Industrial Area 5, Nissan, Honda, Lexus, and all major automotive brands in Sharjah UAE.
       </div>
     </section>
   );
