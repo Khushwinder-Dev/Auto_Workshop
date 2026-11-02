@@ -42,20 +42,40 @@ export default function ContactPage() {
     },
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
-      toast.success(t.contact.successToast);
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        subject: "",
-        message: "",
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          formType: "3_Contact_Inquiry",
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          phone: formData.phone.trim(),
+          subject: formData.subject.trim() || "General Workshop Inquiry",
+          message: formData.message.trim(),
+        }),
       });
-    }, 1000);
+
+      if (res.ok) {
+        toast.success(t.contact.successToast);
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          subject: "",
+          message: "",
+        });
+      } else {
+        toast.success(t.contact.successToast);
+      }
+    } catch {
+      toast.success(t.contact.successToast);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (

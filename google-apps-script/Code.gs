@@ -1,604 +1,441 @@
 /**
  * ======================================================================================
- * TAJ AL RAHMAH CONTRACTING UAE — MULTI-FORM GOOGLE SHEETS & EMAIL SYSTEM
+ * BAB AL BUSTAN AUTO MAINTENANCE WORKSHOP — GOOGLE SHEETS & EMAIL AUTOMATION SYSTEM
  * ======================================================================================
- * Spreadsheet Name: TajAlRahmah_Forms_Database
- * Owner Notification Email: alrahmahtaj@gmail.com
+ * Spreadsheet Name: BabAlBustan_Forms_Database
+ * Owner Notification Emails: babalbustan1@gmail.com, info@babalbustanuae.com
+ * Workshop Location: Industrial Area 5, Sharjah, United Arab Emirates
  *
- * Dedicated Sheets (Tabs) & Exact Form Field Columns:
- *  1. 1_Welcome_Popup
- *  2. 2_Free_Consultation
- *  3. 3_Subscriptions
- *  4. 4_Contact_Us
- *  5. 5_Careers
- *  6. 6_Technology_Expert
- *  7. 7_Get_A_Quote
+ * Dedicated Sheets (Tabs) & Exact Form Columns:
+ *  1. 1_Workshop_Booking    (Appointment bookings, online service reservations)
+ *  2. 2_Price_Quote          (Get a quote, price estimates, repair inquiries)
+ *  3. 3_Contact_Inquiry      (Contact page messages, general inquiries, callbacks)
+ *  4. 4_Subscriptions        (Newsletter subscriptions & VIP updates)
+ *  5. 5_Chatbot_Leads        (AI Chatbot customer leads & inquiries)
  * ======================================================================================
  */
 
-const OWNER_EMAIL = "alrahmahtaj@gmail.com";
-const BRAND_TEAL = "#009e90";
+const OWNER_EMAILS = ["babalbustan1@gmail.com", "info@babalbustanuae.com"];
+const BRAND_RED = "#dc2626";
+const BRAND_NAME = "Bab Al Bustan Auto Maintenance Workshop";
 
-// Comprehensive sheet configuration with exact columns for all form fields
+// Configuration for each sheet tab with exact headers and matching field aliases
 const SHEETS_CONFIG = {
-  "1_Welcome_Popup": {
+  "1_Workshop_Booking": {
     headers: [
       "Submission Date & Time",
       "Full Name",
-      "Phone Number",
-      "Email Address",
-      "Project / Service Type",
-      "Discount Offer",
-      "Notes / Message"
-    ],
-    aliases: ["welcome_popup", "welcome", "welcome_offer", "1_welcome_popup"]
-  },
-  "2_Free_Consultation": {
-    headers: [
-      "Submission Date & Time",
-      "Full Name",
-      "Company Name",
-      "Email Address",
       "Phone / WhatsApp",
-      "Service Needed",
-      "Preferred Schedule",
-      "Message / Project Notes",
-      "Form Source"
-    ],
-    aliases: ["consultation", "free_consultation", "book_meeting", "meeting", "2_free_consultation"]
-  },
-  "3_Subscriptions": {
-    headers: [
-      "Submission Date & Time",
-      "First Name",
-      "Last Name",
       "Email Address",
-      "Country",
-      "Company Name",
-      "Department",
-      "Job Title"
+      "Vehicle (Make & Model)",
+      "Service Requested",
+      "Preferred Date",
+      "Preferred Time Slot",
+      "Customer Notes / Symptoms",
+      "Submission Source"
     ],
-    aliases: ["subscriptions", "subscription", "subscribe", "newsletter", "3_subscriptions"]
+    aliases: [
+      "workshop_booking",
+      "booking",
+      "appointment",
+      "1_workshop_booking",
+      "2_free_consultation",
+      "consultation",
+      "book_slot"
+    ]
   },
-  "4_Contact_Us": {
-    headers: [
-      "Submission Date & Time",
-      "Full Name / Contact Person",
-      "Company Name",
-      "Email Address",
-      "Phone Number",
-      "Inquiry Type",
-      "Subject / Service",
-      "Preferred Call Time / Website",
-      "Message / Details"
-    ],
-    aliases: ["contact_us", "contact", "callback", "enquiry", "supplier", "4_contact_us"]
-  },
-  "5_Careers": {
-    headers: [
-      "Submission Date & Time",
-      "Job Title",
-      "Job ID",
-      "Applicant Name",
-      "Email Address",
-      "Phone Number",
-      "Experience (Years)",
-      "CV / Resume Link",
-      "CV / Resume File Name",
-      "Cover Letter / Notes"
-    ],
-    aliases: ["careers", "career", "job_application", "jobs", "5_careers"]
-  },
-  "6_Technology_Expert": {
+
+  "2_Price_Quote": {
     headers: [
       "Submission Date & Time",
       "Full Name",
-      "Company Name",
+      "Phone / WhatsApp",
       "Email Address",
-      "Phone Number",
-      "Subject / Service Needed",
-      "Service Type",
-      "Technical Requirements / Message"
+      "Vehicle Make / Model / Year",
+      "Services Requested",
+      "Target Timeframe",
+      "Preferred Contact Method",
+      "Customer Notes / Faults",
+      "Submission Source"
     ],
-    aliases: ["technology_expert", "tech_expert", "expert", "technology", "6_technology_expert"]
+    aliases: [
+      "price_quote",
+      "quote",
+      "get_a_quote",
+      "2_price_quote",
+      "7_get_a_quote",
+      "estimate"
+    ]
   },
-  "7_Get_A_Quote": {
+
+  "3_Contact_Inquiry": {
     headers: [
       "Submission Date & Time",
       "Full Name",
       "Phone Number",
       "Email Address",
-      "Company Name",
-      "Project Type",
-      "Project Location",
-      "Uploaded Files (Drawings / BOQ)",
-      "Project Details & Scope"
+      "Subject",
+      "Message / Details",
+      "Submission Source"
     ],
-    aliases: ["get_a_quote", "quote", "get_quote", "quotation", "7_get_a_quote"]
+    aliases: [
+      "contact_inquiry",
+      "contact",
+      "contact_us",
+      "3_contact_inquiry",
+      "4_contact_us",
+      "callback",
+      "enquiry"
+    ]
+  },
+
+  "4_Subscriptions": {
+    headers: [
+      "Submission Date & Time",
+      "Email Address",
+      "Submission Source"
+    ],
+    aliases: [
+      "subscriptions",
+      "subscription",
+      "subscribe",
+      "newsletter",
+      "4_subscriptions",
+      "1_welcome_popup"
+    ]
+  },
+
+  "5_Chatbot_Leads": {
+    headers: [
+      "Submission Date & Time",
+      "Full Name",
+      "Phone Number",
+      "Email Address",
+      "Initial Question / Message",
+      "Platform / Device",
+      "Submission Source"
+    ],
+    aliases: [
+      "chatbot_leads",
+      "chat_lead",
+      "chatbot",
+      "ai_lead",
+      "5_chatbot_leads",
+      "6_technology_expert"
+    ]
   }
 };
 
 /**
- * Helper to return formatted JSON responses
- */
-function respondJson(obj, statusCode) {
-  return ContentService.createTextOutput(JSON.stringify(obj))
-    .setMimeType(ContentService.MimeType.JSON);
-}
-
-/**
- * Handle POST request from Next.js website webhook
+ * Handle incoming POST requests from the website forms
  */
 function doPost(e) {
   try {
     if (!e || !e.postData || !e.postData.contents) {
-      return respondJson({ status: "error", message: "Empty request payload" }, 400);
+      return ContentService.createTextOutput(
+        JSON.stringify({ status: "error", message: "No post data received" })
+      ).setMimeType(ContentService.MimeType.JSON);
     }
 
-    var data;
-    try {
-      data = JSON.parse(e.postData.contents);
-    } catch (parseErr) {
-      return respondJson({ status: "error", message: "Invalid JSON: " + parseErr.message }, 400);
+    const payload = JSON.parse(e.postData.contents);
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    const sheetName = resolveSheetName(payload);
+
+    if (!sheetName || !SHEETS_CONFIG[sheetName]) {
+      return ContentService.createTextOutput(
+        JSON.stringify({
+          status: "error",
+          message: "Unrecognized formType / sheetName: " + (payload.formType || payload.sheetName)
+        })
+      ).setMimeType(ContentService.MimeType.JSON);
     }
 
-    // Support automatic setup trigger via webhook: { action: "setup_sheets" }
-    if (data.action === "setup_sheets" || data.action === "init_sheets") {
-      setupAllSheetsWithExactFormFields();
-      return respondJson({
-        status: "success",
-        message: "All 7 sheets initialized with exact headers and formatting successfully!",
-        sheets: Object.keys(SHEETS_CONFIG)
-      }, 200);
-    }
+    const sheet = getOrCreateSheet(ss, sheetName);
+    const rowValues = buildRowValues(sheetName, payload);
 
-    var rawType = (data.formType || data.sheetName || data.type || "").trim();
-    var targetSheetName = resolveSheetName(rawType);
-
-    if (!targetSheetName) {
-      return respondJson({
-        status: "error",
-        message: "Unknown formType: " + rawType + ". Must be one of: " + Object.keys(SHEETS_CONFIG).join(", ")
-      }, 400);
-    }
-
-    var ss = SpreadsheetApp.getActiveSpreadsheet();
-    var sheet = getOrCreateSheet(ss, targetSheetName);
-
-    // Build row values matching the exact columns of target sheet
-    var timestamp = data.timestamp || Utilities.formatDate(new Date(), "Asia/Dubai", "yyyy-MM-dd HH:mm:ss");
-    var rowValues = buildRowValues(targetSheetName, data, timestamp);
-
-    // Append new row
     sheet.appendRow(rowValues);
 
-    // Format new row
-    try {
-      var lastRow = sheet.getLastRow();
-      var numCols = SHEETS_CONFIG[targetSheetName].headers.length;
-      var rowRange = sheet.getRange(lastRow, 1, 1, numCols);
-      rowRange.setVerticalAlignment("middle");
-      rowRange.setFontSize(10);
-    } catch (fmtErr) {}
+    // Format new row styling
+    const lastRow = sheet.getLastRow();
+    const numCols = rowValues.length;
+    const range = sheet.getRange(lastRow, 1, 1, numCols);
+    range.setFontFamily("Segoe UI");
+    range.setFontSize(10);
+    range.setVerticalAlignment("middle");
+    range.setWrap(true);
 
-    // Auto-adjust column widths
+    // Send instant Gmail notification
     try {
-      var colsToResize = SHEETS_CONFIG[targetSheetName].headers.length;
-      for (var col = 1; col <= colsToResize; col++) {
-        sheet.autoResizeColumn(col);
-      }
-    } catch (resizeErr) {}
-
-    // Send email notification to owner (alrahmahtaj@gmail.com)
-    var emailSent = false;
-    var emailError = null;
-    try {
-      sendAppsScriptNotification(targetSheetName, data, timestamp);
-      emailSent = true;
+      sendGmailAlert(sheetName, payload);
     } catch (mailErr) {
-      emailError = mailErr.message || String(mailErr);
-      Logger.log("Email send warning: " + emailError);
+      Logger.log("Failed to send Gmail alert: " + mailErr.toString());
     }
 
-    return respondJson({
-      status: "success",
-      message: "Row added to " + targetSheetName,
-      sheet: targetSheetName,
-      timestamp: timestamp,
-      emailSent: emailSent,
-      emailError: emailError,
-      row: rowValues
-    }, 200);
+    return ContentService.createTextOutput(
+      JSON.stringify({
+        status: "success",
+        sheetName: sheetName,
+        row: lastRow,
+        timestamp: new Date().toISOString()
+      })
+    ).setMimeType(ContentService.MimeType.JSON);
 
-  } catch (err) {
-    return respondJson({ status: "error", message: err.toString(), stack: err.stack }, 500);
+  } catch (error) {
+    Logger.log("doPost error: " + error.toString());
+    return ContentService.createTextOutput(
+      JSON.stringify({ status: "error", message: error.toString() })
+    ).setMimeType(ContentService.MimeType.JSON);
   }
 }
 
 /**
- * Handle GET requests (ping / health check)
+ * Handle GET requests for health verification
  */
 function doGet(e) {
-  return respondJson({
-    status: "ok",
-    message: "Taj Al Rahmah Google Sheets Webhook is active and running",
-    spreadsheetName: SpreadsheetApp.getActiveSpreadsheet().getName(),
-    sheets: Object.keys(SHEETS_CONFIG),
-    notificationEmail: OWNER_EMAIL
-  }, 200);
+  return ContentService.createTextOutput(
+    JSON.stringify({
+      status: "online",
+      brand: BRAND_NAME,
+      version: "2.0.0",
+      configuredSheets: Object.keys(SHEETS_CONFIG)
+    })
+  ).setMimeType(ContentService.MimeType.JSON);
 }
 
 /**
- * Resolves input sheet name or alias to official Sheet tab name
+ * Determine which sheet should receive the submission
  */
-function resolveSheetName(input) {
-  if (!input) return null;
-  var normalized = input.trim();
+function resolveSheetName(payload) {
+  const rawKey = (payload.sheetName || payload.formType || payload.targetSheet || payload.type || "").toString().trim().toLowerCase();
 
-  // Exact match
-  if (SHEETS_CONFIG[normalized]) {
-    return normalized;
-  }
-
-  var lower = normalized.toLowerCase();
-  for (var sheetName in SHEETS_CONFIG) {
-    if (sheetName.toLowerCase() === lower) {
-      return sheetName;
-    }
-    var aliases = SHEETS_CONFIG[sheetName].aliases || [];
-    for (var i = 0; i < aliases.length; i++) {
-      if (aliases[i].toLowerCase() === lower) {
-        return sheetName;
-      }
+  for (const [sName, config] of Object.entries(SHEETS_CONFIG)) {
+    if (sName.toLowerCase() === rawKey) return sName;
+    if (config.aliases && config.aliases.some(function(alias) { return alias.toLowerCase() === rawKey; })) {
+      return sName;
     }
   }
 
-  return null;
+  // Fallback heuristic based on submitted fields
+  if (payload.vehicle || payload.preferredDate || payload.carModel || payload.service) {
+    return "1_Workshop_Booking";
+  }
+  if (payload.timeframe || payload.contactMethod || payload.carDetails) {
+    return "2_Price_Quote";
+  }
+  if (payload.message || payload.subject) {
+    return "3_Contact_Inquiry";
+  }
+  if (payload.email && !payload.name && !payload.phone) {
+    return "4_Subscriptions";
+  }
+
+  return "1_Workshop_Booking";
 }
 
 /**
- * Returns existing sheet tab or creates it with formatted header row
+ * Get or create a sheet tab with formatted headers
  */
 function getOrCreateSheet(ss, sheetName) {
-  var sheet = ss.getSheetByName(sheetName);
-  var config = SHEETS_CONFIG[sheetName];
-  if (!config) throw new Error("No config found for sheet: " + sheetName);
+  let sheet = ss.getSheetByName(sheetName);
+  const config = SHEETS_CONFIG[sheetName];
 
   if (!sheet) {
     sheet = ss.insertSheet(sheetName);
-    applyHeaderFormatting(sheet, config.headers);
-  } else if (sheet.getLastRow() === 0) {
-    applyHeaderFormatting(sheet, config.headers);
+    const headers = config.headers;
+
+    sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
+
+    // Style the header row
+    const headerRange = sheet.getRange(1, 1, 1, headers.length);
+    headerRange.setBackground(BRAND_RED);
+    headerRange.setFontColor("#FFFFFF");
+    headerRange.setFontWeight("bold");
+    headerRange.setFontFamily("Segoe UI");
+    headerRange.setFontSize(11);
+    headerRange.setHorizontalAlignment("center");
+    headerRange.setVerticalAlignment("middle");
+    headerRange.setWrap(false);
+    sheet.setRowHeight(1, 38);
+    sheet.setFrozenRows(1);
+
+    // Auto-fit column widths
+    for (let c = 1; c <= headers.length; c++) {
+      sheet.setColumnWidth(c, 180);
+    }
   }
 
   return sheet;
 }
 
 /**
- * Applies professional header styling (Teal background, bold white text, frozen top row)
+ * Build row array matching the exact sheet columns
  */
-function applyHeaderFormatting(sheet, headers) {
-  if (sheet.getLastRow() === 0) {
-    sheet.appendRow(headers);
-  } else {
-    // Update existing row 1 with new exact headers
-    var currentRange = sheet.getRange(1, 1, 1, headers.length);
-    currentRange.setValues([headers]);
-  }
+function buildRowValues(sheetName, data) {
+  const timestamp = data.timestamp || Utilities.formatDate(new Date(), "Asia/Dubai", "yyyy-MM-dd HH:mm:ss 'GST'");
+  const source = data.source || data.formSource || "Website Direct";
 
-  var range = sheet.getRange(1, 1, 1, headers.length);
-  range.setBackground(BRAND_TEAL);
-  range.setFontColor("#FFFFFF");
-  range.setFontWeight("bold");
-  range.setFontSize(10);
-  range.setHorizontalAlignment("center");
-  range.setVerticalAlignment("middle");
-  sheet.setRowHeight(1, 35);
-  sheet.setFrozenRows(1);
-}
+  const name = data.name || data.fullName || data.customerName || "";
+  const phone = data.phone || data.phoneNumber || data.whatsapp || "";
+  const email = data.email || data.emailAddress || "";
+  const vehicle = data.vehicle || data.carModel || data.car || data.vehicleMake || "";
+  const service = data.service || data.services || data.serviceNeeded || data.subject || "";
+  const message = data.message || data.notes || data.issue || data.comments || "";
 
-/**
- * Maps raw data object into exact column array for each of the 7 sheets
- */
-function buildRowValues(sheetName, d, timestamp) {
   switch (sheetName) {
-    case "1_Welcome_Popup":
+    case "1_Workshop_Booking":
       return [
         timestamp,
-        d.fullName || d.name || "",
-        d.phone || d.phoneNumber || "",
-        d.email || d.emailAddress || "",
-        d.projectType || d.service || "",
-        d.offerDetails || d.discount || "10% Welcome Discount Offer",
-        d.notes || d.message || ""
+        name,
+        phone,
+        email,
+        vehicle,
+        service || "General Workshop Inspection",
+        data.preferredDate || data.date || "Not specified",
+        data.preferredTime || data.timeSlot || data.time || "Not specified",
+        message,
+        source
       ];
 
-    case "2_Free_Consultation":
-      var schedule = d.preferredSchedule || "";
-      if (!schedule && (d.meetingDate || d.meetingTime)) {
-        schedule = (d.meetingDate || "") + (d.meetingTime ? " (" + d.meetingTime + ")" : "");
-      }
+    case "2_Price_Quote":
       return [
         timestamp,
-        d.fullName || d.name || "",
-        d.companyName || d.company || "",
-        d.email || d.emailAddress || "",
-        d.phone || d.phoneNumber || "",
-        d.service || "Free Consultation",
-        schedule,
-        d.message || d.notes || "",
-        d.source || (schedule ? "Hero Book Meeting Modal" : "Homepage Consultation Form")
+        name,
+        phone,
+        email,
+        vehicle,
+        service || "Custom Quote Request",
+        data.timeframe || data.urgency || "As soon as possible",
+        data.contactMethod || "Phone / WhatsApp",
+        message,
+        source
       ];
 
-    case "3_Subscriptions":
+    case "3_Contact_Inquiry":
       return [
         timestamp,
-        d.firstName || "",
-        d.lastName || "",
-        d.email || d.emailAddress || "",
-        d.country || "",
-        d.company || d.companyName || "",
-        d.department || "",
-        d.jobTitle || ""
+        name,
+        phone,
+        email,
+        data.subject || "General Inquiry",
+        message,
+        source
       ];
 
-    case "4_Contact_Us":
-      var details = d.message || d.enquiry || d.description || "";
-      var extra = d.preferredTime || d.website || "";
+    case "4_Subscriptions":
       return [
         timestamp,
-        d.fullName || d.name || d.contactPerson || "",
-        d.companyName || d.company || "",
-        d.email || d.emailAddress || "",
-        d.phone || d.phoneNumber || "",
-        d.inquiryType || d.type || "General Inquiry",
-        d.service || d.subject || "General Inquiry",
-        extra,
-        details
+        email,
+        source
       ];
 
-    case "5_Careers":
-      var driveLink = null;
-      if (d.cvBase64) {
-        driveLink = saveCvToGoogleDrive(d.cvBase64, d.cvFileName || "Resume.pdf", d.cvMimeType);
-      }
-      var resumeLink = driveLink || d.cvLink || d.cvFileUrl || d.resumeLink || d.fileUrl || "";
-
+    case "5_Chatbot_Leads":
       return [
         timestamp,
-        d.jobTitle || "",
-        d.jobId || "",
-        d.fullName || d.name || "",
-        d.email || d.emailAddress || "",
-        d.phone || d.phoneNumber || "",
-        d.experience || "",
-        resumeLink,
-        d.cvFileName || d.cvName || d.cv || "Uploaded via Website",
-        d.coverLetter || d.notes || ""
-      ];
-
-    case "6_Technology_Expert":
-      return [
-        timestamp,
-        d.fullName || d.name || "",
-        d.companyName || d.company || "",
-        d.email || d.emailAddress || "",
-        d.phone || d.phoneNumber || "",
-        d.subject || d.service || "Technology Expert Inquiry",
-        d.serviceType || d.service || "",
-        d.message || d.requirement || ""
-      ];
-
-    case "7_Get_A_Quote":
-      var filesText = d.files || d.fileNames || "None";
-      if (Array.isArray(filesText)) {
-        filesText = filesText.join(", ");
-      }
-      return [
-        timestamp,
-        d.fullName || d.name || "",
-        d.phoneNumber || d.phone || "",
-        d.emailAddress || d.email || "",
-        d.companyName || d.company || "",
-        d.projectType || "",
-        d.projectLocation || d.location || "",
-        filesText,
-        d.projectDetails || d.message || ""
+        name || "Anonymous Chat Visitor",
+        phone,
+        email,
+        data.initialQuery || data.query || message || "AI Chatbot Conversation",
+        data.platform || "Web",
+        source
       ];
 
     default:
-      return [timestamp, JSON.stringify(d)];
+      return [timestamp, name, phone, email, message, source];
   }
 }
 
 /**
- * Saves a base64 encoded CV / Resume directly to a dedicated Google Drive folder
- * and sets public viewing permission so the link can be opened by recruiters/reviewers.
+ * Send an instant HTML email notification via Gmail
  */
-function saveCvToGoogleDrive(base64Data, fileName, mimeType) {
-  if (!base64Data) return null;
-  try {
-    var folderName = "TajAlRahmah_Resumes";
-    var folders = DriveApp.getFoldersByName(folderName);
-    var folder;
-    if (folders.hasNext()) {
-      folder = folders.next();
-    } else {
-      folder = DriveApp.createFolder(folderName);
-    }
+function sendGmailAlert(sheetName, data) {
+  const timestamp = data.timestamp || Utilities.formatDate(new Date(), "Asia/Dubai", "yyyy-MM-dd HH:mm:ss 'GST'");
+  const name = data.name || data.fullName || data.customerName || "Valued Customer";
+  const phone = data.phone || data.phoneNumber || data.whatsapp || "Not provided";
+  const email = data.email || data.emailAddress || "Not provided";
+  const vehicle = data.vehicle || data.carModel || "";
+  const service = data.service || data.subject || "";
 
-    var cleanName = (fileName || "Applicant_Resume.pdf").replace(/[^\w\.\-\s]/gi, "_");
-    var decoded = Utilities.base64Decode(base64Data);
-    var blob = Utilities.newBlob(decoded, mimeType || "application/pdf", cleanName);
-    var file = folder.createFile(blob);
+  let title = "New Website Lead";
+  if (sheetName === "1_Workshop_Booking") title = "🚗 New Workshop Booking Request";
+  else if (sheetName === "2_Price_Quote") title = "💰 New Repair Quote Request";
+  else if (sheetName === "3_Contact_Inquiry") title = "📩 New Contact Us Inquiry";
+  else if (sheetName === "4_Subscriptions") title = "⭐ New Newsletter Subscriber";
+  else if (sheetName === "5_Chatbot_Leads") title = "🤖 New AI Chatbot Lead";
 
+  const emailSubject = `[BAB AL BUSTAN] ${title}: ${name} (${phone})`;
+
+  const fieldsList = [
+    { label: "Form Type", value: sheetName },
+    { label: "Date & Time (GST)", value: timestamp },
+    { label: "Customer Name", value: name },
+    { label: "Phone / WhatsApp", value: phone },
+    { label: "Email Address", value: email }
+  ];
+
+  if (vehicle) fieldsList.push({ label: "Vehicle / Car", value: vehicle });
+  if (service) fieldsList.push({ label: "Service / Subject", value: service });
+  if (data.preferredDate) fieldsList.push({ label: "Preferred Date", value: data.preferredDate });
+  if (data.preferredTime) fieldsList.push({ label: "Preferred Time", value: data.preferredTime });
+  if (data.message || data.notes) fieldsList.push({ label: "Customer Notes", value: data.message || data.notes });
+
+  let rowsHtml = "";
+  for (let i = 0; i < fieldsList.length; i++) {
+    const f = fieldsList[i];
+    rowsHtml += `
+      <tr>
+        <td style="padding: 10px 14px; font-weight: 600; color: #475569; background-color: #f8fafc; border-bottom: 1px solid #e2e8f0; width: 35%; font-size: 13px;">${f.label}</td>
+        <td style="padding: 10px 14px; color: #0f172a; border-bottom: 1px solid #e2e8f0; font-size: 14px;">${f.value}</td>
+      </tr>
+    `;
+  }
+
+  const htmlBody = `
+    <!DOCTYPE html>
+    <html>
+    <head><meta charset="utf-8" /></head>
+    <body style="margin: 0; padding: 20px; background-color: #0c0a09; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+      <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.3);">
+        <div style="background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%); padding: 24px; text-align: center; color: #ffffff;">
+          <h1 style="margin: 0; font-size: 20px; letter-spacing: 0.5px;">BAB AL BUSTAN AUTO MAINTENANCE</h1>
+          <p style="margin: 6px 0 0 0; font-size: 14px; opacity: 0.95;">${title}</p>
+        </div>
+        <div style="padding: 24px;">
+          <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse: collapse; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;">
+            ${rowsHtml}
+          </table>
+          <div style="margin-top: 24px; text-align: center;">
+            <a href="tel:${phone.replace(/[^0-9+]/g, '')}" style="display: inline-block; padding: 12px 24px; background-color: #dc2626; color: #ffffff; text-decoration: none; font-weight: bold; border-radius: 8px; margin-right: 10px;">📞 Call Customer</a>
+            <a href="https://wa.me/${phone.replace(/[^0-9]/g, '')}" style="display: inline-block; padding: 12px 24px; background-color: #25D366; color: #ffffff; text-decoration: none; font-weight: bold; border-radius: 8px;">💬 Chat on WhatsApp</a>
+          </div>
+        </div>
+        <div style="background-color: #f8fafc; padding: 16px; text-align: center; font-size: 12px; color: #64748b; border-top: 1px solid #e2e8f0;">
+          Industrial Area 5, Sharjah, UAE • Hotline: +971 56 440 6456
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
+
+  for (let i = 0; i < OWNER_EMAILS.length; i++) {
     try {
-      file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
-    } catch (shareErr) {
-      Logger.log("Sharing permission warning: " + shareErr);
+      MailApp.sendEmail({
+        to: OWNER_EMAILS[i],
+        subject: emailSubject,
+        htmlBody: htmlBody
+      });
+    } catch (err) {
+      Logger.log("MailApp error for " + OWNER_EMAILS[i] + ": " + err.toString());
     }
-
-    return file.getUrl();
-  } catch (err) {
-    Logger.log("Google Drive upload error: " + err);
-    return null;
   }
 }
 
 /**
- * Sends rich HTML email notification directly via Google's MailApp (No SMTP credentials required)
+ * Initialize all sheets immediately when run manually from the Apps Script editor
  */
-function sendAppsScriptNotification(sheetName, data, timestamp) {
-  if (!OWNER_EMAIL) return;
-
-  var clientName = data.fullName || data.name || data.firstName || "Website Visitor";
-  var clientEmail = data.email || data.emailAddress || "";
-  var clientPhone = data.phone || data.phoneNumber || "";
-  var subject = "[Taj Al Rahmah Lead] New " + sheetName + " Submission from " + clientName;
-
-  var rowsHtml = "";
-  var plainLines = [
-    "New submission received on Taj Al Rahmah Website",
-    "Database Sheet Tab: " + sheetName,
-    "Time: " + timestamp,
-    "",
-    "--- Submission Details ---"
-  ];
-
-  var ignoredKeys = [
-    "formType", "sheetName", "type", "targetSheet", "timestamp", "isoTimestamp", "action", "cvBase64"
-  ];
-
-  for (var key in data) {
-    if (ignoredKeys.indexOf(key) === -1 && data[key] !== undefined && data[key] !== null && String(data[key]).trim() !== "") {
-      var val = String(data[key]);
-      plainLines.push(key + ": " + val);
-
-      var displayLabel = key
-        .replace(/([A-Z])/g, ' $1')
-        .replace(/^./, function(str){ return str.toUpperCase(); });
-
-      var displayVal = val;
-      if (key.toLowerCase().indexOf("email") !== -1 && val.indexOf("@") !== -1) {
-        displayVal = '<a href="mailto:' + val + '" style="color:#009e90;font-weight:600;text-decoration:none;">' + val + '</a>';
-      } else if (key.toLowerCase().indexOf("phone") !== -1) {
-        displayVal = '<a href="tel:' + val.replace(/\s+/g, '') + '" style="color:#009e90;font-weight:600;text-decoration:none;">' + val + '</a>';
-      } else if (val.indexOf("http://") === 0 || val.indexOf("https://") === 0) {
-        displayVal = '<a href="' + val + '" target="_blank" style="display:inline-block;background-color:#009e90;color:#ffffff;padding:6px 14px;border-radius:6px;text-decoration:none;font-weight:600;font-size:12px;">View / Download Resume &rarr;</a><br/><a href="' + val + '" target="_blank" style="color:#009e90;text-decoration:underline;font-size:11px;word-break:break-all;">' + val + '</a>';
-      } else {
-        displayVal = val.replace(/\n/g, "<br/>");
-      }
-
-      rowsHtml += '<tr>' +
-        '<td style="padding:10px 14px;font-weight:600;color:#475569;background-color:#f8fafc;border-bottom:1px solid #e2e8f0;width:35%;font-size:13px;vertical-align:top;">' + displayLabel + '</td>' +
-        '<td style="padding:10px 14px;color:#0f172a;border-bottom:1px solid #e2e8f0;font-size:14px;line-height:1.5;vertical-align:top;">' + displayVal + '</td>' +
-      '</tr>';
-    }
+function setupAllSheets() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  for (const sheetName of Object.keys(SHEETS_CONFIG)) {
+    getOrCreateSheet(ss, sheetName);
   }
-
-  var htmlContent = '<!DOCTYPE html><html><head><meta charset="utf-8"/></head>' +
-    '<body style="margin:0;padding:0;background-color:#f1f5f9;font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',Roboto,Helvetica,Arial,sans-serif;color:#334155;">' +
-      '<table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f1f5f9;padding:25px 12px;">' +
-        '<tr><td align="center">' +
-          '<table width="100%" style="max-width:620px;background-color:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 4px 18px rgba(0,0,0,0.06);border:1px solid #e2e8f0;">' +
-            
-            '<!-- Header -->' +
-            '<tr><td style="background:linear-gradient(135deg, #009e90 0%, #00756a 100%);padding:24px 28px;text-align:left;">' +
-              '<div style="display:inline-block;background:rgba(255,255,255,0.22);padding:3px 10px;border-radius:16px;font-size:11px;font-weight:700;color:#ffffff;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">' +
-                sheetName +
-              '</div>' +
-              '<h1 style="margin:0;color:#ffffff;font-size:20px;font-weight:700;line-height:1.3;">' +
-                'New Website Lead: ' + clientName +
-              '</h1>' +
-              '<p style="margin:4px 0 0 0;color:rgba(255,255,255,0.88);font-size:12px;">Taj Al Rahmah Contracting UAE — Automated Lead Alert</p>' +
-            '</td></tr>' +
-
-            '<!-- Body Content -->' +
-            '<tr><td style="padding:24px 28px;">' +
-              '<p style="margin:0 0 16px 0;font-size:14px;color:#64748b;line-height:1.5;">' +
-                'A new entry was submitted on the website and recorded to sheet tab <strong style="color:#009e90;">' + sheetName + '</strong>.' +
-              '</p>' +
-
-              '<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden;margin-bottom:20px;">' +
-                rowsHtml +
-              '</table>' +
-
-              '<table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f0fdfa;border-left:4px solid #009e90;border-radius:4px;padding:12px 14px;">' +
-                '<tr><td style="font-size:12px;color:#134e4a;line-height:1.6;">' +
-                  '<strong>Submission Time:</strong> ' + timestamp + ' (UAE GST)<br/>' +
-                  '<strong>Database Tab:</strong> ' + sheetName + '<br/>' +
-                  '<strong>Recipient:</strong> ' + OWNER_EMAIL +
-                '</td></tr>' +
-              '</table>' +
-
-            '</td></tr>' +
-
-            '<!-- Footer -->' +
-            '<tr><td style="background-color:#f8fafc;padding:16px 28px;border-top:1px solid #e2e8f0;text-align:center;font-size:11px;color:#94a3b8;">' +
-              'Taj Al Rahmah Contracting UAE • Automated Notification System' +
-            '</td></tr>' +
-
-          '</table>' +
-        '</td></tr>' +
-      '</table>' +
-    '</body></html>';
-
-  MailApp.sendEmail({
-    to: OWNER_EMAIL,
-    subject: subject,
-    body: plainLines.join("\n"),
-    htmlBody: htmlContent
-  });
-}
-
-/**
- * ═══════════════════════════════════════════════════════════════════════
- * TEST & AUTHORIZE FUNCTION
- * Click "Run" on this function in Apps Script to grant MailApp permissions
- * and verify instant email delivery to alrahmahtaj@gmail.com!
- * ═══════════════════════════════════════════════════════════════════════
- */
-function testSendEmailNotification() {
-  Logger.log("Testing email delivery to: " + OWNER_EMAIL);
-  MailApp.sendEmail({
-    to: OWNER_EMAIL,
-    subject: "✅ Verified: Taj Al Rahmah Lead Notification System",
-    htmlBody: "<div style='font-family: Arial, sans-serif; padding: 25px; background: #f0fdfa; border: 1px solid #ccfbf1; border-left: 6px solid #009e90; border-radius: 8px;'><h2 style='color:#0f766e; margin-top:0;'>Email Notification System Authorized!</h2><p style='color:#334155; font-size:14px;'>This email confirms that Google Apps Script is fully authorized and working. Any new lead submitted on the website will now be delivered to <strong>" + OWNER_EMAIL + "</strong> and saved in <strong>TajAlRahmah_Forms_Database</strong>.</p><p style='color:#64748b; font-size:12px;'>Timestamp: " + new Date().toLocaleString() + "</p></div>",
-    body: "Email notification system is active and verified for " + OWNER_EMAIL
-  });
-  Logger.log("Test email successfully sent to " + OWNER_EMAIL);
-}
-
-/**
- * Run this function in Apps Script editor to create/update all 7 sheets with exact column headers!
- */
-function setupAllSheetsWithExactFormFields() {
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
-
-  for (var name in SHEETS_CONFIG) {
-    var config = SHEETS_CONFIG[name];
-    var sheet = ss.getSheetByName(name);
-
-    if (!sheet) {
-      sheet = ss.insertSheet(name);
-    }
-
-    applyHeaderFormatting(sheet, config.headers);
-
-    for (var col = 1; col <= config.headers.length; col++) {
-      sheet.autoResizeColumn(col);
-    }
-
-    Logger.log("Configured sheet: " + name + " with " + config.headers.length + " columns.");
-  }
-
-  // Remove default "Sheet1" if empty and other sheets exist
-  try {
-    var defaultSheet = ss.getSheetByName("Sheet1");
-    if (defaultSheet && ss.getSheets().length > 1 && defaultSheet.getLastRow() === 0) {
-      ss.deleteSheet(defaultSheet);
-    }
-  } catch (e) {}
-
-  Logger.log("All 7 sheets have been created and formatted with exact form field columns!");
+  SpreadsheetApp.flush();
 }

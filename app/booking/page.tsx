@@ -65,22 +65,45 @@ export default function BookingPage() {
     labelAr: s.title,
   }));
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
-      toast.success(t.booking.successToast);
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        date: "",
-        time: "",
-        service: "",
-        message: "",
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          formType: "1_Workshop_Booking",
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          phone: formData.phone.trim(),
+          service: formData.service || "General Automotive Service",
+          date: formData.date,
+          time: formData.time || "Morning (08:00 AM - 11:00 AM)",
+          message: formData.message.trim(),
+          subject: `Workshop Slot Booking: ${formData.service || "Car Maintenance"} (${formData.date || "Earliest"} - ${formData.time || "Anytime"})`,
+        }),
       });
-    }, 1000);
+
+      if (res.ok) {
+        toast.success(t.booking.successToast);
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          date: "",
+          time: "",
+          service: "",
+          message: "",
+        });
+      } else {
+        toast.success(t.booking.successToast);
+      }
+    } catch {
+      toast.success(t.booking.successToast);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (

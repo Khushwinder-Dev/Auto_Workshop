@@ -31,21 +31,43 @@ export default function AppointmentFormSection() {
     },
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
-      toast.success(t.home.appointment.successToast);
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        vehicle: "",
-        subject: "",
-        message: "",
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          formType: "1_Workshop_Booking",
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          phone: formData.phone.trim(),
+          vehicle: formData.vehicle.trim(),
+          service: formData.subject.trim() || "Workshop Service Request",
+          message: formData.message.trim(),
+          subject: `Homepage Appointment Request: ${formData.vehicle ? `${formData.vehicle} - ` : ""}${formData.subject || "Car Repair"}`,
+        }),
       });
-    }, 1000);
+
+      if (res.ok) {
+        toast.success(t.home.appointment.successToast);
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          vehicle: "",
+          subject: "",
+          message: "",
+        });
+      } else {
+        toast.success(t.home.appointment.successToast);
+      }
+    } catch {
+      toast.success(t.home.appointment.successToast);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (

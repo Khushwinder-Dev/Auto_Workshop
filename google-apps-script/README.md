@@ -1,118 +1,109 @@
-# Taj Al Rahmah — Exact Form Fields & Google Sheets Structure
+# Bab Al Bustan Auto Maintenance — Google Sheets & Gmail Notification Setup
 
-All forms on the website now map 1-to-1 into **`TajAlRahmah_Forms_Database`** with dedicated columns matching every field collected from users.
+All website forms on **Bab Al Bustan Auto Maintenance** link directly to a central Google Spreadsheet named **`BabAlBustan_Forms_Database`** and send real-time notifications to your Gmail.
 
 ---
 
-## Exact Column Headers for Each of the 7 Sheets
+## 📋 The 5 Dedicated Tabs & Exact Columns
 
-### 1. `1_Welcome_Popup` (10% Discount Welcome Offer)
+### 1. `1_Workshop_Booking` (Appointments & Service Booking)
+| Col | Header Name | Website Field |
+|:---:|:---|:---|
+| A | **Submission Date & Time** | Auto timestamp (UAE GST) |
+| B | **Full Name** | `name` |
+| C | **Phone / WhatsApp** | `phone` |
+| D | **Email Address** | `email` |
+| E | **Vehicle (Make & Model)** | `vehicle` (e.g. Nissan Patrol 2021) |
+| F | **Service Requested** | `service` (Brakes, AC, Engine, etc.) |
+| G | **Preferred Date** | `preferredDate` |
+| H | **Preferred Time Slot** | `preferredTime` |
+| I | **Customer Notes / Symptoms** | `message` / notes |
+| J | **Submission Source** | Homepage / Booking Modal / Booking Page |
+
+---
+
+### 2. `2_Price_Quote` (Get a Quote Page)
+| Col | Header Name | Website Field |
+|:---:|:---|:---|
+| A | **Submission Date & Time** | Auto timestamp (UAE GST) |
+| B | **Full Name** | `name` |
+| C | **Phone / WhatsApp** | `phone` |
+| D | **Email Address** | `email` |
+| E | **Vehicle Make / Model / Year** | `vehicle` |
+| F | **Services Requested** | `services` |
+| G | **Target Timeframe** | `timeframe` |
+| H | **Preferred Contact Method** | `contactMethod` |
+| I | **Customer Notes / Faults** | `message` |
+| J | **Submission Source** | Get A Quote Page |
+
+---
+
+### 3. `3_Contact_Inquiry` (Contact Us Page & Callback Forms)
 | Col | Header Name | Website Field |
 |:---:|:---|:---|
 | A | **Submission Date & Time** | Auto timestamp (UAE GST) |
 | B | **Full Name** | `name` |
 | C | **Phone Number** | `phone` |
 | D | **Email Address** | `email` |
-| E | **Project / Service Type** | `projectType` (Waterproofing, Roofing, etc.) |
-| F | **Discount Offer** | `offerDetails` (10% Welcome Discount Offer) |
-| G | **Notes / Message** | Additional notes |
+| E | **Subject** | `subject` |
+| F | **Message / Details** | `message` |
+| G | **Submission Source** | Contact Us Page |
 
 ---
 
-### 2. `2_Free_Consultation` (Homepage Consultation & Hero Meeting Modal)
+### 4. `4_Subscriptions` (VIP Club & Newsletter Signups)
 | Col | Header Name | Website Field |
 |:---:|:---|:---|
 | A | **Submission Date & Time** | Auto timestamp (UAE GST) |
-| B | **Full Name** | `fullName` |
-| C | **Company Name** | `companyName` |
+| B | **Email Address** | `email` |
+| C | **Submission Source** | Website Newsletter Bar |
+
+---
+
+### 5. `5_Chatbot_Leads` (AI Advisor Chatbot Inquiries)
+| Col | Header Name | Website Field |
+|:---:|:---|:---|
+| A | **Submission Date & Time** | Auto timestamp (UAE GST) |
+| B | **Full Name** | `name` |
+| C | **Phone Number** | `phone` |
 | D | **Email Address** | `email` |
-| E | **Phone / WhatsApp** | `phone` |
-| F | **Service Needed** | `service` |
-| G | **Preferred Schedule** | `meetingDate` + `meetingTime` (if booked via meeting modal) |
-| H | **Message / Project Notes** | `message` |
-| I | **Form Source** | "Homepage Consultation Form" or "Hero Book Meeting Modal" |
+| E | **Initial Question / Message** | User's question or issue |
+| F | **Platform / Device** | Mobile / Desktop |
+| G | **Submission Source** | Bab Al Bustan AI Chatbot |
 
 ---
 
-### 3. `3_Subscriptions` (Newsletter & Marketing)
-| Col | Header Name | Website Field |
-|:---:|:---|:---|
-| A | **Submission Date & Time** | Auto timestamp (UAE GST) |
-| B | **First Name** | `firstName` |
-| C | **Last Name** | `lastName` |
-| D | **Email Address** | `email` |
-| E | **Country** | `country` |
-| F | **Company Name** | `company` |
-| G | **Department** | `department` |
-| H | **Job Title** | `jobTitle` |
+## 🚀 3-Minute Setup Instructions for Your Gmail Account
 
----
+1. **Open Google Drive / Google Sheets**:
+   - Go to [sheets.new](https://sheets.new) while logged into your Google/Gmail account.
+   - Name the spreadsheet: **`BabAlBustan_Forms_Database`**.
 
-### 4. `4_Contact_Us` (Contact Page, Enquiry, Callback & Suppliers)
-| Col | Header Name | Website Field |
-|:---:|:---|:---|
-| A | **Submission Date & Time** | Auto timestamp (UAE GST) |
-| B | **Full Name / Contact Person** | `fullName` |
-| C | **Company Name** | `companyName` |
-| D | **Email Address** | `email` |
-| E | **Phone Number** | `phone` |
-| F | **Inquiry Type** | General Inquiry, Callback, Supplier Proposal, etc. |
-| G | **Subject / Service** | `subject` or category |
-| H | **Preferred Call Time / Website** | Callback time slot or supplier website |
-| I | **Message / Details** | Inquiry message & specifications |
+2. **Open Apps Script Editor**:
+   - In the top menu, click **Extensions** → **Apps Script**.
+   - Clear any code in `Code.gs`.
+   - Copy the entire contents of [`google-apps-script/Code.gs`](file:///d:/Projects/BabalbustanAutoMaint/google-apps-script/Code.gs) and paste it into the editor.
 
----
+3. **Initialize the 5 Tabs (Optional but recommended)**:
+   - At the top function dropdown, select **`setupAllSheets`**.
+   - Click **Run**.
+   - If prompted with "Authorization Required", click **Review Permissions** → select your Google account → click **Advanced** → **Go to Untitled project (unsafe)** → **Allow**.
+   - Switch back to your Google Sheet: All 5 tabs will now be created with branded red headers!
 
-### 5. `5_Careers` (Job Applications)
-| Col | Header Name | Website Field |
-|:---:|:---|:---|
-| A | **Submission Date & Time** | Auto timestamp (UAE GST) |
-| B | **Job Title** | `jobTitle` |
-| C | **Job ID** | `jobId` |
-| D | **Applicant Name** | `fullName` |
-| E | **Email Address** | `email` |
-| F | **Phone Number** | `phone` |
-| G | **Experience (Years)** | `experience` |
-| H | **CV / Resume Link** | Clickable link to download/view the uploaded resume (Google Drive / Website link) |
-| I | **CV / Resume File Name** | Original uploaded file name and size |
-| J | **Cover Letter / Notes** | `coverLetter` |
+4. **Deploy as a Web App (Webhook URL)**:
+   - In the top right corner of Apps Script, click **Deploy** → **New deployment**.
+   - Click the gear icon (⚙️) next to "Select type" and choose **Web app**.
+   - Set the settings:
+     - **Description**: `Bab Al Bustan Webhook v1`
+     - **Execute as**: `Me (your email)`
+     - **Who has access**: `Anyone` *(Must be Anyone so your website can send leads)*
+   - Click **Deploy**.
+   - Copy the **Web App URL** (it looks like `https://script.google.com/macros/s/AKfycbx.../exec`).
 
----
-
-### 6. `6_Technology_Expert` (Write Our Technology Experts & Talk to Expert)
-| Col | Header Name | Website Field |
-|:---:|:---|:---|
-| A | **Submission Date & Time** | Auto timestamp (UAE GST) |
-| B | **Full Name** | `fullName` |
-| C | **Company Name** | `companyName` |
-| D | **Email Address** | `email` |
-| E | **Phone Number** | `phone` |
-| F | **Subject / Service Needed** | `subject` |
-| G | **Service Type** | Specific technical service (e.g. Polyurea, Epoxy) |
-| H | **Technical Requirements / Message** | Technical specifications / project details |
-
----
-
-### 7. `7_Get_A_Quote` (Quotation Request Page)
-| Col | Header Name | Website Field |
-|:---:|:---|:---|
-| A | **Submission Date & Time** | Auto timestamp (UAE GST) |
-| B | **Full Name** | `fullName` |
-| C | **Phone Number** | `phoneNumber` |
-| D | **Email Address** | `emailAddress` |
-| E | **Company Name** | `companyName` |
-| F | **Project Type** | Combo Waterproofing, Thermal Insulation, etc. |
-| G | **Project Location** | `projectLocation` (e.g. Dubai, Abu Dhabi, etc.) |
-| H | **Uploaded Files (Drawings / BOQ)** | List of uploaded files |
-| I | **Project Details & Scope** | `projectDetails` |
-
----
-
-## How to Set Up in Your Google Sheet (3 Simple Steps)
-
-1. Open your Google Spreadsheet **`TajAlRahmah_Forms_Database`**.
-2. Click **Extensions** > **Apps Script**.
-3. Replace the code in **`Code.gs`** with the updated code from [google-apps-script/Code.gs](file:///c:/Users/asus%20system/Downloads/TajAlRahmah/google-apps-script/Code.gs).
-4. In the top toolbar function dropdown, select **`setupAllSheetsWithExactFormFields`** and click **Run**.
-   - *This will instantly create and format all 7 sheet tabs with teal headers and auto-adjusted columns!*
-5. Click **Deploy** > **Manage deployments** > **Edit** > select **New version** > click **Deploy**.
+5. **Paste the URL in `.env.local`**:
+   - Open `.env.local` in this project.
+   - Add or update:
+     ```env
+     GOOGLE_SHEET_WEBHOOK_URL="https://script.google.com/macros/s/AKfycbx.../exec"
+     ```
+   - Done! Every form submission, booking, quote request, and AI Chatbot lead will automatically populate in your Google Sheet and send an instant Gmail alert!

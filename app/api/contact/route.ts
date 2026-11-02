@@ -56,12 +56,21 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    let formType: FormType = "4_Contact_Us";
+    const resolvedVehicle = (body.vehicle || body.carModel || body.car || "").toString().trim();
+    const resolvedDate = (body.date || body.preferredDate || "").toString().trim();
+    const resolvedTime = (body.time || body.preferredTime || "").toString().trim();
+
+    let formType: FormType = "3_Contact_Inquiry";
     let title = "New Contact Us Inquiry";
 
     if (body.formType) {
       const ft = body.formType.toString().trim();
       if (
+        ft === "1_Workshop_Booking" ||
+        ft === "2_Price_Quote" ||
+        ft === "3_Contact_Inquiry" ||
+        ft === "4_Subscriptions" ||
+        ft === "5_Chatbot_Leads" ||
         ft === "1_Welcome_Popup" ||
         ft === "2_Free_Consultation" ||
         ft === "3_Subscriptions" ||
@@ -70,45 +79,41 @@ export async function POST(request: NextRequest) {
         ft === "6_Technology_Expert" ||
         ft === "7_Get_A_Quote"
       ) {
-        formType = ft;
+        formType = ft as FormType;
       }
     } else {
       const combined = `${resolvedService} ${resolvedMessage}`.toLowerCase();
-      if (combined.includes("welcome offer") || combined.includes("10% discount")) {
-        formType = "1_Welcome_Popup";
+      if (combined.includes("booking") || combined.includes("slot") || resolvedDate || resolvedTime) {
+        formType = "1_Workshop_Booking";
       } else if (
-        resolvedService.toLowerCase() === "free consultation" ||
-        combined.includes("consultation request")
-      ) {
-        formType = "2_Free_Consultation";
-      } else if (
-        combined.includes("quote request") ||
-        combined.includes("[project type:") ||
-        projectLocation ||
+        combined.includes("quote") ||
+        combined.includes("estimate") ||
         rawFiles.length > 0
       ) {
-        formType = "7_Get_A_Quote";
-      } else if (
-        combined.includes("technology expert") ||
-        combined.includes("talk to an expert") ||
-        combined.includes("technical expert")
-      ) {
-        formType = "6_Technology_Expert";
+        formType = "2_Price_Quote";
+      } else if (combined.includes("chatbot") || combined.includes("chat lead")) {
+        formType = "5_Chatbot_Leads";
+      } else if (combined.includes("subscription") || combined.includes("newsletter")) {
+        formType = "4_Subscriptions";
       }
     }
 
     switch (formType) {
-      case "1_Welcome_Popup":
-        title = `Welcome Offer Claim (10% Discount) from ${resolvedName}`;
-        break;
+      case "1_Workshop_Booking":
       case "2_Free_Consultation":
-        title = `Free Consultation Request from ${resolvedName}`;
+        title = `Workshop Booking: ${resolvedService || "Auto Service"}${resolvedVehicle ? ` (${resolvedVehicle})` : ""} from ${resolvedName}`;
         break;
-      case "6_Technology_Expert":
-        title = `Technology Expert Inquiry from ${resolvedName}`;
-        break;
+      case "2_Price_Quote":
       case "7_Get_A_Quote":
-        title = `Project Quote Request from ${resolvedName}${resolvedService ? ` (${resolvedService})` : ""}`;
+        title = `Price Quote Request: ${resolvedService || "Repair Estimate"}${resolvedVehicle ? ` (${resolvedVehicle})` : ""} from ${resolvedName}`;
+        break;
+      case "5_Chatbot_Leads":
+      case "6_Technology_Expert":
+        title = `AI Chatbot Consultation Lead from ${resolvedName}`;
+        break;
+      case "4_Subscriptions":
+      case "1_Welcome_Popup":
+        title = `VIP Club & Newsletter Subscription from ${resolvedName || resolvedEmail}`;
         break;
       default:
         title = `New Contact Inquiry from ${resolvedName}`;
@@ -209,18 +214,19 @@ export async function POST(request: NextRequest) {
     }
 
     const fields = [
-      { label: "Full Name", value: resolvedName },
-      { label: "Phone Number", value: resolvedPhone },
+      { label: "Customer Name", value: resolvedName },
+      { label: "Phone / WhatsApp", value: resolvedPhone },
       { label: "Email Address", value: resolvedEmail },
-      { label: "Company Name", value: resolvedCompany },
-      { label: "Service / Requirement", value: resolvedService },
-      { label: "Project Location", value: projectLocation },
-      { label: "Offer / Discount", value: offerDetails },
+      { label: "Vehicle / Car Model", value: resolvedVehicle },
+      { label: "Service Needed", value: resolvedService },
+      { label: "Preferred Booking Date", value: resolvedDate },
+      { label: "Preferred Time Slot", value: resolvedTime },
+      { label: "Company / Fleet", value: resolvedCompany },
       {
-        label: "Uploaded Drawings & BOQ Files",
+        label: "Uploaded Photos / Files",
         value: savedFilesInfo.length > 0 ? savedFilesInfo.map((f) => f.directUrl).join("\n") : (rawBodyFiles ? String(rawBodyFiles) : undefined),
       },
-      { label: "Message / Notes", value: resolvedMessage },
+      { label: "Customer Message / Issue Description", value: resolvedMessage },
     ];
 
     const sheetData: Record<string, any> = {
@@ -230,12 +236,15 @@ export async function POST(request: NextRequest) {
       phoneNumber: resolvedPhone,
       email: resolvedEmail,
       emailAddress: resolvedEmail,
+      vehicle: resolvedVehicle,
+      carModel: resolvedVehicle,
+      service: resolvedService,
+      preferredDate: resolvedDate,
+      date: resolvedDate,
+      preferredTime: resolvedTime,
+      time: resolvedTime,
       companyName: resolvedCompany,
       company: resolvedCompany,
-      service: resolvedService,
-      projectType: projectType || resolvedService,
-      projectLocation: projectLocation || "",
-      offerDetails: offerDetails || "10% Welcome Discount Offer",
       message: resolvedMessage,
       notes: resolvedMessage,
       enquiry: resolvedMessage,
