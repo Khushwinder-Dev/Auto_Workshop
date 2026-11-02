@@ -446,7 +446,7 @@ export default function ExpandableSearchBar({
   className = "",
   iconColor = "text-white",
   hoverIconColor = "hover:text-red-500",
-  dashedButton = false,
+  dashedButton = true,
   isDrawer = false,
   onCloseMenu,
   isScrolled = false,
@@ -815,417 +815,476 @@ export default function ExpandableSearchBar({
   };
 
         const mostUsedItems = MOST_USED_BY_TAB[activeTab] || MOST_USED_BY_TAB.all;
-        const defaultPlaceholder = isAr ? "بحث" : "Search";
+        const defaultPlaceholder = isAr ? "ابحث عن الخدمات، الماركات، الحلول..." : "Search services, brands, solutions...";
 
-        return (
+  return (
+    <div
+      ref={containerRef}
+      className={`relative z-40 ${className}`}
+      dir={isAr ? "rtl" : "ltr"}
+    >
+      {/* ─── DESKTOP & MOBILE NAVBAR TRIGGER BUTTON (TAJALRAHMAH CIRCULAR DASHED) ─── */}
+      {!isDrawer ? (
+        <div className="flex items-center">
+          {dashedButton ? (
+            <button
+              type="button"
+              onClick={() => {
+                if (isExpanded) {
+                  handleCollapse();
+                } else {
+                  handleExpand();
+                }
+              }}
+              className={`relative p-0.5 rounded-full border border-dashed transition-all cursor-pointer hover:scale-105 ${
+                isExpanded
+                  ? isScrolled
+                    ? "border-red-600 bg-red-600/15"
+                    : "border-white bg-white/15"
+                  : isScrolled
+                    ? "border-red-600/50 hover:border-red-600"
+                    : "border-white/60 hover:border-white"
+              }`}
+              aria-label={isExpanded ? "Close search" : "Open search"}
+              title="Search (Ctrl + K)"
+            >
+              <div
+                className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center transition-colors shadow-sm ${
+                  isScrolled
+                    ? "bg-red-600 hover:bg-red-700 text-white"
+                    : "bg-red-600 hover:bg-red-700 text-white"
+                }`}
+              >
+                {isExpanded ? (
+                  <X className="h-4 w-4 stroke-[2.5]" />
+                ) : (
+                  <Search className="h-4 w-4 stroke-[2.5]" />
+                )}
+              </div>
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={() => {
+                if (isExpanded) {
+                  handleCollapse();
+                } else {
+                  handleExpand();
+                }
+              }}
+              className={`${iconColor} ${hoverIconColor} p-2 transition-all cursor-pointer hover:bg-white/10 rounded-full`}
+              aria-label={isExpanded ? "Close search" : "Open search"}
+              title="Search (Ctrl + K)"
+            >
+              {isExpanded ? (
+                <X className="h-5 w-5 stroke-2 text-red-500" />
+              ) : (
+                <Search className="h-5 w-5 stroke-2" />
+              )}
+            </button>
+          )}
+        </div>
+      ) : (
+        /* Mobile Drawer Trigger Pill (TajAlRahmah Style) */
+        <div className="relative w-full">
+          <button
+            type="button"
+            onClick={() => {
+              if (isExpanded) {
+                handleCollapse();
+              } else {
+                handleExpand();
+              }
+            }}
+            className="w-full flex items-center justify-between bg-white hover:bg-zinc-50 border border-zinc-200 rounded-full px-4 py-2.5 text-zinc-600 transition-all cursor-pointer text-xs shadow-xs group"
+          >
+            <div className="flex items-center gap-2">
+              <Search className="w-4 h-4 text-red-600 group-hover:scale-110 transition-transform" />
+              <span className="text-zinc-600 group-hover:text-zinc-900 transition-colors font-medium">
+                {placeholder || defaultPlaceholder}
+              </span>
+            </div>
+            <span className="text-[10px] text-red-600 font-bold uppercase tracking-wider bg-red-50 border border-red-200 px-2 py-0.5 rounded-full">
+              Search
+            </span>
+          </button>
+        </div>
+      )}
+
+      {/* Mobile Backdrop Overlay when opened from Navbar on mobile screen */}
+      {!isDrawer && isExpanded && (
         <div
-          ref={containerRef}
-          className={`relative z-40 ${className}`}
+          className="fixed inset-0 bg-black/60 backdrop-blur-xs lg:hidden z-40 transition-opacity"
+          onClick={handleCollapse}
+        />
+      )}
+
+      {/* ─── UNIFIED SEARCH CARD (WHITE THEME LIKE TAJALRAHMAH) ───────────── */}
+      {isExpanded && (
+        <div
+          className={`${
+            isDrawer
+              ? "relative w-full mt-3"
+              : "fixed inset-x-3 top-20 sm:absolute sm:inset-auto sm:top-full sm:mt-3 sm:right-0 rtl:sm:right-auto rtl:sm:left-0 w-[calc(100vw-1.5rem)] sm:w-[540px] md:w-[620px] lg:w-[680px] max-w-[calc(100vw-1.5rem)] sm:max-w-[680px]"
+          } bg-white rounded-3xl shadow-[0_25px_70px_rgba(0,0,0,0.18),0_15px_35px_rgba(220,38,38,0.06)] border border-zinc-200/90 p-4 sm:p-6 z-50 text-left rtl:text-right animate-in fade-in zoom-in-95 duration-200 flex flex-col max-h-[85vh] sm:max-h-[620px]`}
+          onClick={(e) => e.stopPropagation()}
           dir={isAr ? "rtl" : "ltr"}
         >
-          {/* ─── TRIGGER BUTTONS ──────────────────────────────────── */}
-          {!isDrawer ? (
-            <div className="flex items-center">
-              {dashedButton ? (
-                <button
-                  type="button"
-                  onClick={() => {
-                    if (isExpanded) {
-                      handleCollapse();
-                    } else {
-                      handleExpand();
-                    }
-                  }}
-                  className="flex items-center gap-2 border border-dashed border-red-500/40 hover:border-red-500 bg-white hover:bg-zinc-50 text-zinc-800 rounded-full px-4 py-2 text-xs font-semibold tracking-wide transition-all duration-300 shadow-xs cursor-pointer group"
-                  title="Search (Ctrl + K)"
-                >
-                  <Search className="w-3.5 h-3.5 text-red-500 group-hover:scale-110 transition-transform" />
-                    <span className="text-zinc-600 group-hover:text-zinc-900 transition-colors">
-                      {placeholder || defaultPlaceholder}
-                    </span>
-                      <kbd className="hidden md:inline-block ml-1 text-[10px] text-zinc-500 bg-zinc-100 px-1.5 py-0.5 rounded border border-zinc-200 font-mono">
-                        Ctrl K
-                      </kbd>
-                    </button>
-                    ) : (
-                    <button
-                      type="button"
-                      onClick={() => {
-                        if (isExpanded) {
-                          handleCollapse();
-                        } else {
-                          handleExpand();
-                        }
-                      }}
-                      className={`${iconColor} ${hoverIconColor} p-2 transition-all cursor-pointer hover:bg-white/10 rounded-full`}
-                      aria-label={isExpanded ? "Close search" : "Open search"}
-                      title="Search (Ctrl + K)"
-                    >
-                      {isExpanded ? (
-                        <X className="h-6 w-6 stroke-2 text-red-500" />
-                      ) : (
-                        <Search className="h-6 w-6 stroke-2" />
-                      )}
-                    </button>
-          )}
-                  </div>
-                  ) : (
-                  /* Mobile Drawer Trigger Pill */
-                  <div className="relative w-full">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        if (isExpanded) {
-                          handleCollapse();
-                        } else {
-                          handleExpand();
-                        }
-                      }}
-                      className="w-full flex items-center justify-between bg-white hover:bg-zinc-50 border border-zinc-200 rounded-full px-4 py-3 text-zinc-700 transition-all cursor-pointer text-xs shadow-xs group"
-                    >
-                      <div className="flex items-center gap-2.5">
-                        <Search className="w-4 h-4 text-red-500 group-hover:scale-110 transition-transform" />
-                          <span className="text-zinc-600 group-hover:text-zinc-900 transition-colors font-medium">
-                            {placeholder || defaultPlaceholder}
-                          </span>
-                      </div>
-                        <span className="text-[10px] text-red-600 font-bold uppercase tracking-wider bg-red-50 border border-red-200 px-2 py-0.5 rounded-full">
-                          Search
-                        </span>
-                    </button>
-                  </div>
-      )}
+          {/* 1. Integrated Search Input Box */}
+          <div className="relative flex items-center bg-white border-2 border-red-600/30 focus-within:border-red-600 focus-within:ring-4 focus-within:ring-red-600/15 rounded-2xl px-3.5 sm:px-4 py-2.5 sm:py-3 transition-all shadow-xs gap-2.5 sm:gap-3 shrink-0">
+            <Search className="w-5 h-5 text-red-600 shrink-0 stroke-[2.2]" />
+            <input
+              ref={inputRef}
+              type="text"
+              value={searchQuery}
+              onFocus={() => setIsInputFocused(true)}
+              onBlur={() => setIsInputFocused(false)}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  handleExecuteSearch(searchQuery);
+                } else if (e.key === "Escape") {
+                  handleCollapse();
+                }
+              }}
+              placeholder={placeholder || defaultPlaceholder}
+              className="flex-1 bg-transparent text-sm sm:text-base text-zinc-900 placeholder-zinc-400 outline-none min-w-0 font-medium"
+            />
 
-                  {/* ─── UNIFIED MEGA MENU SEARCH CARD (TAJALRAHMAH WHITE THEME) ─── */}
-                  {isExpanded && (
-                    <div
-                      className={`${isDrawer
-                          ? "relative w-full mt-3"
-                          : "absolute top-full mt-3 right-0 rtl:right-auto rtl:left-0 w-[94vw] sm:w-[620px] md:w-[720px] lg:w-[780px] max-w-[800px]"
-          } bg-white rounded-3xl shadow-[0_25px_70px_rgba(0,0,0,0.18),0_15px_35px_rgba(220,38,38,0.06)] border border-zinc-200/90 p-5 sm:p-6 z-50 text-left rtl:text-right animate-in fade-in zoom-in-95 duration-200`}
-                  onClick={(e) => e.stopPropagation()}
-                  dir={isAr ? "rtl" : "ltr"}
-        >
-                  {/* 1. Integrated Search Input Box (Floating Pill Style with Voice Mic, NO Camera) */}
-                    <div className="relative flex items-center bg-zinc-50 border-2 border-zinc-200/90 focus-within:border-red-600 focus-within:ring-4 focus-within:ring-red-600/15 rounded-2xl px-4 py-3 transition-all shadow-xs gap-3">
-                      <Search className="w-5 h-5 text-red-600 shrink-0 stroke-[2.2]" />
-                      <input
-                        ref={inputRef}
-                        type="text"
-                        value={searchQuery}
-                        onFocus={() => setIsInputFocused(true)}
-                        onBlur={() => setIsInputFocused(false)}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        onKeyDown={(e) => {
-                          if (e.key === "Enter") {
-                            e.preventDefault();
-                            handleExecuteSearch(searchQuery);
-                          } else if (e.key === "Escape") {
-                            handleCollapse();
-                          }
-                        }}
-                        placeholder={placeholder || defaultPlaceholder}
-                        className="flex-1 bg-transparent text-sm sm:text-base text-zinc-900 placeholder-zinc-400 outline-none min-w-0 font-medium"
-                      />
-
-                      {/* Clear Query X */}
-                      {searchQuery.length > 0 && (
-                        <button
-                          type="button"
-                          onClick={handleClearQuery}
-                          className="p-1.5 text-zinc-400 hover:text-red-600 hover:bg-zinc-100 rounded-full transition-colors shrink-0 cursor-pointer"
-                          title={isAr ? "مسح النص" : "Clear text"}
-                          aria-label="Clear text"
-                        >
-                          <X className="w-4 h-4" />
-                        </button>
-                      )}
-
-                      {/* Voice Search with Pulse Animation (No image search) */}
-                      {mounted && (
-                        <button
-                          type="button"
-                          onMouseDown={(e) => e.preventDefault()}
-                          onClick={handleVoiceSearch}
-                          className={`p-1.5 rounded-full transition-all shrink-0 cursor-pointer ${isListening
-                                ? "bg-red-600 text-white animate-pulse shadow-md shadow-red-600/30"
-                                : "text-zinc-400 hover:text-red-600 hover:bg-zinc-100"
-                            }`}
-                          title={
-                            isListening
-                              ? isAr
-                                ? "جارٍ الاستماع..."
-                                : "Listening..."
-                              : isAr
-                                ? "البحث الصوتي"
-                                : "Voice search"
-                          }
-                          aria-label="Voice search"
-                        >
-                          {isListening ? (
-                            <MicOff className="w-4 h-4" />
-                          ) : (
-                            <Mic className="w-4 h-4" />
-                          )}
-                        </button>
-                      )}
-
-                      {/* Close Button */}
-                      <button
-                        type="button"
-                        onClick={handleCollapse}
-                        className="p-1 text-zinc-400 hover:text-red-600 hover:bg-zinc-100 rounded-full transition-colors shrink-0 cursor-pointer"
-                        title={isAr ? "إغلاق" : "Close"}
-                        aria-label="Close search"
-                      >
-                        <X className="w-4 h-4 stroke-[2.2]" />
-                      </button>
-                    </div>
-
-                    {/* 2. Section Header */}
-                    <div className="mt-4 mb-3 flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full bg-red-600 inline-block animate-ping" />
-                          <p className="text-xs font-extrabold tracking-wider uppercase text-zinc-800">
-                            {searchQuery.trim() === ""
-                              ? isAr
-                                ? "خدمات ورشة باب البستان المعتمدة"
-                                : "Popular Workshop Services"
-                              : isAr
-                                ? "نتائج البحث والمطابقة"
-                                : "Search Suggestions & Results"}
-                          </p>
-                      </div>
-                      {searchQuery.trim() !== "" ? (
-                          <span className="text-xs text-red-600 font-bold">
-                            {filteredResults.length} {isAr ? "نتيجة" : "results"}
-                          </span>
-                          ) : (
-                          <button
-                            type="button"
-                            onClick={() => {
-                              router.push("/services");
-                              handleCollapse();
-                              onCloseMenu?.();
-                            }}
-                            className="text-[11px] font-bold text-red-600 hover:text-red-700 transition-colors flex items-center gap-1 cursor-pointer"
-                          >
-                            <span>{isAr ? "عرض صفحة الخدمات" : "View Services Page"}</span>
-                            <ArrowRight className="w-3 h-3 rtl:rotate-180" />
-                          </button>
+            {/* Clear Query X */}
+            {searchQuery.length > 0 && (
+              <button
+                type="button"
+                onClick={handleClearQuery}
+                className="p-1.5 text-zinc-400 hover:text-red-600 hover:bg-zinc-100 rounded-full transition-colors shrink-0 cursor-pointer"
+                title={isAr ? "مسح النص" : "Clear text"}
+                aria-label="Clear text"
+              >
+                <X className="w-4 h-4" />
+              </button>
             )}
-                        </div>
+
+            {/* Voice Search with Pulse Animation */}
+            {mounted && (
+              <button
+                type="button"
+                onMouseDown={(e) => e.preventDefault()}
+                onClick={handleVoiceSearch}
+                className={`p-1.5 rounded-full transition-all shrink-0 cursor-pointer ${
+                  isListening
+                    ? "bg-red-600 text-white animate-pulse shadow-md shadow-red-600/30"
+                    : "text-zinc-400 hover:text-red-600 hover:bg-zinc-100"
+                }`}
+                title={
+                  isListening
+                    ? isAr
+                      ? "جارٍ الاستماع..."
+                      : "Listening..."
+                    : isAr
+                      ? "البحث الصوتي"
+                      : "Voice search"
+                }
+                aria-label="Voice search"
+              >
+                {isListening ? (
+                  <MicOff className="w-4 h-4" />
+                ) : (
+                  <Mic className="w-4 h-4" />
+                )}
+              </button>
+            )}
+
+            {/* Close Button */}
+            <button
+              type="button"
+              onClick={handleCollapse}
+              className="p-1 text-zinc-400 hover:text-red-600 hover:bg-red-50 rounded-full transition-colors shrink-0 cursor-pointer"
+              title={isAr ? "إغلاق" : "Close"}
+              aria-label="Close search"
+            >
+              <X className="w-4 h-4 stroke-[2.2]" />
+            </button>
+          </div>
+
+          {/* 2. Filter Category Pills (TajAlRahmah Style) */}
+          <div className="mt-3 flex items-center gap-1.5 sm:gap-2 overflow-x-auto slim-scrollbar pb-1.5 shrink-0">
+            {FILTER_TABS.map((tab) => {
+              const isSelected = activeTab === tab.key;
+              return (
+                <button
+                  key={tab.key}
+                  type="button"
+                  onClick={() => setActiveTab(tab.key)}
+                  className={`px-3 sm:px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer whitespace-nowrap shrink-0 ${
+                    isSelected
+                      ? "bg-red-50 text-red-600 border border-red-200/90 shadow-2xs"
+                      : "bg-zinc-100 hover:bg-zinc-50 text-zinc-700 hover:text-red-600 border border-transparent hover:border-red-200"
+                  }`}
+                >
+                  {isAr ? tab.labelAr : tab.labelEn}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* 3. Section Header */}
+          <div className="mt-2.5 mb-2 flex items-center justify-between shrink-0">
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-red-600 inline-block animate-ping" />
+              <p className="text-xs font-extrabold tracking-wider uppercase text-zinc-800">
+                {searchQuery.trim() === ""
+                  ? activeTab === "all" || activeTab === "services"
+                    ? isAr
+                      ? "خدمات ورشة باب البستان المعتمدة"
+                      : "Popular Workshop Services"
+                    : isAr
+                      ? "الأكثر استخداماً"
+                      : "Most Used"
+                  : isAr
+                    ? "نتائج البحث والمطابقة"
+                    : "Search Suggestions & Results"}
+              </p>
+            </div>
+            {searchQuery.trim() !== "" ? (
+              <span className="text-xs text-red-600 font-bold">
+                {filteredResults.length} {isAr ? "نتيجة" : "results"}
+              </span>
+            ) : (
+              <button
+                type="button"
+                onClick={() => {
+                  router.push("/services");
+                  handleCollapse();
+                  onCloseMenu?.();
+                }}
+                className="text-[11px] font-bold text-red-600 hover:text-red-700 transition-colors flex items-center gap-1 cursor-pointer"
+              >
+                <span>{isAr ? "عرض صفحة الخدمات" : "View Services Page"}</span>
+                <ArrowRight className="w-3 h-3 rtl:rotate-180" />
+              </button>
+            )}
+          </div>
 
           {/* 4. Results List / Services Mega Menu Grid */}
-                      <div className="flex-1 overflow-y-auto slim-scrollbar min-h-0 max-h-[340px] sm:max-h-[380px] pr-1.5 space-y-2">
-                        {searchQuery.trim() === "" ? (
-                          /* When query is empty: SHOW FULL SERVICES MEGA MENU */
-                          activeTab === "all" || activeTab === "services" ? (
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                              {workshopServices.map((service) => {
-                                const meta = SERVICE_META[service.id] || {
-                                  icon: Wrench,
-                                  tagEn: "Specialized Service",
-                                  tagAr: "خدمة سيارات معتمدة",
-                                };
-                                const Icon = meta.icon;
-                                const targetHref = `/services-details?service=${service.id}`;
+          <div className="flex-1 overflow-y-auto slim-scrollbar min-h-0 pr-1 space-y-2">
+            {searchQuery.trim() === "" ? (
+              activeTab === "all" || activeTab === "services" ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  {workshopServices.map((service) => {
+                    const meta = SERVICE_META[service.id] || {
+                      icon: Wrench,
+                      tagEn: "Specialized Service",
+                      tagAr: "خدمة سيارات معتمدة",
+                    };
+                    const Icon = meta.icon;
+                    const targetHref = `/services-details?service=${service.id}`;
 
-                                return (
-                                  <div
-                                    key={service.id}
-                                    onClick={() => {
-                                      if (onSearch) {
-                                        onSearch(service.title, targetHref);
-                                      }
-                                      router.push(targetHref);
-                                      handleCollapse();
-                                      onCloseMenu?.();
-                                    }}
-                                    className="group flex items-start gap-3 p-3 rounded-2xl bg-zinc-50/70 hover:bg-white border border-zinc-200/80 hover:border-red-600/50 hover:shadow-md transition-all duration-200 cursor-pointer shadow-2xs"
-                                  >
-                                      <div className="w-10 h-10 rounded-xl bg-red-50 text-red-600 border border-red-100 group-hover:bg-red-600 group-hover:text-white group-hover:border-red-600 flex items-center justify-center shrink-0 transition-all duration-200 mt-0.5 shadow-2xs">
-                                        <Icon className="w-5 h-5 stroke-[2]" />
-                                      </div>
-                                      <div className="min-w-0 flex-1">
-                                          <h5 className="text-xs sm:text-[13px] font-bold text-zinc-900 group-hover:text-red-600 transition-colors truncate mb-0.5">
-                                            {service.title}
-                                          </h5>
-                                            <p className="text-[11px] text-zinc-500 line-clamp-1 leading-snug">
-                                              {service.shortDesc}
-                                            </p>
-                                          </div>
-                                          <ChevronRight className="w-4 h-4 text-zinc-400 group-hover:text-red-600 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180 transition-all shrink-0 self-center" />
-                                      </div>
-                                      );
+                    return (
+                      <div
+                        key={service.id}
+                        onClick={() => {
+                          if (onSearch) {
+                            onSearch(service.title, targetHref);
+                          }
+                          router.push(targetHref);
+                          handleCollapse();
+                          onCloseMenu?.();
+                        }}
+                        className="group flex items-start gap-2.5 sm:gap-3 p-2.5 sm:p-3 rounded-2xl bg-zinc-50/70 hover:bg-white border border-zinc-200/80 hover:border-red-600/50 hover:shadow-md transition-all duration-200 cursor-pointer shadow-2xs"
+                      >
+                        <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-red-50 text-red-600 border border-red-100 group-hover:bg-red-600 group-hover:text-white group-hover:border-red-600 flex items-center justify-center shrink-0 transition-all duration-200 mt-0.5 shadow-2xs">
+                          <Icon className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2]" />
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <h5 className="text-xs sm:text-[13px] font-bold text-zinc-900 group-hover:text-red-600 transition-colors truncate mb-0.5">
+                            {service.title}
+                          </h5>
+                          <p className="text-[11px] text-zinc-500 line-clamp-1 leading-snug">
+                            {service.shortDesc}
+                          </p>
+                        </div>
+                        <ChevronRight className="w-4 h-4 text-zinc-400 group-hover:text-red-600 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180 transition-all shrink-0 self-center" />
+                      </div>
+                    );
                   })}
-                                    </div>
-                                    ) : (
-                                    /* Tab view for brands, blogs, videos, faqs */
-                                    <div className="space-y-1.5">
-                                      {mostUsedItems.map((item, idx) => {
-                                        const Icon = item.icon;
-                                        return (
-                                          <div
-                                            key={idx}
-                                            onClick={() => {
-                                              if (onSearch) {
-                                                onSearch(isAr ? item.titleAr : item.titleEn, item.href);
-                                              }
-                                              router.push(item.href);
-                                              handleCollapse();
-                                              onCloseMenu?.();
-                                            }}
-                                            className="flex items-center justify-between p-3 rounded-2xl bg-zinc-50/70 hover:bg-white border border-zinc-200/80 hover:border-red-600/50 hover:shadow-md transition-all cursor-pointer group shadow-2xs"
-                                          >
-                                            <div className="flex items-center gap-3.5 min-w-0 flex-1">
-                                                <div className="w-10 h-10 rounded-2xl bg-red-50 text-red-600 border border-red-100 group-hover:bg-red-600 group-hover:text-white group-hover:border-red-600 flex items-center justify-center shrink-0 transition-all duration-200">
-                                                  <Icon className="w-5 h-5 stroke-[2]" />
-                                                </div>
-                                                <div className="min-w-0 flex-1">
-                                                    <h5 className="text-sm font-bold text-zinc-900 group-hover:text-red-600 transition-colors truncate">
-                                                      {isAr ? item.titleAr : item.titleEn}
-                                                    </h5>
-                                                      <p className="text-xs text-zinc-500 font-medium truncate mt-0.5">
-                                                        {isAr ? item.categoryAr : item.categoryEn}
-                                                      </p>
-                                                    </div>
-                                                </div>
-                                                <ChevronRight className="w-5 h-5 text-zinc-400 group-hover:text-red-600 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180 transition-all shrink-0 ml-2 rtl:ml-0 rtl:mr-2 stroke-[2.2]" />
-                                              </div>
-                                              );
+                </div>
+              ) : (
+                /* Tab view for brands, blogs, videos, faqs */
+                <div className="space-y-1.5">
+                  {mostUsedItems.map((item, idx) => {
+                    const Icon = item.icon;
+                    return (
+                      <div
+                        key={idx}
+                        onClick={() => {
+                          if (onSearch) {
+                            onSearch(isAr ? item.titleAr : item.titleEn, item.href);
+                          }
+                          router.push(item.href);
+                          handleCollapse();
+                          onCloseMenu?.();
+                        }}
+                        className="flex items-center justify-between p-2.5 sm:p-3 rounded-2xl bg-zinc-50/70 hover:bg-white border border-zinc-200/80 hover:border-red-600/50 hover:shadow-md transition-all cursor-pointer group shadow-2xs"
+                      >
+                        <div className="flex items-center gap-3 min-w-0 flex-1">
+                          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-red-50 text-red-600 border border-red-100 group-hover:bg-red-600 group-hover:text-white group-hover:border-red-600 flex items-center justify-center shrink-0 transition-all duration-200">
+                            <Icon className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2]" />
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <h5 className="text-xs sm:text-sm font-bold text-zinc-900 group-hover:text-red-600 transition-colors truncate">
+                              {isAr ? item.titleAr : item.titleEn}
+                            </h5>
+                            <p className="text-[11px] text-zinc-500 font-medium truncate mt-0.5">
+                              {isAr ? item.categoryAr : item.categoryEn}
+                            </p>
+                          </div>
+                        </div>
+                        <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-zinc-400 group-hover:text-red-600 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180 transition-all shrink-0 ml-2 rtl:ml-0 rtl:mr-2 stroke-[2.2]" />
+                      </div>
+                    );
                   })}
-                                            </div>
-                                            )
+                </div>
+              )
             ) : filteredResults.length > 0 ? (
-                                            /* When searching: DISPLAY MATCHED SERVICE SUGGESTIONS & RESULTS */
-                                            <div className="space-y-1.5">
-                                              {filteredResults.map((item) => {
-                                                const displayName = isAr && item.nameAr ? item.nameAr : item.name;
-                                                const displayDesc = isAr && item.descAr ? item.descAr : item.desc;
-                                                const displayCategory = isAr && item.categoryAr ? item.categoryAr : item.category;
+              /* When searching: DISPLAY MATCHED SERVICE SUGGESTIONS & RESULTS */
+              <div className="space-y-1.5">
+                {filteredResults.map((item) => {
+                  const displayName = isAr && item.nameAr ? item.nameAr : item.name;
+                  const displayDesc = isAr && item.descAr ? item.descAr : item.desc;
+                  const displayCategory = isAr && item.categoryAr ? item.categoryAr : item.category;
 
-                                                const isService = item.category === "Service";
-                                                const serviceId = item.id.replace("service-", "");
-                                                const meta = SERVICE_META[serviceId];
-                                                const Icon = meta ? meta.icon : isService ? Wrench : item.category === "Brand" ? Car : item.category === "Blog" ? FileText : item.category === "Video" ? Video : HelpCircle;
+                  const isService = item.category === "Service";
+                  const serviceId = item.id.replace("service-", "");
+                  const meta = SERVICE_META[serviceId];
+                  const Icon = meta
+                    ? meta.icon
+                    : isService
+                    ? Wrench
+                    : item.category === "Brand"
+                    ? Car
+                    : item.category === "Blog"
+                    ? FileText
+                    : item.category === "Video"
+                    ? Video
+                    : HelpCircle;
 
-                                                return (
-                                                  <div
-                                                    key={item.id}
-                                                    onClick={() => handleSelectResult(item)}
-                                                    className="p-3 rounded-2xl bg-zinc-50/70 hover:bg-white border border-zinc-200/80 hover:border-red-600/50 hover:shadow-md cursor-pointer transition-all duration-200 flex items-center justify-between gap-3 group shadow-2xs"
-                                                  >
-                                                    <div className="flex items-center gap-3.5 min-w-0 flex-1">
-                                                        <div className="w-10 h-10 rounded-2xl bg-red-50 text-red-600 border border-red-100 group-hover:bg-red-600 group-hover:text-white group-hover:border-red-600 flex items-center justify-center shrink-0 transition-all duration-200">
-                                                          <Icon className="w-5 h-5 stroke-[2]" />
-                                                        </div>
-                                                        <div className="min-w-0 flex-1">
-                                                          <div className="flex items-center gap-2 mb-0.5">
-                                                            <span
-                                                              className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider border ${
-                                                                CATEGORY_COLORS[item.category]?.bg || "bg-zinc-100"
-                                                              } ${
-                                                                CATEGORY_COLORS[item.category]?.text || "text-zinc-700"
-                                                              } ${
-                                                                CATEGORY_COLORS[item.category]?.border || "border-zinc-200"
-                                                              }`}
-                                                            >
-                                                              {displayCategory}
-                                                            </span>
-                                                            <h4 className="text-sm font-bold text-zinc-900 group-hover:text-red-600 transition-colors truncate">
-                                                              {highlightMatch(displayName, searchQuery)}
-                                                            </h4>
-                                                        </div>
-                                                          <p className="text-xs text-zinc-500 line-clamp-1 leading-relaxed">
-                                                            {displayDesc}
-                                                          </p>
-                                                      </div>
-                                                    </div>
+                  return (
+                    <div
+                      key={item.id}
+                      onClick={() => handleSelectResult(item)}
+                      className="p-2.5 sm:p-3 rounded-2xl bg-zinc-50/70 hover:bg-white border border-zinc-200/80 hover:border-red-600/50 hover:shadow-md cursor-pointer transition-all duration-200 flex items-center justify-between gap-3 group shadow-2xs"
+                    >
+                      <div className="flex items-center gap-3 min-w-0 flex-1">
+                        <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-red-50 text-red-600 border border-red-100 group-hover:bg-red-600 group-hover:text-white group-hover:border-red-600 flex items-center justify-center shrink-0 transition-all duration-200">
+                          <Icon className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2]" />
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center gap-2 mb-0.5">
+                            <span
+                              className={`text-[9.5px] sm:text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider border ${
+                                CATEGORY_COLORS[item.category]?.bg || "bg-zinc-100"
+                              } ${
+                                CATEGORY_COLORS[item.category]?.text || "text-zinc-700"
+                              } ${
+                                CATEGORY_COLORS[item.category]?.border || "border-zinc-200"
+                              }`}
+                            >
+                              {displayCategory}
+                            </span>
+                            <h4 className="text-xs sm:text-sm font-bold text-zinc-900 group-hover:text-red-600 transition-colors truncate">
+                              {highlightMatch(displayName, searchQuery)}
+                            </h4>
+                          </div>
+                          <p className="text-[11px] text-zinc-500 line-clamp-1 leading-relaxed">
+                            {displayDesc}
+                          </p>
+                        </div>
+                      </div>
 
-                                                      <div className="flex items-center gap-1.5 shrink-0 text-red-600 text-xs font-bold group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform ml-1 rtl:ml-0 rtl:mr-1">
-                                                        <span className="hidden sm:inline">
-                                                          {isService
-                                                            ? isAr
-                                                              ? "عرض الخدمة"
-                                                              : "View Service"
-                                                            : isAr
-                                                              ? "انتقال"
-                                                              : "Open"}
-                                                        </span>
-                                                        <ChevronRight className="w-4 h-4 rtl:rotate-180" />
-                                                      </div>
-                                                    </div>
-                                                    );
+                      <div className="flex items-center gap-1.5 shrink-0 text-red-600 text-xs font-bold group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform ml-1 rtl:ml-0 rtl:mr-1">
+                        <span className="hidden sm:inline">
+                          {isService
+                            ? isAr
+                              ? "عرض الخدمة"
+                              : "View Service"
+                            : isAr
+                            ? "انتقال"
+                            : "Open"}
+                        </span>
+                        <ChevronRight className="w-4 h-4 rtl:rotate-180" />
+                      </div>
+                    </div>
+                  );
                 })}
-                                                  </div>
-                                                ) : (
-                                              /* No matching results */
-                                              <div className="py-8 px-4 text-center">
-                                                  <p className="text-sm font-bold text-zinc-900">
-                                                    {isAr ? "لم نجد نتائج لـ" : "No results for"} "{searchQuery}"
-                                                  </p>
-                                                    <p className="text-xs text-zinc-500 mt-1 max-w-md mx-auto">
-                                                      {isAr
-                                                        ? "جرّب البحث باسم إحدى خدمات الورشة (فرامل، غيار زيت، فحص كمبيوتر، مكيف، بطارية، إطارات) أو ماركة السيارة."
-                                                        : "Try searching for workshop services (brakes, oil change, diagnostics, AC repair, battery, tires) or car makes."}
-                                                    </p>
-                                                    <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
-                                                      <button
-                                                        type="button"
-                                                        onClick={() => {
-                                                          router.push("/services");
-                                                          handleCollapse();
-                                                          onCloseMenu?.();
-                                                        }}
-                                                        className="inline-flex items-center gap-1.5 px-4 py-2 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 text-xs font-bold rounded-full transition-colors border border-zinc-300 cursor-pointer"
-                                                      >
-                                                        <Wrench className="w-3.5 h-3.5 text-red-600" />
-                                                        <span>{isAr ? "تصفح جميع الخدمات (8)" : "Browse All 8 Services"}</span>
-                                                      </button>
-                                                      <button
-                                                        type="button"
-                                                        onClick={() => {
-                                                          router.push("/booking");
-                                                          handleCollapse();
-                                                          onCloseMenu?.();
-                                                        }}
-                                                        className="inline-flex items-center gap-1.5 px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-xs font-bold rounded-full transition-colors cursor-pointer shadow-md"
-                                                      >
-                                                        <Calendar className="w-3.5 h-3.5" />
-                                                        <span>{isAr ? "حجز موعد فحص فوري" : "Book Fast Slot"}</span>
-                                                      </button>
-                                                    </div>
-                                                  </div>
+              </div>
+            ) : (
+              /* No matching results */
+              <div className="py-6 px-3 text-center">
+                <p className="text-sm font-bold text-zinc-900">
+                  {isAr ? "لم نجد نتائج لـ" : "No results for"} "{searchQuery}"
+                </p>
+                <p className="text-xs text-zinc-500 mt-1 max-w-md mx-auto">
+                  {isAr
+                    ? "جرّب البحث باسم إحدى خدمات الورشة (فرامل، غيار زيت، فحص كمبيوتر، مكيف، بطارية، إطارات) أو ماركة السيارة."
+                    : "Try searching for workshop services (brakes, oil change, diagnostics, AC repair, battery, tires) or car makes."}
+                </p>
+                <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      router.push("/services");
+                      handleCollapse();
+                      onCloseMenu?.();
+                    }}
+                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 text-xs font-bold rounded-full transition-colors border border-zinc-300 cursor-pointer"
+                  >
+                    <Wrench className="w-3.5 h-3.5 text-red-600" />
+                    <span>{isAr ? "تصفح جميع الخدمات (8)" : "Browse All 8 Services"}</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      router.push("/booking");
+                      handleCollapse();
+                      onCloseMenu?.();
+                    }}
+                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-red-600 hover:bg-red-700 text-white text-xs font-bold rounded-full transition-colors cursor-pointer shadow-md"
+                  >
+                    <Calendar className="w-3.5 h-3.5" />
+                    <span>{isAr ? "حجز موعد فحص فوري" : "Book Fast Slot"}</span>
+                  </button>
+                </div>
+              </div>
             )}
-                                              </div>
+          </div>
 
-                                              {/* 5. Bottom Action Bar with AI Option (TajAlRahmah Style) */}
-                                                  <div className="mt-4 pt-3.5 border-t border-zinc-200/80 flex items-center justify-between text-xs gap-3 flex-wrap">
-                                                    <span className="text-xs text-zinc-600 font-medium">
-                                                      {isAr ? "هل تحتاج مساعدة في تشخيص عطل سيارتك؟" : "Need help diagnosing your vehicle?"}
-                                                    </span>
+          {/* 5. Bottom Action Bar with AI Option (TajAlRahmah Style) */}
+          <div className="mt-3 pt-3 border-t border-zinc-200/80 flex items-center justify-between text-xs gap-2 flex-wrap shrink-0">
+            <span className="text-[11px] sm:text-xs text-zinc-600 font-medium">
+              {isAr ? "هل تحتاج مساعدة في تشخيص عطل سيارتك؟" : "Need help diagnosing your vehicle?"}
+            </span>
 
-                                                    {/* ASK AI Assistant Button */}
-                                                    <button
-                                                      type="button"
-                                                      onClick={() => {
-                                                        if (searchQuery.trim()) {
-                                                          setAiQuestion(searchQuery.trim());
-                                                          handleAskAiSubmit(searchQuery.trim());
-                                                        }
-                                                        setShowAiModal(true);
-                                                      }}
-                                                      className="px-4 sm:px-5 py-2 rounded-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-bold text-xs sm:text-[13px] flex items-center gap-2 shadow-md shadow-red-600/20 hover:shadow-lg hover:scale-[1.02] active:scale-95 transition-all cursor-pointer shrink-0"
-                                                    >
-                                                      <Sparkles className="w-4 h-4 text-amber-300 fill-amber-300/30" />
-                                                      <span>{isAr ? "اسأل المساعد الذكي لتشخيص الأعطال" : "Ask AI Assistant"}</span>
-                                                    </button>
-                                                  </div>
-                                              </div>
+            {/* ASK AI Assistant Button */}
+            <button
+              type="button"
+              onClick={() => {
+                if (searchQuery.trim()) {
+                  setAiQuestion(searchQuery.trim());
+                  handleAskAiSubmit(searchQuery.trim());
+                }
+                setShowAiModal(true);
+              }}
+              className="px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-bold text-xs sm:text-[13px] flex items-center gap-1.5 sm:gap-2 shadow-md shadow-red-600/20 hover:shadow-lg hover:scale-[1.02] active:scale-95 transition-all cursor-pointer shrink-0"
+            >
+              <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-300 fill-amber-300/30" />
+              <span>{isAr ? "اسأل المساعد الذكي لتشخيص الأعطال" : "Ask AI Assistant"}</span>
+            </button>
+          </div>
+        </div>
       )}
 
-                                              {/* ─── AI ASSISTANT MODAL (PORTAL - WHITE THEME) ─────────── */}
+      {/* ─── AI ASSISTANT MODAL (PORTAL - WHITE THEME) ─────────── */}
                                               {showAiModal && mounted && createPortal(
                                                 <div
                                                   className="fixed inset-0 z-[99999] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in"

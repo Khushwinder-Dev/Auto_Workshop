@@ -433,14 +433,6 @@ export default function Navbar() {
               <span>{isArabic ? "English" : "العربية"}</span>
             </button>
 
-            {/* Mobile Drawer Search Bar */}
-            <div className="mb-6">
-              <ExpandableSearchBar
-                isDrawer={true}
-                onCloseMenu={() => setMobileMenuOpen(false)}
-              />
-            </div>
-
             {/* Mobile Links */}
             <div className="flex flex-col gap-4 overflow-y-auto max-h-[calc(100vh-280px)] slim-scrollbar pr-1">
               {navLinks.map((link) => {
