@@ -22,6 +22,10 @@ import {
   ArrowRightToLine,
   CheckCircle2,
   AlertCircle,
+  Droplets,
+  Battery,
+  Disc,
+  Code,
 } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { VoiceMicButton, useVoiceInput } from "@/components/ui/VoiceMicButton";
@@ -1131,6 +1135,131 @@ export default function FloatingChatWidget() {
                   </div>
                   <button
                     onClick={() => handleSend(isArabic ? "أود صيانة الفرامل وخرط الديسكات" : "I need brake pad replacement and rotor skimming")}
+                    className="px-2.5 py-1 bg-red-50 hover:bg-red-600 text-red-600 hover:text-white border border-red-200 rounded-lg text-[10px] font-bold transition-colors cursor-pointer"
+                  >
+                    {isArabic ? "استفسار" : "Inquire"}
+                  </button>
+                </div>
+              </div>
+
+              {/* Oil Change */}
+              <div className="bg-stone-50 border border-stone-200/80 rounded-xl p-3 hover:border-red-500 hover:shadow-xs transition-all">
+                <div className="flex items-start justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-lg bg-orange-100 text-orange-600 flex items-center justify-center">
+                      <Droplets className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-stone-900 text-xs">
+                        {isArabic ? "تبديل زيت تخليقي وفلتر" : "Synthetic Oil Change & Filter"}
+                      </h4>
+                      <p className="text-[11px] text-stone-500">
+                        {isArabic ? "زيوت 5W-30 وفحص 30 نقطة مجاناً" : "5W-30/0W-40 & 30-point check"}
+                      </p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => handleSend(isArabic ? "كم سعر تبديل الزيت التخليقي والفلتر؟" : "What is the price for synthetic oil change and filter?")}
+                    className="px-2.5 py-1 bg-red-50 hover:bg-red-600 text-red-600 hover:text-white border border-red-200 rounded-lg text-[10px] font-bold transition-colors cursor-pointer"
+                  >
+                    {isArabic ? "استفسار" : "Inquire"}
+                  </button>
+                </div>
+              </div>
+
+              {/* Suspension */}
+              <div className="bg-stone-50 border border-stone-200/80 rounded-xl p-3 hover:border-red-500 hover:shadow-xs transition-all">
+                <div className="flex items-start justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center">
+                      <Wrench className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-stone-900 text-xs">
+                        {isArabic ? "نظام التعليق والمساعدات" : "Suspension & Shock Absorbers"}
+                      </h4>
+                      <p className="text-[11px] text-stone-500">
+                        {isArabic ? "كبس بوشات، جامبينات، وأذرعة" : "Struts, bushings, NVH test"}
+                      </p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => handleSend(isArabic ? "أود فحص المساعدات ونظام التعليق" : "I need a suspension inspection and shock absorber check")}
+                    className="px-2.5 py-1 bg-red-50 hover:bg-red-600 text-red-600 hover:text-white border border-red-200 rounded-lg text-[10px] font-bold transition-colors cursor-pointer"
+                  >
+                    {isArabic ? "استفسار" : "Inquire"}
+                  </button>
+                </div>
+              </div>
+
+              {/* Battery */}
+              <div className="bg-stone-50 border border-stone-200/80 rounded-xl p-3 hover:border-red-500 hover:shadow-xs transition-all">
+                <div className="flex items-start justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-lg bg-yellow-100 text-yellow-600 flex items-center justify-center">
+                      <Battery className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-stone-900 text-xs">
+                        {isArabic ? "فحص وتبديل البطارية" : "Battery Health & Replacement"}
+                      </h4>
+                      <p className="text-[11px] text-stone-500">
+                        {isArabic ? "فحص دينامو وضمان حتى سنتين" : "Load test & AGM batteries"}
+                      </p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => handleSend(isArabic ? "كم سعر فحص وتبديل البطارية مع الضمان؟" : "What is the price for battery testing and replacement?")}
+                    className="px-2.5 py-1 bg-red-50 hover:bg-red-600 text-red-600 hover:text-white border border-red-200 rounded-lg text-[10px] font-bold transition-colors cursor-pointer"
+                  >
+                    {isArabic ? "استفسار" : "Inquire"}
+                  </button>
+                </div>
+              </div>
+
+              {/* Tires & Alignment */}
+              <div className="bg-stone-50 border border-stone-200/80 rounded-xl p-3 hover:border-red-500 hover:shadow-xs transition-all">
+                <div className="flex items-start justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-lg bg-teal-100 text-teal-600 flex items-center justify-center">
+                      <Disc className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-stone-900 text-xs">
+                        {isArabic ? "ميزان ليزر وترصيص إطارات" : "Laser Alignment & Dynamic Balancing"}
+                      </h4>
+                      <p className="text-[11px] text-stone-500">
+                        {isArabic ? "إزالة رجة السرعات ومسح التواير" : "High-speed wheel balancing"}
+                      </p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => handleSend(isArabic ? "أود ميزان ليزري وترصيص للإطارات" : "I need computerized laser wheel alignment and balancing")}
+                    className="px-2.5 py-1 bg-red-50 hover:bg-red-600 text-red-600 hover:text-white border border-red-200 rounded-lg text-[10px] font-bold transition-colors cursor-pointer"
+                  >
+                    {isArabic ? "استفسار" : "Inquire"}
+                  </button>
+                </div>
+              </div>
+
+              {/* Computer Programming */}
+              <div className="bg-stone-50 border border-stone-200/80 rounded-xl p-3 hover:border-red-500 hover:shadow-xs transition-all">
+                <div className="flex items-start justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-lg bg-indigo-100 text-indigo-600 flex items-center justify-center">
+                      <Code className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-stone-900 text-xs">
+                        {isArabic ? "برمجة كمبيوتر ومفاتيح" : "ECU Programming & Key Coding"}
+                      </h4>
+                      <p className="text-[11px] text-stone-500">
+                        {isArabic ? "تحديث سوفتوير، وبرمجة ريموت" : "Module adaptation & smart keys"}
+                      </p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => handleSend(isArabic ? "أود الاستفسار عن برمجة كمبيوتر السيارة والمفاتيح" : "I need ECU programming and key coding service")}
                     className="px-2.5 py-1 bg-red-50 hover:bg-red-600 text-red-600 hover:text-white border border-red-200 rounded-lg text-[10px] font-bold transition-colors cursor-pointer"
                   >
                     {isArabic ? "استفسار" : "Inquire"}
