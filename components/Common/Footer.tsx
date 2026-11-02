@@ -82,7 +82,7 @@ export default function Footer() {
 
   return (
     <footer className="bg-[#0a0a0a] text-gray-300 pt-16 pb-8 font-sans border-t border-zinc-800/80">
-      <div className="relative z-10 max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-8 2xl:px-14">
+      <div className="relative z-10 max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14">
         {/* ============================================================
             MAIN 4-COLUMN FOOTER LINKS
             ============================================================ */}

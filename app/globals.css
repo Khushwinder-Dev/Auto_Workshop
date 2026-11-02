@@ -30,15 +30,15 @@
   --color-brand-dark: var(--brand-dark);
   --font-display: var(--font-display);
   --font-sans: var(--font-main);
-  --container-8xl: 90rem;
+  --container-8xl: 100%;
 }
 
 @utility max-w-8xl {
-  max-width: 90rem;
+  max-width: 100%;
 }
 
 .max-w-8xl {
-  max-width: 90rem !important;
+  max-width: 100% !important;
 }
 
 html {

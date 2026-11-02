@@ -455,7 +455,7 @@ export default function AdminVisitorsPage() {
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col font-sans selection:bg-red-600 selection:text-white">
       {/* Top Bar / Header */}
-      <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+      <div className="max-w-8xl mx-auto w-full px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14 py-6 space-y-6">
         <header className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-zinc-800/80">
           <div className="flex items-center gap-3.5">
             <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-red-600 to-rose-600 flex items-center justify-center shadow-lg shadow-red-600/25 shrink-0">
