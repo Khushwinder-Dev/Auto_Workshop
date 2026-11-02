@@ -110,7 +110,7 @@ export default function ContactPage() {
           </div>
         </section>
 
-        <div className="bg-white py-16">
+        <div className="bg-white py-12 sm:py-16">
           <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 pb-12">
               <div className="flex items-start gap-4">
@@ -153,7 +153,7 @@ export default function ContactPage() {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-              <div className="relative min-h-[400px] rounded-2xl overflow-hidden shadow-xl">
+              <div className="relative min-h-[240px] sm:min-h-[340px] lg:min-h-[400px] rounded-2xl overflow-hidden shadow-xl">
                 <Image
                   alt="Workshop"
                   fill
@@ -161,7 +161,7 @@ export default function ContactPage() {
                   src="/images/ims_b_2.jpg"
                 />
               </div>
-              <div className="bg-white border border-gray-100 rounded-2xl shadow-2xl p-8 md:p-12">
+              <div className="bg-white border border-gray-100 rounded-2xl shadow-2xl p-5 sm:p-8 md:p-12 rounded-2xl">
                 <h2 className="text-3xl font-display text-gray-900 mb-8">
                   {t.contact.formTitle}
                 </h2>

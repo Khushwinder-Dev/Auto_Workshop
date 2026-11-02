@@ -109,7 +109,7 @@ export default function BookingPage() {
   return (
     <main>
       <div>
-        <section className="relative w-full h-[60vh] min-h-[450px] overflow-hidden flex flex-col bg-black">
+        <section className="relative w-full h-[60vh] min-h-[240px] sm:min-h-[340px] lg:min-h-[450px] overflow-hidden flex flex-col bg-black">
           <div className="absolute inset-0 z-0">
             <Image
               alt="Workshop Hero"
@@ -138,7 +138,7 @@ export default function BookingPage() {
           </div>
         </section>
 
-        <section className="bg-white py-16">
+        <section className="bg-white py-12 sm:py-16">
           <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10 border-b border-gray-100 pb-12 mb-16">
               <div className="flex items-start gap-4">
@@ -187,7 +187,7 @@ export default function BookingPage() {
                   src="/images/ims_b_1.jpg"
                 />
               </div>
-              <div className="bg-white border border-gray-50 rounded-[32px] shadow-[0_20px_60px_rgba(0,0,0,0.06)] p-8 md:p-14">
+              <div className="bg-white border border-gray-50 rounded-[32px] shadow-[0_20px_60px_rgba(0,0,0,0.06)] p-5 sm:p-8 md:p-14 rounded-2xl sm:rounded-[32px]">
                 <span className="text-red-600 font-bold uppercase tracking-[0.2em] text-xs">
                   {t.booking.formTitle}
                 </span>

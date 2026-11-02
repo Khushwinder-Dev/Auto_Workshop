@@ -47,10 +47,10 @@ export default function LatestInsightsSection() {
   ];
 
   return (
-    <section className="py-24 bg-white">
+    <section className="py-14 sm:py-20 lg:py-24 bg-white">
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14">
         <div className="text-center mb-16">
-          <h2 className="font-display text-4xl md:text-5xl font-[900] text-zinc-900 leading-tight uppercase tracking-tight mb-4">
+          <h2 className="font-display text-2xl sm:text-4xl md:text-5xl font-[900] text-zinc-900 leading-tight uppercase tracking-tight mb-4">
             {t.home.latestInsights.title}
           </h2>
           <p className="text-zinc-500 text-sm md:text-base">
@@ -59,7 +59,7 @@ export default function LatestInsightsSection() {
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
           <div className="border border-zinc-100 rounded-xl overflow-hidden flex flex-col h-full shadow-sm">
-            <div className="p-8">
+            <div className="p-5 sm:p-8">
               <div className="flex items-center gap-2 text-zinc-400 text-xs font-bold mb-4">
                 <span>{featured.date}</span>
                 <span className="w-1 h-1 bg-zinc-200 rounded-full" />
@@ -93,7 +93,7 @@ export default function LatestInsightsSection() {
               <div
                 key={idx}
                 onClick={() => router.push("/blogs")}
-                className="px-8 py-4 flex items-center gap-6 group hover:bg-zinc-50/50 transition-colors grow cursor-pointer"
+                className="px-4 sm:px-8 py-4 flex items-center gap-3 sm:gap-6 group hover:bg-zinc-50/50 transition-colors grow cursor-pointer"
               >
                 <div className="grow">
                   <div className="flex items-center gap-2 text-zinc-400 text-[11px] font-bold mb-2">
@@ -105,7 +105,7 @@ export default function LatestInsightsSection() {
                     {article.title}
                   </h4>
                 </div>
-                <div className="relative w-40 h-28 flex-shrink-0 rounded-lg overflow-hidden border border-zinc-100">
+                <div className="relative w-24 h-20 sm:w-36 sm:h-24 md:w-40 md:h-28 flex-shrink-0 rounded-lg overflow-hidden border border-zinc-100">
                   <div className={`absolute top-2 ${isArabic ? "right-2" : "left-2"} z-10 bg-brand text-white text-[8px] font-black px-2 py-1 rounded flex items-center gap-1.5 shadow-md`}>
                     <article.icon className="w-2.5 h-2.5" />
                     {article.badge}

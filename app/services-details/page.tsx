@@ -71,7 +71,7 @@ function ServiceDetailsContent() {
         </div>
       </section>
 
-      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14 py-20">
+      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14 py-12 sm:py-16 lg:py-20">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           <div className="lg:col-span-4 space-y-8">
             <div className="bg-zinc-50 border border-zinc-200/90 rounded-2xl p-6 shadow-sm">
@@ -99,7 +99,7 @@ function ServiceDetailsContent() {
               </div>
             </div>
 
-            <div className="bg-[#0c0c0e] text-white rounded-2xl p-8 border border-zinc-800 shadow-xl relative overflow-hidden">
+            <div className="bg-[#0c0c0e] text-white rounded-2xl p-5 sm:p-8 border border-zinc-800 shadow-xl relative overflow-hidden">
               <div className="relative z-10">
                 <span className="text-red-500 text-[10px] font-black uppercase tracking-[0.25em] mb-2 block">
                   {t.serviceDetails.needFastTitle}
@@ -219,7 +219,7 @@ function ServiceDetailsContent() {
 
               <Link
                 href={`/booking?service=${selectedService.id}`}
-                className="btn-primary text-white font-black text-xs uppercase tracking-widest px-8 py-4 rounded-xl shadow-xl shadow-red-600/30 whitespace-nowrap cursor-pointer hover:scale-105"
+                className="btn-primary text-white font-black text-xs uppercase tracking-widest px-8 py-4 rounded-xl shadow-xl shadow-red-600/30 whitespace-nowrap cursor-pointer hover:scale-105 w-full sm:w-auto text-center justify-center"
               >
                 {t.serviceDetails.bookThisServiceBtn}
               </Link>

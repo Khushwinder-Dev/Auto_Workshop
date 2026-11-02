@@ -38,7 +38,7 @@ export default function StatsSection() {
   return (
     <section className="py-24 bg-[#fdfaf9]">
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-20 gap-x-10">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-12 sm:gap-y-16 lg:gap-y-20 gap-x-3 sm:gap-x-6 lg:gap-x-10">
           {stats.map((item, idx) => (
             <motion.div
               key={idx}
@@ -49,7 +49,7 @@ export default function StatsSection() {
               className="flex flex-col items-center text-center"
             >
               <div className="relative mb-14">
-                <div className="w-24 h-24 bg-white rotate-45 rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.05)] border border-zinc-50" />
+                <div className="w-20 h-20 sm:w-24 sm:h-24 bg-white rotate-45 rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.05)] border border-zinc-50" />
                 <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-14 h-14 bg-red-600 rotate-45 rounded-lg shadow-[0_8px_20px_rgba(220,38,38,0.4)] flex items-center justify-center">
                   <div className="-rotate-45">{item.icon}</div>
                 </div>

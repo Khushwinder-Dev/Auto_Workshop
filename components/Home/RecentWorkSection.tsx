@@ -57,11 +57,11 @@ export default function RecentWorkSection() {
   ];
 
   return (
-    <section className="bg-[#080808] py-24 relative">
+    <section className="bg-[#080808] py-14 sm:py-20 lg:py-24 relative">
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-12 items-start">
           <div className="relative z-30 bg-[#080808] flex flex-col items-start lg:pr-10 rtl:lg:pr-0 rtl:lg:pl-10 lg:sticky lg:top-32">
-            <h2 className="font-display text-4xl md:text-5xl font-[900] text-white leading-none uppercase tracking-tight mb-6">
+            <h2 className="font-display text-2xl sm:text-4xl md:text-5xl font-[900] text-white leading-none uppercase tracking-tight mb-6">
               {t.home.recentWork.title}
             </h2>
             <p className="text-zinc-400 text-sm md:text-base leading-relaxed mb-8 max-w-xs">
@@ -73,7 +73,7 @@ export default function RecentWorkSection() {
             >
               {t.home.recentWork.btn}
             </button>
-            <div className="flex items-center gap-3">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3">
               {slides.map((_, idx) => (
                 <button
                   key={idx}

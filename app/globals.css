@@ -43,6 +43,8 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 body {
@@ -50,6 +52,8 @@ body {
   background-color: #ffffff;
   font-family: var(--font-main);
   overflow-x: hidden;
+  max-width: 100%;
+  position: relative;
 }
 
 html[dir="rtl"],

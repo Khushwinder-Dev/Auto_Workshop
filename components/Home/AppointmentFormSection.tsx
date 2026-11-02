@@ -92,7 +92,7 @@ export default function AppointmentFormSection() {
             </h2>
           </div>
           <div className="relative flex justify-end">
-            <div className="w-full max-w-lg bg-zinc-900/90 backdrop-blur-xl p-8 md:p-10 rounded-3xl border border-white/10 shadow-2xl">
+            <div className="w-full max-w-lg bg-zinc-900/90 backdrop-blur-xl p-5 sm:p-8 md:p-10 rounded-2xl sm:rounded-3xl border border-white/10 shadow-2xl">
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <FloatInput

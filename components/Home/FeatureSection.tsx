@@ -11,9 +11,9 @@ export default function FeatureSection() {
   const { t } = useLanguage();
 
   return (
-    <section className="bg-[#050505] py-20">
+    <section className="bg-[#050505] py-14 sm:py-20">
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <div className="relative h-[300px] md:h-[500px] w-full rounded-[40px] overflow-hidden border border-white/5 shadow-2xl">
+        <div className="relative h-[240px] sm:h-[340px] md:h-[500px] w-full rounded-[40px] overflow-hidden border border-white/5 shadow-2xl">
           <Image
             src="/images/service-5.png"
             alt="Mechanic at work"
@@ -89,7 +89,7 @@ export default function FeatureSection() {
           </div>
           <button
             onClick={() => router.push("/about-us")}
-            className="bg-red-600 hover:bg-red-700 transition-all duration-300 text-white font-black text-xs md:text-sm px-10 py-5 rounded-lg uppercase tracking-[0.15em] shadow-lg shadow-red-600/20 active:scale-95 cursor-pointer"
+            className="bg-red-600 hover:bg-red-700 transition-all duration-300 text-white font-black text-xs md:text-sm w-full sm:w-auto text-center justify-center px-8 sm:px-10 py-4 sm:py-5 rounded-lg uppercase tracking-[0.15em] shadow-lg shadow-red-600/20 active:scale-95 cursor-pointer"
           >
             {t.home.feature.learnMore}
           </button>

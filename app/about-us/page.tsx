@@ -129,10 +129,10 @@ export default function AboutUsPage() {
           </div>
         </section>
 
-        <section className="py-20 bg-white">
+        <section className="py-12 sm:py-16 lg:py-20 bg-white">
           <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="space-y-10">
-              <div className="flex gap-4 h-[400px]">
+              <div className="flex gap-4 h-[220px] sm:h-[320px] md:h-[400px]">
                 <div className="relative flex-1 rounded-xl overflow-hidden shadow-lg">
                   <Image
                     alt="Workshop view"
@@ -150,7 +150,7 @@ export default function AboutUsPage() {
                   />
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-8 border-t border-gray-100 pt-8">
+              <div className="grid grid-cols-2 gap-4 sm:gap-8 border-t border-gray-100 pt-8">
                 <div className="flex items-center gap-4">
                   <div className="bg-white p-3 rounded-lg shadow-sm border border-zinc-100">
                     <ThumbsUp className="w-8 h-8 text-[#e11d23]" strokeWidth={3} />

@@ -300,7 +300,7 @@ export default function Footer() {
           <div className="flex flex-col lg:flex-row items-center justify-between gap-4 lg:gap-6">
             {/* Copyright Text (matching Taj Al Rahmah casing & clean font) */}
             <div className="text-center lg:text-start px-2 shrink-0">
-              <p className="text-xs lg:text-[13px] text-zinc-400 font-normal leading-normal whitespace-nowrap">
+              <p className="text-xs lg:text-[13px] text-zinc-400 font-normal leading-normal">
                 {isArabic
                   ? "© 2026 ورشة باب البستان لصيانة السيارات. جميع الحقوق محفوظة."
                   : "© 2026 Bab Al Bustan Auto Maintenance Workshop. All rights reserved."}
@@ -308,7 +308,7 @@ export default function Footer() {
             </div>
 
             {/* Refund & Legal Policy Links (Strictly on one line on desktop, matching reference) */}
-            <div className="w-full lg:w-auto flex flex-wrap lg:flex-nowrap justify-center lg:justify-end items-center gap-y-2 gap-x-2 lg:gap-x-2.5 xl:gap-x-3 text-[11px] sm:text-xs lg:text-[12.5px] xl:text-[13px] text-zinc-400 whitespace-nowrap shrink-0">
+            <div className="w-full lg:w-auto flex flex-wrap justify-center lg:justify-end items-center gap-y-2 gap-x-2 lg:gap-x-2.5 xl:gap-x-3 text-[11px] sm:text-xs lg:text-[12.5px] xl:text-[13px] text-zinc-400 shrink-0">
               <Link
                 href="/sitemap"
                 className="hover:text-red-500 transition-colors whitespace-nowrap"

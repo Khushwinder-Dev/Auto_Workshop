@@ -16,13 +16,13 @@ export default function WorkProcessSection() {
   const { isArabic, t } = useLanguage();
 
   return (
-    <section className="py-24 bg-white overflow-hidden">
+    <section className="py-14 sm:py-20 lg:py-24 bg-white overflow-hidden">
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14">
-        <div className="text-center mb-20">
+        <div className="text-center mb-10 sm:mb-16">
           <div className="flex items-center justify-center gap-2 text-red-600 font-bold text-[11px] uppercase tracking-[0.2em] mb-4">
             {t.home.workProcess.eyebrow}
           </div>
-          <h2 className="font-display text-4xl md:text-6xl font-[900] text-zinc-900 leading-tight uppercase tracking-tight">
+          <h2 className="font-display text-2xl sm:text-4xl md:text-6xl font-[900] text-zinc-900 leading-tight uppercase tracking-tight">
             {t.home.workProcess.title}
           </h2>
         </div>
@@ -66,7 +66,7 @@ export default function WorkProcessSection() {
 
           {/* Center Image */}
           <div className="lg:order-2 flex justify-center">
-            <div className="relative w-full max-w-[420px] h-[580px] rounded-3xl overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] border border-zinc-100">
+            <div className="relative w-full max-w-[420px] h-[320px] sm:h-[420px] lg:h-[580px] rounded-2xl sm:rounded-3xl overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] border border-zinc-100">
               <Image
                 src="/images/ims_b_2.jpg"
                 alt="Mechanic working under car"

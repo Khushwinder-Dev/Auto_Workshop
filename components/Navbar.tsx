@@ -434,7 +434,7 @@ export default function Navbar() {
             </button>
 
             {/* Mobile Links */}
-            <div className="flex flex-col gap-4 overflow-y-auto max-h-[calc(100vh-280px)] slim-scrollbar pr-1">
+            <div className="flex flex-col gap-4 overflow-y-auto max-h-[calc(100vh-220px)] slim-scrollbar pr-1">
               {navLinks.map((link) => {
                 if (link.hasMega) {
                   return (
