@@ -109,6 +109,61 @@ const FALLBACK_KNOWLEDGE: {
     quickActionsEn: ["Request Free Quote", "Book Workshop Slot", "Chat on WhatsApp", "Call +971 56 440 6456"],
     quickActionsAr: ["طلب عرض سعر فوري", "حجز موعد صيانة", "تواصل عبر واتساب", "اتصل الآن +971 56 440 6456"],
   },
+
+  // 8. Oil Change & Periodic Lube Service
+  {
+    triggers: ["oil", "oil change", "filter", "lube", "lubricant", "synthetic", "service", "تغيير زيت", "تبديل زيت", "سيرفس", "فلتر زيت", "زيت المحرك"],
+    replyEn: (name) =>
+      `${name ? `Dear ${name}, ` : ""}Our **Express Synthetic Oil & Filter Service** keeps your engine protected against intense Gulf heat:\n\n• **OEM-Approved High-Grade Synthetic Oils**: 5W-30, 0W-40, 5W-40 formulated for high temperatures.\n• **Genuine OEM Oil Filter**: Replaced on every oil service to ensure optimum oil pressure and filtration.\n• **Complimentary 30-Point Inspection**: Fluid top-ups (coolant, brake fluid, windshield washer), brake check, belt inspection, and tire pressure check.\n• **Express Turnaround**: Completed in 20–30 minutes with documented service sticker.\n\nWould you like to reserve an express oil change slot today?`,
+    replyAr: (name) =>
+      `${name ? `عزيزي ${name}، ` : ""}نوفر في كراج باب البستان **خدمة تبديل الزيت والفلتر السريعة بأجود الزيوت التخليقية**:\n\n• **زيوت تخليقية بالكامل معتمدة**: درجات لزوجة 5W-30 و 0W-40 مصممة لتحمل حرارة صيف الإمارات القاسية.\n• **استبدال فلتر الزيت الأصلي OEM**: لضمان نقاء دورة الزيت والحفاظ على ضغط المحرك المثالي.\n• **فحص شامل 30 نقطة مجاناً**: تزويد سائل الرديتر وزيت الفرامل وفحص السيور والبطارية وضغط الإطارات.\n• **خدمة سريعة بدون انتظار**: تكتمل الخدمة خلال 20 إلى 30 دقيقة مع بطاقة تذكير بموعد الصيانة القادم.\n\nهل ترغب بحجز موعد تغيير زيت سريع اليوم؟`,
+    quickActionsEn: ["Book Oil Change", "Check Oil Price", "Call Hotline", "Chat on WhatsApp"],
+    quickActionsAr: ["حجز موعد تغيير زيت", "سعر تبديل الزيت والفلتر", "اتصل بالورشة", "تواصل عبر واتساب"],
+  },
+
+  // 9. Suspension, Steering & Wheel Alignment
+  {
+    triggers: ["suspension", "shock", "shocks", "strut", "struts", "bushing", "bushings", "control arm", "steering", "knocking", "مساعدات", "جامبينات", "شيال", "بوشات", "طقطقة", "ميزان", "نظام التعليق"],
+    replyEn: (name) =>
+      `${name ? `Dear ${name}, ` : ""}We specialize in **Full Vehicle Suspension Inspection & Precision Repairs**:\n\n• **Shock Absorbers & Struts Replacement**: Eliminates excessive bounce, body roll, and rough rides.\n• **Hydraulic Press Bushing Replacement**: OEM polyurethane bushings and control arms without replacing entire sub-assemblies.\n• **Steering Rack & Tie Rod Repairs**: Fixes steering play, highway wandering, and front-end knocking noises.\n• **Laser Computerized 4-Wheel Alignment**: Restores razor-sharp steering tracking and stops uneven tire wear.\n• **1-Year Workmanship Warranty** on all installed suspension components.`,
+    replyAr: (name) =>
+      `${name ? `عزيزي ${name}، ` : ""}نقدم في ورشة باب البستان **صيانة متكاملة لنظام التعليق والمساعدات (الجامبينات)**:\n\n• **تبديل المساعدات والمساعدات الهوائية (Airmatic)**: التخلص من القساوة وتمايل السيارة على المنعطفات.\n• **كبس بوشات وشيالات هيدروليكياً**: استبدال جلب المقصات والبوشات دون الحاجة لشراء مقصات كاملة بتكلفة عالية.\n• **إصلاح مجمع ستيرنج وأذرعة التوجيه**: معالجة فضاء الدركسون وطقطقة المطبات وصوت حذفة المقود.\n• **ميزان ليزري للسيارة بالكمبيوتر**: محاذاة دقيقة للعجلات الأربع لمنع مسح الإطارات واهتزاز السرعات العالية.\n• **ضمان معتمد لمدة سنة** على قطع الغيار وجودة العمل.`,
+    quickActionsEn: ["Book Suspension Check", "Wheel Alignment Price", "Call Master Technician", "Chat on WhatsApp"],
+    quickActionsAr: ["حجز فحص المساعدات", "سعر ميزان الليزر", "اتصل بالفني المختص", "تواصل عبر واتساب"],
+  },
+
+  // 10. Battery & Electrical Diagnostics
+  {
+    triggers: ["battery", "alternator", "starter", "starting", "dead battery", "jump start", "electrical", "بطارية", "دينامو", "سلف", "تشغيل", "كهرباء"],
+    replyEn: (name) =>
+      `${name ? `Dear ${name}, ` : ""}Our **Automotive Electrical & Battery Diagnostic Centre** ensures reliable starts:\n\n• **Digital Battery Health & Load Testing**: Measures cold cranking amps (CCA), internal cell resistance, and state of health.\n• **Alternator & Charging Voltage Verification**: Ensures the generator output meets factory voltage (13.8V – 14.5V).\n• **High-Durability AGM & Maintenance-Free Batteries**: Top tier brands suited for desert heat with up to 2-year warranty.\n• **Starter Motor Overhauls**: Solenoid, armature, and relay diagnostics for cars that click but don't crank.\n• **Fast 15-Minute Replacement Service**.`,
+    replyAr: (name) =>
+      `${name ? `عزيزي ${name}، ` : ""}يوفر **قسم كهرباء السيارات والبطاريات بكراج باب البستان** فحصاً فورياً ودقيقاً:\n\n• **فحص إلكتروني رقمي لكفاءة البطارية**: قياس قوة تيار التشغيل (CCA) ومقاومة الخلايا الداخلية وعمر البطارية المتبقي.\n• **فحص دينامو الشحن ونظام الكهرباء**: التأكد من انتظام فولتية الشحن (13.8 إلى 14.5 فولت) لمنع تلف البطارية الجديدة.\n• **بطاريات AGM وبطاريات معتمدة تتحمل الحرارة**: أفضل الماركات العالمية المعتمدة مع ضمان استبدال من 12 إلى 24 شهراً.\n• **صيانة السلف (Starter) ومارش التشغيل**: معالجة مشكلة تكتكة السلف وعدم استجابة السيارة للتشغيل.\n• **تركيب فوري وسريع خلال 15 دقيقة**.`,
+    quickActionsEn: ["Battery Test & Quote", "Call Emergency Line", "Book Workshop Slot", "Chat on WhatsApp"],
+    quickActionsAr: ["فحص وسعر البطارية", "اتصال للطوارئ", "حجز موعد صيانة", "تواصل عبر واتساب"],
+  },
+
+  // 11. Tires & Computerized Wheel Balancing
+  {
+    triggers: ["tire", "tires", "wheel", "wheels", "balancing", "alignment", "puncture", "flat", "تواير", "اطارات", "عجلات", "رصراص", "بنشر", "كفرات"],
+    replyEn: (name) =>
+      `${name ? `Dear ${name}, ` : ""}We provide complete **Tire Care & Computerized Laser Wheel Balancing**:\n\n• **High-Speed Dynamic Balancing**: Eliminates steering wheel vibrations at 100–140 km/h highway speeds.\n• **Computerized Laser Alignment**: Front & rear toe, camber, and caster adjustment.\n• **Premium Tires Available**: Michelin, Bridgestone, Continental, Pirelli, Dunlop, and high-value alternatives.\n• **Tread Depth & Safety Wear Analysis**: Identifies uneven wear caused by suspension or pressure issues.\n• **Puncture Repair & High-Pressure Valve Replacements**.`,
+    replyAr: (name) =>
+      `${name ? `عزيزي ${name}، ` : ""}نوفر في ورشة باب البستان **أحدث أجهزة ترصيص وميزان الإطارات بالليزر** بالشارقة:\n\n• **ترصيص إلكتروني ديناميكي للسرعات العالية**: إزالة رجة واهتزاز المقود على سرعة 100-140 كم/ساعة.\n• **ميزان ليزر دقيق لمحاذاة العجلات**: ضبط زوايا الكامبر والكاستر لمنع انحراف السيارة ومسح التواير.\n• **أجود أنواع الإطارات العالمية**: ميشلان، بريدجستون، كونتيننتال، بيريللي، وخيارات معتمدة بأسعار منافسة.\n• **فحص عمق المداس وسلامة الإطار**: كشف التآكل غير المتساوي وعمر الإطار المتبقي لضمان سلامتك على الطريق.\n• **إصلاح البنشر وتبديل بلوف الهواء الأصلية**.`,
+    quickActionsEn: ["Check Tire Prices", "Book Wheel Balancing", "Call Workshop Hotline", "Chat on WhatsApp"],
+    quickActionsAr: ["أسعار الإطارات والترصيص", "حجز موعد ترصيص", "اتصل بالورشة", "تواصل عبر واتساب"],
+  },
+
+  // 12. Computer Programming & Key Coding
+  {
+    triggers: ["programming", "coding", "software", "update", "key", "remote", "module", "برمجة", "تحديث", "مفتاح", "ريموت", "كنترول"],
+    replyEn: (name) =>
+      `${name ? `Dear ${name}, ` : ""}Our **Advanced Vehicle Electronics & Software Lab** provides:\n\n• **ECU / TCU Factory Firmware Updates**: Resolves shift hesitancy, rough idle, and optimizes engine efficiency.\n• **Control Module Adaptation & Coding**: Replacing radar, headlight, ABS, or body control modules with OEM calibration.\n• **Sensor Calibration & Throttle Body Relearn**: Restores smooth acceleration after maintenance.\n• **Immobilizer & Smart Key Programming**: Dealer-level key programming for German, Japanese, and American cars.`,
+    replyAr: (name) =>
+      `${name ? `عزيزي ${name}، ` : ""}يمتلك **مختبر البرمجة الإلكترونية بكراج باب البستان** أحدث أجهزة الوكالة:\n\n• **تحديث سوفتوير كمبيوتر المحرك والجير**: معالجة نتعة الجيربوكس، تأخر الاستجابة، وتحسين كفاءة المحرك.\n• **تهيئة وبرمجة الكنترولات الجديدة**: برمجة حساسات الرادار، كمبيوتر ABS، كنترولات الإضاءة، وحساسات الزوايا.\n• **معايرة الحساسات وإعادة ضبط الثروتل**: ضبط سرعة الخمول واستجابة دعسة البنزين بعد الصيانة.\n• **برمجة المفاتيح الذكية والريموتات**: برمجة مفاتيح الوكالة لجميع السيارات الألمانية واليابانية والأمريكية.`,
+    quickActionsEn: ["Book Programming Slot", "Check Key Coding Cost", "Chat on WhatsApp", "Call +971 56 440 6456"],
+    quickActionsAr: ["حجز موعد برمجة", "تكلفة برمجة المفتاح", "تواصل عبر واتساب", "اتصل الآن +971 56 440 6456"],
+  },
 ];
 
 function getFallbackReply(userMessage: string, isArabic = false, userName?: string) {
@@ -252,14 +307,24 @@ About Bab Al Bustan Auto Maintenance:
 - WhatsApp: +971 56 440 6456 (https://wa.me/971564406456)
 - Working Hours: Saturday to Thursday: 8:00 AM – 8:30 PM | Friday: 8:00 AM – 12:30 PM & 2:30 PM – 8:30 PM
 - Email: info@babalbustanuae.com
-- Core Services:
-  1. Computer Diagnostics & ECU Scans: Dealership scanners (Autel Ultra, Launch, Mercedes Xentry, BMW ISTA), check engine light troubleshooting, sensor testing.
-  2. Brake Repair & Laser Disk Skimming: Ceramic brake pads, computerized on-car rotor skimming, ABS sensor calibration, brake fluid flush.
-  3. Desert-Ready Car A/C: High-purity American R134a freon recharge, UV electronic leak test, compressor overhauls, evaporator replacement.
-  4. Engine & Transmission Overhauls: Major rebuilds, cylinder head gasket repair, timing chains, automatic transmission ATF service, oil leak fixes.
-  5. Oil Change & Periodic Lube: 100% full synthetic OEM approved oils with genuine filters, free 30-point vehicle safety inspection.
-  6. Suspension, Steering & Wheel Alignment: Shock absorbers, control arms, tie rods, laser wheel alignment.
-- Key Commitments: 100% transparent upfront estimates before work starts, genuine OEM or certified high-grade parts, written workshop warranty, and fast express turnaround.
+- Core Workshop Services:
+  1. Computer Diagnostics & ECU Scans: Dealership OEM scanners (Autel MaxiSys Ultra, Launch, Mercedes Xentry, BMW ISTA), live telemetry, sensor calibration, check engine light diagnosis.
+  2. Synthetic Oil Change & Filter: Premium OEM-spec synthetic oils (5W-30, 0W-40) for UAE desert heat, genuine oil filter, fluids top-up, complimentary 30-point vehicle inspection (20-30 mins).
+  3. Brake Repair & Laser Disk Skimming: Ceramic brake pads, computerized on-car rotor skimming (eliminates pedal vibration & squeal), ABS sensor testing, DOT 4 hydraulic fluid flush (45-60 mins).
+  4. Desert-Ready Car A/C: High-purity R134a/R1234yf freon recharge, UV electronic leak test, compressor repair, evaporator core replacement, cabin air filter sanitization.
+  5. Suspension, Steering & Wheel Alignment: Shock absorber/strut replacement, hydraulic press bushings, control arms, tie rods, computerized laser 4-wheel alignment.
+  6. Battery, Alternator & Electrical: Cranking load test (CCA), charging voltage check, heavy-duty AGM & maintenance-free batteries with 12 to 24 months warranty.
+  7. Tires & High-Speed Dynamic Balancing: Michelin, Bridgestone, Continental, computerized dynamic wheel balancing, laser alignment, puncture repair.
+  8. Computer Programming & Key Coding: ECU/TCU firmware updates, module adaptation, smart key programming, throttle body relearn.
+  9. Engine & Transmission Overhauls: Major rebuilds, cylinder head gasket repair, timing chains, automatic transmission ATF service, oil leak fixes.
+  10. Pre-Purchase Inspection: Comprehensive 30-point bumper-to-bumper vehicle inspection with detailed report before buying a car in the UAE.
+
+- Supported Vehicle Brands:
+  - German & European: Mercedes-Benz (Star diagnostic, airmatic suspension, transmission), BMW (ISTA updates, twin-turbo), Audi/VW (Quattro, DSG, TFSI), Porsche (PDK, brakes), Land Rover (air suspension, terrain response).
+  - Japanese: Toyota, Lexus, Nissan (Patrol V8, CVT), Infiniti, Honda, Mitsubishi (Pajero), Suzuki.
+  - American & Korean: Ford (EcoBoost), Chevrolet (V8 Tahoe/Yukon), Jeep (4x4), Kia/Hyundai.
+
+- Key Commitments: 100% upfront transparent pricing with zero hidden fees, genuine OEM or certified high-grade parts, written workshop warranty, and fast express turnaround.
 
 CRITICAL INSTRUCTIONS:
 1. Dynamic Contextual Suggestions: In "quickActions", ALWAYS provide 3 to 4 suggestions specifically tailored to what the user asked (e.g. if asking about brakes, suggest brake skimming, pad price, or appointment; if asking about AC, suggest gas refill, leak test, or WhatsApp).
