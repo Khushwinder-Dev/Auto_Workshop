@@ -26,7 +26,7 @@ export default function PrivacyPage() {
           <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/40" />
         </div>
 
-        <div className="relative z-20 text-center px-6 max-w-3xl mx-auto">
+        <div className="relative z-20 text-center w-full max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14">
           <div className="inline-block px-4 py-1.5 rounded-full bg-red-600/20 border border-red-500/30 text-red-400 text-xs font-bold uppercase tracking-[0.25em] mb-4">
             {isArabic ? "الشفافية والأمان" : "Transparency & Security"}
           </div>
@@ -42,7 +42,7 @@ export default function PrivacyPage() {
       </section>
 
       {/* Content */}
-      <div className="max-w-4xl mx-auto px-6 py-16 md:py-20 text-zinc-800">
+      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14 py-16 md:py-20 text-zinc-800">
         <div className="space-y-10 leading-relaxed text-sm sm:text-base">
           <div className="p-6 rounded-2xl bg-zinc-50 border border-zinc-200/80">
             <h2 className="text-xl font-bold text-zinc-950 mb-3 flex items-center gap-3">

@@ -73,7 +73,7 @@ export default function BlogsPage() {
         </section>
 
         <div className="min-h-screen bg-white">
-          <div className="w-full py-12 px-4 sm:px-6 lg:px-8">
+          <div className="w-full py-12">
             <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14">
               <div className="text-center mb-12">
                 <h2 className="text-3xl md:text-4xl font-bold text-red-600 mb-4">

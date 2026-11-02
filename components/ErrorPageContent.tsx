@@ -29,7 +29,7 @@ export default function ErrorPageContent({
 
   return (
     <div className="w-full min-h-[70vh] bg-slate-900 text-white flex flex-col items-center justify-center py-20 px-4">
-      <div className="max-w-2xl mx-auto flex flex-col items-center text-center">
+      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14 flex flex-col items-center text-center">
         <div className="w-20 h-20 rounded-2xl bg-red-600/20 border border-red-500/30 flex items-center justify-center mb-6 text-red-500 shadow-xl shadow-red-950/40">
           <Wrench className="w-10 h-10 animate-pulse" />
         </div>

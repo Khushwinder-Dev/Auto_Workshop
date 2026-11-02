@@ -409,7 +409,7 @@ export default function ServicesPage() {
           </p>
 
           {/* Stacked Accordion Cards (Taj Al Rahmah Reference Style) */}
-          <div className="max-w-4xl mx-auto space-y-3.5 sm:space-y-4">
+          <div className="max-w-5xl mx-auto space-y-3.5 sm:space-y-4">
             {faqs.map((faq, idx) => {
               const isOpen = openFaq === idx;
               return (

@@ -142,7 +142,7 @@ export default function FaqSection() {
         {/* ========================================================= */}
         {/* STACKED ACCORDION CARDS (Taj Al Rahmah Reference Style)   */}
         {/* ========================================================= */}
-        <div className="max-w-4xl mx-auto space-y-3.5 sm:space-y-4">
+        <div className="max-w-5xl mx-auto space-y-3.5 sm:space-y-4">
           {faqs.map((faq, idx) => {
             const isOpen = openId === faq.id;
             return (

@@ -445,7 +445,7 @@ export default function GetAQuoteContent() {
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-black/50" />
         </div>
 
-        <div className="relative z-20 max-w-4xl px-4 sm:px-6 pt-12">
+        <div className="relative z-20 w-full max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14 pt-12">
           {/* Tagline */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-600/20 border border-red-500/30 text-red-400 text-xs sm:text-[13px] font-bold tracking-widest uppercase mb-4 backdrop-blur-sm">
             <Sparkles className="w-3.5 h-3.5 text-red-400" />
@@ -952,7 +952,8 @@ export default function GetAQuoteContent() {
           3. FAQ SECTION (6 ITEMS - TAJ AL RAHMAH ACCORDION STYLE)
       ══════════════════════════════════════════════════════════════ */}
       <section className="relative w-full py-16 md:py-20 bg-white border-t border-zinc-100">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14">
+          <div className="max-w-5xl mx-auto">
           {/* Header */}
           <div className="text-center mb-10 sm:mb-14">
             <div className="flex items-center justify-center gap-2.5 mb-2.5">
@@ -997,7 +998,8 @@ export default function GetAQuoteContent() {
             ))}
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
       {/* ══════════════════════════════════════════════════════════════
           4. TALK TO OUR SENIOR ADVISORS CALLOUT BANNER

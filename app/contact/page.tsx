@@ -221,7 +221,7 @@ export default function ContactPage() {
           </div>
         </div>
 
-        <div className="w-full bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="w-full bg-gray-50 py-12">
           <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14 mb-20">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
