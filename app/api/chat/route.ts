@@ -137,6 +137,91 @@ function getFallbackReply(userMessage: string, isArabic = false, userName?: stri
   };
 }
 
+/**
+ * Bulletproof parser that guarantees raw JSON structure is NEVER returned in the reply field
+ */
+function extractCleanReply(rawText: string, isArabic?: boolean): { reply: string; quickActions: string[] } {
+  const defaultActions = isArabic
+    ? ["حجز موعد صيانة", "تواصل عبر واتساب", "اتصل بنا مباشرة"]
+    : ["Book Workshop Slot", "Chat on WhatsApp", "Call Us Directly"];
+
+  if (!rawText || !rawText.trim()) {
+    return {
+      reply: isArabic
+        ? "أهلاً بك في كراج باب البستان! كيف يمكننا مساعدتك في صيانة سيارتك اليوم؟"
+        : "Hello! Welcome to Bab Al Bustan Auto Maintenance. How can we assist with your vehicle today?",
+      quickActions: defaultActions,
+    };
+  }
+
+  let clean = rawText.trim();
+  // Strip code fences if present
+  clean = clean.replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/i, "").trim();
+
+  // 1. Try standard JSON.parse
+  try {
+    const parsed = JSON.parse(clean);
+    if (parsed && typeof parsed === "object") {
+      let replyStr = typeof parsed.reply === "string" ? parsed.reply.trim() : "";
+      let actions = Array.isArray(parsed.quickActions) ? parsed.quickActions : [];
+      if (replyStr) {
+        return { reply: replyStr, quickActions: actions.length > 0 ? actions : defaultActions };
+      }
+    }
+  } catch {}
+
+  // 2. If it contains "reply": "...", extract with regex (even if JSON was cut off mid-sentence)
+  if (clean.includes('"reply"')) {
+    const replyRegex = /"reply"\s*:\s*"((?:\\.|[^"\\])*)/;
+    const match = clean.match(replyRegex);
+    if (match && match[1]) {
+      let extracted = match[1]
+        .replace(/\\n/g, "\n")
+        .replace(/\\r/g, "")
+        .replace(/\\"/g, '"')
+        .replace(/\\\\/g, "\\")
+        .trim();
+
+      // Extract quickActions
+      let actions: string[] = [];
+      const qaMatch = clean.match(/"quickActions"\s*:\s*\[([\s\S]*?)\]/);
+      if (qaMatch && qaMatch[1]) {
+        try {
+          actions = JSON.parse(`[${qaMatch[1]}]`);
+        } catch {
+          const itemMatches = qaMatch[1].match(/"([^"]+)"/g);
+          if (itemMatches) {
+            actions = itemMatches.map((s) => s.replace(/"/g, "").trim());
+          }
+        }
+      }
+
+      if (extracted) {
+        return {
+          reply: extracted,
+          quickActions: actions.length > 0 ? actions : defaultActions,
+        };
+      }
+    }
+  }
+
+  // 3. Fallback: Pure text cleanup (strip any leftover braces or "reply": wrappers)
+  let pureText = clean
+    .replace(/^\s*\{\s*/, "")
+    .replace(/\s*\}\s*$/, "")
+    .replace(/^"reply"\s*:\s*"?/, "")
+    .replace(/"?\s*,?\s*"quickActions"[\s\S]*$/, "")
+    .replace(/"?\s*$/, "")
+    .replace(/\\n/g, "\n")
+    .replace(/\\"/g, '"')
+    .trim();
+
+  return {
+    reply: pureText || rawText,
+    quickActions: defaultActions,
+  };
+}
+
 export async function POST(req: NextRequest) {
   try {
     const body = (await req.json().catch(() => ({}))) as ChatRequestPayload;
@@ -198,7 +283,7 @@ CRITICAL INSTRUCTIONS:
         for (const model of candidateModels) {
           try {
             const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 7000);
+            const timeoutId = setTimeout(() => controller.abort(), 12000);
 
             const geminiResponse = await fetch(
               `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
@@ -215,9 +300,10 @@ CRITICAL INSTRUCTIONS:
                     ...conversationHistory,
                   ],
                   generationConfig: {
+                    responseMimeType: "application/json",
                     temperature: 0.4,
                     topP: 0.95,
-                    maxOutputTokens: 800,
+                    maxOutputTokens: 2048,
                   },
                 }),
               }
@@ -227,26 +313,14 @@ CRITICAL INSTRUCTIONS:
             if (geminiResponse.ok) {
               const geminiData = await geminiResponse.json();
               const rawText = geminiData?.candidates?.[0]?.content?.parts?.[0]?.text || "";
-              const cleanJson = rawText.replace(/```json/gi, "").replace(/```/g, "").trim();
-
-              try {
-                const parsed = JSON.parse(cleanJson);
-                if (parsed && parsed.reply) {
+              
+              if (rawText) {
+                const parsedResult = extractCleanReply(rawText, isArabic);
+                if (parsedResult.reply) {
                   return NextResponse.json<ChatApiResponse>({
                     success: true,
-                    reply: parsed.reply,
-                    quickActions: Array.isArray(parsed.quickActions) ? parsed.quickActions : [],
-                    source: "gemini",
-                  });
-                }
-              } catch {
-                if (cleanJson) {
-                  return NextResponse.json<ChatApiResponse>({
-                    success: true,
-                    reply: cleanJson,
-                    quickActions: isArabic
-                      ? ["حجز موعد صيانة", "تواصل عبر واتساب", "اتصل بنا مباشرة"]
-                      : ["Book Workshop Slot", "Chat on WhatsApp", "Call Us Directly"],
+                    reply: parsedResult.reply,
+                    quickActions: parsedResult.quickActions,
                     source: "gemini",
                   });
                 }

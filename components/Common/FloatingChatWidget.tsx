@@ -52,8 +52,34 @@ export interface ChatUserInfo {
 const STORAGE_KEY = "babalbustan_chat_history_v1";
 const USER_INFO_KEY = "babalbustan_chat_user_info_v1";
 
+// Helper to sanitize any raw JSON strings so raw {"reply": "..."} is never shown
+function cleanDisplayReply(raw: string): string {
+  if (!raw) return "";
+  const trimmed = raw.trim();
+  if (trimmed.startsWith("{") && trimmed.includes('"reply"')) {
+    try {
+      const parsed = JSON.parse(trimmed);
+      if (parsed?.reply && typeof parsed.reply === "string") {
+        return parsed.reply.trim();
+      }
+    } catch {
+      const match = trimmed.match(/"reply"\s*:\s*"((?:\\.|[^"\\])*)/);
+      if (match && match[1]) {
+        return match[1]
+          .replace(/\\n/g, "\n")
+          .replace(/\\r/g, "")
+          .replace(/\\"/g, '"')
+          .replace(/\\\\/g, "\\")
+          .trim();
+      }
+    }
+  }
+  return raw;
+}
+
 // Helper to render bolding, bullet points, markdown links, emails, and phone numbers cleanly
-function renderMessageContent(text: string) {
+function renderMessageContent(rawText: string) {
+  const text = cleanDisplayReply(rawText);
   const lines = text.split("\n");
   return lines.map((line, idx) => {
     const trimmed = line.trim();
@@ -220,9 +246,16 @@ export default function FloatingChatWidget() {
       if (savedHistory) {
         const parsedHistory = JSON.parse(savedHistory);
         if (Array.isArray(parsedHistory) && parsedHistory.length > 0) {
-          setChatHistory(parsedHistory);
-          if (parsedHistory[0]?.messages?.length > 0) {
-            setMessages(parsedHistory[0].messages);
+          const cleanedHistory: ChatSession[] = parsedHistory.map((s: ChatSession) => ({
+            ...s,
+            lastMessage: cleanDisplayReply(s.lastMessage || ""),
+            messages: Array.isArray(s.messages)
+              ? s.messages.map((m) => ({ ...m, text: cleanDisplayReply(m.text) }))
+              : [],
+          }));
+          setChatHistory(cleanedHistory);
+          if (cleanedHistory[0]?.messages?.length > 0) {
+            setMessages(cleanedHistory[0].messages);
           }
         }
       }
@@ -448,11 +481,12 @@ export default function FloatingChatWidget() {
       }
 
       const data = await res.json();
+      const cleanReply = cleanDisplayReply(data.reply || "");
       const aiMsg: Message = {
         id: `${Date.now()}-ai`,
         sender: "ai",
         text:
-          data.reply ||
+          cleanReply ||
           (isArabic
             ? "يسعدنا الرد على استفسارك، يرجى التواصل معنا هاتفياً أو عبر واتساب على الرقم +971 56 440 6456."
             : "We are glad to assist you. Please reach our workshop team directly at +971 56 440 6456 or on WhatsApp."),
