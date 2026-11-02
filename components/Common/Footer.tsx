@@ -95,7 +95,7 @@ export default function Footer() {
                   alt="Bab Al Bustan Logo"
                   fill
                   className="object-contain"
-                  src="/images/logo.png"
+                  src="/images/logo-new.png"
                 />
               </div>
             </Link>

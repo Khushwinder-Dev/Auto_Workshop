@@ -5,9 +5,9 @@ import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 
 const brands = [
-  { name: "Mercedes-Benz", logo: "/images/brands/Mercedes-Logo.png" },
+  { name: "Mercedes-Benz", logo: "/images/brands/Mercedes-logo-new.png" },
   { name: "BMW", logo: "/images/brands/bimw.png" },
-  { name: "Volkswagen", logo: "/images/brands/Volkswagen-Logo.png" },
+  { name: "Volkswagen", logo: "/images/brands/Volkswagen-logo-new.png" },
   { name: "Land Rover", logo: "/images/brands/Land-Rover-Logo.jpg" },
   { name: "Chevrolet", logo: "/images/brands/Chevrolet-Logo.jpg" },
   { name: "Audi", logo: "/images/brands/Audi-Logo.jpg" },

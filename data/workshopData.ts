@@ -149,11 +149,11 @@ export interface BrandItem {
 }
 
 export const CAR_BRANDS: BrandItem[] = [
-  { name: "Mercedes-Benz", category: "German & Luxury", logo: "/images/brands/Mercedes-Logo.png", specialty: "Star diagnostic, airmatic suspension, transmission service" },
+  { name: "Mercedes-Benz", category: "German & Luxury", logo: "/images/brands/Mercedes-logo-new.png", specialty: "Star diagnostic, airmatic suspension, transmission service" },
   { name: "BMW", category: "German & Luxury", logo: "/images/brands/bimw.png", specialty: "iDrive updates, twin-turbo maintenance, brake service" },
   { name: "Audi", category: "German & Luxury", logo: "/images/brands/Audi-Logo.jpg", specialty: "Quattro system service, TFSI engine tuning, electrical check" },
   { name: "Porsche", category: "German & Luxury", logo: "/images/brands/Porsche-Logo.jpg", specialty: "Performance diagnostics, PDK transmission, brake overhaul" },
-  { name: "Volkswagen", category: "German & Luxury", logo: "/images/brands/Volkswagen-Logo.png", specialty: "DSG service, turbo inspection, computer diagnostics" },
+  { name: "Volkswagen", category: "German & Luxury", logo: "/images/brands/Volkswagen-logo-new.png", specialty: "DSG service, turbo inspection, computer diagnostics" },
   { name: "Land Rover", category: "German & Luxury", logo: "/images/brands/Land-Rover-Logo.jpg", specialty: "Terrain response system, air suspension, drivetrain repairs" },
   { name: "Toyota", category: "Japanese", logo: "/images/brands/Toyota-Logo.jpg", specialty: "Hybrid system repair, routine periodic maintenance, brake care" },
   { name: "Lexus", category: "Japanese", logo: "/images/brands/Lexus.jpg", specialty: "Luxury electronics, V8/V6 engine tuning, AC conditioning" },

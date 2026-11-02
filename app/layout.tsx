@@ -41,8 +41,8 @@ export const metadata: Metadata = {
     canonical: "https://babalbustan.ae",
   },
   icons: {
-    icon: "/images/logo.png",
-    apple: "/images/logo.png",
+    icon: "/images/logo-new.png",
+    apple: "/images/logo-new.png",
   },
   openGraph: {
     title: "Bab Al Bustan Auto Maintenance | Best Car Workshop in Sharjah",
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/images/logo.png",
+        url: "/images/logo-new.png",
         width: 800,
         height: 600,
         alt: "Bab Al Bustan Auto Maintenance Workshop Sharjah",
@@ -66,7 +66,7 @@ export const metadata: Metadata = {
     title: "Bab Al Bustan Auto Maintenance | Car Repair Sharjah",
     description:
       "Leading car workshop in Sharjah Industrial Area 5. Computer diagnostics, AC repair, brake service, and oil changes for German, Japanese & American vehicles.",
-    images: ["/images/logo.png"],
+    images: ["/images/logo-new.png"],
   },
   robots: {
     index: true,
@@ -89,8 +89,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${barlowCondensed.variable} scroll-smooth`}>
       <head>
-        <link rel="icon" href="/images/logo.png" sizes="any" />
-        <link rel="apple-touch-icon" href="/images/logo.png" />
+        <link rel="icon" href="/images/logo-new.png" sizes="any" />
+        <link rel="apple-touch-icon" href="/images/logo-new.png" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(WORKSHOP_SCHEMA) }}

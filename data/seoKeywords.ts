@@ -348,9 +348,9 @@ export const WORKSHOP_SCHEMA = {
     "ورشة باب البستان لصيانة السيارات",
   ],
   url: "https://babalbustan.ae",
-  logo: "https://babalbustan.ae/images/logo.png",
+  logo: "https://babalbustan.ae/images/logo-new.png",
   image: [
-    "https://babalbustan.ae/images/logo.png",
+    "https://babalbustan.ae/images/logo-new.png",
     "https://babalbustan.ae/images/hero-bg.jpg",
   ],
   description:

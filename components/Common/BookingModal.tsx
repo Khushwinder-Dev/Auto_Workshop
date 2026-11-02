@@ -323,7 +323,7 @@ export default function BookingModal({
           <div className="flex items-center gap-3.5 min-w-0 pr-4 rtl:pr-0 rtl:pl-4">
             <div className="w-12 h-12 rounded-2xl bg-white border border-red-100/80 flex items-center justify-center flex-shrink-0 shadow-2xs p-2">
               <Image
-                src="/images/logo.png"
+                src="/images/logo-new.png"
                 alt="Bab Al Bustan Logo"
                 width={40}
                 height={40}

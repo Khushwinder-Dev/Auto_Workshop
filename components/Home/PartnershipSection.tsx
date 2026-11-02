@@ -6,9 +6,9 @@ import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
 const brands = [
-  { name: "Mercedes-Benz", logo: "/images/brands/Mercedes-Logo.png" },
+  { name: "Mercedes-Benz", logo: "/images/brands/Mercedes-logo-new.png" },
   { name: "BMW", logo: "/images/brands/bimw.png" },
-  { name: "Volkswagen", logo: "/images/brands/Volkswagen-Logo.png" },
+  { name: "Volkswagen", logo: "/images/brands/Volkswagen-logo-new.png" },
   { name: "Land Rover", logo: "/images/brands/Land-Rover-Logo.jpg" },
   { name: "Chevrolet", logo: "/images/brands/Chevrolet-Logo.jpg" },
   { name: "Audi", logo: "/images/brands/Audi-Logo.jpg" },
@@ -168,8 +168,8 @@ export default function PartnershipSection({
                         : "Pause"
                   }
                   className={`w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all cursor-pointer active:scale-95 shadow-2xs ${isPaused
-                      ? "bg-red-600 text-white border border-red-600 shadow-md shadow-red-600/20 hover:bg-red-700 hover:border-red-700"
-                      : "border border-zinc-300 text-zinc-700 hover:border-red-600 hover:bg-red-600 hover:text-white"
+                    ? "bg-red-600 text-white border border-red-600 shadow-md shadow-red-600/20 hover:bg-red-700 hover:border-red-700"
+                    : "border border-zinc-300 text-zinc-700 hover:border-red-600 hover:bg-red-600 hover:text-white"
                     }`}
                 >
                   {isPaused ? (
