@@ -142,7 +142,7 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
 
   return (
     <section
-      className="relative w-full min-h-screen min-h-[720px] lg:h-[100dvh] flex flex-col justify-between overflow-hidden bg-zinc-950"
+      className="relative w-full min-h-screen flex flex-col justify-between overflow-hidden bg-zinc-950"
       dir={isArabic ? "rtl" : "ltr"}
     >
       {/* 1. Background Images — Cross-fade sequence images 1, 2, 3 */}
@@ -229,8 +229,9 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
 
       {/* 5. Main Hero Content Container (TajAlRahmah 12-Column Grid Layout) */}
       <div
-        className={`relative z-20 w-full max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14 pt-28 sm:pt-36 lg:pt-40 pb-12 flex-1 flex flex-col justify-center ${isArabic ? "pr-10 sm:pr-14" : "pl-10 sm:pl-14"
-          }`}
+        className={`relative z-20 w-full max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14 pt-28 sm:pt-36 lg:pt-40 flex-1 flex flex-col justify-center ${
+          isArabic ? "pr-10 sm:pr-14" : "pl-10 sm:pl-14"
+        }`}
       >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
           {/* Left Text & CTAs (Columns 1-8) */}
@@ -345,6 +346,28 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
               </button>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* 6. Bottom Spacer (reproduces Taj Al Rahmah layout structure to achieve exact 221px top spacing) */}
+      <div
+        className="relative z-20 w-full max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14 mt-12 sm:mt-16 pb-8 sm:pb-12 invisible select-none pointer-events-none"
+        aria-hidden="true"
+      >
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-1.5 sm:gap-2 lg:gap-3 w-fit">
+          {[1, 2, 3, 4].map((idx) => (
+            <div
+              key={idx}
+              className="rounded-lg sm:rounded-xl px-2.5 py-2 sm:px-3.5 sm:py-2.5 bg-white/[0.08] border border-white/15"
+            >
+              <div className="text-lg sm:text-xl lg:text-2xl font-extrabold text-white tracking-tight">
+                00+
+              </div>
+              <p className="text-[9px] sm:text-[10px] lg:text-xs text-white/80 font-medium mt-0.5">
+                Placeholder
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
