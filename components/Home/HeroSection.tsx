@@ -296,7 +296,7 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
               </Link>
             </div>
           </div>
-
+          {/* test */}
           {/* Right Column: Circular Play / Pause Button with Pulsing Halo (Columns 9-12) */}
           <div className="lg:col-span-4 flex items-center justify-center lg:justify-start lg:pl-6 rtl:lg:pl-0 rtl:lg:pr-6 pt-4 lg:pt-0">
             <div className="relative group">
