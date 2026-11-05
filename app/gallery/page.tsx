@@ -564,9 +564,8 @@ function VideoCard({
   return (
     <div
       ref={cardRef}
-      className={`group relative overflow-hidden aspect-video bg-zinc-950 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 select-none border border-zinc-200/80 ${
-        isFullscreen ? "w-full h-full" : ""
-      }`}
+      className={`group relative overflow-hidden aspect-video bg-zinc-950 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 select-none border border-zinc-200/80 ${isFullscreen ? "w-full h-full" : ""
+        }`}
     >
       {/* HTML5 Video Element */}
       <video
@@ -605,9 +604,8 @@ function VideoCard({
 
       {/* Top Header Overlay: Maximize Button */}
       <div
-        className={`absolute top-0 inset-x-0 p-3 sm:p-4 z-20 flex items-center justify-end pointer-events-none transition-opacity duration-300 ${
-          isPlaying ? "opacity-0 group-hover:opacity-100" : "opacity-100"
-        }`}
+        className={`absolute top-0 inset-x-0 p-3 sm:p-4 z-20 flex items-center justify-end pointer-events-none transition-opacity duration-300 ${isPlaying ? "opacity-0 group-hover:opacity-100" : "opacity-100"
+          }`}
       >
         {/* Maximize Button to open full video modal */}
         <button
@@ -641,9 +639,8 @@ function VideoCard({
       {/* Bottom Controls Bar: Time, Volume, Fullscreen, Scrubber */}
       <div
         onClick={(e) => e.stopPropagation()}
-        className={`absolute bottom-0 inset-x-0 z-30 px-3.5 sm:px-4 pb-2.5 sm:pb-3 pt-8 bg-gradient-to-t from-black/95 via-black/60 to-transparent transition-opacity duration-300 ${
-          !isPlaying ? "opacity-100" : "opacity-100 sm:opacity-0 group-hover:opacity-100"
-        }`}
+        className={`absolute bottom-0 inset-x-0 z-30 px-3.5 sm:px-4 pb-2.5 sm:pb-3 pt-8 bg-gradient-to-t from-black/95 via-black/60 to-transparent transition-opacity duration-300 ${!isPlaying ? "opacity-100" : "opacity-100 sm:opacity-0 group-hover:opacity-100"
+          }`}
       >
         {/* Row 1: Time, Volume & Fullscreen */}
         <div className="flex items-center justify-between text-white mb-1.5 sm:mb-2">
@@ -838,14 +835,14 @@ export default function GalleryPage() {
       {/* ══════════════════════════════════════════════════════════════
           1. HERO HEADER SECTION (High-Impact Hero with Workshop Banner)
       ══════════════════════════════════════════════════════════════ */}
-      <section className="relative w-full h-[55vh] min-h-[460px] max-h-[620px] overflow-hidden flex flex-col justify-center items-center bg-zinc-950">
+      <section className="relative w-full h-[600px] min-h-[600px] overflow-hidden flex flex-col justify-center items-center bg-zinc-950">
         {/* Background Image with Dark Vignette */}
         <div className="absolute inset-0 z-0">
           <Image
             alt="Bab Al Bustan Workshop Media Gallery"
             fill
             className="object-cover object-center"
-            src="/images/services-hero.png"
+            src="/images/banners/banner-gallery.jpg"
             priority
           />
           <div className="absolute inset-0 bg-black/75" />
@@ -1003,11 +1000,10 @@ export default function GalleryPage() {
                   <button
                     key={cat.id}
                     onClick={() => setSelectedPhotoCategory(cat.id)}
-                    className={`px-5 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs font-bold tracking-wider uppercase transition-all duration-200 cursor-pointer whitespace-nowrap ${
-                      isActive
+                    className={`px-5 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs font-bold tracking-wider uppercase transition-all duration-200 cursor-pointer whitespace-nowrap ${isActive
                         ? "bg-red-600 text-white shadow-md shadow-red-600/30 scale-100"
                         : "bg-white text-zinc-700 hover:text-red-600 border border-zinc-200/90 shadow-2xs hover:border-red-600/40"
-                    }`}
+                      }`}
                   >
                     {isArabic ? cat.labelAr : cat.labelEn}
                   </button>
@@ -1131,11 +1127,10 @@ export default function GalleryPage() {
                   <button
                     key={cat.id}
                     onClick={() => setSelectedVideoCategory(cat.id)}
-                    className={`px-5 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs font-bold tracking-wider uppercase transition-all duration-200 cursor-pointer whitespace-nowrap ${
-                      isActive
+                    className={`px-5 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs font-bold tracking-wider uppercase transition-all duration-200 cursor-pointer whitespace-nowrap ${isActive
                         ? "bg-red-600 text-white shadow-md shadow-red-600/30 scale-100"
                         : "bg-zinc-100 text-zinc-700 hover:text-red-600 border border-zinc-200/90 shadow-2xs hover:border-red-600/40"
-                    }`}
+                      }`}
                   >
                     {isArabic ? cat.labelAr : cat.labelEn}
                   </button>

@@ -109,13 +109,13 @@ export default function BookingPage() {
   return (
     <main>
       <div>
-        <section className="relative w-full h-[60vh] min-h-[240px] sm:min-h-[340px] lg:min-h-[450px] overflow-hidden flex flex-col bg-black">
+        <section className="relative w-full h-[600px] min-h-[600px] overflow-hidden flex flex-col bg-black">
           <div className="absolute inset-0 z-0">
             <Image
-              alt="Workshop Hero"
+              alt="Book Auto Service Appointment Bab Al Bustan"
               fill
               className="object-cover"
-              src="/images/services-hero.png"
+              src="/images/banners/banner-booking.jpg"
               priority
             />
             <div className="absolute inset-0 bg-[#1a0a05]/70" />

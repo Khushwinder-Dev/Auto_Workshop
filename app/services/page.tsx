@@ -141,13 +141,13 @@ export default function ServicesPage() {
       {/* ============================================================
           PAGE HERO BANNER
           ============================================================ */}
-      <section className="relative w-full h-[60vh] min-h-[450px] overflow-hidden flex flex-col bg-black">
+      <section className="relative w-full h-[600px] min-h-[600px] overflow-hidden flex flex-col bg-black">
         <div className="absolute inset-0 z-0">
           <Image
-            alt="Workshop Hero"
+            alt="Auto Maintenance Services Bab Al Bustan"
             fill
             className="object-cover"
-            src="/images/services-hero.png"
+            src="/images/banners/banner-services.jpg"
             priority
           />
           <div className="absolute inset-0 bg-[#1a0a05]/75" />
@@ -215,11 +215,10 @@ export default function ServicesPage() {
                 <button
                   key={tab.id}
                   onClick={() => setSelectedFilter(tab.id)}
-                  className={`px-5 py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${
-                    selectedFilter === tab.id
+                  className={`px-5 py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${selectedFilter === tab.id
                       ? "bg-red-600 text-white shadow-md shadow-red-600/30"
                       : "bg-white text-zinc-700 hover:bg-zinc-100 border border-zinc-200"
-                  }`}
+                    }`}
                 >
                   {tab.label}
                 </button>
@@ -243,7 +242,7 @@ export default function ServicesPage() {
                     className="object-cover transition-transform duration-700 group-hover:scale-110 opacity-95 group-hover:opacity-100"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity" />
-                  
+
                   {/* Duration Tag */}
                   {item.duration && (
                     <div className={`absolute top-3 ${isArabic ? "left-3" : "right-3"} bg-black/70 backdrop-blur-md text-white text-[10px] font-bold px-2.5 py-1 rounded-full flex items-center gap-1 border border-white/20`}>
@@ -371,7 +370,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-            {/* ============================================================
+      {/* ============================================================
           FAQ SECTION (Taj Al Rahmah Reference Layout)
           ============================================================ */}
       <section
@@ -415,11 +414,10 @@ export default function ServicesPage() {
               return (
                 <div
                   key={idx}
-                  className={`rounded-2xl sm:rounded-[22px] bg-white border transition-all duration-200 overflow-hidden ${
-                    isOpen
+                  className={`rounded-2xl sm:rounded-[22px] bg-white border transition-all duration-200 overflow-hidden ${isOpen
                       ? "border-red-600/40 shadow-[0_8px_30px_rgba(220,38,38,0.06)]"
                       : "border-zinc-200/80 hover:border-zinc-300 shadow-[0_4px_20px_rgba(0,0,0,0.02)]"
-                  }`}
+                    }`}
                 >
                   <button
                     type="button"
@@ -432,11 +430,10 @@ export default function ServicesPage() {
                         {String(idx + 1).padStart(2, "0")}
                       </span>
                       <span
-                        className={`font-bold text-sm sm:text-[15.5px] transition-colors leading-snug ${
-                          isOpen
+                        className={`font-bold text-sm sm:text-[15.5px] transition-colors leading-snug ${isOpen
                             ? "text-red-600"
                             : "text-zinc-900 group-hover:text-red-600"
-                        }`}
+                          }`}
                       >
                         {faq.q}
                       </span>
@@ -444,11 +441,10 @@ export default function ServicesPage() {
 
                     {/* Plus / Minus Circle Icon */}
                     <div
-                      className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center shrink-0 transition-all duration-200 ${
-                        isOpen
+                      className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center shrink-0 transition-all duration-200 ${isOpen
                           ? "bg-red-600 text-white shadow-sm shadow-red-600/30"
                           : "bg-white border border-red-500/50 text-red-600 group-hover:border-red-600 group-hover:bg-red-50"
-                      }`}
+                        }`}
                     >
                       {isOpen ? (
                         <Minus className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
@@ -477,7 +473,7 @@ export default function ServicesPage() {
             })}
           </div>
 
-          </div>
+        </div>
       </section>
     </main>
   );

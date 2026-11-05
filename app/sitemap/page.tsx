@@ -224,7 +224,7 @@ export default function SitemapPage() {
     if (isListening) {
       try {
         recognitionRef.current?.stop();
-      } catch {}
+      } catch { }
       setIsListening(false);
       return;
     }
@@ -285,13 +285,13 @@ export default function SitemapPage() {
 
   return (
     <main className="min-h-screen bg-white">
-      <section className="relative w-full h-[55vh] min-h-[420px] overflow-hidden flex flex-col bg-black">
+      <section className="relative w-full h-[600px] min-h-[600px] overflow-hidden flex flex-col bg-black">
         <div className="absolute inset-0 z-0">
           <Image
-            alt="Workshop Hero"
+            alt="Bab Al Bustan Sitemap Directory"
             fill
             className="object-cover"
-            src="/images/services-hero.png"
+            src="/images/banners/banner-sitemap.jpg"
             priority
           />
           <div className="absolute inset-0 bg-[#1a0a05]/75" />
@@ -342,9 +342,8 @@ export default function SitemapPage() {
               <button
                 type="button"
                 onClick={() => setSearchQuery("")}
-                className={`absolute top-1/2 -translate-y-1/2 z-20 text-zinc-400 hover:text-zinc-700 transition-colors cursor-pointer p-1 ${
-                  isArabic ? "left-12" : "right-12"
-                }`}
+                className={`absolute top-1/2 -translate-y-1/2 z-20 text-zinc-400 hover:text-zinc-700 transition-colors cursor-pointer p-1 ${isArabic ? "left-12" : "right-12"
+                  }`}
                 aria-label="Clear search"
               >
                 <X className="w-4 h-4" />

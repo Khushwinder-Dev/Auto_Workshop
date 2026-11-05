@@ -45,10 +45,10 @@ function ServiceDetailsContent() {
 
   return (
     <div className="bg-white">
-      <section className="relative w-full h-[50vh] min-h-[380px] overflow-hidden flex flex-col justify-center items-center bg-black pt-20">
+      <section className="relative w-full h-[600px] min-h-[600px] overflow-hidden flex flex-col justify-center items-center bg-black pt-20">
         <div className="absolute inset-0 z-0">
           <Image
-            src="/images/services-hero.png"
+            src="/images/banners/banner-service-details.jpg"
             alt="Service Details Bab Al Bustan"
             fill
             priority
@@ -85,11 +85,10 @@ function ServiceDetailsContent() {
                     <button
                       key={s.id}
                       onClick={() => setSelectedService(s)}
-                      className={`w-full text-start px-4 py-3 rounded-xl font-bold text-xs sm:text-sm uppercase tracking-wide transition-all flex items-center justify-between cursor-pointer ${
-                        isActive
+                      className={`w-full text-start px-4 py-3 rounded-xl font-bold text-xs sm:text-sm uppercase tracking-wide transition-all flex items-center justify-between cursor-pointer ${isActive
                           ? "bg-red-600 text-white shadow-lg shadow-red-600/30"
                           : "bg-white text-zinc-700 hover:bg-zinc-100 border border-zinc-200/60"
-                      }`}
+                        }`}
                     >
                       <span>{s.title}</span>
                       <ArrowIcon className={`w-4 h-4 ${isActive ? "text-white" : "text-zinc-400"}`} />

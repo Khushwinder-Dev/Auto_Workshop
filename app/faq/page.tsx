@@ -21,10 +21,10 @@ export default function FAQPage() {
       {/* ========================================================= */}
       {/* HERO BANNER                                               */}
       {/* ========================================================= */}
-      <section className="relative w-full h-[46vh] min-h-[380px] overflow-hidden flex flex-col justify-center items-center bg-black pt-20">
+      <section className="relative w-full h-[600px] min-h-[600px] overflow-hidden flex flex-col justify-center items-center bg-black pt-20">
         <div className="absolute inset-0 z-0">
           <Image
-            src="/images/services-hero.png"
+            src="/images/banners/banner-faq.jpg"
             alt="FAQs Bab Al Bustan Auto Workshop"
             fill
             priority
@@ -101,11 +101,10 @@ export default function FAQPage() {
             return (
               <div
                 key={faq.q}
-                className={`rounded-2xl sm:rounded-[22px] bg-white border transition-all duration-200 overflow-hidden ${
-                  isOpen
+                className={`rounded-2xl sm:rounded-[22px] bg-white border transition-all duration-200 overflow-hidden ${isOpen
                     ? "border-red-600/40 shadow-[0_8px_30px_rgba(220,38,38,0.06)]"
                     : "border-zinc-200/80 hover:border-zinc-300 shadow-[0_4px_20px_rgba(0,0,0,0.02)]"
-                }`}
+                  }`}
               >
                 <button
                   type="button"
@@ -118,11 +117,10 @@ export default function FAQPage() {
                       {String(idx + 1).padStart(2, "0")}
                     </span>
                     <span
-                      className={`font-bold text-sm sm:text-[15.5px] transition-colors leading-snug ${
-                        isOpen
+                      className={`font-bold text-sm sm:text-[15.5px] transition-colors leading-snug ${isOpen
                           ? "text-red-600"
                           : "text-zinc-900 group-hover:text-red-600"
-                      }`}
+                        }`}
                     >
                       {faq.q}
                     </span>
@@ -130,11 +128,10 @@ export default function FAQPage() {
 
                   {/* Plus / Minus Circle Icon */}
                   <div
-                    className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center shrink-0 transition-all duration-200 ${
-                      isOpen
+                    className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center shrink-0 transition-all duration-200 ${isOpen
                         ? "bg-red-600 text-white shadow-sm shadow-red-600/30"
                         : "bg-white border border-red-500/50 text-red-600 group-hover:border-red-600 group-hover:bg-red-50"
-                    }`}
+                      }`}
                   >
                     {isOpen ? (
                       <Minus className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />

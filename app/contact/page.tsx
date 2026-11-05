@@ -81,13 +81,13 @@ export default function ContactPage() {
   return (
     <main>
       <div>
-        <section className="relative w-full h-[60vh] min-h-[450px] overflow-hidden flex flex-col bg-black">
+        <section className="relative w-full h-[600px] min-h-[600px] overflow-hidden flex flex-col bg-black">
           <div className="absolute inset-0 z-0">
             <Image
-              alt="Workshop Hero"
+              alt="Contact Bab Al Bustan Auto Maintenance"
               fill
               className="object-cover"
-              src="/images/services-hero.png"
+              src="/images/banners/banner-contact.jpg"
               priority
             />
             <div className="absolute inset-0 bg-[#1a0a05]/70" />

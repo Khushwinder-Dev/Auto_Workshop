@@ -408,9 +408,9 @@ export default function GetAQuoteContent() {
         const data = await res.json().catch(() => ({}));
         toast.error(
           data.error ||
-            (isArabic
-              ? "حدث خطأ أثناء إرسال الطلب. يرجى المحاولة مرة أخرى."
-              : "Submission failed. Please try again.")
+          (isArabic
+            ? "حدث خطأ أثناء إرسال الطلب. يرجى المحاولة مرة أخرى."
+            : "Submission failed. Please try again.")
         );
       }
     } catch {
@@ -432,13 +432,13 @@ export default function GetAQuoteContent() {
       {/* ══════════════════════════════════════════════════════════════
           1. HERO BANNER (MATCHING BAB AL BUSTAN HIGH-CONTRAST THEME)
       ══════════════════════════════════════════════════════════════ */}
-      <section className="relative w-full h-[50vh] min-h-[420px] max-h-[500px] overflow-hidden flex flex-col bg-black justify-center items-center text-center">
+      <section className="relative w-full h-[600px] min-h-[600px] overflow-hidden flex flex-col bg-black justify-center items-center text-center">
         <div className="absolute inset-0 z-0">
           <Image
             alt="Workshop Quote Banner"
             fill
             className="object-cover"
-            src="/images/services-hero.png"
+            src="/images/banners/banner-quote.jpg"
             priority
           />
           <div className="absolute inset-0 bg-[#0a0302]/75" />
@@ -792,11 +792,10 @@ export default function GetAQuoteContent() {
                       onDragOver={handleDragOver}
                       onDragLeave={handleDragLeave}
                       onDrop={handleDrop}
-                      className={`w-full border-2 border-dashed rounded-2xl p-5 sm:p-6 text-center transition-all cursor-pointer group ${
-                        isDragging
+                      className={`w-full border-2 border-dashed rounded-2xl p-5 sm:p-6 text-center transition-all cursor-pointer group ${isDragging
                           ? "border-red-600 bg-red-50/50 ring-2 ring-red-600/25"
                           : "border-zinc-200 hover:border-red-600 bg-[#fbfbfb] hover:bg-red-50/20"
-                      }`}
+                        }`}
                     >
                       <div className="w-10 h-10 mx-auto mb-2 rounded-full bg-zinc-100 group-hover:bg-red-100 flex items-center justify-center text-zinc-500 group-hover:text-red-600 transition-colors shadow-2xs">
                         <Upload className="w-5 h-5" />
@@ -954,52 +953,52 @@ export default function GetAQuoteContent() {
       <section className="relative w-full py-16 md:py-20 bg-white border-t border-zinc-100">
         <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14">
           <div className="max-w-5xl mx-auto">
-          {/* Header */}
-          <div className="text-center mb-10 sm:mb-14">
-            <div className="flex items-center justify-center gap-2.5 mb-2.5">
-              <span className="w-6 h-[2px] bg-red-600 rounded-full" />
-              <span className="text-xs sm:text-[13px] font-extrabold tracking-[0.2em] text-red-600 uppercase">
-                {isArabic ? "الأسئلة الشائعة" : "FAQ"}
-              </span>
-              <span className="w-6 h-[2px] bg-red-600 rounded-full" />
+            {/* Header */}
+            <div className="text-center mb-10 sm:mb-14">
+              <div className="flex items-center justify-center gap-2.5 mb-2.5">
+                <span className="w-6 h-[2px] bg-red-600 rounded-full" />
+                <span className="text-xs sm:text-[13px] font-extrabold tracking-[0.2em] text-red-600 uppercase">
+                  {isArabic ? "الأسئلة الشائعة" : "FAQ"}
+                </span>
+                <span className="w-6 h-[2px] bg-red-600 rounded-full" />
+              </div>
+
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-zinc-950 tracking-tight mb-3">
+                {isArabic ? (
+                  <>
+                    الأسئلة <span className="text-red-600">الشائعة</span>
+                  </>
+                ) : (
+                  <>
+                    Frequently Asked <span className="text-red-600">Questions</span>
+                  </>
+                )}
+              </h2>
+
+              <p className="text-zinc-500 text-xs sm:text-sm max-w-lg mx-auto leading-relaxed">
+                {isArabic
+                  ? "إجابات واضحة ومباشرة حول خدمات صيانة السيارات، الضمان، قطع الغيار، والأسعار في ورشة باب البستان بالشارقة."
+                  : "Find clear answers to common questions about our vehicle maintenance, repair procedures, warranties, and pricing."}
+              </p>
             </div>
 
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-zinc-950 tracking-tight mb-3">
-              {isArabic ? (
-                <>
-                  الأسئلة <span className="text-red-600">الشائعة</span>
-                </>
-              ) : (
-                <>
-                  Frequently Asked <span className="text-red-600">Questions</span>
-                </>
-              )}
-            </h2>
-
-            <p className="text-zinc-500 text-xs sm:text-sm max-w-lg mx-auto leading-relaxed">
-              {isArabic
-                ? "إجابات واضحة ومباشرة حول خدمات صيانة السيارات، الضمان، قطع الغيار، والأسعار في ورشة باب البستان بالشارقة."
-                : "Find clear answers to common questions about our vehicle maintenance, repair procedures, warranties, and pricing."}
-            </p>
-          </div>
-
-          {/* 6 Accordion FAQ Cards */}
-          <div className="space-y-3.5 sm:space-y-4">
-            {faqs.map((faq, idx) => (
-              <FaqAccordionItem
-                key={idx}
-                number={idx + 1}
-                question={faq.q}
-                answer={faq.a}
-                isOpen={openFaqIndex === idx}
-                onToggle={() => toggleFaq(idx)}
-                isArabic={isArabic}
-              />
-            ))}
+            {/* 6 Accordion FAQ Cards */}
+            <div className="space-y-3.5 sm:space-y-4">
+              {faqs.map((faq, idx) => (
+                <FaqAccordionItem
+                  key={idx}
+                  number={idx + 1}
+                  question={faq.q}
+                  answer={faq.a}
+                  isOpen={openFaqIndex === idx}
+                  onToggle={() => toggleFaq(idx)}
+                  isArabic={isArabic}
+                />
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
       {/* ══════════════════════════════════════════════════════════════
           4. TALK TO OUR SENIOR ADVISORS CALLOUT BANNER

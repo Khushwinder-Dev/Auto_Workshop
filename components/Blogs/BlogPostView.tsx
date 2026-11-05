@@ -23,7 +23,7 @@ export default function BlogPostView({ slug }: Props) {
 
   return (
     <article className="bg-white min-h-screen">
-      <div className="relative h-[40vh] md:h-[50vh] w-full">
+      <div className="relative h-[600px] min-h-[600px] w-full">
         <Image
           alt={post.title}
           fill
