@@ -13,6 +13,15 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: "/media",
+        destination: "/gallery",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
