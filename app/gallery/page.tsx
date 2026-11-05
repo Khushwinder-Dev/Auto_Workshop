@@ -6,7 +6,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
   Play,
-  Pause,
   Volume2,
   VolumeX,
   Maximize2,
@@ -15,21 +14,13 @@ import {
   ChevronRight,
   ArrowRight,
   ArrowLeft,
-  Camera,
-  Film,
   X,
   Wrench,
   ShieldCheck,
-  FileText,
-  PhoneCall,
-  Download,
   Cpu,
   Clock,
-  Sparkles,
-  CheckCircle2,
 } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
-import BookingModal from "@/components/Common/BookingModal";
 
 /* ─── TYPES ──────────────────────────────────────────────────────────── */
 interface PhotoItem {
@@ -434,7 +425,6 @@ function VideoCard({
   isArabic: boolean;
   onOpenModal: (video: VideoItem) => void;
 }) {
-  const router = useRouter();
   const cardRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const seekerRef = useRef<HTMLDivElement>(null);
@@ -574,7 +564,7 @@ function VideoCard({
   return (
     <div
       ref={cardRef}
-      className={`group relative overflow-hidden aspect-video bg-zinc-950 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 select-none border border-zinc-800 ${
+      className={`group relative overflow-hidden aspect-video bg-zinc-950 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 select-none border border-zinc-200/80 ${
         isFullscreen ? "w-full h-full" : ""
       }`}
     >
@@ -613,55 +603,12 @@ function VideoCard({
         </div>
       )}
 
-      {/* Top Header Overlay: Logo Badge + Title + Subtitle */}
+      {/* Top Header Overlay: Maximize Button */}
       <div
-        className={`absolute top-0 inset-x-0 p-3 sm:p-4 z-20 flex items-center justify-between pointer-events-none bg-gradient-to-b from-black/85 via-black/40 to-transparent transition-opacity duration-300 ${
+        className={`absolute top-0 inset-x-0 p-3 sm:p-4 z-20 flex items-center justify-end pointer-events-none transition-opacity duration-300 ${
           isPlaying ? "opacity-0 group-hover:opacity-100" : "opacity-100"
         }`}
       >
-        <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 pr-2 rtl:pr-0 rtl:pl-2 pointer-events-auto">
-          {/* Circular Company Logo Badge */}
-          <div
-            onClick={(e) => {
-              e.stopPropagation();
-              router.push("/");
-            }}
-            className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white shadow-md flex items-center justify-center p-1 overflow-hidden shrink-0 border border-white/30 cursor-pointer hover:scale-105 transition-transform"
-            title={isArabic ? "الرئيسية" : "Home"}
-          >
-            <Image
-              src="/logo.png"
-              alt="Bab Al Bustan"
-              width={26}
-              height={26}
-              className="object-contain"
-            />
-          </div>
-
-          {/* Heading & Subtitle On Top */}
-          <div className="leading-tight min-w-0">
-            <h4
-              onClick={(e) => {
-                e.stopPropagation();
-                onOpenModal(video);
-              }}
-              className="text-xs sm:text-sm font-bold text-white truncate drop-shadow-md cursor-pointer hover:text-red-500 hover:underline transition-colors block"
-              title={isArabic ? video.titleAr : video.titleEn}
-            >
-              {isArabic ? video.titleAr : video.titleEn}
-            </h4>
-            <p
-              onClick={(e) => {
-                e.stopPropagation();
-                router.push("/services");
-              }}
-              className="text-[10px] sm:text-xs text-zinc-300 truncate mt-0.5 drop-shadow-sm font-normal cursor-pointer hover:text-red-400 hover:underline transition-colors block"
-            >
-              {isArabic ? video.locationAr : video.locationEn}
-            </p>
-          </div>
-        </div>
-
         {/* Maximize Button to open full video modal */}
         <button
           type="button"
@@ -683,7 +630,7 @@ function VideoCard({
           className="absolute inset-0 z-20 flex items-center justify-center cursor-pointer transition-all duration-300"
         >
           <div
-            className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white hover:bg-zinc-100 text-red-600 flex items-center justify-center shadow-[0_0_35px_rgba(255,255,255,0.4)] transition-all duration-300 hover:scale-110 active:scale-95 group/playbtn"
+            className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white hover:bg-zinc-100 text-red-600 flex items-center justify-center shadow-[0_4px_25px_rgba(0,0,0,0.35)] transition-all duration-300 hover:scale-110 active:scale-95 group/playbtn"
             title={isArabic ? "تشغيل الفيديو" : "Play Video"}
           >
             <Play className="w-8 h-8 sm:w-9 sm:h-9 fill-red-600 text-red-600 ml-1 rtl:ml-0 rtl:mr-1 transition-transform group-hover/playbtn:scale-105" />
@@ -779,8 +726,6 @@ export default function GalleryPage() {
   const [activePhoto, setActivePhoto] = useState<PhotoItem | null>(null);
   const [activePhotoIndex, setActivePhotoIndex] = useState<number>(0);
   const [activeVideo, setActiveVideo] = useState<VideoItem | null>(null);
-
-  const [isBookingOpen, setIsBookingOpen] = useState(false);
 
   // ── Filtered Photos ──────────────────────────────────────────
   const filteredPhotos = useMemo(() => {
@@ -887,11 +832,11 @@ export default function GalleryPage() {
 
   return (
     <div
-      className="min-h-screen bg-zinc-950 text-white overflow-x-hidden selection:bg-red-600/30 selection:text-red-400"
+      className="min-h-screen bg-white text-zinc-900 overflow-x-hidden selection:bg-red-600/15 selection:text-red-600"
       dir={isArabic ? "rtl" : "ltr"}
     >
       {/* ══════════════════════════════════════════════════════════════
-          1. HERO HEADER SECTION (Taj Al Rahmah Reference Layout)
+          1. HERO HEADER SECTION (High-Impact Hero with Workshop Banner)
       ══════════════════════════════════════════════════════════════ */}
       <section className="relative w-full h-[55vh] min-h-[460px] max-h-[620px] overflow-hidden flex flex-col justify-center items-center bg-zinc-950">
         {/* Background Image with Dark Vignette */}
@@ -904,7 +849,7 @@ export default function GalleryPage() {
             priority
           />
           <div className="absolute inset-0 bg-black/75" />
-          <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-black/80" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/80" />
         </div>
 
         {/* Content Container */}
@@ -949,61 +894,61 @@ export default function GalleryPage() {
       </section>
 
       {/* ══════════════════════════════════════════════════════════════
-          QUICK HIGHLIGHTS STRIP (4 Pillars of Excellence)
+          QUICK HIGHLIGHTS STRIP (Light Theme 4 Pillars)
       ══════════════════════════════════════════════════════════════ */}
       <section className="relative z-20 -mt-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 bg-zinc-900/90 backdrop-blur-md p-4 sm:p-5 rounded-2xl sm:rounded-3xl border border-zinc-800 shadow-2xl">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 bg-white/95 backdrop-blur-md p-4 sm:p-5 rounded-2xl sm:rounded-3xl border border-zinc-200/90 shadow-xl shadow-zinc-900/5">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-red-600/15 border border-red-600/30 text-red-500 flex items-center justify-center shrink-0">
+            <div className="w-10 h-10 rounded-xl bg-red-50 border border-red-100 text-red-600 flex items-center justify-center shrink-0 shadow-2xs">
               <Cpu className="w-5 h-5" />
             </div>
             <div>
-              <p className="text-xs sm:text-sm font-bold text-white leading-tight">
+              <p className="text-xs sm:text-sm font-bold text-zinc-900 leading-tight">
                 {isArabic ? "فحص كمبيوتر 100%" : "100% ECU Scanning"}
               </p>
-              <p className="text-[11px] text-zinc-400 mt-0.5">
+              <p className="text-[11px] text-zinc-500 mt-0.5">
                 {isArabic ? "أحدث أجهزة الوكالات" : "OEM Dealership Scanners"}
               </p>
             </div>
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-red-600/15 border border-red-600/30 text-red-500 flex items-center justify-center shrink-0">
+            <div className="w-10 h-10 rounded-xl bg-red-50 border border-red-100 text-red-600 flex items-center justify-center shrink-0 shadow-2xs">
               <Wrench className="w-5 h-5" />
             </div>
             <div>
-              <p className="text-xs sm:text-sm font-bold text-white leading-tight">
+              <p className="text-xs sm:text-sm font-bold text-zinc-900 leading-tight">
                 {isArabic ? "فنيون معتمدون" : "Master Mechanics"}
               </p>
-              <p className="text-[11px] text-zinc-400 mt-0.5">
+              <p className="text-[11px] text-zinc-500 mt-0.5">
                 {isArabic ? "ألماني وياباني وأمريكي" : "German & Japanese Experts"}
               </p>
             </div>
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-red-600/15 border border-red-600/30 text-red-500 flex items-center justify-center shrink-0">
+            <div className="w-10 h-10 rounded-xl bg-red-50 border border-red-100 text-red-600 flex items-center justify-center shrink-0 shadow-2xs">
               <ShieldCheck className="w-5 h-5" />
             </div>
             <div>
-              <p className="text-xs sm:text-sm font-bold text-white leading-tight">
+              <p className="text-xs sm:text-sm font-bold text-zinc-900 leading-tight">
                 {isArabic ? "قطع غيار أصلية" : "Genuine OEM Parts"}
               </p>
-              <p className="text-[11px] text-zinc-400 mt-0.5">
+              <p className="text-[11px] text-zinc-500 mt-0.5">
                 {isArabic ? "بضمان الجودة والأداء" : "Factory Certified Quality"}
               </p>
             </div>
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-red-600/15 border border-red-600/30 text-red-500 flex items-center justify-center shrink-0">
+            <div className="w-10 h-10 rounded-xl bg-red-50 border border-red-100 text-red-600 flex items-center justify-center shrink-0 shadow-2xs">
               <Clock className="w-5 h-5" />
             </div>
             <div>
-              <p className="text-xs sm:text-sm font-bold text-white leading-tight">
+              <p className="text-xs sm:text-sm font-bold text-zinc-900 leading-tight">
                 {isArabic ? "تسليم سريع" : "Same-Day Delivery"}
               </p>
-              <p className="text-[11px] text-zinc-400 mt-0.5">
+              <p className="text-[11px] text-zinc-500 mt-0.5">
                 {isArabic ? "للصيانة الدورية والفحص" : "For Express Lube & Brakes"}
               </p>
             </div>
@@ -1012,10 +957,10 @@ export default function GalleryPage() {
       </section>
 
       {/* ══════════════════════════════════════════════════════════════
-          2. SECTION: A CLOSER LOOK AT OUR WORK (PHOTO GALLERY)
+          2. SECTION: A CLOSER LOOK AT OUR WORK (PHOTO GALLERY - LIGHT THEME)
           (Taj Al Rahmah Reference Layout)
       ══════════════════════════════════════════════════════════════ */}
-      <section className="relative w-full py-16 sm:py-20 bg-zinc-900 border-b border-zinc-800/80 overflow-hidden mt-12">
+      <section className="relative w-full py-16 sm:py-20 bg-[#F8FAFC] border-b border-zinc-200/80 overflow-hidden mt-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
           {/* Section Header */}
           <div className="max-w-3xl mb-8 sm:mb-10 text-left rtl:text-right">
@@ -1028,7 +973,7 @@ export default function GalleryPage() {
             </div>
 
             {/* Title */}
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-zinc-900 tracking-tight leading-tight">
               {isArabic ? (
                 <>
                   نظرة عن قرب على <span className="text-red-600">أعمالنا الميدانية</span>
@@ -1041,14 +986,14 @@ export default function GalleryPage() {
             </h2>
 
             {/* Subtitle */}
-            <p className="mt-3 text-xs sm:text-sm md:text-[15px] text-zinc-400 max-w-2xl leading-relaxed">
+            <p className="mt-3 text-xs sm:text-sm md:text-[15px] text-zinc-600 max-w-2xl leading-relaxed">
               {isArabic
                 ? "استكشف صوراً حية لعمليات الإصلاح الميكانيكي، فحص الحساسات، توضيب الجير والمحركات، وتجهيز السيارات في ورشتنا بالمنطقة الصناعية 5."
                 : "Explore high-resolution captures of our certified technicians rebuilding engines, skimming brake rotors, and calibrating advanced ECUs."}
             </p>
           </div>
 
-          {/* Filter Bar with Carousel Arrow Controls (Taj Al Rahmah Style) */}
+          {/* Filter Bar with Carousel Arrow Controls (Light Theme) */}
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-8 sm:mb-10">
             {/* Category Filter Pills */}
             <div className="flex items-center gap-2 sm:gap-2.5 overflow-x-auto pb-2 lg:pb-0 no-scrollbar">
@@ -1060,8 +1005,8 @@ export default function GalleryPage() {
                     onClick={() => setSelectedPhotoCategory(cat.id)}
                     className={`px-5 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs font-bold tracking-wider uppercase transition-all duration-200 cursor-pointer whitespace-nowrap ${
                       isActive
-                        ? "bg-red-600 text-white shadow-lg shadow-red-600/30 scale-100"
-                        : "bg-zinc-800/90 text-zinc-300 hover:text-white hover:bg-zinc-700/80 border border-zinc-700/70"
+                        ? "bg-red-600 text-white shadow-md shadow-red-600/30 scale-100"
+                        : "bg-white text-zinc-700 hover:text-red-600 border border-zinc-200/90 shadow-2xs hover:border-red-600/40"
                     }`}
                   >
                     {isArabic ? cat.labelAr : cat.labelEn}
@@ -1076,7 +1021,7 @@ export default function GalleryPage() {
                 type="button"
                 onClick={() => scrollPhotos("left")}
                 aria-label={isArabic ? "السابق" : "Previous Slide"}
-                className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white shadow-lg flex items-center justify-center text-red-600 hover:bg-red-600 hover:text-white transition-all duration-300 cursor-pointer focus:outline-none hover:scale-110 active:scale-95"
+                className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white shadow-md border border-zinc-200/90 flex items-center justify-center text-red-600 hover:bg-red-600 hover:text-white transition-all duration-300 cursor-pointer focus:outline-none hover:scale-110 active:scale-95"
               >
                 {isArabic ? (
                   <ArrowRight className="w-5 h-5 stroke-[2.5]" />
@@ -1088,7 +1033,7 @@ export default function GalleryPage() {
                 type="button"
                 onClick={() => scrollPhotos("right")}
                 aria-label={isArabic ? "التالي" : "Next Slide"}
-                className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white shadow-lg flex items-center justify-center text-red-600 hover:bg-red-600 hover:text-white transition-all duration-300 cursor-pointer focus:outline-none hover:scale-110 active:scale-95"
+                className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white shadow-md border border-zinc-200/90 flex items-center justify-center text-red-600 hover:bg-red-600 hover:text-white transition-all duration-300 cursor-pointer focus:outline-none hover:scale-110 active:scale-95"
               >
                 {isArabic ? (
                   <ArrowLeft className="w-5 h-5 stroke-[2.5]" />
@@ -1099,7 +1044,7 @@ export default function GalleryPage() {
             </div>
           </div>
 
-          {/* Photo Slider Carousel (Taj Al Rahmah Horizontal Snap-Scroll) */}
+          {/* Photo Slider Carousel (Light Theme Cards) */}
           <div className="relative group/carousel">
             <div
               ref={photoSliderRef}
@@ -1113,7 +1058,7 @@ export default function GalleryPage() {
                   className="photo-gallery-slide flex-shrink-0 w-[290px] sm:w-[340px] md:w-[380px] lg:w-[410px] snap-start flex flex-col group cursor-pointer"
                 >
                   {/* Image Container (Landscape Rectangle aspect-[16/10]) */}
-                  <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden bg-zinc-950 border border-zinc-800 group-hover:border-red-600/60 shadow-lg group-hover:shadow-2xl transition-all duration-300">
+                  <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden bg-zinc-100 border border-zinc-200/90 group-hover:border-red-600/60 shadow-sm group-hover:shadow-xl transition-all duration-300">
                     <Image
                       src={photo.thumbnail}
                       alt={isArabic ? photo.titleAr : photo.titleEn}
@@ -1123,7 +1068,7 @@ export default function GalleryPage() {
                     />
 
                     {/* Gradient Overlay */}
-                    <div className="absolute inset-0 bg-black/30 group-hover:bg-black/55 transition-colors duration-300" />
+                    <div className="absolute inset-0 bg-black/25 group-hover:bg-black/50 transition-colors duration-300" />
 
                     {/* Center Hover Action Button (View Details / Lightbox) */}
                     <div className="absolute inset-0 flex items-center justify-center z-20 px-2 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none">
@@ -1141,17 +1086,17 @@ export default function GalleryPage() {
                     </div>
                   </div>
 
-                  {/* Metadata Outside the Card (Exact Taj Al Rahmah Design) */}
+                  {/* Metadata Outside the Card (Clean Light Theme) */}
                   <div className="mt-3.5 sm:mt-4 flex flex-col text-left rtl:text-right">
-                    <span className="text-xs sm:text-[13px] text-red-500 font-semibold tracking-wide truncate">
+                    <span className="text-xs sm:text-[13px] text-red-600 font-semibold tracking-wide truncate">
                       {isArabic ? photo.serviceNameAr : photo.serviceNameEn}
                     </span>
 
-                    <h3 className="mt-1 text-sm sm:text-base font-bold text-white group-hover:text-red-500 transition-colors leading-snug truncate">
+                    <h3 className="mt-1 text-sm sm:text-base font-bold text-zinc-900 group-hover:text-red-600 transition-colors leading-snug truncate">
                       {isArabic ? photo.titleAr : photo.titleEn}
                     </h3>
 
-                    <p className="text-[11px] text-zinc-400 mt-0.5 truncate">
+                    <p className="text-[11px] text-zinc-500 mt-0.5 truncate">
                       {isArabic ? photo.locationAr : photo.locationEn}
                     </p>
                   </div>
@@ -1163,43 +1108,20 @@ export default function GalleryPage() {
       </section>
 
       {/* ══════════════════════════════════════════════════════════════
-          3. SECTION: PROJECT STORIES IN MOTION (VIDEO GALLERY)
+          3. SECTION: VIDEO GALLERY (LIGHT THEME - NO HEADING/SUBHEADING)
           (Taj Al Rahmah Reference Layout: 2-Row Stacked Carousel)
       ══════════════════════════════════════════════════════════════ */}
-      <section className="relative w-full py-16 sm:py-20 bg-zinc-950 border-b border-zinc-800/80 overflow-hidden">
+      <section className="relative w-full py-16 sm:py-20 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-          {/* Section Header */}
-          <div className="max-w-3xl mb-8 sm:mb-10 text-left rtl:text-right">
-            {/* Tagline: — VIDEO GALLERY */}
-            <div className="flex items-center gap-2 mb-2 sm:mb-2.5">
-              <span className="w-5 sm:w-6 h-[2px] bg-red-600 inline-block" />
-              <span className="text-[11px] sm:text-xs font-black tracking-[0.2em] uppercase text-red-600">
-                {isArabic ? "معرض الفيديو" : "VIDEO GALLERY"}
-              </span>
-            </div>
-
-            {/* Title */}
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight">
-              {isArabic ? (
-                <>
-                  عمليات الصيانة <span className="text-red-600">بالفيديو المباشر</span>
-                </>
-              ) : (
-                <>
-                  Workshop Repairs In <span className="text-red-600">Motion</span>
-                </>
-              )}
-            </h2>
-
-            {/* Subtitle */}
-            <p className="mt-3 text-xs sm:text-sm md:text-[15px] text-zinc-400 max-w-2xl leading-relaxed">
-              {isArabic
-                ? "شاهد مهندسينا وفنيينا أثناء تنفيذ أصعب الأعطال الميكانيكية، غسيل دورة التكييف، فحص الجهد العالي للهايبرد، وتوضيب محركات السيارات الفاخرة."
-                : "Watch real workshop action: ECU diagnostics, A/C evaporator core renewals, hybrid battery tests, and precision brake rotor machining."}
-            </p>
+          {/* Section Tagline */}
+          <div className="flex items-center gap-2 mb-6 text-left rtl:text-right">
+            <span className="w-5 sm:w-6 h-[2px] bg-red-600 inline-block" />
+            <span className="text-[11px] sm:text-xs font-black tracking-[0.2em] uppercase text-red-600">
+              {isArabic ? "معرض الفيديو" : "VIDEO GALLERY"}
+            </span>
           </div>
 
-          {/* Filter Bar with Carousel Arrow Controls (Taj Al Rahmah Style) */}
+          {/* Filter Bar with Carousel Arrow Controls (Light Theme) */}
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-8 sm:mb-10">
             {/* Category Filter Pills */}
             <div className="flex items-center gap-2 sm:gap-2.5 overflow-x-auto pb-2 lg:pb-0 no-scrollbar">
@@ -1211,8 +1133,8 @@ export default function GalleryPage() {
                     onClick={() => setSelectedVideoCategory(cat.id)}
                     className={`px-5 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs font-bold tracking-wider uppercase transition-all duration-200 cursor-pointer whitespace-nowrap ${
                       isActive
-                        ? "bg-red-600 text-white shadow-lg shadow-red-600/30 scale-100"
-                        : "bg-zinc-800/90 text-zinc-300 hover:text-white hover:bg-zinc-700/80 border border-zinc-700/70"
+                        ? "bg-red-600 text-white shadow-md shadow-red-600/30 scale-100"
+                        : "bg-zinc-100 text-zinc-700 hover:text-red-600 border border-zinc-200/90 shadow-2xs hover:border-red-600/40"
                     }`}
                   >
                     {isArabic ? cat.labelAr : cat.labelEn}
@@ -1227,7 +1149,7 @@ export default function GalleryPage() {
                 type="button"
                 onClick={() => scrollVideos("left")}
                 aria-label={isArabic ? "السابق" : "Previous Slide"}
-                className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white shadow-lg flex items-center justify-center text-red-600 hover:bg-red-600 hover:text-white transition-all duration-300 cursor-pointer focus:outline-none hover:scale-110 active:scale-95"
+                className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white shadow-md border border-zinc-200/90 flex items-center justify-center text-red-600 hover:bg-red-600 hover:text-white transition-all duration-300 cursor-pointer focus:outline-none hover:scale-110 active:scale-95"
               >
                 {isArabic ? (
                   <ArrowRight className="w-5 h-5 stroke-[2.5]" />
@@ -1239,7 +1161,7 @@ export default function GalleryPage() {
                 type="button"
                 onClick={() => scrollVideos("right")}
                 aria-label={isArabic ? "التالي" : "Next Slide"}
-                className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white shadow-lg flex items-center justify-center text-red-600 hover:bg-red-600 hover:text-white transition-all duration-300 cursor-pointer focus:outline-none hover:scale-110 active:scale-95"
+                className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white shadow-md border border-zinc-200/90 flex items-center justify-center text-red-600 hover:bg-red-600 hover:text-white transition-all duration-300 cursor-pointer focus:outline-none hover:scale-110 active:scale-95"
               >
                 {isArabic ? (
                   <ArrowLeft className="w-5 h-5 stroke-[2.5]" />
@@ -1272,143 +1194,6 @@ export default function GalleryPage() {
                   ))}
                 </div>
               ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════════════════════════
-          4. SECTION: WORKSHOP PROFILE & CHECKLIST DOWNLOAD BANNER
-          (Taj Al Rahmah Reference Layout)
-      ══════════════════════════════════════════════════════════════ */}
-      <section className="relative w-full py-16 sm:py-20 bg-zinc-900 border-b border-zinc-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="relative w-full rounded-3xl overflow-hidden shadow-2xl border border-red-600/40 bg-gradient-to-br from-zinc-900 via-zinc-950 to-black p-6 sm:p-10 md:p-12">
-            {/* Decorative Background Graphic */}
-            <div className="absolute inset-0 pointer-events-none opacity-20">
-              <Image
-                src="/images/services-hero.png"
-                alt="Workshop Blueprint"
-                fill
-                className="object-cover"
-              />
-            </div>
-            <div className="absolute top-0 right-0 w-80 h-80 bg-red-600/10 blur-[100px] pointer-events-none rounded-full" />
-
-            {/* Content Container */}
-            <div className="relative z-10 max-w-2xl">
-              {/* Tagline */}
-              <div className="flex items-center gap-2 mb-3">
-                <span className="w-5 sm:w-6 h-[2px] bg-red-600 inline-block" />
-                <span className="text-[11px] sm:text-xs font-black tracking-[0.2em] uppercase text-red-500">
-                  {isArabic ? "كتالوج ووثائق الورشة" : "WORKSHOP PROFILE & ESTIMATES"}
-                </span>
-              </div>
-
-              {/* Title */}
-              <h3 className="text-2xl sm:text-3xl font-black text-white tracking-tight mb-3">
-                {isArabic
-                  ? "تحميل دليل الفحص الشامل ومصفوفة الأسعار"
-                  : "Download Our Comprehensive Service Matrix & Checklist"}
-              </h3>
-
-              {/* Subtitle */}
-              <p className="text-xs sm:text-sm text-zinc-300 font-normal leading-relaxed mb-6">
-                {isArabic
-                  ? "احصل على جدول الصيانة الوقائية الموصى به لطقس الإمارات، معايير الفحص المعتمدة، وشروط الضمان المكتوب لجميع أنواع السيارات."
-                  : "Discover our OEM-grade repair standards, preventive maintenance intervals calibrated for UAE desert heat, and transparent price matrices."}
-              </p>
-
-              {/* PDF Box + Button */}
-              <div className="flex flex-wrap items-center gap-4">
-                {/* PDF Info Card */}
-                <div className="flex items-center gap-3 bg-zinc-800/80 border border-zinc-700/80 rounded-2xl px-4 py-2.5 shadow-sm">
-                  <div className="w-9 h-9 rounded-xl bg-red-600/20 text-red-500 flex items-center justify-center font-bold text-xs">
-                    PDF
-                  </div>
-                  <div className="flex flex-col leading-tight">
-                    <span className="text-xs sm:text-sm font-bold text-white">
-                      {isArabic ? "دليل فحص ورشة باب البستان" : "Bab Al Bustan Service Guide"}
-                    </span>
-                    <span className="text-[10px] text-zinc-400 font-mono mt-0.5">8.4 MB • 2026 Edition</span>
-                  </div>
-                </div>
-
-                {/* Direct Action Link */}
-                <Link
-                  href="/quote"
-                  className="px-6 py-3 rounded-full bg-red-600 hover:bg-red-700 text-white font-bold text-xs sm:text-sm tracking-wide inline-flex items-center gap-2.5 shadow-lg shadow-red-600/30 hover:scale-105 active:scale-95 transition-all cursor-pointer whitespace-nowrap"
-                >
-                  <Download className="w-4 h-4 stroke-[2.5]" />
-                  <span>{isArabic ? "طلب عرض سعر مفصل" : "Get a Free Written Quote"}</span>
-                  <ArrowRight className="w-3.5 h-3.5 stroke-[2.5] rtl:rotate-180" />
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════════════════════════
-          5. SECTION: FULL-WIDTH BOTTOM CALL TO ACTION BANNER
-          (Taj Al Rahmah Reference Layout)
-      ══════════════════════════════════════════════════════════════ */}
-      <section className="relative w-full py-16 sm:py-24 bg-black overflow-hidden">
-        {/* Background Overlay */}
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/images/hero-workshop-new.jpg"
-            alt="Auto Maintenance Workshop CTA"
-            fill
-            className="object-cover opacity-25"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/85 to-black/60 rtl:bg-gradient-to-l" />
-        </div>
-
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-          <div className="max-w-2xl">
-            {/* Tagline */}
-            <div className="inline-flex items-center gap-2 sm:gap-2.5 mb-3">
-              <span className="w-5 sm:w-6 h-[2px] bg-red-600 inline-block" />
-              <span className="text-[11px] sm:text-xs font-bold tracking-[0.2em] uppercase text-red-500">
-                {isArabic ? "هل تحتاج استشارة فنية فورية؟" : "NEED EXPERT CAR ADVICE?"}
-              </span>
-              <span className="w-5 sm:w-6 h-[2px] bg-red-600 inline-block" />
-            </div>
-
-            {/* Headline */}
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight leading-tight mb-3">
-              {isArabic
-                ? "هل تواجه مشكلة في سيارتك أو تحتاج فحصاً شاملاً؟"
-                : "Have a Car Problem or Need an Accurate Diagnostic?"}
-            </h2>
-
-            {/* Subtitle */}
-            <p className="text-xs sm:text-sm md:text-base text-zinc-300 leading-relaxed font-normal mb-8 max-w-lg">
-              {isArabic
-                ? "من فحص كمبيوتر المحرك إلى التكييف والفرامل، ورشتنا في صناعية الشارقة 5 على أتم الاستعداد لفحص سيارتك مع تسعير واضح مسبق وضمان مكتوب."
-                : "From check-engine warnings to transmission overhauls, our certified workshop advisors in Sharjah are ready to assist with fair estimates and zero guesswork."}
-            </p>
-
-            {/* Action Buttons */}
-            <div className="flex flex-wrap items-center gap-3 sm:gap-4">
-              <Link
-                href="/quote"
-                className="px-6 py-3.5 rounded-full bg-red-600 hover:bg-red-700 text-white font-bold text-xs sm:text-sm tracking-wide inline-flex items-center gap-2.5 shadow-xl shadow-red-600/40 transition-all hover:scale-105 active:scale-95 cursor-pointer whitespace-nowrap"
-              >
-                <span>{isArabic ? "احصل على عرض سعر مجاني" : "Get a Free Written Quote"}</span>
-                <span className="w-6 h-6 rounded-full bg-white text-red-600 flex items-center justify-center shrink-0">
-                  <ArrowRight className={`w-3.5 h-3.5 stroke-[2.5] ${isArabic ? "rotate-180" : ""}`} />
-                </span>
-              </Link>
-
-              <button
-                type="button"
-                onClick={() => setIsBookingOpen(true)}
-                className="px-7 py-3.5 rounded-full bg-zinc-900/90 hover:bg-zinc-800 text-white border border-zinc-700 font-bold text-xs sm:text-sm tracking-wide inline-flex items-center justify-center transition-all hover:scale-105 active:scale-95 cursor-pointer whitespace-nowrap"
-              >
-                <span>{isArabic ? "حجز موعد فحص فوري" : "Book Workshop Inspection"}</span>
-              </button>
             </div>
           </div>
         </div>
@@ -1531,15 +1316,6 @@ export default function GalleryPage() {
           </div>
         </div>
       )}
-
-      {/* ══════════════════════════════════════════════════════════════
-          BOOKING MODAL (Book Workshop Inspection)
-      ══════════════════════════════════════════════════════════════ */}
-      <BookingModal
-        isOpen={isBookingOpen}
-        onClose={() => setIsBookingOpen(false)}
-        mode="booking"
-      />
     </div>
   );
 }

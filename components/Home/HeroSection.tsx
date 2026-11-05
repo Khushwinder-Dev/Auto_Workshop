@@ -272,13 +272,13 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
             </div>
 
             {/* Dual TajAlRahmah-Style Action CTA Buttons (Same Size) */}
-            <div className="flex flex-wrap items-center gap-4 sm:gap-5">
+            <div className="flex flex-wrap items-center gap-3.5 sm:gap-4">
               {/* Button 1: GET A QUOTE */}
               <Link
                 href="/quote"
-                className="group w-[210px] sm:w-[240px] pl-5 sm:pl-7 pr-1.5 sm:pr-2.5 rtl:pl-1.5 rtl:sm:pl-2.5 rtl:pr-5 rtl:sm:pr-7 py-1.5 sm:py-2.5 rounded-full bg-white hover:bg-zinc-100 text-red-600 font-black text-xs sm:text-sm tracking-wider uppercase inline-flex items-center justify-between transition-all duration-300 shadow-xl shadow-black/40 hover:scale-105 active:scale-95 cursor-pointer"
+                className="group w-[175px] sm:w-[200px] h-10 sm:h-11 pl-4 sm:pl-5 pr-1.5 sm:pr-2 rtl:pl-1.5 rtl:sm:pl-2 rtl:pr-4 rtl:sm:pr-5 rounded-full bg-white hover:bg-zinc-100 text-red-600 font-black text-xs sm:text-[13px] tracking-wider uppercase inline-flex items-center justify-between transition-all duration-300 shadow-xl shadow-black/40 hover:scale-105 active:scale-95 cursor-pointer shrink-0"
               >
-                <span>{isArabic ? "احصل على عرض سعر" : "Get a Quote"}</span>
+                <span className="truncate">{isArabic ? "احصل على عرض سعر" : "Get a Quote"}</span>
                 <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-red-600 text-white flex items-center justify-center transition-transform group-hover:scale-110 shrink-0">
                   <ArrowIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
                 </span>
@@ -287,9 +287,9 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
               {/* Button 2: EXPLORE THIS MAJOR SERVICE */}
               <Link
                 href={`/services-details?service=${activeSlide.id}`}
-                className="group w-[210px] sm:w-[240px] pl-5 sm:pl-7 pr-1.5 sm:pr-2.5 rtl:pl-1.5 rtl:sm:pl-2.5 rtl:pr-5 rtl:sm:pr-7 py-1.5 sm:py-2.5 rounded-full bg-red-600 hover:bg-red-700 text-white font-black text-xs sm:text-sm tracking-wider uppercase inline-flex items-center justify-between transition-all duration-300 shadow-[0_4px_22px_rgba(220,38,38,0.45)] hover:shadow-[0_6px_28px_rgba(220,38,38,0.65)] hover:scale-105 active:scale-95 cursor-pointer"
+                className="group w-[175px] sm:w-[200px] h-10 sm:h-11 pl-4 sm:pl-5 pr-1.5 sm:pr-2 rtl:pl-1.5 rtl:sm:pl-2 rtl:pr-4 rtl:sm:pr-5 rounded-full bg-red-600 hover:bg-red-700 text-white font-black text-xs sm:text-[13px] tracking-wider uppercase inline-flex items-center justify-between transition-all duration-300 shadow-[0_4px_22px_rgba(220,38,38,0.45)] hover:shadow-[0_6px_28px_rgba(220,38,38,0.65)] hover:scale-105 active:scale-95 cursor-pointer shrink-0"
               >
-                <span>{isArabic ? "تفاصيل الخدمة" : "Explore Service"}</span>
+                <span className="truncate">{isArabic ? "تفاصيل الخدمة" : "Explore Service"}</span>
                 <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white text-red-600 flex items-center justify-center transition-transform group-hover:scale-110 shrink-0">
                   <ArrowIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
                 </span>

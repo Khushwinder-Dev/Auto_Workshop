@@ -198,6 +198,7 @@ export interface Translations {
     quickLinksTitle: string;
     servicesTitle: string;
     companyTitle: string;
+    legalTitle: string;
     openingHoursTitle: string;
     hoursWeekdays: string;
     hoursBreak: string;
@@ -596,6 +597,7 @@ export const translations: Record<Language, Translations> = {
       quickLinksTitle: "Quick Links",
       servicesTitle: "Services",
       companyTitle: "Company",
+      legalTitle: "Legal",
       openingHoursTitle: "Opening Hours",
       hoursWeekdays: "Saturday – Thursday: 8:00 AM – 9:00 PM",
       hoursBreak: "Break: 1:30 PM – 3:30 PM",
@@ -1020,6 +1022,7 @@ export const translations: Record<Language, Translations> = {
       quickLinksTitle: "روابط سريعة",
       servicesTitle: "خدماتنا",
       companyTitle: "الشركة",
+      legalTitle: "الشروط والسياسات",
       openingHoursTitle: "ساعات العمل",
       hoursWeekdays: "السبت – الخميس: 8:00 صباحاً – 9:00 مساءً",
       hoursBreak: "استراحة: 1:30 ظهراً – 3:30 عصراً",

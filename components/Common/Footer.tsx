@@ -77,16 +77,34 @@ export default function Footer() {
     { label: isArabic ? "الأسئلة الشائعة" : "Customer FAQs", href: "/faqs" },
     { label: isArabic ? "احجز موعد صيانة" : "Book an Appointment", href: "/booking" },
     { label: isArabic ? "طلب عرض سعر" : "Get a Quote", href: "/quote" },
-    { label: isArabic ? "سياسة الخصوصية والشروط" : "Privacy & Terms Policy", href: "/privacy" },
+  ];
+
+  const legalLinks: { label: string; href: string; onClick?: () => void }[] = [
+    { label: isArabic ? "خريطة الموقع" : "Site Map", href: "/sitemap" },
+    {
+      label: isArabic ? "سياسة الاسترداد والإلغاء" : "Refund & Cancellation Policy",
+      href: "/refund-policy",
+    },
+    { label: isArabic ? "سياسة الخصوصية" : "Privacy Policy", href: "/privacy" },
+    { label: isArabic ? "شروط الاستخدام" : "Terms of Use", href: "/terms" },
+    {
+      label: isArabic ? "سياسة ملفات تعريف الارتباط" : "Cookie Policy",
+      href: "/cookies",
+    },
+    {
+      label: isArabic ? "الاشتراك بالبريد" : "Subscribe to email",
+      href: "#newsletter",
+      onClick: handleSubscribeClick,
+    },
   ];
 
   return (
     <footer className="bg-[#0a0a0a] text-gray-300 pt-16 pb-8 font-sans border-t border-zinc-800/80">
       <div className="relative z-10 max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14">
         {/* ============================================================
-            MAIN 4-COLUMN FOOTER LINKS
+            MAIN 5-COLUMN FOOTER LINKS
             ============================================================ */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-6 xl:gap-8">
           {/* Col 1: About & Social */}
           <div className="space-y-6">
             <Link className="inline-block" href="/">
@@ -209,7 +227,41 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Col 4: Contact */}
+          {/* Col 4: Legal */}
+          <div>
+            <div className="mb-6">
+              <h4 className="text-white text-xl uppercase tracking-tight font-display font-bold">
+                {t.footer.legalTitle}
+              </h4>
+              <div className="h-0.5 w-10 bg-red-600 mt-1"></div>
+            </div>
+            <ul className="space-y-3">
+              {legalLinks.map((link) => (
+                <li key={link.label}>
+                  {link.onClick ? (
+                    <button
+                      type="button"
+                      onClick={link.onClick}
+                      className="flex items-center gap-2 text-sm hover:text-red-500 transition-colors group text-start cursor-pointer"
+                    >
+                      <ArrowIcon className="w-3.5 h-3.5 text-red-600 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform shrink-0" />
+                      <span>{link.label}</span>
+                    </button>
+                  ) : (
+                    <Link
+                      className="flex items-center gap-2 text-sm hover:text-red-500 transition-colors group"
+                      href={link.href}
+                    >
+                      <ArrowIcon className="w-3.5 h-3.5 text-red-600 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform shrink-0" />
+                      <span>{link.label}</span>
+                    </Link>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Col 5: Contact */}
           <div>
             <div className="mb-6">
               <h4 className="text-white text-xl uppercase tracking-tight font-display font-bold">
@@ -266,7 +318,7 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* ── Bottom Bar (Taj Al Rahmah Reference Layout) ── */}
+        {/* ── Bottom Bar ── */}
         <div className="relative border-t border-zinc-800/80 mt-16 pt-7 pb-4">
           {/* Scroll-to-top — sits centered ON the divider line with hover tooltip */}
           <div className="absolute -top-5 left-1/2 -translate-x-1/2 z-20">
@@ -297,66 +349,13 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-4 lg:gap-6">
-            {/* Copyright Text (matching Taj Al Rahmah casing & clean font) */}
-            <div className="text-center lg:text-start px-2 shrink-0">
-              <p className="text-xs lg:text-[13px] text-zinc-400 font-normal leading-normal">
-                {isArabic
-                  ? "© 2026 ورشة باب البستان لصيانة السيارات. جميع الحقوق محفوظة."
-                  : "© 2026 Bab Al Bustan Auto Maintenance Workshop. All rights reserved."}
-              </p>
-            </div>
-
-            {/* Refund & Legal Policy Links (Strictly on one line on desktop, matching reference) */}
-            <div className="w-full lg:w-auto flex flex-wrap justify-center lg:justify-end items-center gap-y-2 gap-x-2 lg:gap-x-2.5 xl:gap-x-3 text-[11px] sm:text-xs lg:text-[12.5px] xl:text-[13px] text-zinc-400 shrink-0">
-              <Link
-                href="/sitemap"
-                className="hover:text-red-500 transition-colors whitespace-nowrap"
-              >
-                {isArabic ? "خريطة الموقع" : "Site Map"}
-              </Link>
-              <span className="text-zinc-600 select-none">•</span>
-
-              <Link
-                href="/refund-policy"
-                className="hover:text-red-500 transition-colors whitespace-nowrap"
-              >
-                {isArabic ? "سياسة الاسترداد والإلغاء" : "Refund & Cancellation Policy"}
-              </Link>
-              <span className="text-zinc-600 select-none">•</span>
-
-              <Link
-                href="/privacy"
-                className="hover:text-red-500 transition-colors whitespace-nowrap"
-              >
-                {isArabic ? "سياسة الخصوصية" : "Privacy Policy"}
-              </Link>
-              <span className="text-zinc-600 select-none">•</span>
-
-              <Link
-                href="/terms"
-                className="hover:text-red-500 transition-colors whitespace-nowrap"
-              >
-                {isArabic ? "شروط الاستخدام" : "Terms of Use"}
-              </Link>
-              <span className="text-zinc-600 select-none">•</span>
-
-              <Link
-                href="/cookies"
-                className="hover:text-red-500 transition-colors whitespace-nowrap"
-              >
-                {isArabic ? "سياسة الكوكيز" : "Cookie Policy"}
-              </Link>
-              <span className="text-zinc-600 select-none">•</span>
-
-              <button
-                type="button"
-                onClick={handleSubscribeClick}
-                className="hover:text-red-500 transition-colors whitespace-nowrap cursor-pointer text-start"
-              >
-                {isArabic ? "الاشتراك بالبريد" : "Subscribe to email"}
-              </button>
-            </div>
+          <div className="flex items-center justify-center text-center px-4">
+            {/* Copyright Text */}
+            <p className="text-xs lg:text-[13px] text-zinc-400 font-normal leading-normal">
+              {isArabic
+                ? "© 2026 ورشة باب البستان لصيانة السيارات. جميع الحقوق محفوظة."
+                : "© 2026 Bab Al Bustan Auto Maintenance Workshop. All rights reserved."}
+            </p>
           </div>
         </div>
       </div>
