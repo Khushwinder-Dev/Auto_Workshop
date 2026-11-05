@@ -135,7 +135,7 @@ export default function PartnershipSection({
                 type="button"
                 onClick={() => nudge("prev")}
                 aria-label={isArabic ? "السابق" : "Previous"}
-                className="w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all cursor-pointer active:scale-95 border border-zinc-300 text-zinc-700 hover:border-red-600 hover:bg-red-600 hover:text-white shadow-2xs"
+                className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#fdfaf9] flex items-center justify-center transition-all cursor-pointer active:scale-95 border border-zinc-300 text-zinc-700 hover:border-red-600 hover:bg-red-600 hover:text-white shadow-2xs"
               >
                 {isArabic ? (
                   <ChevronRight className="w-5 h-5" />
@@ -169,7 +169,7 @@ export default function PartnershipSection({
                   }
                   className={`w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all cursor-pointer active:scale-95 shadow-2xs ${isPaused
                     ? "bg-red-600 text-white border border-red-600 shadow-md shadow-red-600/20 hover:bg-red-700 hover:border-red-700"
-                    : "border border-zinc-300 text-zinc-700 hover:border-red-600 hover:bg-red-600 hover:text-white"
+                    : "bg-[#fdfaf9] border border-zinc-300 text-zinc-700 hover:border-red-600 hover:bg-red-600 hover:text-white"
                     }`}
                 >
                   {isPaused ? (
@@ -185,7 +185,7 @@ export default function PartnershipSection({
                 type="button"
                 onClick={() => nudge("next")}
                 aria-label={isArabic ? "التالي" : "Next"}
-                className="w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all cursor-pointer active:scale-95 border border-zinc-300 text-zinc-700 hover:border-red-600 hover:bg-red-600 hover:text-white shadow-2xs"
+                className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#fdfaf9] flex items-center justify-center transition-all cursor-pointer active:scale-95 border border-zinc-300 text-zinc-700 hover:border-red-600 hover:bg-red-600 hover:text-white shadow-2xs"
               >
                 {isArabic ? (
                   <ChevronLeft className="w-5 h-5" />

@@ -92,6 +92,10 @@ export default function Footer() {
       href: "/cookies",
     },
     {
+      label: isArabic ? "سياسة الضمان والجودة" : "Warranty & Guarantee Policy",
+      href: "/refund-policy#warranty",
+    },
+    {
       label: isArabic ? "الاشتراك بالبريد" : "Subscribe to email",
       href: "#newsletter",
       onClick: handleSubscribeClick,
@@ -102,26 +106,28 @@ export default function Footer() {
     <footer className="bg-[#0a0a0a] text-gray-300 pt-16 pb-8 font-sans border-t border-zinc-800/80">
       <div className="relative z-10 max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14">
         {/* ============================================================
-            MAIN 5-COLUMN FOOTER LINKS
+            MAIN 5-COLUMN FOOTER LINKS (Harmonized Same Level Alignment)
             ============================================================ */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-6 xl:gap-8">
-          {/* Col 1: About & Social */}
-          <div className="space-y-6">
-            <Link className="inline-block" href="/">
-              <div className="relative w-[98px] h-16">
-                <Image
-                  alt="Bab Al Bustan Logo"
-                  fill
-                  className="object-contain object-left rtl:object-right"
-                  src="/images/logo-new.png"
-                />
-              </div>
-            </Link>
-            <p className="text-sm leading-relaxed text-gray-400">
-              {t.footer.aboutDesc}
-            </p>
-            <div className="flex items-center gap-4">
-              <span className="text-sm font-medium text-white">{t.footer.followUs}</span>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-6 xl:gap-8 items-stretch">
+          {/* Col 1: About & Social (Pinned to Match Height) */}
+          <div className="flex flex-col justify-between h-full">
+            <div>
+              <Link className="inline-block mb-4" href="/">
+                <div className="relative w-[98px] h-14">
+                  <Image
+                    alt="Bab Al Bustan Logo"
+                    fill
+                    className="object-contain object-left rtl:object-right"
+                    src="/images/logo-new.png"
+                  />
+                </div>
+              </Link>
+              <p className="text-sm leading-relaxed text-gray-400">
+                {t.footer.aboutDesc}
+              </p>
+            </div>
+            <div className="flex items-center gap-3 pt-5">
+              <span className="text-sm font-medium text-white shrink-0">{t.footer.followUs}</span>
               <div className="flex gap-2">
                 <a
                   href="https://www.facebook.com/babalbustan2/"
@@ -181,7 +187,7 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Col 2: Services */}
+          {/* Col 2: Services (7 Items) */}
           <div>
             <div className="mb-6">
               <h4 className="text-white text-xl uppercase tracking-tight font-display font-bold">
@@ -204,7 +210,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Col 3: Company */}
+          {/* Col 3: Company (7 Items) */}
           <div>
             <div className="mb-6">
               <h4 className="text-white text-xl uppercase tracking-tight font-display font-bold">
@@ -227,7 +233,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Col 4: Legal */}
+          {/* Col 4: Legal (7 Items - Exactly Matches Services & Company) */}
           <div>
             <div className="mb-6">
               <h4 className="text-white text-xl uppercase tracking-tight font-display font-bold">
@@ -261,57 +267,69 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Col 5: Contact */}
-          <div>
-            <div className="mb-6">
-              <h4 className="text-white text-xl uppercase tracking-tight font-display font-bold">
-                {t.footer.contactTitle}
-              </h4>
-              <div className="h-0.5 w-10 bg-red-600 mt-1"></div>
+          {/* Col 5: Contact (Compact & Pinned to Match Height) */}
+          <div className="flex flex-col justify-between h-full">
+            <div>
+              <div className="mb-6">
+                <h4 className="text-white text-xl uppercase tracking-tight font-display font-bold">
+                  {t.footer.contactTitle}
+                </h4>
+                <div className="h-0.5 w-10 bg-red-600 mt-1"></div>
+              </div>
+              <div className="space-y-3.5">
+                <div className="flex gap-3">
+                  <MapPin className="text-red-600 shrink-0 w-4 h-4 mt-0.5" />
+                  <p className="text-sm whitespace-pre-line leading-relaxed text-gray-300">
+                    {t.footer.address}
+                  </p>
+                </div>
+                <div className="flex gap-3">
+                  <Phone className="text-red-600 shrink-0 w-4 h-4 mt-0.5" />
+                  <div className="text-sm space-y-0.5 leading-snug">
+                    <p>
+                      <a href="tel:+971564406456" className="hover:text-white transition-colors" dir="ltr">
+                        +971 56 440 6456
+                      </a>
+                    </p>
+                    <p>
+                      <a href="tel:+971557636994" className="hover:text-white transition-colors" dir="ltr">
+                        +971 55 763 6994
+                      </a>
+                    </p>
+                  </div>
+                </div>
+                <div className="flex gap-3">
+                  <Mail className="text-red-600 shrink-0 w-4 h-4 mt-0.5" />
+                  <div className="text-sm space-y-0.5 leading-snug">
+                    <p>
+                      <a href="mailto:info@babalbustanuae.com" className="hover:text-white transition-colors">
+                        info@babalbustanuae.com
+                      </a>
+                    </p>
+                    <p>
+                      <a href="mailto:babalbustan1@gmail.com" className="hover:text-white transition-colors">
+                        babalbustan1@gmail.com
+                      </a>
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="space-y-5">
-              <div className="flex gap-4">
-                <MapPin className="text-red-600 shrink-0 w-5 h-5 mt-0.5" />
-                <p className="text-sm whitespace-pre-line leading-relaxed">
-                  {t.footer.address}
-                </p>
-              </div>
-              <div className="flex gap-4">
-                <Phone className="text-red-600 shrink-0 w-5 h-5 mt-0.5" />
-                <div className="text-sm space-y-0.5">
-                  <p>
-                    <a href="tel:+971564406456" className="hover:text-white transition-colors" dir="ltr">
-                      +971 56 440 6456
-                    </a>
+
+            {/* Working Hours pinned neatly at the bottom baseline */}
+            <div className="pt-3.5 border-t border-zinc-800/80 mt-3.5">
+              <div className="flex gap-3">
+                <Clock className="text-red-600 shrink-0 w-4 h-4 mt-0.5" />
+                <div className="text-xs space-y-0.5">
+                  <p className="text-gray-300 font-semibold leading-tight">
+                    {t.footer.hoursWeekdays}
                   </p>
-                  <p>
-                    <a href="tel:+971557636994" className="hover:text-white transition-colors" dir="ltr">
-                      +971 55 763 6994
-                    </a>
+                  <p className="text-red-500 font-bold leading-tight">
+                    {t.footer.hoursFriday}{" "}
+                    <span className="text-gray-400 font-normal text-[11px]">
+                      ({t.footer.hoursBreak})
+                    </span>
                   </p>
-                </div>
-              </div>
-              <div className="flex gap-4">
-                <Mail className="text-red-600 shrink-0 w-5 h-5 mt-0.5" />
-                <div className="text-sm space-y-0.5">
-                  <p>
-                    <a href="mailto:info@babalbustanuae.com" className="hover:text-white transition-colors">
-                      info@babalbustanuae.com
-                    </a>
-                  </p>
-                  <p>
-                    <a href="mailto:babalbustan1@gmail.com" className="hover:text-white transition-colors">
-                      babalbustan1@gmail.com
-                    </a>
-                  </p>
-                </div>
-              </div>
-              <div className="flex gap-4 pt-1 border-t border-zinc-900">
-                <Clock className="text-red-600 shrink-0 w-5 h-5 mt-0.5" />
-                <div className="text-xs space-y-1">
-                  <p className="text-gray-300 font-semibold">{t.footer.hoursWeekdays}</p>
-                  <p className="text-gray-400">{t.footer.hoursBreak}</p>
-                  <p className="text-red-500 font-bold">{t.footer.hoursFriday}</p>
                 </div>
               </div>
             </div>
