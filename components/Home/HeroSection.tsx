@@ -47,7 +47,7 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
   const slides: HeroServiceSlide[] = [
     {
       id: "diagnostics",
-      image: "/images/hero-slide-1.jpg",
+      image: "/images/img-1.png",
       badgeEn: "MAJOR SERVICE 01 / 03 • COMPUTER DIAGNOSTICS & ECU",
       badgeAr: "خدمة رئيسية ٠١ / ٠٣ • فحص كمبيوتر وتشخيص الأعطال",
       serviceNameEn: "Diagnostics & ECU Scans",
@@ -60,7 +60,7 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
     },
     {
       id: "brakes",
-      image: "/images/hero-slide-2.jpg",
+      image: "/images/img-2.png",
       badgeEn: "MAJOR SERVICE 02 / 03 • BRAKE REPAIR & ROTOR SKIMMING",
       badgeAr: "خدمة رئيسية ٠٢ / ٠٣ • صيانة الفرامل وخرط الديسكات",
       serviceNameEn: "Brake Repair & Rotor Skimming",
@@ -73,7 +73,7 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
     },
     {
       id: "ac-repair",
-      image: "/images/hero-slide-3.jpg",
+      image: "/images/img-3.png",
       badgeEn: "MAJOR SERVICE 03 / 03 • DESERT-READY CAR A/C & OIL SERVICE",
       badgeAr: "خدمة رئيسية ٠٣ / ٠٣ • تصليح المكيف وتغيير الزيت",
       serviceNameEn: "Car A/C Repair & Synthetic Lube",
@@ -152,8 +152,8 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
           className={`absolute inset-0 transition-opacity duration-1000 ease-in-out z-0 ${isPlayingVideo && !isVideoPaused
             ? "opacity-0 pointer-events-none"
             : slideIndex === idx
-            ? "opacity-100"
-            : "opacity-0 pointer-events-none"
+              ? "opacity-100"
+              : "opacity-0 pointer-events-none"
             }`}
         >
           <Image
@@ -229,9 +229,8 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
 
       {/* 5. Main Hero Content Container (TajAlRahmah 12-Column Grid Layout) */}
       <div
-        className={`relative z-20 w-full max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14 pt-28 sm:pt-36 lg:pt-40 flex-1 flex flex-col justify-center ${
-          isArabic ? "pr-10 sm:pr-14" : "pl-10 sm:pl-14"
-        }`}
+        className={`relative z-20 w-full max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14 pt-28 sm:pt-36 lg:pt-40 flex-1 flex flex-col justify-center ${isArabic ? "pr-10 sm:pr-14" : "pl-10 sm:pl-14"
+          }`}
       >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
           {/* Left Text & CTAs (Columns 1-8) */}
