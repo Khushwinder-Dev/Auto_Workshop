@@ -90,11 +90,11 @@ export default function Footer() {
           {/* Col 1: About & Social */}
           <div className="space-y-6">
             <Link className="inline-block" href="/">
-              <div className="relative w-36 h-16">
+              <div className="relative w-[98px] h-16">
                 <Image
                   alt="Bab Al Bustan Logo"
                   fill
-                  className="object-contain"
+                  className="object-contain object-left rtl:object-right"
                   src="/images/logo-new.png"
                 />
               </div>

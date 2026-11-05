@@ -88,17 +88,6 @@ const CATEGORY_COLORS: Record<string, { bg: string; text: string; border: string
   Page: { bg: "bg-zinc-100", text: "text-zinc-700", border: "border-zinc-200" },
 };
 
-type FilterCategory = "all" | "services" | "brands" | "blogs" | "videos" | "faqs";
-
-const FILTER_TABS: { key: FilterCategory; labelEn: string; labelAr: string }[] = [
-  { key: "all", labelEn: "All", labelAr: "الكل" },
-  { key: "services", labelEn: "Services", labelAr: "الخدمات" },
-  { key: "brands", labelEn: "Brands", labelAr: "الماركات" },
-  { key: "blogs", labelEn: "Guides & Tips", labelAr: "نصائح وإرشادات" },
-  { key: "videos", labelEn: "Videos", labelAr: "الفيديوهات" },
-  { key: "faqs", labelEn: "FAQs", labelAr: "الأسئلة الشائعة" },
-];
-
 const SERVICE_META: Record<
   string,
   {
@@ -149,262 +138,6 @@ const SERVICE_META: Record<
   },
 };
 
-interface MostUsedItem {
-  titleEn: string;
-  titleAr: string;
-  categoryEn: string;
-  categoryAr: string;
-  href: string;
-  icon: React.ComponentType<{ className?: string }>;
-}
-
-const MOST_USED_BY_TAB: Record<FilterCategory, MostUsedItem[]> = {
-  all: [
-    {
-      titleEn: "Computer Diagnostics & Scanning",
-      titleAr: "فحص كمبيوتر وتشخيص الأعطال",
-      categoryEn: "Diagnostics",
-      categoryAr: "فحص وبرمجة",
-      href: "/services-details?service=diagnostics",
-      icon: Cpu,
-    },
-    {
-      titleEn: "Premium Synthetic Oil Change",
-      titleAr: "تبديل زيت المحرك والفلتر الأصلي",
-      categoryEn: "Express Maintenance",
-      categoryAr: "صيانة سريعة",
-      href: "/services-details?service=oil-change",
-      icon: Droplets,
-    },
-    {
-      titleEn: "Brake Pad Renewal & Rotor Skimming",
-      titleAr: "صيانة الفرامل وخرط الدسكات",
-      categoryEn: "Brakes & Safety",
-      categoryAr: "فرامل ودسكات",
-      href: "/services-details?service=brakes",
-      icon: Disc,
-    },
-    {
-      titleEn: "AC Gas Leak & Compressor Repair",
-      titleAr: "تصليح وشحن مكيف السيارة",
-      categoryEn: "Air Conditioning",
-      categoryAr: "تكييف وتبريد",
-      href: "/services-details?service=ac-repair",
-      icon: Fan,
-    },
-    {
-      titleEn: "Suspension, Bushings & Struts",
-      titleAr: "صيانة نظام التعليق والمساعدات",
-      categoryEn: "Chassis & Ride",
-      categoryAr: "مساعدات ومقصات",
-      href: "/services-details?service=suspension",
-      icon: Car,
-    },
-    {
-      titleEn: "Battery Load Testing & Replacement",
-      titleAr: "فحص وتبديل بطارية السيارة",
-      categoryEn: "Electrical Systems",
-      categoryAr: "كهرباء وبطاريات",
-      href: "/services-details?service=battery",
-      icon: Wrench,
-    },
-    {
-      titleEn: "Tire Fitting & Laser Alignment",
-      titleAr: "تبديل وميزان الإطارات بالليزر",
-      categoryEn: "Tires & Balancing",
-      categoryAr: "إطارات وميزان",
-      href: "/services-details?service=tires",
-      icon: ShieldCheck,
-    },
-    {
-      titleEn: "ECU Programming & Smart Key Coding",
-      titleAr: "برمجة كمبيوتر ومفاتيح السيارات",
-      categoryEn: "Software & Coding",
-      categoryAr: "برمجة ومفاتيح",
-      href: "/services-details?service=computer-programming",
-      icon: Code,
-    },
-  ],
-  services: [
-    {
-      titleEn: "Computer Diagnostics & Scanning",
-      titleAr: "فحص كمبيوتر وتشخيص الأعطال",
-      categoryEn: "Diagnostics",
-      categoryAr: "فحص وبرمجة",
-      href: "/services-details?service=diagnostics",
-      icon: Cpu,
-    },
-    {
-      titleEn: "Premium Synthetic Oil Change",
-      titleAr: "تبديل زيت المحرك والفلتر الأصلي",
-      categoryEn: "Express Maintenance",
-      categoryAr: "صيانة سريعة",
-      href: "/services-details?service=oil-change",
-      icon: Droplets,
-    },
-    {
-      titleEn: "Brake Pad Renewal & Rotor Skimming",
-      titleAr: "صيانة الفرامل وخرط الدسكات",
-      categoryEn: "Brakes & Safety",
-      categoryAr: "فرامل ودسكات",
-      href: "/services-details?service=brakes",
-      icon: Disc,
-    },
-    {
-      titleEn: "Suspension, Bushings & Struts",
-      titleAr: "صيانة نظام التعليق والمساعدات",
-      categoryEn: "Chassis & Ride",
-      categoryAr: "مساعدات ومقصات",
-      href: "/services-details?service=suspension",
-      icon: Car,
-    },
-    {
-      titleEn: "Battery Load Testing & Replacement",
-      titleAr: "فحص وتبديل بطارية السيارة",
-      categoryEn: "Electrical Systems",
-      categoryAr: "كهرباء وبطاريات",
-      href: "/services-details?service=battery",
-      icon: Wrench,
-    },
-    {
-      titleEn: "AC Gas Leak & Compressor Repair",
-      titleAr: "تصليح وشحن مكيف السيارة",
-      categoryEn: "Air Conditioning",
-      categoryAr: "تكييف وتبريد",
-      href: "/services-details?service=ac-repair",
-      icon: Fan,
-    },
-    {
-      titleEn: "Tire Fitting & Laser Alignment",
-      titleAr: "تبديل وميزان الإطارات بالليزر",
-      categoryEn: "Tires & Balancing",
-      categoryAr: "إطارات وميزان",
-      href: "/services-details?service=tires",
-      icon: ShieldCheck,
-    },
-    {
-      titleEn: "ECU Programming & Smart Key Coding",
-      titleAr: "برمجة كمبيوتر ومفاتيح السيارات",
-      categoryEn: "Software & Coding",
-      categoryAr: "برمجة ومفاتيح",
-      href: "/services-details?service=computer-programming",
-      icon: Code,
-    },
-  ],
-  brands: [
-    {
-      titleEn: "Mercedes-Benz & AMG Specialist Service",
-      titleAr: "صيانة مرسيدس بنز و AMG",
-      categoryEn: "German Cars",
-      categoryAr: "سيارات ألمانية",
-      href: "/brands",
-      icon: Car,
-    },
-    {
-      titleEn: "BMW TwinPower Turbo & iDrive Service",
-      titleAr: "صيانة بي ام دبليو ونظام iDrive",
-      categoryEn: "German Cars",
-      categoryAr: "سيارات ألمانية",
-      href: "/brands",
-      icon: Car,
-    },
-    {
-      titleEn: "Toyota & Lexus Hybrid Diagnostic Service",
-      titleAr: "صيانة تويوتا ولكزس وأنظمة الهايبرد",
-      categoryEn: "Japanese Cars",
-      categoryAr: "سيارات يابانية",
-      href: "/brands",
-      icon: Car,
-    },
-    {
-      titleEn: "Nissan Patrol V8 & CVT Transmission Repair",
-      titleAr: "صيانة نيسان باترول V8 وجير CVT",
-      categoryEn: "Japanese Cars",
-      categoryAr: "سيارات يابانية",
-      href: "/brands",
-      icon: Car,
-    },
-  ],
-  blogs: [
-    {
-      titleEn: "5 Tips to Maintain Your Car AC in Sharjah Heat",
-      titleAr: "٥ نصائح للحفاظ على مكيف سيارتك في صيف الشارقة",
-      categoryEn: "Maintenance Guide",
-      categoryAr: "دليل الصيانة",
-      href: "/blogs/car-ac-repair-sharjah-tips",
-      icon: FileText,
-    },
-    {
-      titleEn: "Best Oil Change Intervals for UAE Drivers",
-      titleAr: "أفضل مواعيد لتبديل زيت المحرك في الإمارات",
-      categoryEn: "Repair Advice",
-      categoryAr: "نصائح وإرشادات",
-      href: "/blogs/best-oil-change-intervals-uae",
-      icon: FileText,
-    },
-    {
-      titleEn: "Why Squeaking Brakes Should Never Be Ignored",
-      titleAr: "لماذا يجب عدم تجاهل صوت صرير الفرامل",
-      categoryEn: "Safety Guide",
-      categoryAr: "دليل السلامة",
-      href: "/blogs/brake-safety-check-guide",
-      icon: FileText,
-    },
-  ],
-  videos: [
-    {
-      titleEn: "Mercedes V8 Engine Rebuild & Timing Chain",
-      titleAr: "توضيب محرك مرسيدس V8 وضبط الجنزير",
-      categoryEn: "Engine Tour",
-      categoryAr: "فيديوهات المحرك",
-      href: "/gallery",
-      icon: Video,
-    },
-    {
-      titleEn: "Nissan Patrol AC Evaporator Replacement",
-      titleAr: "تبديل ثلاجة مكيف نيسان باترول",
-      categoryEn: "AC Service",
-      categoryAr: "تكييف السيارة",
-      href: "/gallery",
-      icon: Video,
-    },
-    {
-      titleEn: "Brake Rotor Skimming on Computer Lathe",
-      titleAr: "خرط أقراص الفرامل بالمخرطة الرقمية",
-      categoryEn: "Workshop Demo",
-      categoryAr: "فيديو الورشة",
-      href: "/gallery",
-      icon: Video,
-    },
-  ],
-  faqs: [
-    {
-      titleEn: "Where is the workshop located in Sharjah?",
-      titleAr: "أين تقع الورشة في الشارقة؟",
-      categoryEn: "Location & Hours",
-      categoryAr: "الموقع وأوقات العمل",
-      href: "/faqs",
-      icon: HelpCircle,
-    },
-    {
-      titleEn: "Do you offer upfront estimates before repairs?",
-      titleAr: "هل تقدمون كشف أسعار مسبق قبل البدء؟",
-      categoryEn: "Pricing & Quotes",
-      categoryAr: "الأسعار وعروض الأسعار",
-      href: "/faqs",
-      icon: HelpCircle,
-    },
-    {
-      titleEn: "What warranty do you provide on repair work?",
-      titleAr: "ما هو الضمان المقدم على قطع الغيار والإصلاح؟",
-      categoryEn: "Warranty Terms",
-      categoryAr: "شروط الضمان",
-      href: "/faqs",
-      icon: HelpCircle,
-    },
-  ],
-};
-
 const AI_PRESET_QUESTIONS = [
   {
     en: "Why is my car AC blowing warm air in the UAE summer heat?",
@@ -444,7 +177,7 @@ export default function ExpandableSearchBar({
   onSearch,
   placeholder,
   className = "",
-  iconColor = "text-white",
+  iconColor = "text-red-600",
   hoverIconColor = "hover:text-red-500",
   dashedButton = true,
   isDrawer = false,
@@ -458,7 +191,6 @@ export default function ExpandableSearchBar({
   const [isExpanded, setIsExpanded] = useState(false);
   const [isInputFocused, setIsInputFocused] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [activeTab, setActiveTab] = useState<FilterCategory>("all");
   const [isListening, setIsListening] = useState(false);
   const [speechSupported, setSpeechSupported] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -534,7 +266,6 @@ export default function ExpandableSearchBar({
     if (!isDrawer) {
       setSearchQuery("");
     }
-    setActiveTab("all");
   };
 
   const handleClearQuery = (e: React.MouseEvent) => {
@@ -591,18 +322,8 @@ export default function ExpandableSearchBar({
     scored.sort((a, b) => b.score - a.score);
     const allMatched = scored.map((s) => s.item);
 
-    const filtered = allMatched.filter((it) => {
-      if (activeTab === "all") return true;
-      if (activeTab === "services") return it.category === "Service";
-      if (activeTab === "brands") return it.category === "Brand";
-      if (activeTab === "blogs") return it.category === "Blog";
-      if (activeTab === "videos") return it.category === "Video";
-      if (activeTab === "faqs") return it.category === "FAQ";
-      return true;
-    });
-
-    return filtered.slice(0, 10);
-  }, [searchQuery, activeTab]);
+    return allMatched.slice(0, 10);
+  }, [searchQuery]);
 
   const handleSelectResult = (item: SearchResultItem) => {
     if (onSearch) {
@@ -813,8 +534,6 @@ export default function ExpandableSearchBar({
           );
     }
   };
-
-        const mostUsedItems = MOST_USED_BY_TAB[activeTab] || MOST_USED_BY_TAB.all;
         const defaultPlaceholder = isAr ? "ابحث عن الخدمات، الماركات، الحلول..." : "Search services, brands, solutions...";
 
   return (
@@ -842,23 +561,21 @@ export default function ExpandableSearchBar({
                     ? "border-red-600 bg-red-600/15"
                     : "border-white bg-white/15"
                   : isScrolled
-                    ? "border-red-600/50 hover:border-red-600"
-                    : "border-white/60 hover:border-white"
+                    ? "border-red-600/60 hover:border-red-600"
+                    : "border-red-500/70 hover:border-red-500"
               }`}
               aria-label={isExpanded ? "Close search" : "Open search"}
               title="Search (Ctrl + K)"
             >
               <div
                 className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center transition-colors shadow-sm ${
-                  isScrolled
-                    ? "bg-red-600 hover:bg-red-700 text-white"
-                    : "bg-red-600 hover:bg-red-700 text-white"
+                  "bg-transparent hover:bg-red-600/10 text-red-600"
                 }`}
               >
                 {isExpanded ? (
-                  <X className="h-4 w-4 stroke-[2.5]" />
+                  <X className="h-4 w-4 stroke-[2.5] text-red-600" />
                 ) : (
-                  <Search className="h-4 w-4 stroke-[2.5]" />
+                  <Search className="h-4 w-4 stroke-[2.5] text-red-600" />
                 )}
               </div>
             </button>
@@ -879,7 +596,7 @@ export default function ExpandableSearchBar({
               {isExpanded ? (
                 <X className="h-5 w-5 stroke-2 text-red-500" />
               ) : (
-                <Search className="h-5 w-5 stroke-2" />
+                <Search className="h-5 w-5 stroke-2 text-red-600" />
               )}
             </button>
           )}
@@ -1007,40 +724,15 @@ export default function ExpandableSearchBar({
             </button>
           </div>
 
-          {/* 2. Filter Category Pills (TajAlRahmah Style) */}
-          <div className="mt-3 flex items-center gap-1.5 sm:gap-2 overflow-x-auto slim-scrollbar pb-1.5 shrink-0">
-            {FILTER_TABS.map((tab) => {
-              const isSelected = activeTab === tab.key;
-              return (
-                <button
-                  key={tab.key}
-                  type="button"
-                  onClick={() => setActiveTab(tab.key)}
-                  className={`px-3 sm:px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer whitespace-nowrap shrink-0 ${
-                    isSelected
-                      ? "bg-red-50 text-red-600 border border-red-200/90 shadow-2xs"
-                      : "bg-zinc-100 hover:bg-zinc-50 text-zinc-700 hover:text-red-600 border border-transparent hover:border-red-200"
-                  }`}
-                >
-                  {isAr ? tab.labelAr : tab.labelEn}
-                </button>
-              );
-            })}
-          </div>
-
-          {/* 3. Section Header */}
-          <div className="mt-2.5 mb-2 flex items-center justify-between shrink-0">
+          {/* 2. Section Header */}
+          <div className="mt-3 mb-2 flex items-center justify-between shrink-0">
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-red-600 inline-block animate-ping" />
               <p className="text-xs font-extrabold tracking-wider uppercase text-zinc-800">
                 {searchQuery.trim() === ""
-                  ? activeTab === "all" || activeTab === "services"
-                    ? isAr
-                      ? "خدمات ورشة باب البستان المعتمدة"
-                      : "Popular Workshop Services"
-                    : isAr
-                      ? "الأكثر استخداماً"
-                      : "Most Used"
+                  ? isAr
+                    ? "خدمات ورشة باب البستان المعتمدة"
+                    : "Popular Workshop Services"
                   : isAr
                     ? "نتائج البحث والمطابقة"
                     : "Search Suggestions & Results"}
@@ -1069,7 +761,7 @@ export default function ExpandableSearchBar({
           {/* 4. Results List / Services Mega Menu Grid */}
           <div className="flex-1 overflow-y-auto slim-scrollbar min-h-0 pr-1 space-y-2">
             {searchQuery.trim() === "" ? (
-              activeTab === "all" || activeTab === "services" ? (
+
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {workshopServices.map((service) => {
                     const meta = SERVICE_META[service.id] || {
@@ -1109,44 +801,7 @@ export default function ExpandableSearchBar({
                     );
                   })}
                 </div>
-              ) : (
-                /* Tab view for brands, blogs, videos, faqs */
-                <div className="space-y-1.5">
-                  {mostUsedItems.map((item, idx) => {
-                    const Icon = item.icon;
-                    return (
-                      <div
-                        key={idx}
-                        onClick={() => {
-                          if (onSearch) {
-                            onSearch(isAr ? item.titleAr : item.titleEn, item.href);
-                          }
-                          router.push(item.href);
-                          handleCollapse();
-                          onCloseMenu?.();
-                        }}
-                        className="flex items-center justify-between p-2.5 sm:p-3 rounded-2xl bg-zinc-50/70 hover:bg-white border border-zinc-200/80 hover:border-red-600/50 hover:shadow-md transition-all cursor-pointer group shadow-2xs"
-                      >
-                        <div className="flex items-center gap-3 min-w-0 flex-1">
-                          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-red-50 text-red-600 border border-red-100 group-hover:bg-red-600 group-hover:text-white group-hover:border-red-600 flex items-center justify-center shrink-0 transition-all duration-200">
-                            <Icon className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2]" />
-                          </div>
-                          <div className="min-w-0 flex-1">
-                            <h5 className="text-xs sm:text-sm font-bold text-zinc-900 group-hover:text-red-600 transition-colors truncate">
-                              {isAr ? item.titleAr : item.titleEn}
-                            </h5>
-                            <p className="text-[11px] text-zinc-500 font-medium truncate mt-0.5">
-                              {isAr ? item.categoryAr : item.categoryEn}
-                            </p>
-                          </div>
-                        </div>
-                        <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-zinc-400 group-hover:text-red-600 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180 transition-all shrink-0 ml-2 rtl:ml-0 rtl:mr-2 stroke-[2.2]" />
-                      </div>
-                    );
-                  })}
-                </div>
-              )
-            ) : filteredResults.length > 0 ? (
+              ) : filteredResults.length > 0 ? (
               /* When searching: DISPLAY MATCHED SERVICE SUGGESTIONS & RESULTS */
               <div className="space-y-1.5">
                 {filteredResults.map((item) => {

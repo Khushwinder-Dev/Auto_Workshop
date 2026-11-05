@@ -183,18 +183,22 @@ export default function Navbar() {
           : "bg-transparent"
           }`}
       >
-        <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14">
+        <div
+          className={`max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14 ${
+            isArabic ? "pr-10 sm:pr-14" : "pl-10 sm:pl-14"
+          }`}
+        >
           <div className="flex items-center justify-between h-20 lg:h-24">
             {/* Logo */}
             <div className="flex-shrink-0">
               <Link href="/" className="block">
-                <div className="relative h-12 lg:h-16 w-32 lg:w-40">
+                <div className="relative h-12 lg:h-16 w-[73px] lg:w-[98px]">
                   <Image
                     src="/images/logo-new.png"
                     alt="Bab Al Bustan Logo"
                     fill
                     priority
-                    className="object-contain"
+                    className="object-contain object-left rtl:object-right"
                   />
                 </div>
               </Link>
@@ -405,12 +409,12 @@ export default function Navbar() {
             className="fixed inset-0 bg-black z-[10002] p-8 flex flex-col"
           >
             <div className="flex justify-between items-center mb-8">
-              <div className="h-10 w-28 relative">
+              <div className="h-10 w-[61px] relative">
                 <Image
                   src="/images/logo-new.png"
                   alt="Logo"
                   fill
-                  className="object-contain"
+                  className="object-contain object-left rtl:object-right"
                 />
               </div>
               <button

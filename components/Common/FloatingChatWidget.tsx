@@ -572,12 +572,12 @@ export default function FloatingChatWidget() {
     <>
       {/* ── CHATBOT WINDOW (WHITE THEME - TAJ AL RAHMAH STYLE) ── */}
       {isOpen && (
-        <div
-          dir={isArabic ? "rtl" : "ltr"}
-          className={`fixed bottom-6 ${
-            isArabic ? "left-4 sm:left-6" : "right-4 sm:right-6"
-          } z-50 w-[calc(100vw-32px)] sm:w-[410px] h-[610px] max-h-[86vh] bg-white rounded-3xl shadow-2xl shadow-stone-900/25 border border-stone-200/90 flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-5 duration-200`}
-        >
+        <div className="fixed inset-x-0 bottom-0 z-50 pointer-events-none">
+          <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14 pb-6 flex justify-end rtl:justify-start">
+            <div
+              dir={isArabic ? "rtl" : "ltr"}
+              className="pointer-events-auto w-[calc(100vw-32px)] sm:w-[410px] h-[610px] max-h-[86vh] bg-white rounded-3xl shadow-2xl shadow-stone-900/25 border border-stone-200/90 flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-5 duration-200"
+            >
           {/* ── TOP HEADER BAR (WHITE THEME) ── */}
           <div className="flex items-center justify-between px-4 py-3.5 border-b border-stone-100 bg-white select-none">
             {/* Pill Tab Switcher: Chat | Services | History */}
@@ -1346,19 +1346,22 @@ export default function FloatingChatWidget() {
               )}
             </div>
           )}
+            </div>
+          </div>
         </div>
       )}
 
       {/* ══════════════════════════════════════════════════════════════════════
           FOOTER FLOATING TRIGGER & 3 OPTIONS POPOVER (TAJ AL RAHMAH STYLE)
           ══════════════════════════════════════════════════════════════════════ */}
-      <div
-        ref={menuRef}
-        className={`fixed bottom-6 ${
-          isArabic ? "left-6 items-start" : "right-6 items-end"
-        } z-50 flex flex-col gap-2.5`}
-        dir={isArabic ? "rtl" : "ltr"}
-      >
+      {!isOpen && (
+        <div className="fixed inset-x-0 bottom-0 z-50 pointer-events-none">
+          <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14 pb-6 flex justify-end rtl:justify-start">
+            <div
+              ref={menuRef}
+              className="pointer-events-auto flex flex-col gap-2.5 items-end rtl:items-start"
+              dir={isArabic ? "rtl" : "ltr"}
+            >
         {/* Menu Popover Card (3 Options: Chat Now, WhatsApp, Call Now) */}
         {isMenuOpen && !isOpen && (
           <div className="flex flex-col gap-1.5 p-2.5 bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-stone-200/90 animate-in fade-in slide-in-from-bottom-2 duration-200 min-w-[205px]">
@@ -1461,9 +1464,12 @@ export default function FloatingChatWidget() {
                 </div>
               </div>
             )}
-          </button>
-        )}
+            </button>
+          )}
+        </div>
       </div>
-    </>
+    </div>
+  )}
+</>
   );
 }

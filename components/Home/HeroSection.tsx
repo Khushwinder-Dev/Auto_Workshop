@@ -31,6 +31,7 @@ interface HeroServiceSlide {
   titlePart1: string;
   titlePart2: string;
   description: string;
+  image: string;
 }
 
 export default function HeroSection({ s }: { s?: Record<string, string> }) {
@@ -42,10 +43,11 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
   const [direction, setDirection] = useState(1);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  // Slides rotate through Bab Al Bustan's 3 major services while the workshop background image remains static
+  // Slides rotate through Bab Al Bustan's 3 major services with sequenced hero images (1.jpeg, 2.jpeg, 3.jpeg)
   const slides: HeroServiceSlide[] = [
     {
       id: "diagnostics",
+      image: "/images/hero-slide-1.jpg",
       badgeEn: "MAJOR SERVICE 01 / 03 • COMPUTER DIAGNOSTICS & ECU",
       badgeAr: "خدمة رئيسية ٠١ / ٠٣ • فحص كمبيوتر وتشخيص الأعطال",
       serviceNameEn: "Diagnostics & ECU Scans",
@@ -58,6 +60,7 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
     },
     {
       id: "brakes",
+      image: "/images/hero-slide-2.jpg",
       badgeEn: "MAJOR SERVICE 02 / 03 • BRAKE REPAIR & ROTOR SKIMMING",
       badgeAr: "خدمة رئيسية ٠٢ / ٠٣ • صيانة الفرامل وخرط الديسكات",
       serviceNameEn: "Brake Repair & Rotor Skimming",
@@ -70,6 +73,7 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
     },
     {
       id: "ac-repair",
+      image: "/images/hero-slide-3.jpg",
       badgeEn: "MAJOR SERVICE 03 / 03 • DESERT-READY CAR A/C & OIL SERVICE",
       badgeAr: "خدمة رئيسية ٠٣ / ٠٣ • تصليح المكيف وتغيير الزيت",
       serviceNameEn: "Car A/C Repair & Synthetic Lube",
@@ -141,23 +145,28 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
       className="relative w-full min-h-screen min-h-[720px] lg:h-[100dvh] flex flex-col justify-between overflow-hidden bg-zinc-950"
       dir={isArabic ? "rtl" : "ltr"}
     >
-      {/* 1. Background Image — Remains strictly constant (1st slide workshop image) for all slides */}
-      <div
-        className={`absolute inset-0 transition-opacity duration-1000 ease-in-out z-0 ${isPlayingVideo && !isVideoPaused
-          ? "opacity-0 pointer-events-none"
-          : "opacity-100"
-          }`}
-      >
-        <Image
-          src="/images/hero-workshop-new.jpg"
-          alt="Bab Al Bustan Auto Maintenance Workshop"
-          fill
-          priority
-          quality={95}
-          className="object-cover object-center"
-          sizes="100vw"
-        />
-      </div>
+      {/* 1. Background Images — Cross-fade sequence images 1, 2, 3 */}
+      {slides.map((slide, idx) => (
+        <div
+          key={slide.id}
+          className={`absolute inset-0 transition-opacity duration-1000 ease-in-out z-0 ${isPlayingVideo && !isVideoPaused
+            ? "opacity-0 pointer-events-none"
+            : slideIndex === idx
+            ? "opacity-100"
+            : "opacity-0 pointer-events-none"
+            }`}
+        >
+          <Image
+            src={slide.image}
+            alt={isArabic ? slide.serviceNameAr : slide.serviceNameEn}
+            fill
+            priority={idx === 0}
+            quality={95}
+            className="object-cover object-center"
+            sizes="100vw"
+          />
+        </div>
+      ))}
 
       {/* 2. Background Video Banner (Toyota Corolla in Workshop Bay) */}
       <div
@@ -262,15 +271,15 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
               </AnimatePresence>
             </div>
 
-            {/* Dual TajAlRahmah-Style Action CTA Buttons */}
+            {/* Dual TajAlRahmah-Style Action CTA Buttons (Same Size) */}
             <div className="flex flex-wrap items-center gap-4 sm:gap-5">
               {/* Button 1: GET A QUOTE */}
               <Link
                 href="/quote"
-                className="group pl-5 sm:pl-7 pr-1.5 sm:pr-2.5 py-1.5 sm:py-2.5 rounded-full bg-white hover:bg-zinc-100 text-red-600 font-black text-xs sm:text-sm tracking-wider uppercase inline-flex items-center gap-2.5 sm:gap-3.5 transition-all duration-300 shadow-xl shadow-black/40 hover:scale-105 active:scale-95 cursor-pointer"
+                className="group w-[210px] sm:w-[240px] pl-5 sm:pl-7 pr-1.5 sm:pr-2.5 rtl:pl-1.5 rtl:sm:pl-2.5 rtl:pr-5 rtl:sm:pr-7 py-1.5 sm:py-2.5 rounded-full bg-white hover:bg-zinc-100 text-red-600 font-black text-xs sm:text-sm tracking-wider uppercase inline-flex items-center justify-between transition-all duration-300 shadow-xl shadow-black/40 hover:scale-105 active:scale-95 cursor-pointer"
               >
                 <span>{isArabic ? "احصل على عرض سعر" : "Get a Quote"}</span>
-                <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-red-600 text-white flex items-center justify-center transition-transform group-hover:scale-110">
+                <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-red-600 text-white flex items-center justify-center transition-transform group-hover:scale-110 shrink-0">
                   <ArrowIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
                 </span>
               </Link>
@@ -278,10 +287,10 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
               {/* Button 2: EXPLORE THIS MAJOR SERVICE */}
               <Link
                 href={`/services-details?service=${activeSlide.id}`}
-                className="group pl-5 sm:pl-7 pr-1.5 sm:pr-2.5 py-1.5 sm:py-2.5 rounded-full bg-red-600 hover:bg-red-700 text-white font-black text-xs sm:text-sm tracking-wider uppercase inline-flex items-center gap-2.5 sm:gap-3.5 transition-all duration-300 shadow-[0_4px_22px_rgba(220,38,38,0.45)] hover:shadow-[0_6px_28px_rgba(220,38,38,0.65)] hover:scale-105 active:scale-95 cursor-pointer"
+                className="group w-[210px] sm:w-[240px] pl-5 sm:pl-7 pr-1.5 sm:pr-2.5 rtl:pl-1.5 rtl:sm:pl-2.5 rtl:pr-5 rtl:sm:pr-7 py-1.5 sm:py-2.5 rounded-full bg-red-600 hover:bg-red-700 text-white font-black text-xs sm:text-sm tracking-wider uppercase inline-flex items-center justify-between transition-all duration-300 shadow-[0_4px_22px_rgba(220,38,38,0.45)] hover:shadow-[0_6px_28px_rgba(220,38,38,0.65)] hover:scale-105 active:scale-95 cursor-pointer"
               >
                 <span>{isArabic ? "تفاصيل الخدمة" : "Explore Service"}</span>
-                <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white text-red-600 flex items-center justify-center transition-transform group-hover:scale-110">
+                <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white text-red-600 flex items-center justify-center transition-transform group-hover:scale-110 shrink-0">
                   <ArrowIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
                 </span>
               </Link>
@@ -293,7 +302,7 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
             <div className="relative group">
               {/* Ambient Pulsing Halo */}
               {(!isPlayingVideo || isVideoPaused) && (
-                <span className="absolute inset-0 rounded-full bg-red-600/35 animate-ping duration-1000 pointer-events-none" />
+                <span className="absolute inset-0 rounded-full bg-white/35 animate-ping duration-1000 pointer-events-none" />
               )}
 
               {/* Circular Play / Pause Button */}
@@ -326,30 +335,18 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
                       ? "تشغيل فيديو الورشة"
                       : "Play Workshop Video"
                 }
-                className="relative w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full bg-red-600 hover:bg-red-700 border-2 border-white/50 flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 shadow-[0_0_35px_rgba(220,38,38,0.5)] hover:shadow-[0_0_55px_rgba(220,38,38,0.85)] focus:outline-none active:scale-95"
+                className="relative w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full bg-white hover:bg-zinc-100 border-2 border-white flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 shadow-[0_0_35px_rgba(255,255,255,0.45)] hover:shadow-[0_0_55px_rgba(255,255,255,0.7)] focus:outline-none active:scale-95"
               >
                 {isPlayingVideo && !isVideoPaused ? (
-                  <Pause className="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 text-white fill-white" />
+                  <Pause className="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 text-red-600 fill-red-600" />
                 ) : (
-                  <Play className="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 text-white fill-white ml-0.5 sm:ml-1 rtl:ml-0 rtl:mr-0.5 rtl:sm:mr-1" />
+                  <Play className="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 text-red-600 fill-red-600 ml-0.5 sm:ml-1 rtl:ml-0 rtl:mr-0.5 rtl:sm:mr-1" />
                 )}
               </button>
             </div>
           </div>
         </div>
       </div>
-
-      {/* 6. Bottom Spacer / Subtle Scroll Down Indicator */}
-      <div className="relative z-20 pb-5 sm:pb-7 flex justify-center">
-        <div className="flex flex-col items-center gap-1.5 opacity-60">
-          <span className="text-[10px] font-bold text-white uppercase tracking-[0.3em]">
-            {t.home.hero.scrollDown}
-          </span>
-          <span className="w-[1.5px] h-4 bg-gradient-to-b from-red-500 to-transparent animate-pulse" />
-        </div>
-      </div>
-
-      
     </section>
   );
 }
