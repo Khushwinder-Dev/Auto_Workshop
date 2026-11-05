@@ -349,9 +349,9 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
         </div>
       </div>
 
-      {/* 6. Bottom Spacer (reproduces Taj Al Rahmah layout structure to achieve exact 221px top spacing) */}
+      {/* 6. Bottom Spacer (reproduces Taj Al Rahmah layout structure to achieve exact 221px top spacing on desktop) */}
       <div
-        className="relative z-20 w-full max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14 mt-12 sm:mt-16 pb-8 sm:pb-12 invisible select-none pointer-events-none"
+        className="hidden lg:block relative z-20 w-full max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14 mt-12 sm:mt-16 pb-8 sm:pb-12 invisible select-none pointer-events-none"
         aria-hidden="true"
       >
         <div className="grid grid-cols-2 md:grid-cols-4 gap-1.5 sm:gap-2 lg:gap-3 w-fit">

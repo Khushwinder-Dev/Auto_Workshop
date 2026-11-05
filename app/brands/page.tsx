@@ -47,9 +47,9 @@ export default function BrandsPage() {
           <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/30" />
         </div>
 
-        <div className="relative z-20 flex-grow flex flex-col items-center justify-center text-center w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10">
+        <div className="relative z-20 flex-grow flex flex-col items-center justify-center text-center w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 lg:pt-28 pb-12">
           <div className="mb-3">
-            <h1 className="text-3xl md:text-5xl lg:text-[54px] font-display font-bold tracking-tight leading-tight flex items-center justify-center gap-3 max-w-[800px]">
+            <h1 className="text-3xl md:text-5xl lg:text-[54px] font-display font-bold tracking-tight leading-tight flex flex-wrap items-center justify-center gap-2 sm:gap-3 max-w-[800px]">
               <span className="text-white">{t.brands.heroTitle1}</span>
               <span className="text-red-600">{t.brands.heroTitle2}</span>
             </h1>

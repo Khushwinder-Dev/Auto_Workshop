@@ -45,7 +45,7 @@ function ServiceDetailsContent() {
 
   return (
     <div className="bg-white">
-      <section className="relative w-full h-[600px] min-h-[600px] overflow-hidden flex flex-col justify-center items-center bg-black pt-20">
+      <section className="relative w-full h-[600px] min-h-[600px] overflow-hidden flex flex-col justify-center items-center bg-black pt-20 sm:pt-24 lg:pt-28">
         <div className="absolute inset-0 z-0">
           <Image
             src="/images/banners/banner-service-details.jpg"

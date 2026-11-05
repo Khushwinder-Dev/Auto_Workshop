@@ -36,7 +36,7 @@ export default function BlogPostView({ slug }: Props) {
             <span className="bg-red-600 text-white text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-[0.2em] mb-6 inline-block">
               {post.category}
             </span>
-            <h1 className="text-3xl md:text-5xl lg:text-6xl font-black text-white leading-tight uppercase tracking-tighter max-w-4xl">
+            <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-black text-white leading-tight uppercase tracking-tight max-w-4xl break-words">
               {post.title}
             </h1>
           </div>

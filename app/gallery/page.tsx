@@ -850,7 +850,7 @@ export default function GalleryPage() {
         </div>
 
         {/* Content Container */}
-        <div className="relative z-20 text-center w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
+        <div className="relative z-20 text-center w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 lg:pt-28 pb-10">
           {/* Top Tagline Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-600/15 border border-red-600/30 text-red-500 text-xs font-bold uppercase tracking-widest mb-4">
             <span className="w-2 h-2 rounded-full bg-red-600 animate-ping" />

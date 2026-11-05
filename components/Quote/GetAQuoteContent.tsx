@@ -445,7 +445,7 @@ export default function GetAQuoteContent() {
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-black/50" />
         </div>
 
-        <div className="relative z-20 w-full max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14 pt-12">
+        <div className="relative z-20 w-full max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-14 pt-20 sm:pt-24 lg:pt-28 pb-10">
           {/* Tagline */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-600/20 border border-red-500/30 text-red-400 text-xs sm:text-[13px] font-bold tracking-widest uppercase mb-4 backdrop-blur-sm">
             <Sparkles className="w-3.5 h-3.5 text-red-400" />
