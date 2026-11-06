@@ -60,6 +60,7 @@ export default function AboutUsPage() {
             <Image
               alt="Bab Al Bustan Workshop Facility"
               fill
+              unoptimized
               className="object-cover"
               src="/images/banners/banner-about.jpg"
               priority

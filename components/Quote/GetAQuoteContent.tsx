@@ -437,6 +437,7 @@ export default function GetAQuoteContent() {
           <Image
             alt="Workshop Quote Banner"
             fill
+            unoptimized
             className="object-cover"
             src="/images/banners/banner-quote.jpg"
             priority

@@ -43,26 +43,16 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
   const [direction, setDirection] = useState(1);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  // Slides rotate through Bab Al Bustan's 3 major services with sequenced hero images (1.jpeg, 2.jpeg, 3.jpeg)
+  // Slides rotate through Bab Al Bustan's 3 major services with sequenced hero images:
+  // Slide 1: Toyota Corolla in workshop bay (/images/img-1.png)
+  // Slide 2: Computer Diagnostics & ECU laptop (/images/img-2.png)
+  // Slide 3: Desert-Ready Car A/C & Freon service machine (/images/img-3.png)
   const slides: HeroServiceSlide[] = [
     {
-      id: "diagnostics",
-      image: "/images/img-1.png",
-      badgeEn: "MAJOR SERVICE 01 / 03 • COMPUTER DIAGNOSTICS & ECU",
-      badgeAr: "خدمة رئيسية ٠١ / ٠٣ • فحص كمبيوتر وتشخيص الأعطال",
-      serviceNameEn: "Diagnostics & ECU Scans",
-      serviceNameAr: "فحص كمبيوتر وبرمجة الأعطال",
-      titlePart1: isArabic ? "فحص كمبيوتر متقدم و" : "Advanced Diagnostics &",
-      titlePart2: isArabic ? "برمجة الحساسات والكمبيوتر" : "Precision Engine Care",
-      description: isArabic
-        ? "فحص إلكتروني شامل لكمبيوتر السيارة بأحدث أجهزة الوكالة، كشف وإصلاح لمبة المحرك، فحص الحساسات، وبرمجة الأنظمة في صناعية 5 بالشارقة."
-        : "OEM-level computer scanning, sensor diagnostics, ECU tuning, check engine light diagnosis, and live data analysis in Sharjah Industrial Area 5.",
-    },
-    {
       id: "brakes",
-      image: "/images/img-2.png",
-      badgeEn: "MAJOR SERVICE 02 / 03 • BRAKE REPAIR & ROTOR SKIMMING",
-      badgeAr: "خدمة رئيسية ٠٢ / ٠٣ • صيانة الفرامل وخرط الديسكات",
+      image: "/images/img-1.png",
+      badgeEn: "MAJOR SERVICE 01 / 03 • BRAKE REPAIR & ROTOR SKIMMING",
+      badgeAr: "خدمة رئيسية ٠١ / ٠٣ • صيانة الفرامل وخرط الديسكات",
       serviceNameEn: "Brake Repair & Rotor Skimming",
       serviceNameAr: "صيانة الفرامل والديسكات",
       titlePart1: isArabic ? "صيانة وتصليح الفرامل و" : "High-Performance Brakes &",
@@ -70,6 +60,19 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
       description: isArabic
         ? "تبديل سفايف سيراميك أصلية، خرط ديسكات ليزري على السيارة بدون فك، تجديد المساعدات ونظام التعليق، وميزان ليزر لأعلى مستويات الأمان والثبات."
         : "Ceramic pad replacements, computerized on-car disk skimming, fluid flushes, suspension shock absorbers, and laser alignment for smooth desert driving.",
+    },
+    {
+      id: "diagnostics",
+      image: "/images/img-2.png",
+      badgeEn: "MAJOR SERVICE 02 / 03 • COMPUTER DIAGNOSTICS & ECU",
+      badgeAr: "خدمة رئيسية ٠٢ / ٠٣ • فحص كمبيوتر وتشخيص الأعطال",
+      serviceNameEn: "Diagnostics & ECU Scans",
+      serviceNameAr: "فحص كمبيوتر وبرمجة الأعطال",
+      titlePart1: isArabic ? "فحص كمبيوتر متقدم و" : "Advanced Diagnostics &",
+      titlePart2: isArabic ? "برمجة الحساسات والكمبيوتر" : "Precision Engine Care",
+      description: isArabic
+        ? "فحص إلكتروني شامل لكمبيوتر السيارة بأحدث أجهزة الوكالة، كشف وإصلاح لمبة المحرك، فحص الحساسات، وبرمجة الأنظمة في صناعية 5 بالشارقة."
+        : "OEM-level computer scanning, sensor diagnostics, ECU tuning, check engine light diagnosis, and live data analysis in Sharjah Industrial Area 5.",
     },
     {
       id: "ac-repair",
@@ -161,7 +164,7 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
             alt={isArabic ? slide.serviceNameAr : slide.serviceNameEn}
             fill
             priority={idx === 0}
-            quality={95}
+            unoptimized
             className="object-cover object-center"
             sizes="100vw"
           />
@@ -185,20 +188,19 @@ export default function HeroSection({ s }: { s?: Record<string, string> }) {
         />
       </div>
 
-      {/* 3. Deep Cinematic Gradient Overlays (Auto Workshop Red / Black Tint) */}
+      {/* 3. Subtle Cinematic Overlay for Content Readability (Keeps Background Photo Bright & Clear) */}
       <div
         className="absolute inset-0 z-10 pointer-events-none"
         style={{
           background: isArabic
-            ? "linear-gradient(270deg, rgba(9, 9, 11, 0.94) 0%, rgba(9, 9, 11, 0.85) 45%, rgba(9, 9, 11, 0.55) 75%, rgba(0, 0, 0, 0.35) 100%)"
-            : "linear-gradient(90deg, rgba(9, 9, 11, 0.94) 0%, rgba(9, 9, 11, 0.85) 45%, rgba(9, 9, 11, 0.55) 75%, rgba(0, 0, 0, 0.35) 100%)",
+            ? "linear-gradient(270deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.4) 40%, rgba(0, 0, 0, 0.2) 75%, rgba(0, 0, 0, 0.1) 100%)"
+            : "linear-gradient(90deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.4) 40%, rgba(0, 0, 0, 0.2) 75%, rgba(0, 0, 0, 0.1) 100%)",
         }}
       />
       <div
         className="absolute inset-0 z-10 pointer-events-none"
         style={{
-          background:
-            "linear-gradient(180deg, rgba(0, 0, 0, 0.65) 0%, transparent 22%, transparent 70%, rgba(9, 9, 11, 0.85) 100%)",
+          background: "linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, transparent 20%, transparent 75%, rgba(0, 0, 0, 0.4) 100%)",
         }}
       />
 

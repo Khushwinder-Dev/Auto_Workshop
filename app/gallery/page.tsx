@@ -841,6 +841,7 @@ export default function GalleryPage() {
           <Image
             alt="Bab Al Bustan Workshop Media Gallery"
             fill
+            unoptimized
             className="object-cover object-center"
             src="/images/banners/banner-gallery.jpg"
             priority

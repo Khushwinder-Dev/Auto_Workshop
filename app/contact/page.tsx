@@ -86,6 +86,7 @@ export default function ContactPage() {
             <Image
               alt="Contact Bab Al Bustan Auto Maintenance"
               fill
+              unoptimized
               className="object-cover"
               src="/images/banners/banner-contact.jpg"
               priority

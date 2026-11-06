@@ -20,6 +20,7 @@ export default function PrivacyPage() {
             alt="Privacy Policy Bab Al Bustan"
             fill
             priority
+            unoptimized
             className="object-cover"
           />
           <div className="absolute inset-0 bg-[#120505]/85" />

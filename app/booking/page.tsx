@@ -114,6 +114,7 @@ export default function BookingPage() {
             <Image
               alt="Book Auto Service Appointment Bab Al Bustan"
               fill
+              unoptimized
               className="object-cover"
               src="/images/banners/banner-booking.jpg"
               priority

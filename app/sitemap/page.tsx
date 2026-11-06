@@ -290,6 +290,7 @@ export default function SitemapPage() {
           <Image
             alt="Bab Al Bustan Sitemap Directory"
             fill
+            unoptimized
             className="object-cover"
             src="/images/banners/banner-sitemap.jpg"
             priority

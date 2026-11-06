@@ -28,6 +28,7 @@ export default function FAQPage() {
             alt="FAQs Bab Al Bustan Auto Workshop"
             fill
             priority
+            unoptimized
             className="object-cover"
           />
           <div className="absolute inset-0 bg-[#120505]/80 backdrop-brightness-75" />

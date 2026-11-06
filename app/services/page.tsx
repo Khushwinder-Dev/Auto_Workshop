@@ -146,6 +146,7 @@ export default function ServicesPage() {
           <Image
             alt="Auto Maintenance Services Bab Al Bustan"
             fill
+            unoptimized
             className="object-cover"
             src="/images/banners/banner-services.jpg"
             priority

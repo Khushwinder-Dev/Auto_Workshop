@@ -49,6 +49,7 @@ export default function BlogsPage() {
             <Image
               alt="Auto Maintenance Insights and Blogs"
               fill
+              unoptimized
               className="object-cover"
               src="/images/banners/banner-blogs.jpg"
               priority

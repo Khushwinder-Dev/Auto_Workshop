@@ -52,6 +52,7 @@ function ServiceDetailsContent() {
             alt="Service Details Bab Al Bustan"
             fill
             priority
+            unoptimized
             className="object-cover"
           />
           <div className="absolute inset-0 bg-[#120505]/75 backdrop-brightness-75" />

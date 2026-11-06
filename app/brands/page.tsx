@@ -39,6 +39,7 @@ export default function BrandsPage() {
           <Image
             alt="Brands We Service Bab Al Bustan"
             fill
+            unoptimized
             className="object-cover"
             src="/images/banners/banner-brands.jpg"
             priority

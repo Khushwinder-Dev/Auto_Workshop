@@ -27,6 +27,7 @@ export default function BlogPostView({ slug }: Props) {
         <Image
           alt={post.title}
           fill
+          unoptimized
           className="object-cover"
           src={post.image}
           priority
